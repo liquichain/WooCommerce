@@ -54,7 +54,7 @@ function setupComposer ({ environment, basePath })
   return function composer (done)
   {
     return exec(
-      `composer install ${parameters}`,
+      `composer install ${parameters} && ./tools/php-scoper add-prefix`,
       (error, stdout, stderr) =>
       {
         if (error) {
