@@ -266,7 +266,9 @@ exports.dist = gulp.series(
       './mollie-payments-for-woocommerce.php',
       './composer.json',
       './composer.lock',
-      './languages/*'
+      './languages/*',
+      './lib/**/*',
+      '!./lib/__classes',
     ],
     destination: PACKAGE_PATH,
   }),
