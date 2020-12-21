@@ -169,7 +169,7 @@ async function submitForm (evt)
   try {
     token = await retrievePaymentToken(mollie)
   } catch (error) {
-    const content = { message = messages.defaultErrorMessage } = error
+    const content = messages.defaultErrorMessage
     content && printNotice(jQuery, { content, type: 'error' })
 
     $form.removeClass('processing').unblock()
