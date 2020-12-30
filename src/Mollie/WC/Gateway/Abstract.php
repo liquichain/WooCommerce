@@ -2378,6 +2378,16 @@ abstract class Mollie_WC_Gateway_Abstract extends WC_Payment_Gateway
             throw new InvalidArgumentException(sprintf('Currency %s is not valid.', $currency));
         }
 
+        if ($billingCountry == "") {
+            throw new InvalidArgumentException(
+                    sprintf(
+                            'Required Billing Country is empty. %1sCheck the documentation to solve this%2s',
+                            '<a href="https://mollie.inpsyde.com/docs/how-to-request-support-via-website-widget/">',
+                            '</a>'
+                    )
+            );
+        }
+
         // Check if billing country is in ISO 3166-1 alpha-2 format (ex: NL)
         if (!preg_match('/^[a-zA-Z]{2}$/', $billingCountry)) {
             throw new InvalidArgumentException(sprintf('Billing Country %s is not valid.', $billingCountry));
