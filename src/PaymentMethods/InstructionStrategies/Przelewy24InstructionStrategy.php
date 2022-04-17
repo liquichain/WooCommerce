@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods\InstructionStrategies;
+namespace Liquichain\WooCommerce\PaymentMethods\InstructionStrategies;
 
 class Przelewy24InstructionStrategy implements InstructionStrategyI
 {
@@ -17,7 +17,7 @@ class Przelewy24InstructionStrategy implements InstructionStrategyI
         if ($payment->isPaid() && $payment->details) {
             return sprintf(
             /* translators: Placeholder 1: customer billing email */
-                __('Payment completed by <strong>%s</strong>.', 'mollie-payments-for-woocommerce'),
+                __('Payment completed by <strong>%s</strong>.', 'liquichain-payments-for-woocommerce'),
                 $payment->details->billingEmail
             );
         }

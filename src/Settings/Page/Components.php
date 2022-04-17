@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Settings\Page;
+namespace Liquichain\WooCommerce\Settings\Page;
 
 use WC_Admin_Settings;
 use WC_Settings_Page;
@@ -17,8 +17,8 @@ class Components extends WC_Settings_Page
 
     public function __construct(string $pluginPath)
     {
-        $this->id = 'mollie_components';
-        $this->label = __('Mollie Components', 'mollie-payments-for-woocommerce');
+        $this->id = 'liquichain_components';
+        $this->label = __('Liquichain Components', 'liquichain-payments-for-woocommerce');
         $this->pluginPath = $pluginPath;
 
         parent::__construct();
@@ -63,6 +63,6 @@ class Components extends WC_Settings_Page
 
     protected function componentsFilePath()
     {
-        return $this->pluginPath . '/inc/settings/mollie_components.php';
+        return $this->pluginPath . '/inc/settings/liquichain_components.php';
     }
 }

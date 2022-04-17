@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\Gateway\Surcharge;
-use Mollie\WooCommerce\Payment\PaymentFieldsService;
-use Mollie\WooCommerce\Settings\Settings;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\Gateway\Surcharge;
+use Liquichain\WooCommerce\Payment\PaymentFieldsService;
+use Liquichain\WooCommerce\Settings\Settings;
 
 abstract class AbstractPaymentMethod implements PaymentMethodI
 {
@@ -104,7 +104,7 @@ abstract class AbstractPaymentMethod implements PaymentMethodI
 
     public function getSettings()
     {
-        $optionName = 'mollie_wc_gateway_' . $this->id . '_settings';
+        $optionName = 'liquichain_wc_gateway_' . $this->id . '_settings';
         return get_option($optionName, false);
     }
 
@@ -125,10 +125,10 @@ abstract class AbstractPaymentMethod implements PaymentMethodI
     {
         if ($this->getProperty('confirmationDelayed')) {
             return $this->getProperty('initial_order_status')
-                ?: MolliePaymentGateway::STATUS_ON_HOLD;
+                ?: LiquichainPaymentGateway::STATUS_ON_HOLD;
         }
 
-        return MolliePaymentGateway::STATUS_PENDING;
+        return LiquichainPaymentGateway::STATUS_PENDING;
     }
 
     public function getAllSettings(): array

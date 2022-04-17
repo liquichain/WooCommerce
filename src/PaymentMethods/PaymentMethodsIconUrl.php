@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
-use Mollie\Api\Types\PaymentMethod;
-use Mollie\WooCommerce\Plugin;
+use Liquichain\Api\Types\PaymentMethod;
+use Liquichain\WooCommerce\Plugin;
 
 class PaymentMethodsIconUrl
 {
     /**
      * @var string
      */
-    public const MOLLIE_CREDITCARD_ICONS = 'mollie_creditcard_icons_';
+    public const MOLLIE_CREDITCARD_ICONS = 'liquichain_creditcard_icons_';
     /**
      * @var string[]
      */
@@ -36,7 +36,7 @@ class PaymentMethodsIconUrl
     /**
      * @var string
      */
-    public const MOLLIE_CREDITCARD_ICONS_ENABLER = 'mollie_creditcard_icons_enabler';
+    public const MOLLIE_CREDITCARD_ICONS_ENABLER = 'liquichain_creditcard_icons_enabler';
     /**
      * @var string
      */
@@ -73,7 +73,7 @@ class PaymentMethodsIconUrl
 
         $svgPath = false;
         $svgUrl = false;
-        $gatewaySettings = get_option(sprintf('mollie_wc_gateway_%s_settings', $paymentMethodName), false);
+        $gatewaySettings = get_option(sprintf('liquichain_wc_gateway_%s_settings', $paymentMethodName), false);
 
         if ($gatewaySettings) {
             $svgPath = isset($gatewaySettings["iconFilePath"]) ? $gatewaySettings["iconFilePath"] : false;
@@ -85,7 +85,7 @@ class PaymentMethodsIconUrl
         }
 
         return '<img src="' . esc_attr($svgUrl)
-            . '" class="mollie-gateway-icon" />';
+            . '" class="liquichain-gateway-icon" />';
     }
 
     public function getCreditcardIcon()
@@ -96,16 +96,16 @@ class PaymentMethodsIconUrl
         ) {
             return $this->buildSvgComposed() ?: '';
         }
-        $gatewaySettings = get_option('mollie_wc_gateway_creditcard_settings', false);
+        $gatewaySettings = get_option('liquichain_wc_gateway_creditcard_settings', false);
         if ($this->canShowCustomLogo($gatewaySettings)) {
             $url =  $gatewaySettings["iconFileUrl"];
             return '<img src="' . esc_attr($url)
-                . '" class="mollie-gateway-icon" />';
+                . '" class="liquichain-gateway-icon" />';
         }
         $svgUrl = $this->pluginUrl . sprintf('public/images/%ss.svg', PaymentMethod::CREDITCARD);
         return
             '<img src="' . esc_attr($svgUrl)
-            . '" class="mollie-gateway-icon" />';
+            . '" class="liquichain-gateway-icon" />';
     }
 
     protected function canShowCustomLogo($gatewaySettings): bool
@@ -143,9 +143,9 @@ class PaymentMethodsIconUrl
         $creditcardsAvailable = PaymentMethodsIconUrl::AVAILABLE_CREDITCARD_ICONS;
         $svgFileName = PaymentMethodsIconUrl::SVG_FILE_EXTENSION;
         $iconEnabledOption = PaymentMethodsIconUrl::MOLLIE_CREDITCARD_ICONS_ENABLER;
-        $creditCardSettings = get_option('mollie_wc_gateway_creditcard_settings', false) ?: [];
+        $creditCardSettings = get_option('liquichain_wc_gateway_creditcard_settings', false) ?: [];
         $enabled = isset($creditCardSettings[$iconEnabledOption])
-            ? mollieWooCommerceStringToBoolOption($creditCardSettings[$iconEnabledOption])
+            ? liquichainWooCommerceStringToBoolOption($creditCardSettings[$iconEnabledOption])
             : false;
 
         if (!$enabled) {
@@ -154,9 +154,9 @@ class PaymentMethodsIconUrl
 
         $enabledCreditcards = [];
 
-        $creditcardSettings = get_option('mollie_wc_gateway_creditcard_settings', []);
+        $creditcardSettings = get_option('liquichain_wc_gateway_creditcard_settings', []);
         foreach ($creditcardsAvailable as $card) {
-            if (isset($creditcardSettings[$optionLexem . $card]) && mollieWooCommerceStringToBoolOption($creditcardSettings[$optionLexem . $card])) {
+            if (isset($creditcardSettings[$optionLexem . $card]) && liquichainWooCommerceStringToBoolOption($creditcardSettings[$optionLexem . $card])) {
                 $enabledCreditcards[] = $card . $svgFileName;
             }
         }
@@ -180,7 +180,7 @@ class PaymentMethodsIconUrl
         $actual = get_transient('svg_creditcards_string');
         if (!$actual) {
             $actual
-            = sprintf('<svg width="%s" height="24" class="mollie-gateway-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">', $cardsWidth);
+            = sprintf('<svg width="%s" height="24" class="liquichain-gateway-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">', $cardsWidth);
             foreach ($enabledCreditCards as $creditCard) {
                 $svgString = file_get_contents(
                     $assetsImagesPath . $creditCard

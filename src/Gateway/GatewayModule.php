@@ -4,36 +4,36 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Gateway;
+namespace Liquichain\WooCommerce\Gateway;
 
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
-use Mollie\WooCommerce\BlockService\CheckoutBlockService;
-use Mollie\WooCommerce\Buttons\ApplePayButton\AppleAjaxRequests;
-use Mollie\WooCommerce\Buttons\ApplePayButton\ApplePayDirectHandler;
-use Mollie\WooCommerce\Buttons\ApplePayButton\ResponsesToApple;
-use Mollie\WooCommerce\Buttons\PayPalButton\DataToPayPal;
-use Mollie\WooCommerce\Buttons\PayPalButton\PayPalAjaxRequests;
-use Mollie\WooCommerce\Buttons\PayPalButton\PayPalButtonHandler;
-use Mollie\WooCommerce\Gateway\Voucher\MaybeDisableGateway;
-use Mollie\WooCommerce\Notice\AdminNotice;
-use Mollie\WooCommerce\Notice\NoticeInterface;
-use Mollie\WooCommerce\Payment\MollieObject;
-use Mollie\WooCommerce\Payment\MollieOrderService;
-use Mollie\WooCommerce\Payment\OrderInstructionsService;
-use Mollie\WooCommerce\Payment\PaymentCheckoutRedirectService;
-use Mollie\WooCommerce\Payment\PaymentFactory;
-use Mollie\WooCommerce\Payment\PaymentFieldsService;
-use Mollie\WooCommerce\Payment\PaymentService;
-use Mollie\WooCommerce\PaymentMethods\IconFactory;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\Settings\Settings;
-use Mollie\WooCommerce\Shared\Data;
-use Mollie\WooCommerce\Shared\GatewaySurchargeHandler;
-use Mollie\WooCommerce\Shared\SharedDataDictionary;
-use Mollie\WooCommerce\Subscription\MollieSepaRecurringGateway;
-use Mollie\WooCommerce\Subscription\MollieSubscriptionGateway;
+use Liquichain\WooCommerce\BlockService\CheckoutBlockService;
+use Liquichain\WooCommerce\Buttons\ApplePayButton\AppleAjaxRequests;
+use Liquichain\WooCommerce\Buttons\ApplePayButton\ApplePayDirectHandler;
+use Liquichain\WooCommerce\Buttons\ApplePayButton\ResponsesToApple;
+use Liquichain\WooCommerce\Buttons\PayPalButton\DataToPayPal;
+use Liquichain\WooCommerce\Buttons\PayPalButton\PayPalAjaxRequests;
+use Liquichain\WooCommerce\Buttons\PayPalButton\PayPalButtonHandler;
+use Liquichain\WooCommerce\Gateway\Voucher\MaybeDisableGateway;
+use Liquichain\WooCommerce\Notice\AdminNotice;
+use Liquichain\WooCommerce\Notice\NoticeInterface;
+use Liquichain\WooCommerce\Payment\LiquichainObject;
+use Liquichain\WooCommerce\Payment\LiquichainOrderService;
+use Liquichain\WooCommerce\Payment\OrderInstructionsService;
+use Liquichain\WooCommerce\Payment\PaymentCheckoutRedirectService;
+use Liquichain\WooCommerce\Payment\PaymentFactory;
+use Liquichain\WooCommerce\Payment\PaymentFieldsService;
+use Liquichain\WooCommerce\Payment\PaymentService;
+use Liquichain\WooCommerce\PaymentMethods\IconFactory;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\Settings\Settings;
+use Liquichain\WooCommerce\Shared\Data;
+use Liquichain\WooCommerce\Shared\GatewaySurchargeHandler;
+use Liquichain\WooCommerce\Shared\SharedDataDictionary;
+use Liquichain\WooCommerce\Subscription\LiquichainSepaRecurringGateway;
+use Liquichain\WooCommerce\Subscription\LiquichainSubscriptionGateway;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface as Logger;
 
@@ -41,7 +41,7 @@ class GatewayModule implements ServiceModule, ExecutableModule
 {
     use ModuleClassNameIdTrait;
 
-    public const APPLE_PAY_METHOD_ALLOWED_KEY = 'mollie_apple_pay_method_allowed';
+    public const APPLE_PAY_METHOD_ALLOWED_KEY = 'liquichain_apple_pay_method_allowed';
     public const POST_DATA_KEY = 'post_data';
     /**
      * @var mixed
@@ -64,7 +64,7 @@ class GatewayModule implements ServiceModule, ExecutableModule
             'gateway.paymentMethods' => static function (ContainerInterface $container): array {
                 return (new self)->instantiatePaymentMethods($container);
             },
-            'gateway.paymentMethodsEnabledAtMollie' => static function (ContainerInterface $container): array {
+            'gateway.paymentMethodsEnabledAtLiquichain' => static function (ContainerInterface $container): array {
                 /* @var Data $dataHelper */
                 $dataHelper = $container->get('settings.data_helper');
                 /* @var Settings $settings */
@@ -109,13 +109,13 @@ class GatewayModule implements ServiceModule, ExecutableModule
             Surcharge::class => static function (ContainerInterface $container): Surcharge {
                 return new Surcharge();
             },
-            MollieOrderService::class => static function (ContainerInterface $container): MollieOrderService {
+            LiquichainOrderService::class => static function (ContainerInterface $container): LiquichainOrderService {
                 $HttpResponseService = $container->get('SDK.HttpResponse');
                 $logger = $container->get(Logger::class);
                 $paymentFactory = $container->get(PaymentFactory::class);
                 $data = $container->get('settings.data_helper');
                 $pluginId = $container->get('shared.plugin_id');
-                return new MollieOrderService($HttpResponseService, $logger, $paymentFactory, $data, $pluginId);
+                return new LiquichainOrderService($HttpResponseService, $logger, $paymentFactory, $data, $pluginId);
             },
         ];
     }
@@ -129,8 +129,8 @@ class GatewayModule implements ServiceModule, ExecutableModule
         });
 
         add_filter('woocommerce_payment_gateways', function ($gateways) use ($container) {
-            $mollieGateways = $container->get('gateway.instances');
-            return array_merge($gateways, $mollieGateways);
+            $liquichainGateways = $container->get('gateway.instances');
+            return array_merge($gateways, $liquichainGateways);
         });
         add_filter('woocommerce_payment_gateways', [$this, 'maybeDisableApplePayGateway'], 20);
          add_filter('woocommerce_payment_gateways', static function ($gateways) {
@@ -151,26 +151,26 @@ class GatewayModule implements ServiceModule, ExecutableModule
             1
         );
 
-        // Disable Mollie methods on some pages
+        // Disable Liquichain methods on some pages
         add_filter(
             'woocommerce_available_payment_gateways',
-            [$this, 'disableMollieOnPaymentMethodChange'],
+            [$this, 'disableLiquichainOnPaymentMethodChange'],
             11,
             1
         );
         add_action(
             'woocommerce_after_order_object_save',
             static function () {
-                $mollieWooCommerceSession = mollieWooCommerceSession();
-                if ($mollieWooCommerceSession instanceof \WC_Session) {
-                    $mollieWooCommerceSession->__unset(self::APPLE_PAY_METHOD_ALLOWED_KEY);
+                $liquichainWooCommerceSession = liquichainWooCommerceSession();
+                if ($liquichainWooCommerceSession instanceof \WC_Session) {
+                    $liquichainWooCommerceSession->__unset(self::APPLE_PAY_METHOD_ALLOWED_KEY);
                 }
             }
         );
 
-        // Set order to paid and processed when eventually completed without Mollie
+        // Set order to paid and processed when eventually completed without Liquichain
         add_action('woocommerce_payment_complete', [$this, 'setOrderPaidByOtherGateway'], 10, 1);
-        $appleGateway = isset($container->get('gateway.instances')['mollie_wc_gateway_applepay'])? $container->get('gateway.instances')['mollie_wc_gateway_applepay']:false;
+        $appleGateway = isset($container->get('gateway.instances')['liquichain_wc_gateway_applepay'])? $container->get('gateway.instances')['liquichain_wc_gateway_applepay']:false;
 
         $notice = $container->get(AdminNotice::class);
         $logger = $container->get(Logger::class);
@@ -179,19 +179,19 @@ class GatewayModule implements ServiceModule, ExecutableModule
         $settingsHelper = $container->get('settings.settings_helper');
         $this->gatewaySurchargeHandling($container->get(Surcharge::class));
         if($appleGateway){
-            $this->mollieApplePayDirectHandling($notice, $logger, $apiHelper, $settingsHelper, $appleGateway);
+            $this->liquichainApplePayDirectHandling($notice, $logger, $apiHelper, $settingsHelper, $appleGateway);
         }
 
-        $paypalGateway = isset($container->get('gateway.instances')['mollie_wc_gateway_paypal'])? $container->get('gateway.instances')['mollie_wc_gateway_paypal']:false;
+        $paypalGateway = isset($container->get('gateway.instances')['liquichain_wc_gateway_paypal'])? $container->get('gateway.instances')['liquichain_wc_gateway_paypal']:false;
         if ($paypalGateway){
-            $this->molliePayPalButtonHandling($paypalGateway, $notice, $logger, $pluginUrl);
+            $this->liquichainPayPalButtonHandling($paypalGateway, $notice, $logger, $pluginUrl);
         }
 
         $maybeDisableVoucher = new MaybeDisableGateway();
         $checkoutBlockHandler = new CheckoutBlockService($container->get('settings.data_helper'), $maybeDisableVoucher);
         $checkoutBlockHandler->bootstrapAjaxRequest();
         add_action( 'woocommerce_rest_checkout_process_payment_with_context', function($paymentContext){
-            if(strpos($paymentContext->payment_method, 'mollie_wc_gateway_') === false){
+            if(strpos($paymentContext->payment_method, 'liquichain_wc_gateway_') === false){
                 return;
             }
             $title = isset($paymentContext->payment_data['payment_method_title'])?$paymentContext->payment_data['payment_method_title']:false;
@@ -215,7 +215,7 @@ class GatewayModule implements ServiceModule, ExecutableModule
     public function maybeDisableBankTransferGateway(array $gateways): array
     {
         $isWcApiRequest = (bool)filter_input(INPUT_GET, 'wc-api', FILTER_SANITIZE_STRING);
-        $bankTransferSettings = get_option('mollie_wc_gateway_banktransfer_settings', false);
+        $bankTransferSettings = get_option('liquichain_wc_gateway_banktransfer_settings', false);
         $isSettingActivated = false;
         if ($bankTransferSettings && isset($bankTransferSettings['order_dueDate'])) {
             $isSettingActivated = $bankTransferSettings['order_dueDate'] > 0;
@@ -236,7 +236,7 @@ class GatewayModule implements ServiceModule, ExecutableModule
         ) {
             return $gateways;
         }
-        $bankTransferGatewayClassName = 'mollie_wc_gateway_banktransfer';
+        $bankTransferGatewayClassName = 'liquichain_wc_gateway_banktransfer';
         unset($gateways[$bankTransferGatewayClassName]);
 
         return  $gateways;
@@ -251,7 +251,7 @@ class GatewayModule implements ServiceModule, ExecutableModule
     public function maybeDisableApplePayGateway(array $gateways): array
     {
         $isWcApiRequest = (bool)filter_input(INPUT_GET, 'wc-api', FILTER_SANITIZE_STRING);
-        $wooCommerceSession = mollieWooCommerceSession();
+        $wooCommerceSession = liquichainWooCommerceSession();
 
         /*
          * There is only one case where we want to filter the gateway and it's when the checkout
@@ -273,7 +273,7 @@ class GatewayModule implements ServiceModule, ExecutableModule
             return $gateways;
         }
 
-        $applePayGatewayClassName = 'mollie_wc_gateway_applepay';
+        $applePayGatewayClassName = 'liquichain_wc_gateway_applepay';
         $postData = (string)filter_input(
             INPUT_POST,
             self::POST_DATA_KEY,
@@ -306,16 +306,16 @@ class GatewayModule implements ServiceModule, ExecutableModule
     public function disableSEPAInCheckout($available_gateways)
     {
         if (is_checkout()) {
-            unset($available_gateways['mollie_wc_gateway_directdebit']);
+            unset($available_gateways['liquichain_wc_gateway_directdebit']);
         }
 
         return $available_gateways;
     }
 
     /**
-     * Don't show Mollie Payment Methods in WooCommerce Account > Subscriptions
+     * Don't show Liquichain Payment Methods in WooCommerce Account > Subscriptions
      */
-    public function disableMollieOnPaymentMethodChange($available_gateways)
+    public function disableLiquichainOnPaymentMethodChange($available_gateways)
     {
         // Can't use $wp->request or is_wc_endpoint_url()
         // to check if this code only runs on /subscriptions and /view-subscriptions,
@@ -328,7 +328,7 @@ class GatewayModule implements ServiceModule, ExecutableModule
             // (workaround for bug in WC), do disable on change payment method page (param)
             if ((! is_checkout() && is_account_page()) || ! empty($_GET['change_payment_method'])) {
                 foreach ($available_gateways as $key => $value) {
-                    if (strpos($key, 'mollie_') !== false) {
+                    if (strpos($key, 'liquichain_') !== false) {
                         unset($available_gateways[ $key ]);
                     }
                 }
@@ -340,18 +340,18 @@ class GatewayModule implements ServiceModule, ExecutableModule
 
     /**
      * If an order is paid with another payment method (gateway) after a first payment was
-     * placed with Mollie, set a flag, so status updates (like expired) aren't processed by
-     * Mollie Payments for WooCommerce.
+     * placed with Liquichain, set a flag, so status updates (like expired) aren't processed by
+     * Liquichain Payments for WooCommerce.
      */
     public function setOrderPaidByOtherGateway($order_id)
     {
         $order = wc_get_order($order_id);
 
-        $mollie_payment_id = $order->get_meta('_mollie_payment_id', $single = true);
+        $liquichain_payment_id = $order->get_meta('_liquichain_payment_id', $single = true);
         $order_payment_method = $order->get_payment_method();
 
-        if ($mollie_payment_id !== '' && (strpos($order_payment_method, 'mollie') === false)) {
-            $order->update_meta_data('_mollie_paid_by_other_gateway', '1');
+        if ($liquichain_payment_id !== '' && (strpos($order_payment_method, 'liquichain') === false)) {
+            $order->update_meta_data('_liquichain_paid_by_other_gateway', '1');
             $order->save();
         }
         return true;
@@ -360,10 +360,10 @@ class GatewayModule implements ServiceModule, ExecutableModule
     /**
      * Bootstrap the ApplePay button logic if feature enabled
      */
-    public function mollieApplePayDirectHandling(NoticeInterface $notice, Logger $logger, Api $apiHelper, Settings $settingsHelper, MollieSubscriptionGateway $appleGateway)
+    public function liquichainApplePayDirectHandling(NoticeInterface $notice, Logger $logger, Api $apiHelper, Settings $settingsHelper, LiquichainSubscriptionGateway $appleGateway)
     {
-        $buttonEnabledCart = mollieWooCommerceIsApplePayDirectEnabled('cart');
-        $buttonEnabledProduct = mollieWooCommerceIsApplePayDirectEnabled('product');
+        $buttonEnabledCart = liquichainWooCommerceIsApplePayDirectEnabled('cart');
+        $buttonEnabledProduct = liquichainWooCommerceIsApplePayDirectEnabled('product');
 
         if ($buttonEnabledCart || $buttonEnabledProduct) {
             $notices = new AdminNotice();
@@ -375,17 +375,17 @@ class GatewayModule implements ServiceModule, ExecutableModule
     }
 
     /**
-     * Bootstrap the Mollie_WC_Gateway_PayPal button logic if feature enabled
+     * Bootstrap the Liquichain_WC_Gateway_PayPal button logic if feature enabled
      */
-    public function molliePayPalButtonHandling(
+    public function liquichainPayPalButtonHandling(
         $gateway,
         NoticeInterface $notice,
         Logger $logger,
         string $pluginUrl
     ) {
 
-        $enabledInProduct = (mollieWooCommerceIsPayPalButtonEnabled('product'));
-        $enabledInCart = (mollieWooCommerceIsPayPalButtonEnabled('cart'));
+        $enabledInProduct = (liquichainWooCommerceIsPayPalButtonEnabled('product'));
+        $enabledInCart = (liquichainWooCommerceIsPayPalButtonEnabled('cart'));
         $shouldBuildIt = $enabledInProduct || $enabledInCart;
 
         if ($shouldBuildIt) {
@@ -401,75 +401,75 @@ class GatewayModule implements ServiceModule, ExecutableModule
         $logger = $container->get(Logger::class);
         $notice = $container->get(AdminNotice::class);
         $paymentService = $container->get(PaymentService::class);
-        $mollieOrderService = $container->get(MollieOrderService::class);
+        $liquichainOrderService = $container->get(LiquichainOrderService::class);
         $HttpResponseService = $container->get('SDK.HttpResponse');
         $settingsHelper = $container->get('settings.settings_helper');
         $apiHelper = $container->get('SDK.api_helper');
         $paymentMethods = $container->get('gateway.paymentMethods');
         $data = $container->get('settings.data_helper');
         $orderInstructionsService = new OrderInstructionsService();
-        $mollieObject = $container->get(MollieObject::class);
+        $liquichainObject = $container->get(LiquichainObject::class);
         $paymentFactory = $container->get(PaymentFactory::class);
         $pluginId = $container->get('shared.plugin_id');
-        $methodsEnabledAtMollie = $container->get('gateway.paymentMethodsEnabledAtMollie');
+        $methodsEnabledAtLiquichain = $container->get('gateway.paymentMethodsEnabledAtLiquichain');
         $gateways = [];
-        if(empty($methodsEnabledAtMollie)){
+        if(empty($methodsEnabledAtLiquichain)){
             return $gateways;
         }
 
         foreach ($paymentMethods as $paymentMethod) {
             $paymentMethodId = $paymentMethod->getProperty('id');
-            if(!$this->paymentMethodEnabledAtMollie($paymentMethodId, $methodsEnabledAtMollie)){
+            if(!$this->paymentMethodEnabledAtLiquichain($paymentMethodId, $methodsEnabledAtLiquichain)){
                 continue;
             }
 
             $isSepa = $paymentMethod->getProperty('SEPA');
-            $key = 'mollie_wc_gateway_' . $paymentMethodId;
+            $key = 'liquichain_wc_gateway_' . $paymentMethodId;
             if ($isSepa) {
                 $directDebit = $paymentMethods['directdebit'];
-                $gateways[$key] = new MollieSepaRecurringGateway(
+                $gateways[$key] = new LiquichainSepaRecurringGateway(
                     $directDebit,
                     $paymentMethod,
                     $paymentService,
                     $orderInstructionsService,
-                    $mollieOrderService,
+                    $liquichainOrderService,
                     $data,
                     $logger,
                     $notice,
                     $HttpResponseService,
                     $settingsHelper,
-                    $mollieObject,
+                    $liquichainObject,
                     $paymentFactory,
                     $pluginId,
                     $apiHelper
                 );
             } elseif ($paymentMethod->getProperty('Subscription')) {
-                $gateways[$key] = new MollieSubscriptionGateway(
+                $gateways[$key] = new LiquichainSubscriptionGateway(
                     $paymentMethod,
                     $paymentService,
                     $orderInstructionsService,
-                    $mollieOrderService,
+                    $liquichainOrderService,
                     $data,
                     $logger,
                     $notice,
                     $HttpResponseService,
                     $settingsHelper,
-                    $mollieObject,
+                    $liquichainObject,
                     $paymentFactory,
                     $pluginId,
                     $apiHelper
                 );
             } else {
-                $gateways[$key] = new MolliePaymentGateway(
+                $gateways[$key] = new LiquichainPaymentGateway(
                     $paymentMethod,
                     $paymentService,
                     $orderInstructionsService,
-                    $mollieOrderService,
+                    $liquichainOrderService,
                     $data,
                     $logger,
                     $notice,
                     $HttpResponseService,
-                    $mollieObject,
+                    $liquichainObject,
                     $paymentFactory,
                     $pluginId
                 );
@@ -478,9 +478,9 @@ class GatewayModule implements ServiceModule, ExecutableModule
         return $gateways;
     }
 
-    private function paymentMethodEnabledAtMollie($paymentMethodName, $methodsEnabledAtMollie)
+    private function paymentMethodEnabledAtLiquichain($paymentMethodName, $methodsEnabledAtLiquichain)
     {
-        return array_key_exists(strtolower($paymentMethodName), $methodsEnabledAtMollie);
+        return array_key_exists(strtolower($paymentMethodName), $methodsEnabledAtLiquichain);
     }
 
     /**
@@ -517,7 +517,7 @@ class GatewayModule implements ServiceModule, ExecutableModule
         $surchargeService = $container->get(Surcharge::class);
         $paymentFieldsService = $container->get(PaymentFieldsService::class);
         foreach ($paymentMethodsNames as $paymentMethodName) {
-            $paymentMethodClassName = 'Mollie\\WooCommerce\\PaymentMethods\\' . $paymentMethodName;
+            $paymentMethodClassName = 'Liquichain\\WooCommerce\\PaymentMethods\\' . $paymentMethodName;
             $paymentMethod = new $paymentMethodClassName(
                 $iconFactory,
                 $settingsHelper,

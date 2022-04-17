@@ -1,20 +1,20 @@
 <?php
 
-namespace Mollie\WooCommerceTests\Functional\ApplePayButton;
+namespace Liquichain\WooCommerceTests\Functional\ApplePayButton;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Mollie\Api\Endpoints\OrderEndpoint;
-use Mollie\Api\MollieApiClient;
-use Mollie\WooCommerce\Buttons\ApplePayButton\AppleAjaxRequests;
-use Mollie\WooCommerce\Buttons\ApplePayButton\ResponsesToApple;
-use Mollie\WooCommerce\Gateway\Surcharge;
-use Mollie\WooCommerce\Payment\RefundLineItemsBuilder;
-use Mollie\WooCommerce\Shared\Data;
-use Mollie\WooCommerce\Subscription\MollieSubscriptionGateway;
-use Mollie\WooCommerceTests\Functional\HelperMocks;
-use Mollie\WooCommerceTests\Stubs\postDTOTestsStubs;
-use Mollie\WooCommerceTests\Stubs\WooCommerceMocks;
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\Api\Endpoints\OrderEndpoint;
+use Liquichain\Api\LiquichainApiClient;
+use Liquichain\WooCommerce\Buttons\ApplePayButton\AppleAjaxRequests;
+use Liquichain\WooCommerce\Buttons\ApplePayButton\ResponsesToApple;
+use Liquichain\WooCommerce\Gateway\Surcharge;
+use Liquichain\WooCommerce\Payment\RefundLineItemsBuilder;
+use Liquichain\WooCommerce\Shared\Data;
+use Liquichain\WooCommerce\Subscription\LiquichainSubscriptionGateway;
+use Liquichain\WooCommerceTests\Functional\HelperMocks;
+use Liquichain\WooCommerceTests\Stubs\postDTOTestsStubs;
+use Liquichain\WooCommerceTests\Stubs\WooCommerceMocks;
+use Liquichain\WooCommerceTests\TestCase;
 use PHPUnit_Framework_Exception;
 use WC_Countries;
 
@@ -62,7 +62,7 @@ class AjaxRequestsTest extends TestCase
             'validationUrl' => $postDummyData->validationUrl,
             'woocommerce-process-checkout-nonce' => $postDummyData->nonce,
         ];
-        $responseFromMollie = ["response from Mollie"];
+        $responseFromLiquichain = ["response from Liquichain"];
         stubs(
             [
                 'get_site_url' => 'http://www.testdomain.com',
@@ -71,7 +71,7 @@ class AjaxRequestsTest extends TestCase
         );
         list($logger, $responsesTemplate) = $this->responsesToApple();
         $apiClientMock = $this->createConfiguredMock(
-            MollieApiClient::class,
+            LiquichainApiClient::class,
             []
         );
 
@@ -101,14 +101,14 @@ class AjaxRequestsTest extends TestCase
         $testee->expects($this->once())->method(
             'validationApiWalletsEndpointCall'
         )->with('www.testdomain.com', $_POST['validationUrl'])->willReturn(
-            $responseFromMollie
+            $responseFromLiquichain
         );
         expect('update_option')
             ->once()
-            ->with('mollie_wc_applepay_validated', 'yes');
+            ->with('liquichain_wc_applepay_validated', 'yes');
         expect('wp_send_json_success')
             ->once()
-            ->with($responseFromMollie);
+            ->with($responseFromLiquichain);
         /*
          * Execute Test
          */
@@ -160,7 +160,7 @@ class AjaxRequestsTest extends TestCase
         );
         list($logger, $responsesTemplate) = $this->responsesToApple();
         $apiClientMock = $this->createConfiguredMock(
-            MollieApiClient::class,
+            LiquichainApiClient::class,
             []
         );
 
@@ -249,7 +249,7 @@ class AjaxRequestsTest extends TestCase
         );
         list($logger, $responsesTemplate) = $this->responsesToApple();
         $apiClientMock = $this->createConfiguredMock(
-            MollieApiClient::class,
+            LiquichainApiClient::class,
             []
         );
 
@@ -289,9 +289,9 @@ class AjaxRequestsTest extends TestCase
         $testee->updateShippingContact();
     }
 
-    public function mollieGateway($paymentMethodName, $isSepa = false, $isSubscription = false){
+    public function liquichainGateway($paymentMethodName, $isSepa = false, $isSubscription = false){
         $gateway = $this->createConfiguredMock(
-            MollieSubscriptionGateway::class,
+            LiquichainSubscriptionGateway::class,
             [
             ]
         );
@@ -399,7 +399,7 @@ class AjaxRequestsTest extends TestCase
     protected function responsesToApple(): array
     {
         $logger = $this->helperMocks->loggerMock();
-        $appleGateway = $this->mollieGateway('applepay', false, true);
+        $appleGateway = $this->liquichainGateway('applepay', false, true);
         $responsesTemplate = new ResponsesToApple($logger, $appleGateway);
         return array($logger, $responsesTemplate);
     }

@@ -1,20 +1,20 @@
 <?php
 
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
 
-use Mollie\Api\Types\SequenceType;
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\Subscription\MollieSubscriptionGateway;
+use Liquichain\Api\Types\SequenceType;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\Subscription\LiquichainSubscriptionGateway;
 
-class MollieSubscription extends MollieObject
+class LiquichainSubscription extends LiquichainObject
 {
     protected $pluginId;
 
     /**
-     * Molliesubscription constructor.
+     * Liquichainsubscription constructor.
      *
      */
     public function __construct( $pluginId, Api $apiHelper, $settingsHelper, $dataHelper, $logger)
@@ -35,7 +35,7 @@ class MollieSubscription extends MollieObject
         $paymentLocale = $this->settingsHelper->getPaymentLocale();
         $gateway = wc_get_payment_gateway_by_order($order);
 
-        if (! $gateway || ! ( $gateway instanceof MolliePaymentGateway )) {
+        if (! $gateway || ! ( $gateway instanceof LiquichainPaymentGateway )) {
             return  [ 'result' => 'failure' ];
         }
         $gatewayId = $gateway->id;
@@ -80,7 +80,7 @@ class MollieSubscription extends MollieObject
                 _x(
                     'Order %1$s',
                     'Default payment description for subscription recurring payments',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 $order->get_order_number()
             );
@@ -93,10 +93,10 @@ class MollieSubscription extends MollieObject
      * Validate in the checkout if the gateway is available for subscriptions
      *
      * @param bool $status
-     * @param MollieSubscriptionGateway $subscriptionGateway
+     * @param LiquichainSubscriptionGateway $subscriptionGateway
      * @return bool
      */
-    public function isAvailableForSubscriptions(bool $status, MollieSubscriptionGateway $subscriptionGateway, $orderTotal): bool
+    public function isAvailableForSubscriptions(bool $status, LiquichainSubscriptionGateway $subscriptionGateway, $orderTotal): bool
     {
         $subscriptionPluginActive = class_exists('WC_Subscriptions') && class_exists('WC_Subscriptions_Admin');
         if(!$subscriptionPluginActive){
@@ -130,7 +130,7 @@ class MollieSubscription extends MollieObject
         }
 
         // Check available first payment methods with today's order total, but ignore SSD gateway (not shown in checkout)
-        if ($subscriptionGateway->id === 'mollie_wc_gateway_directdebit') {
+        if ($subscriptionGateway->id === 'liquichain_wc_gateway_directdebit') {
             return $status;
         }
         $filters = $this->buildFilters(

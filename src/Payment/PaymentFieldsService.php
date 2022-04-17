@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\WooCommerce\Notice\NoticeInterface;
-use Mollie\WooCommerce\PaymentMethods\PaymentFieldsStrategies\DefaultFieldsStrategy;
-use Mollie\WooCommerce\PaymentMethods\PaymentFieldsStrategies\PaymentFieldsStrategyI;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\WooCommerce\Notice\NoticeInterface;
+use Liquichain\WooCommerce\PaymentMethods\PaymentFieldsStrategies\DefaultFieldsStrategy;
+use Liquichain\WooCommerce\PaymentMethods\PaymentFieldsStrategies\PaymentFieldsStrategyI;
+use Liquichain\WooCommerce\Shared\Data;
 use Psr\Log\LoggerInterface as Logger;
 
 class PaymentFieldsService
@@ -34,7 +34,7 @@ class PaymentFieldsService
         if (!$paymentMethod->getProperty('paymentFields')) {
             $this->strategy = new DefaultFieldsStrategy();
         } else {
-            $className = 'Mollie\\WooCommerce\\PaymentMethods\\PaymentFieldsStrategies\\' . ucfirst($paymentMethod->getProperty('id')) . 'FieldsStrategy';
+            $className = 'Liquichain\\WooCommerce\\PaymentMethods\\PaymentFieldsStrategies\\' . ucfirst($paymentMethod->getProperty('id')) . 'FieldsStrategy';
             $this->strategy = class_exists($className) ? new $className() : new DefaultFieldsStrategy();
         }
     }

@@ -1,12 +1,12 @@
-.mollie-components {
+.liquichain-components {
   display: flex;
   flex-wrap: wrap;
 
-  .mollie-component-label {
+  .liquichain-component-label {
     font-weight: 400;
   }
 
-  .mollie-component {
+  .liquichain-component {
     width: 100%;
     min-height: 34px;
     background-color: #FFF;
@@ -61,7 +61,7 @@
   }
 }
 
-.mollie-components-description {
+.liquichain-components-description {
   svg {
     display: inline;
   }

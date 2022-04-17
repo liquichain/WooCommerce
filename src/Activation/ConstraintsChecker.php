@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Activation;
+namespace Liquichain\WooCommerce\Activation;
 
 use Inpsyde\EnvironmentChecker\Constraints\ExtensionConstraint;
 use Inpsyde\EnvironmentChecker\Constraints\PhpConstraint;
@@ -11,8 +11,8 @@ use Inpsyde\EnvironmentChecker\Constraints\WordPressConstraint;
 use Inpsyde\EnvironmentChecker\ConstraintsCollectionFactory;
 use Inpsyde\EnvironmentChecker\EnvironmentChecker;
 use Inpsyde\EnvironmentChecker\Exception\ConstraintFailedException;
-use Mollie\WooCommerce\Notice\AdminNotice;
-use Mollie\WooCommerce\Notice\NoticeInterface;
+use Liquichain\WooCommerce\Notice\AdminNotice;
+use Liquichain\WooCommerce\Notice\NoticeInterface;
 
 class ConstraintsChecker
 {
@@ -72,8 +72,8 @@ class ConstraintsChecker
             }
             $this->showNotice($errors);
             $disabler = new PluginDisabler(
-                'mollie-payments-for-woocommerce',
-                'mollie_wc_plugin_init'
+                'liquichain-payments-for-woocommerce',
+                'liquichain_wc_plugin_init'
             );
             $disabler->disableAll();
             return false;
@@ -106,12 +106,12 @@ class ConstraintsChecker
 
     protected function showNotice(array $errors)
     {
-        $message = '%1$sMollie Payments for WooCommerce is inactive:%2$s';
+        $message = '%1$sLiquichain Payments for WooCommerce is inactive:%2$s';
         foreach ($errors as $error) {
             $message .= sprintf('<p>%s</p>', $error);
         }
-        $message .= "<p>Correct the above errors to use Mollie Payments for Woocommerce</p>";
-        $message = sprintf(__($message, 'mollie-payments-for-woocommerce'), '<p><strong>', '</strong></p>');
+        $message .= "<p>Correct the above errors to use Liquichain Payments for Woocommerce</p>";
+        $message = sprintf(__($message, 'liquichain-payments-for-woocommerce'), '<p><strong>', '</strong></p>');
         $errorLevel = 'notice-error';
         $this->notice->addNotice($errorLevel, $message);
     }

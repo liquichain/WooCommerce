@@ -1,13 +1,13 @@
 {
-  "name": "mollie/mollie-woocommerce",
-  "description": "Mollie Payments for WooCommerce",
+  "name": "liquichain/liquichain-woocommerce",
+  "description": "Liquichain Payments for WooCommerce",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "minimum-stability": "dev",
   "authors": [
     {
-      "name": "Mollie B.V.",
-      "email": "info@mollie.com"
+      "name": "Liquichain B.V.",
+      "email": "info@liquichain.io"
     },
     {
       "name": "Inpsyde Gmbh",
@@ -18,7 +18,7 @@
     "php": ">=7.2",
     "ext-intl": "*",
     "ext-json": "*",
-    "mollie/mollie-api-php": "^v2.40",
+    "liquichain/liquichain-api-php": "^v2.40",
     "inpsyde/modularity": "^1.3.0"
   },
   "require-dev": {
@@ -32,15 +32,15 @@
   },
   "autoload": {
     "psr-4": {
-      "Mollie\\WooCommerce\\": "src/",
+      "Liquichain\\WooCommerce\\": "src/",
       "Inpsyde\\EnvironmentChecker\\": "pluginEnvironmentChecker"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Mollie\\WooCommerceTests\\": "tests/php",
-      "Mollie\\WooCommerceTests\\Unit\\": "tests/php/Unit",
-      "Mollie\\WooCommerceTests\\Functional\\": "tests/php/Functional"
+      "Liquichain\\WooCommerceTests\\": "tests/php",
+      "Liquichain\\WooCommerceTests\\Unit\\": "tests/php/Unit",
+      "Liquichain\\WooCommerceTests\\Functional\\": "tests/php/Functional"
     }
   },
   "scripts": {

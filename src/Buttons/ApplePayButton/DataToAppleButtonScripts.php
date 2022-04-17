@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Buttons\ApplePayButton;
+namespace Liquichain\WooCommerce\Buttons\ApplePayButton;
 
 class DataToAppleButtonScripts
 {
@@ -118,7 +118,7 @@ class DataToAppleButtonScripts
         $cart = WC()->cart;
         $nonce = wp_nonce_field('woocommerce-process_checkout', 'woocommerce-process-checkout-nonce');
         $buttonMarkup =
-            '<div id="mollie-applepayDirect-button">'
+            '<div id="liquichain-applepayDirect-button">'
             . $nonce
             . '</div>';
         return [

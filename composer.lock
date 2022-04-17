@@ -158,16 +158,16 @@
             "time": "2022-01-24T14:27:58+00:00"
         },
         {
-            "name": "mollie/mollie-api-php",
+            "name": "liquichain/liquichain-api-php",
             "version": "v2.40.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mollie/mollie-api-php.git",
+                "url": "https://github.com/liquichain/liquichain-api-php.git",
                 "reference": "ac3e079bbc86e95dc77d4f33965a62e9e6b95ed8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mollie/mollie-api-php/zipball/ac3e079bbc86e95dc77d4f33965a62e9e6b95ed8",
+                "url": "https://api.github.com/repos/liquichain/liquichain-api-php/zipball/ac3e079bbc86e95dc77d4f33965a62e9e6b95ed8",
                 "reference": "ac3e079bbc86e95dc77d4f33965a62e9e6b95ed8",
                 "shasum": ""
             },
@@ -185,12 +185,12 @@
                 "phpunit/phpunit": "^5.7 || ^6.5 || ^7.1 || ^8.5 || ^9.5"
             },
             "suggest": {
-                "mollie/oauth2-mollie-php": "Use OAuth to authenticate with the Mollie API. This is needed for some endpoints. Visit https://docs.mollie.com/ for more information."
+                "liquichain/oauth2-liquichain-php": "Use OAuth to authenticate with the Liquichain API. This is needed for some endpoints. Visit https://docs.liquichain.io/ for more information."
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Mollie\\Api\\": "src/"
+                    "Liquichain\\Api\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -199,12 +199,12 @@
             ],
             "authors": [
                 {
-                    "name": "Mollie B.V.",
-                    "email": "info@mollie.com"
+                    "name": "Liquichain B.V.",
+                    "email": "info@liquichain.io"
                 }
             ],
-            "description": "Mollie API client library for PHP. Mollie is a European Payment Service provider and offers international payment methods such as Mastercard, VISA, American Express and PayPal, and local payment methods such as iDEAL, Bancontact, SOFORT Banking, SEPA direct debit, Belfius Direct Net, KBC Payment Button and various gift cards such as Podiumcadeaukaart and fashioncheque.",
-            "homepage": "https://www.mollie.com/en/developers",
+            "description": "Liquichain API client library for PHP. Liquichain is a European Payment Service provider and offers international payment methods such as Mastercard, VISA, American Express and PayPal, and local payment methods such as iDEAL, Bancontact, SOFORT Banking, SEPA direct debit, Belfius Direct Net, KBC Payment Button and various gift cards such as Podiumcadeaukaart and fashioncheque.",
+            "homepage": "https://www.liquichain.io/en/developers",
             "keywords": [
                 "Apple Pay",
                 "CBC",
@@ -226,7 +226,7 @@
                 "kbc",
                 "klarna",
                 "mistercash",
-                "mollie",
+                "liquichain",
                 "paylater",
                 "payment",
                 "payments",
@@ -243,8 +243,8 @@
                 "subscriptions"
             ],
             "support": {
-                "issues": "https://github.com/mollie/mollie-api-php/issues",
-                "source": "https://github.com/mollie/mollie-api-php/tree/v2.40.2"
+                "issues": "https://github.com/liquichain/liquichain-api-php/issues",
+                "source": "https://github.com/liquichain/liquichain-api-php/tree/v2.40.2"
             },
             "time": "2022-02-08T08:53:18+00:00"
         },

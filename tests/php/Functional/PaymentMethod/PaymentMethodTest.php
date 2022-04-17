@@ -4,12 +4,12 @@
 namespace php\Functional\PaymentMethod;
 
 
-use Mollie\WooCommerce\Gateway\Surcharge;
-use Mollie\WooCommerce\Payment\PaymentFieldsService;
-use Mollie\WooCommerce\PaymentMethods\Creditcard;
-use Mollie\WooCommerce\PaymentMethods\IconFactory;
-use Mollie\WooCommerceTests\Functional\HelperMocks;
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\WooCommerce\Gateway\Surcharge;
+use Liquichain\WooCommerce\Payment\PaymentFieldsService;
+use Liquichain\WooCommerce\PaymentMethods\Creditcard;
+use Liquichain\WooCommerce\PaymentMethods\IconFactory;
+use Liquichain\WooCommerceTests\Functional\HelperMocks;
+use Liquichain\WooCommerceTests\TestCase;
 
 use function Brain\Monkey\Functions\expect;
 
@@ -41,7 +41,7 @@ class PaymentMethodTest extends TestCase
     public function showDefaultIcon(){
         $paymentMethodName = 'ideal';
         $urlBuild = $this->pluginUrl . '/' . 'public/images/'. $paymentMethodName . '.svg';
-        $settingOptionName = 'mollie_wc_gateway_'. $paymentMethodName . '_settings';
+        $settingOptionName = 'liquichain_wc_gateway_'. $paymentMethodName . '_settings';
         $testee = $this->paymentMethodBuilder($paymentMethodName);
         expect('get_option')
             ->with($settingOptionName)
@@ -50,7 +50,7 @@ class PaymentMethodTest extends TestCase
             );
         expect('esc_attr')->with($urlBuild)->andReturn($urlBuild);
 
-        $expectedUrl = '<img src="' . $urlBuild . '" class="mollie-gateway-icon" />';
+        $expectedUrl = '<img src="' . $urlBuild . '" class="liquichain-gateway-icon" />';
         $iconUrl = $testee->getIconUrl();
         self::assertEquals($expectedUrl, $iconUrl);
     }
@@ -66,7 +66,7 @@ class PaymentMethodTest extends TestCase
     public function fallbackToDefaultIcon(){
         $paymentMethodName = 'ideal';
         $urlBuild = $this->pluginUrl . '/' . 'public/images/'. $paymentMethodName . '.svg';
-        $settingOptionName = 'mollie_wc_gateway_'. $paymentMethodName . '_settings';
+        $settingOptionName = 'liquichain_wc_gateway_'. $paymentMethodName . '_settings';
         $testSettings = [
             'enable_custom_logo' => true,
             'iconFileUrl' => 'http://iconfileurl.com',
@@ -80,7 +80,7 @@ class PaymentMethodTest extends TestCase
             );
         expect('esc_attr')->withAnyArgs()->andReturn($urlBuild);
 
-        $expectedUrl = '<img src="' . $urlBuild . '" class="mollie-gateway-icon" />';
+        $expectedUrl = '<img src="' . $urlBuild . '" class="liquichain-gateway-icon" />';
         $iconUrl = $testee->getIconUrl();
         self::assertEquals($expectedUrl, $iconUrl);
     }
@@ -95,7 +95,7 @@ class PaymentMethodTest extends TestCase
     public function showCustomIcon(){
         $paymentMethodName = 'ideal';
         $urlBuild = $this->pluginUrl . '/' . 'public/images/' . $paymentMethodName . '.svg';
-        $settingOptionName = 'mollie_wc_gateway_' . $paymentMethodName . '_settings';
+        $settingOptionName = 'liquichain_wc_gateway_' . $paymentMethodName . '_settings';
         $testSettings = [
             'enable_custom_logo' => true,
             'iconFileUrl' => 'http://iconfileurl.com',
@@ -110,7 +110,7 @@ class PaymentMethodTest extends TestCase
         expect('file_exists')->with($testSettings['iconFilePath'])->andReturn(true);
         expect('esc_attr')->withAnyArgs()->andReturn($urlBuild);
 
-        $expectedUrl = '<img src="' . $urlBuild . '" class="mollie-gateway-icon" />';
+        $expectedUrl = '<img src="' . $urlBuild . '" class="liquichain-gateway-icon" />';
         $iconUrl = $testee->getIconUrl();
         self::assertEquals($expectedUrl, $iconUrl);
     }
@@ -124,10 +124,10 @@ class PaymentMethodTest extends TestCase
      */
     public function showIconSelectionCreditCard(){
         $paymentMethodName = 'creditcard';
-        $settingOptionName = 'mollie_wc_gateway_' . $paymentMethodName . '_settings';
+        $settingOptionName = 'liquichain_wc_gateway_' . $paymentMethodName . '_settings';
         $testSettings = [
-            'mollie_creditcard_icons_enabler'=>true,
-            'mollie_creditcard_icons_amex' => 'yes',
+            'liquichain_creditcard_icons_enabler'=>true,
+            'liquichain_creditcard_icons_amex' => 'yes',
         ];
         $assetsImagesPath
             = $this->pluginPath . '/' . 'public/images/';
@@ -144,7 +144,7 @@ class PaymentMethodTest extends TestCase
         expect('set_transient')->andReturn(true);
 
 
-        $expectedUrl = '<svg width="33" height="24" class="mollie-gateway-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><svg x="0" width="33"></svg></svg>';
+        $expectedUrl = '<svg width="33" height="24" class="liquichain-gateway-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><svg x="0" width="33"></svg></svg>';
         $iconUrl = $testee->getIconUrl();
         self::assertEquals($expectedUrl, $iconUrl);
     }

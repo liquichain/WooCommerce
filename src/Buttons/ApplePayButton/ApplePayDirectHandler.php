@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Buttons\ApplePayButton;
+namespace Liquichain\WooCommerce\Buttons\ApplePayButton;
 
-use Mollie\WooCommerce\Notice\AdminNotice;
+use Liquichain\WooCommerce\Notice\AdminNotice;
 
 class ApplePayDirectHandler
 {
@@ -41,7 +41,7 @@ class ApplePayDirectHandler
             $message = sprintf(
                 esc_html__(
                     '%1$sServer not compliant with Apple requirements%2$s Check %3$sApple Server requirements page%4$s to fix it in order to make the Apple Pay button work',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 '<strong>',
                 '</strong>',
@@ -57,7 +57,7 @@ class ApplePayDirectHandler
             $message = sprintf(
                 esc_html__(
                     '%1$sApple Pay Validation Error%2$s Check %3$sApple Server requirements page%4$s to fix it in order to make the Apple Pay button work',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 '<strong>',
                 '</strong>',
@@ -105,7 +105,7 @@ class ApplePayDirectHandler
      */
     protected function merchantValidated()
     {
-        $option = get_option('mollie_wc_applepay_validated', 'yes');
+        $option = get_option('liquichain_wc_applepay_validated', 'yes');
 
         return $option === 'yes';
     }
@@ -116,7 +116,7 @@ class ApplePayDirectHandler
     protected function applePayDirectButton()
     {
         ?>
-        <div id="mollie-applepayDirect-button">
+        <div id="liquichain-applepayDirect-button">
             <?php wp_nonce_field('woocommerce-process_checkout', 'woocommerce-process-checkout-nonce');  ?>
         </div>
         <?php

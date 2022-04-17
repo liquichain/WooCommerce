@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Payment;
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\Gateway\Surcharge;
-use Mollie\WooCommerce\Notice\NoticeInterface;
-use Mollie\WooCommerce\PaymentMethods\PaymentMethodI;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\Settings\Settings;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\Api\Resources\Payment;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\Gateway\Surcharge;
+use Liquichain\WooCommerce\Notice\NoticeInterface;
+use Liquichain\WooCommerce\PaymentMethods\PaymentMethodI;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\Settings\Settings;
+use Liquichain\WooCommerce\Shared\Data;
 use Psr\Log\LoggerInterface as Logger;
 use Psr\Log\LogLevel;
 use WC_Order;
@@ -22,7 +22,7 @@ class PaymentService
     public const PAYMENT_METHOD_TYPE_ORDER = 'order';
     public const PAYMENT_METHOD_TYPE_PAYMENT = 'payment';
     /**
-     * @var MolliePaymentGateway
+     * @var LiquichainPaymentGateway
      */
     protected $gateway;
     /**
@@ -89,7 +89,7 @@ class PaymentService
         $initialOrderStatus = $this->processInitialOrderStatus($paymentMethod);
 
 
-        $customerId = $this->getUserMollieCustomerId($order);
+        $customerId = $this->getUserLiquichainCustomerId($order);
 
         $apiKey = $this->settingsHelper->getApiKey();
 
@@ -102,16 +102,16 @@ class PaymentService
             return $this->processSubscriptionSwitch($order, $orderId, $customerId, $apiKey);
         }
 
-        $molliePaymentType = $this->paymentTypeBasedOnGateway($paymentMethod);
-        $molliePaymentType = $this->paymentTypeBasedOnProducts($order, $molliePaymentType);
+        $liquichainPaymentType = $this->paymentTypeBasedOnGateway($paymentMethod);
+        $liquichainPaymentType = $this->paymentTypeBasedOnProducts($order, $liquichainPaymentType);
         try {
-            $paymentObject = $this->paymentFactory->getPaymentObject($molliePaymentType);
+            $paymentObject = $this->paymentFactory->getPaymentObject($liquichainPaymentType);
         } catch (ApiException $exception) {
             return $this->paymentObjectFailure($exception);
         }
         try {
-            $paymentObject = $this->processPaymentForMollie(
-                $molliePaymentType,
+            $paymentObject = $this->processPaymentForLiquichain(
+                $liquichainPaymentType,
                 $orderId,
                 $paymentObject,
                 $order,
@@ -119,7 +119,7 @@ class PaymentService
                 $apiKey
             );
 
-            $this->saveMollieInfo($order, $paymentObject);
+            $this->saveLiquichainInfo($order, $paymentObject);
             $this->saveSubscriptionMandateData($orderId, $apiKey, $customerId, $paymentObject, $order);
             do_action($this->pluginId . '_payment_created', $paymentObject, $order);
             $this->updatePaymentStatusForDelayedMethods($paymentObject, $order, $initialOrderStatus);
@@ -154,8 +154,8 @@ class PaymentService
         $amount = $aboveMaxLimit? 0 : $surcharge->calculateFeeAmountOrder($order, $gatewaySettings);
         $gatewayHasSurcharge = $amount !== 0;
         $gatewayFeeLabel = get_option(
-            'mollie-payments-for-woocommerce_gatewayFeeLabel',
-            __(Surcharge::DEFAULT_FEE_LABEL, 'mollie-payments-for-woocommerce')
+            'liquichain-payments-for-woocommerce_gatewayFeeLabel',
+            __(Surcharge::DEFAULT_FEE_LABEL, 'liquichain-payments-for-woocommerce')
         );
         $surchargeName = $surcharge->buildFeeName($gatewayFeeLabel);
 
@@ -163,8 +163,8 @@ class PaymentService
         foreach ($fees as $fee) {
             $feeName = $fee->get_name();
             $feeId = $fee->get_id();
-            $hasMollieFee = strpos($feeName, $gatewayFeeLabel) !== false;
-            if ($hasMollieFee) {
+            $hasLiquichainFee = strpos($feeName, $gatewayFeeLabel) !== false;
+            if ($hasLiquichainFee) {
                 if($amount == (float) $fee->get_amount('edit')){
                     $correctedFee = true;
                     continue;
@@ -217,7 +217,7 @@ class PaymentService
      * Redirect location after successfully completing process_payment
      *
      * @param WC_Order                  $order
-     * @param MollieOrder|MolliePayment $paymentObject
+     * @param LiquichainOrder|LiquichainPayment $paymentObject
      *
      * @return string
      */
@@ -240,12 +240,12 @@ class PaymentService
      * @param $test_mode
      * @return null|string
      */
-    protected function getUserMollieCustomerId($order)
+    protected function getUserLiquichainCustomerId($order)
     {
         $order_customer_id = $order->get_customer_id();
         $apiKey = $this->settingsHelper->getApiKey();
 
-        return  $this->dataHelper->getUserMollieCustomerId($order_customer_id, $apiKey);
+        return  $this->dataHelper->getUserLiquichainCustomerId($order_customer_id, $apiKey);
     }
 
     protected function paymentTypeBasedOnGateway($paymentMethod)
@@ -268,11 +268,11 @@ class PaymentService
      *
      * @param \WC_Order $order
      *
-     * @param  string  $molliePaymentType
+     * @param  string  $liquichainPaymentType
      *
      * @return string
      */
-    protected function paymentTypeBasedOnProducts($order, $molliePaymentType)
+    protected function paymentTypeBasedOnProducts($order, $liquichainPaymentType)
     {
         foreach ($order->get_items() as $cart_item) {
             if ($cart_item['quantity']) {
@@ -289,7 +289,7 @@ class PaymentService
                 }
 
                 if ($product === false) {
-                    $molliePaymentType = self::PAYMENT_METHOD_TYPE_PAYMENT;
+                    $liquichainPaymentType = self::PAYMENT_METHOD_TYPE_PAYMENT;
                     do_action(
                         $this->pluginId
                         . '_orderlines_process_items_after_processing_item',
@@ -304,10 +304,10 @@ class PaymentService
                 );
             }
         }
-        return $molliePaymentType;
+        return $liquichainPaymentType;
     }
     /**
-     * @param MollieOrder $paymentObject
+     * @param LiquichainOrder $paymentObject
      * @param \WC_Order                $order
      * @param                         $customer_id
      * @param                         $test_mode
@@ -315,13 +315,13 @@ class PaymentService
      * @return array
      * @throws ApiException
      */
-    protected function processAsMollieOrder(
-        MollieOrder $paymentObject,
+    protected function processAsLiquichainOrder(
+        LiquichainOrder $paymentObject,
         $order,
         $customer_id,
         $apiKey
     ) {
-        $molliePaymentType = self::PAYMENT_METHOD_TYPE_ORDER;
+        $liquichainPaymentType = self::PAYMENT_METHOD_TYPE_ORDER;
         $paymentRequestData = $paymentObject->getPaymentRequestData(
             $order,
             $customer_id
@@ -341,10 +341,10 @@ class PaymentService
             $order
         );
 
-        // Create Mollie payment with customer id.
+        // Create Liquichain payment with customer id.
         try {
             $this->logger->log( LogLevel::DEBUG,
-                'Creating payment object: type Order, first try creating a Mollie Order.'
+                'Creating payment object: type Order, first try creating a Liquichain Order.'
             );
 
             // Only enable this for hardcore debugging!
@@ -375,12 +375,12 @@ class PaymentService
                 $paymentOrder->updatePaymentDataWithOrderData($orderWithPayments, $orderId);
             }
         } catch (ApiException $e) {
-            // Don't try to create a Mollie Payment for Klarna payment methods
+            // Don't try to create a Liquichain Payment for Klarna payment methods
             $order_payment_method = $order->get_payment_method();
 
-            if ($order_payment_method === 'mollie_wc_gateway_klarnapaylater'
-                || $order_payment_method === 'mollie_wc_gateway_sliceit'
-                || $order_payment_method === 'mollie_wc_gateway_klarnapaynow'
+            if ($order_payment_method === 'liquichain_wc_gateway_klarnapaylater'
+                || $order_payment_method === 'liquichain_wc_gateway_sliceit'
+                || $order_payment_method === 'liquichain_wc_gateway_klarnapaynow'
             ) {
                 $this->logger->log( LogLevel::DEBUG,
                     'Creating payment object: type Order, failed for Klarna payment, stopping process.'
@@ -406,19 +406,19 @@ class PaymentService
 
                 // Retry without customer id.
                 $this->logger->log( LogLevel::DEBUG,
-                    'Creating payment object: type Order, second try, creating a Mollie Order without a customerId.'
+                    'Creating payment object: type Order, second try, creating a Liquichain Order without a customerId.'
                 );
                 $paymentObject = $this->apiHelper->getApiClient(
                     $apiKey
                 )->orders->create($data);
             } catch (ApiException $e) {
-                // Set Mollie payment type to payment, when creating a Mollie Order has failed
-                $molliePaymentType = self::PAYMENT_METHOD_TYPE_PAYMENT;
+                // Set Liquichain payment type to payment, when creating a Liquichain Order has failed
+                $liquichainPaymentType = self::PAYMENT_METHOD_TYPE_PAYMENT;
             }
         }
         return array(
             $paymentObject,
-            $molliePaymentType
+            $liquichainPaymentType
         );
     }
 
@@ -430,7 +430,7 @@ class PaymentService
      * @return Payment $paymentObject
      * @throws ApiException
      */
-    protected function processAsMolliePayment(
+    protected function processAsLiquichainPayment(
         \WC_Order $order,
         $customer_id,
         $apiKey
@@ -484,18 +484,18 @@ class PaymentService
     }
 
     /**
-     * @param                         $molliePaymentType
+     * @param                         $liquichainPaymentType
      * @param                         $orderId
-     * @param MollieOrder|MolliePayment $paymentObject
+     * @param LiquichainOrder|LiquichainPayment $paymentObject
      * @param \WC_Order                $order
      * @param                         $customer_id
      * @param                         $test_mode
      *
-     * @return mixed|Payment|MollieOrder
+     * @return mixed|Payment|LiquichainOrder
      * @throws ApiException
      */
-    protected function processPaymentForMollie(
-        $molliePaymentType,
+    protected function processPaymentForLiquichain(
+        $liquichainPaymentType,
         $orderId,
         $paymentObject,
         $order,
@@ -505,17 +505,17 @@ class PaymentService
         //
         // PROCESS REGULAR PAYMENT AS MOLLIE ORDER
         //
-        if ($molliePaymentType === self::PAYMENT_METHOD_TYPE_ORDER) {
+        if ($liquichainPaymentType === self::PAYMENT_METHOD_TYPE_ORDER) {
             $this->logger->log( LogLevel::DEBUG,
-                "{$this->gateway->id}: Create Mollie payment object for order {$orderId}",
+                "{$this->gateway->id}: Create Liquichain payment object for order {$orderId}",
                 [true]
             );
 
             list(
                 $paymentObject,
-                $molliePaymentType
+                $liquichainPaymentType
                 )
-                = $this->processAsMollieOrder(
+                = $this->processAsLiquichainOrder(
                 $paymentObject,
                 $order,
                 $customer_id,
@@ -527,12 +527,12 @@ class PaymentService
         // PROCESS REGULAR PAYMENT AS MOLLIE PAYMENT
         //
 
-        if ($molliePaymentType === self::PAYMENT_METHOD_TYPE_PAYMENT) {
+        if ($liquichainPaymentType === self::PAYMENT_METHOD_TYPE_PAYMENT) {
             $this->logger->log( LogLevel::DEBUG,
                 'Creating payment object: type Payment, creating a Payment.'
             );
 
-            $paymentObject = $this->processAsMolliePayment(
+            $paymentObject = $this->processAsLiquichainPayment(
                 $order,
                 $customer_id,
                 $apiKey
@@ -545,18 +545,18 @@ class PaymentService
      * @param $order
      * @param $payment
      */
-    protected function saveMollieInfo( $order, $payment ) {
-        // Get correct Mollie Payment Object
+    protected function saveLiquichainInfo( $order, $payment ) {
+        // Get correct Liquichain Payment Object
         $payment_object = $this->paymentFactory->getPaymentObject( $payment );
 
-        // Set active Mollie payment
-        $payment_object->setActiveMolliePayment( $order->get_id() );
+        // Set active Liquichain payment
+        $payment_object->setActiveLiquichainPayment( $order->get_id() );
 
-        // Get Mollie Customer ID
-        $mollie_customer_id = $payment_object->getMollieCustomerIdFromPaymentObject( $payment_object->data->id );
+        // Get Liquichain Customer ID
+        $liquichain_customer_id = $payment_object->getLiquichainCustomerIdFromPaymentObject( $payment_object->data->id );
 
-        // Set Mollie customer
-        $this->dataHelper->setUserMollieCustomerId( $order->get_customer_id(), $mollie_customer_id );
+        // Set Liquichain customer
+        $this->dataHelper->setUserLiquichainCustomerId( $order->get_customer_id(), $liquichain_customer_id );
     }
 
     /**
@@ -571,7 +571,7 @@ class PaymentService
 
         switch ($new_status)
         {
-            case MolliePaymentGateway::STATUS_ON_HOLD:
+            case LiquichainPaymentGateway::STATUS_ON_HOLD:
 
                 if ( $restore_stock === true ) {
                     if ( ! $order->get_meta( '_order_stock_reduced', true ) ) {
@@ -584,9 +584,9 @@ class PaymentService
 
                 break;
 
-            case MolliePaymentGateway::STATUS_PENDING:
-            case MolliePaymentGateway::STATUS_FAILED:
-            case MolliePaymentGateway::STATUS_CANCELLED:
+            case LiquichainPaymentGateway::STATUS_PENDING:
+            case LiquichainPaymentGateway::STATUS_FAILED:
+            case LiquichainPaymentGateway::STATUS_CANCELLED:
                 if ( $order->get_meta( '_order_stock_reduced', true ) )
                 {
                     // Restore order stock
@@ -614,11 +614,11 @@ class PaymentService
             'error',
             __(
                 'Subscription switch failed, no valid mandate found. Place a completely new order to change your subscription.',
-                'mollie-payments-for-woocommerce'
+                'liquichain-payments-for-woocommerce'
             )
         );
         throw new ApiException(
-            __('Failed switching subscriptions, no valid mandate.', 'mollie-payments-for-woocommerce')
+            __('Failed switching subscriptions, no valid mandate.', 'liquichain-payments-for-woocommerce')
         );
     }
 
@@ -627,7 +627,7 @@ class PaymentService
         $order->payment_complete();
 
         $order->add_order_note( sprintf(
-                                    __( 'Order completed internally because of an existing valid mandate at Mollie.', 'mollie-payments-for-woocommerce' ) ) );
+                                    __( 'Order completed internally because of an existing valid mandate at Liquichain.', 'liquichain-payments-for-woocommerce' ) ) );
 
         $this->logger->log( LogLevel::DEBUG,  $this->gateway->id . ': Subscription switch completed, valid mandate for order #' . $orderId );
 
@@ -695,12 +695,12 @@ class PaymentService
     protected function reportPaymentCreationFailure($orderId, $e): void
     {
         $this->logger->log(LogLevel::DEBUG,
-                           $this->id . ': Failed to create Mollie payment object for order ' . $orderId . ': ' . $e->getMessage(
+                           $this->id . ': Failed to create Liquichain payment object for order ' . $orderId . ': ' . $e->getMessage(
                            )
         );
 
         /* translators: Placeholder 1: Payment method title */
-        $message = sprintf(__('Could not create %s payment.', 'mollie-payments-for-woocommerce'), $this->title);
+        $message = sprintf(__('Could not create %s payment.', 'liquichain-payments-for-woocommerce'), $this->title);
 
         if (defined('WP_DEBUG') && WP_DEBUG) {
             $message .= 'hii ' . $e->getMessage();
@@ -732,7 +732,7 @@ class PaymentService
             $mandateId = $mandate->id;
             $this->logger->log(
                 LogLevel::DEBUG,
-                "Mollie Subscription in the order: customer id {$customerId} and mandate id {$mandateId} "
+                "Liquichain Subscription in the order: customer id {$customerId} and mandate id {$mandateId} "
             );
             do_action($this->pluginId . '_after_mandate_created', $paymentObject, $order, $customerId, $mandateId);
         }
@@ -746,12 +746,12 @@ class PaymentService
     protected function updatePaymentStatusForDelayedMethods($paymentObject, $order, $initialOrderStatus): void
     {
 // Update initial order status for payment methods where the payment status will be delivered after a couple of days.
-        // See: https://www.mollie.com/nl/docs/status#expiry-times-per-payment-method
+        // See: https://www.liquichain.io/nl/docs/status#expiry-times-per-payment-method
         // Status is only updated if the new status is not the same as the default order status (pending)
         if (($paymentObject->method === 'banktransfer') || ($paymentObject->method === 'directdebit')) {
             // Don't change the status of the order if it's Partially Paid
             // This adds support for WooCommerce Deposits (by Webtomizer)
-            // See https://github.com/mollie/WooCommerce/issues/138
+            // See https://github.com/liquichain/WooCommerce/issues/138
 
             $order_status = $order->get_status();
 
@@ -759,7 +759,7 @@ class PaymentService
                 $this->updateOrderStatus(
                     $order,
                     $initialOrderStatus,
-                    __('Awaiting payment confirmation.', 'mollie-payments-for-woocommerce') . "\n"
+                    __('Awaiting payment confirmation.', 'liquichain-payments-for-woocommerce') . "\n"
                 );
             }
         }
@@ -775,23 +775,23 @@ class PaymentService
         $paymentMethodTitle = $paymentMethod->getProperty('id');
         $this->logger->log(
             LogLevel::DEBUG,
-            $paymentMethodTitle . ': Mollie payment object ' . $paymentObject->id . ' (' . $paymentObject->mode . ') created for order ' . $orderId
+            $paymentMethodTitle . ': Liquichain payment object ' . $paymentObject->id . ' (' . $paymentObject->mode . ') created for order ' . $orderId
         );
         $order->add_order_note(
             sprintf(
             /* translators: Placeholder 1: Payment method title, placeholder 2: payment ID */
-                __('%s payment started (%s).', 'mollie-payments-for-woocommerce'),
+                __('%s payment started (%s).', 'liquichain-payments-for-woocommerce'),
                 $paymentMethodTitle,
                 $paymentObject->id . ($paymentObject->mode === 'test' ? (' - ' . __(
                         'test mode',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     )) : '')
             )
         );
 
         $this->logger->log(
             LogLevel::DEBUG,
-            "For order " . $orderId . " redirect user to Mollie Checkout URL: " . $paymentObject->getCheckoutUrl()
+            "For order " . $orderId . " redirect user to Liquichain Checkout URL: " . $paymentObject->getCheckoutUrl()
         );
     }
 

@@ -4,11 +4,11 @@
 namespace php\Functional\Shared;
 
 
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\Gateway\Surcharge;
-use Mollie\WooCommerce\Shared\GatewaySurchargeHandler;
-use Mollie\WooCommerceTests\Functional\HelperMocks;
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\Gateway\Surcharge;
+use Liquichain\WooCommerce\Shared\GatewaySurchargeHandler;
+use Liquichain\WooCommerceTests\Functional\HelperMocks;
+use Liquichain\WooCommerceTests\TestCase;
 
 use function Brain\Monkey\Functions\expect;
 
@@ -50,7 +50,7 @@ class SurchargeHandlerTest extends TestCase
         )->getMock();
 
         $testee->gatewayFeeLabel = 'custom label';
-        expect('mollieWooCommerceIsCheckoutContext')->andReturn(true);
+        expect('liquichainWooCommerceIsCheckoutContext')->andReturn(true);
         expect('WC')->andReturn($this->wooCommerce());
         expect('get_option')->andReturn(
             $this->helperMocks->paymentMethodSettings(
@@ -103,7 +103,7 @@ class SurchargeHandlerTest extends TestCase
 
         $testee->expects($this->once())
             ->method('canProcessGateway')
-            ->willReturn('mollie_wc_gateway_ideal');
+            ->willReturn('liquichain_wc_gateway_ideal');
         //this method uses all woo functions outside our scope
         $testee->expects($this->once())
             ->method('orderRemoveFee');
@@ -149,7 +149,7 @@ class SurchargeHandlerTest extends TestCase
             ]
         );
         $wc->session = new \WC_Session();
-        $wc->session->chosen_payment_method = 'mollie_wc_gateway_ideal';
+        $wc->session->chosen_payment_method = 'liquichain_wc_gateway_ideal';
         return $wc;
     }
 
@@ -185,16 +185,16 @@ class SurchargeHandlerTest extends TestCase
                 'get_shipping_country' => 'shippingcountry',
                 'get_shipping_methods' => false,
                 'get_order_number' => 1,
-                'get_payment_method' => 'mollie_wc_gateway_ideal',
+                'get_payment_method' => 'liquichain_wc_gateway_ideal',
                 'get_currency' => 'EUR',
             ]
         );
 
         return $item;
     }
-    protected function mollieGateway(){
+    protected function liquichainGateway(){
         $gateway = $this->createConfiguredMock(
-            MolliePaymentGateway::class,
+            LiquichainPaymentGateway::class,
             [
                 'getSelectedIssuer' => 'ideal_INGBNL2A',
                 'get_return_url' => 'https://webshop.example.org/wc-api/',

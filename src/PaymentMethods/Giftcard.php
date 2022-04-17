@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Giftcard extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -26,9 +26,9 @@ class Giftcard extends AbstractPaymentMethod implements PaymentMethodI
         foreach ($details->giftcards as $giftcard) {
             $orderNoteLine .= sprintf(
                 esc_html_x(
-                    'Mollie - Giftcard details: %1$s %2$s %3$s.',
+                    'Liquichain - Giftcard details: %1$s %2$s %3$s.',
                     'Placeholder 1: giftcard issuer, Placeholder 2: amount value, Placeholder 3: currency',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 $giftcard->issuer,
                 $giftcard->amount->value,
@@ -40,7 +40,7 @@ class Giftcard extends AbstractPaymentMethod implements PaymentMethodI
                 esc_html_x(
                     ' Remainder: %1$s %2$s %3$s.',
                     'Placeholder 1: remainder method, Placeholder 2: amount value, Placeholder 3: currency',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 $details->remainderMethod,
                 $details->remainderAmount->value,
@@ -55,9 +55,9 @@ class Giftcard extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'giftcard',
-            'defaultTitle' => __('Gift cards', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('Gift cards', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => '',
-            'defaultDescription' => __('Select your gift card', 'mollie-payments-for-woocommerce'),
+            'defaultDescription' => __('Select your gift card', 'liquichain-payments-for-woocommerce'),
             'paymentFields' => true,
             'instructions' => false,
             'supports' => [
@@ -75,13 +75,13 @@ class Giftcard extends AbstractPaymentMethod implements PaymentMethodI
             'issuers_dropdown_shown' => [
                 'title' => __(
                     'Show gift cards dropdown',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 'type' => 'checkbox',
                 'description' => sprintf(
                     __(
-                        'If you disable this, a dropdown with various gift cards will not be shown in the WooCommerce checkout, so users will select a gift card on the Mollie payment page after checkout.',
-                        'mollie-payments-for-woocommerce'
+                        'If you disable this, a dropdown with various gift cards will not be shown in the WooCommerce checkout, so users will select a gift card on the Liquichain payment page after checkout.',
+                        'liquichain-payments-for-woocommerce'
                     ),
                     $this->getProperty('defaultTitle')
                 ),
@@ -90,13 +90,13 @@ class Giftcard extends AbstractPaymentMethod implements PaymentMethodI
             'issuers_empty_option' => [
                 'title' => __(
                     'Issuers empty option',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 'type' => 'text',
                 'description' => sprintf(
                     __(
                         "This text will be displayed as the first option in the gift card dropdown, but only if the above 'Show gift cards dropdown' is enabled.",
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     ),
                     $this->getProperty('defaultTitle')
                 ),

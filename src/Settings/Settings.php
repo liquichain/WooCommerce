@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Settings;
+namespace Liquichain\WooCommerce\Settings;
 
 use DateInterval;
 use DateTime;
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\WooCommerce\Gateway\Surcharge;
-use Mollie\WooCommerce\Notice\AdminNotice;
-use Mollie\WooCommerce\Settings\General\MollieGeneralSettings;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\WooCommerce\Gateway\Surcharge;
+use Liquichain\WooCommerce\Notice\AdminNotice;
+use Liquichain\WooCommerce\Settings\General\LiquichainGeneralSettings;
 use WC_Payment_Gateway;
 
 class Settings
@@ -17,7 +17,7 @@ class Settings
     /**
      * @var string
      */
-    const FILTER_ALLOWED_LANGUAGE_CODE_SETTING = 'mollie.allowed_language_code_setting';
+    const FILTER_ALLOWED_LANGUAGE_CODE_SETTING = 'liquichain.allowed_language_code_setting';
     /**
      * @var string
      */
@@ -97,7 +97,7 @@ class Settings
         $this->pluginUrl = $pluginUrl;
         $this->statusHelper = $statusHelper;
         $this->apiHelper = $apiHelper;
-        $this->globalSettingsUrl = admin_url('admin.php?page=wc-settings&tab=mollie_settings#' . $pluginId);
+        $this->globalSettingsUrl = admin_url('admin.php?page=wc-settings&tab=liquichain_settings#' . $pluginId);
         $this->cleanDb = $cleanDb;
     }
 
@@ -117,7 +117,7 @@ class Settings
         $paymentConfirmation
     ): array {
 
-        $generalSettings = new MollieGeneralSettings();
+        $generalSettings = new LiquichainGeneralSettings();
         return $generalSettings->gatewayFormFields($defaultTitle, $defaultDescription, $paymentConfirmation);
     }
 
@@ -127,7 +127,7 @@ class Settings
             $this->processAdminOptionCustomLogo($gateway);
             $this->processAdminOptionSurcharge($gateway);
             //only credit cards have a selector
-            if ($gateway->id === 'mollie_wc_gateway_creditcard') {
+            if ($gateway->id === 'liquichain_wc_gateway_creditcard') {
                 $this->processAdminOptionCreditcardSelector();
             }
         }
@@ -135,10 +135,10 @@ class Settings
 
     public function processAdminOptionCustomLogo(WC_Payment_Gateway $gateway)
     {
-        $mollieUploadDirectory = trailingslashit(wp_upload_dir()['basedir'])
-            . 'mollie-uploads/' . $gateway->id;
-        wp_mkdir_p($mollieUploadDirectory);
-        $targetLocation = $mollieUploadDirectory . '/';
+        $liquichainUploadDirectory = trailingslashit(wp_upload_dir()['basedir'])
+            . 'liquichain-uploads/' . $gateway->id;
+        wp_mkdir_p($liquichainUploadDirectory);
+        $targetLocation = $liquichainUploadDirectory . '/';
         $fileOptionName = $gateway->id . '_upload_logo';
         $enabledLogoOptionName = $gateway->id . '_enable_custom_logo';
         $gatewaySettings = get_option(sprintf('%s_settings', $gateway->id), []);
@@ -162,17 +162,17 @@ class Settings
                 move_uploaded_file($tempName, $targetLocation . $fileName);
                 $gatewaySettings["iconFileUrl"] = trailingslashit(
                     wp_upload_dir()['baseurl']
-                ) . 'mollie-uploads/' . $gateway->id . '/' . $fileName;
+                ) . 'liquichain-uploads/' . $gateway->id . '/' . $fileName;
                 $gatewaySettings["iconFilePath"] = trailingslashit(
                     wp_upload_dir()['basedir']
-                ) . 'mollie-uploads/' . $gateway->id . '/' . $fileName;
+                ) . 'liquichain-uploads/' . $gateway->id . '/' . $fileName;
                 update_option(sprintf('%s_settings', $gateway->id), $gatewaySettings);
             } else {
                 $notice = new AdminNotice();
                 $message = sprintf(
                     esc_html__(
-                        '%1$sMollie Payments for WooCommerce%2$s Unable to upload the file. Size must be under 500kb.',
-                        'mollie-payments-for-woocommerce'
+                        '%1$sLiquichain Payments for WooCommerce%2$s Unable to upload the file. Size must be under 500kb.',
+                        'liquichain-payments-for-woocommerce'
                     ),
                     '<strong>',
                     '</strong>'
@@ -212,7 +212,7 @@ class Settings
     {
 
         if (!$gateway->enabled && count($gateway->errors)) {
-            echo '<div class="inline error"><p><strong>' . __('Gateway Disabled', 'mollie-payments-for-woocommerce') . '</strong>: '
+            echo '<div class="inline error"><p><strong>' . __('Gateway Disabled', 'liquichain-payments-for-woocommerce') . '</strong>: '
                 . implode('<br/>', $gateway->errors)
                 . '</p></div>';
 
@@ -233,7 +233,7 @@ class Settings
         }
 
         echo '<h2>' . esc_html($gateway->get_method_title());
-        wc_back_link(__('Return to payments', 'mollie-payments-for-woocommerce'), admin_url('admin.php?page=wc-settings&tab=checkout'));
+        wc_back_link(__('Return to payments', 'liquichain-payments-for-woocommerce'), admin_url('admin.php?page=wc-settings&tab=checkout'));
         echo '</h2>';
         echo wp_kses_post(wpautop($gateway->get_method_description()));
         echo '<table class="form-table">'
@@ -247,8 +247,8 @@ class Settings
     {
         $selections = (array)$gateway->get_option('allowed_countries', []);
         $gatewayId = $gateway->paymentMethod->getProperty('id');
-        $id = 'mollie_wc_gateway_' . $gatewayId . '_allowed_countries';
-        $title = __('Sell to specific countries', 'mollie-payments-for-woocommerce');
+        $id = 'liquichain_wc_gateway_' . $gatewayId . '_allowed_countries';
+        $title = __('Sell to specific countries', 'liquichain-payments-for-woocommerce');
         $description = '<span class="description">' . wp_kses_post($gateway->get_option('description', '')) . '</span>';
         $countries = WC()->countries->countries;
         asort($countries);
@@ -260,8 +260,8 @@ class Settings
             </th>
             <td class="forminp">
                 <select multiple="multiple" name="<?php echo esc_attr($id); ?>[]" style="width:350px"
-                        data-placeholder="<?php esc_attr_e('Choose countries&hellip;', 'mollie-payments-for-woocommerce'); ?>"
-                        aria-label="<?php esc_attr_e('Country', 'mollie-payments-for-woocommerce'); ?>" class="wc-enhanced-select">
+                        data-placeholder="<?php esc_attr_e('Choose countries&hellip;', 'liquichain-payments-for-woocommerce'); ?>"
+                        aria-label="<?php esc_attr_e('Country', 'liquichain-payments-for-woocommerce'); ?>" class="wc-enhanced-select">
                     <?php
                     if (!empty($countries)) {
                         foreach ($countries as $key => $val) {
@@ -270,8 +270,8 @@ class Settings
                     }
                     ?>
                 </select> <?php echo ($description !== '') ? $description : ''; ?> <br/><a class="select_all button"
-                                                                                    href="#"><?php esc_html_e('Select all', 'mollie-payments-for-woocommerce'); ?></a>
-                <a class="select_none button" href="#"><?php esc_html_e('Select none', 'mollie-payments-for-woocommerce'); ?></a>
+                                                                                    href="#"><?php esc_html_e('Select all', 'liquichain-payments-for-woocommerce'); ?></a>
+                <a class="select_none button" href="#"><?php esc_html_e('Select none', 'liquichain-payments-for-woocommerce'); ?></a>
             </td>
         </tr>
         <?php
@@ -369,7 +369,7 @@ class Settings
     }
 
     /**
-     * Store customer details at Mollie
+     * Store customer details at Liquichain
      *
      * @return string
      */
@@ -417,7 +417,7 @@ class Settings
         $merchantProfileIdOptionKey = $this->pluginId . '_profile_merchant_id';
 
         try {
-            $merchantProfile = $this->mollieWooCommerceMerchantProfile();
+            $merchantProfile = $this->liquichainWooCommerceMerchantProfile();
             $merchantProfileId = property_exists($merchantProfile, 'id') && $merchantProfile->id !== null ? $merchantProfile->id : '';
         } catch (ApiException $apiException) {
             $merchantProfileId = '';
@@ -445,7 +445,7 @@ class Settings
      * Get plugin status
      *
      * - Check compatibility
-     * - Check Mollie API connectivity
+     * - Check Liquichain API connectivity
      *
      * @return string
      */
@@ -459,7 +459,7 @@ class Settings
                 . '<div class="notice notice-error">'
                 . '<p><strong>' . __(
                     'Error',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ) . ':</strong> ' . implode('<br/>', $status->getErrors())
                 . '</p></div>';
         }
@@ -468,17 +468,17 @@ class Settings
             // Check compatibility
             $apiKey = $this->getApiKey();
             $apiClient = $this->apiHelper->getApiClient($apiKey);
-            $status->getMollieApiStatus($apiClient);
+            $status->getLiquichainApiStatus($apiClient);
 
             $api_status = ''
-                . '<p>' . __('Mollie status:', 'mollie-payments-for-woocommerce')
-                . ' <span style="color:green; font-weight:bold;">' . __('Connected', 'mollie-payments-for-woocommerce') . '</span>'
+                . '<p>' . __('Liquichain status:', 'liquichain-payments-for-woocommerce')
+                . ' <span style="color:green; font-weight:bold;">' . __('Connected', 'liquichain-payments-for-woocommerce') . '</span>'
                 . '</p>';
             $api_status_type = 'updated';
-        } catch (\Mollie\Api\Exceptions\ApiException $e) {
+        } catch (\Liquichain\Api\Exceptions\ApiException $e) {
             $api_status = ''
-                . '<p style="font-weight:bold;"><span style="color:red;">Communicating with Mollie failed:</span> ' . $e->getMessage() . '</p>'
-                . '<p>Please view the FAQ item <a href="https://github.com/mollie/WooCommerce/wiki/Common-issues#communicating-with-mollie-failed" target="_blank">Communicating with Mollie failed</a> if this does not fix your problem.';
+                . '<p style="font-weight:bold;"><span style="color:red;">Communicating with Liquichain failed:</span> ' . $e->getMessage() . '</p>'
+                . '<p>Please view the FAQ item <a href="https://github.com/liquichain/WooCommerce/wiki/Common-issues#communicating-with-liquichain-failed" target="_blank">Communicating with Liquichain failed</a> if this does not fix your problem.';
 
             $api_status_type = 'error';
         }
@@ -643,7 +643,7 @@ class Settings
      * @return CurrentProfile
      * @throws ApiException
      */
-    protected function mollieWooCommerceMerchantProfile()
+    protected function liquichainWooCommerceMerchantProfile()
     {
         $apiKey = $this->getApiKey();
 
@@ -659,7 +659,7 @@ class Settings
      * @return int|string
      * @throws ApiException
      */
-    public function mollieWooCommerceMerchantProfileId()
+    public function liquichainWooCommerceMerchantProfileId()
     {
         static $merchantProfileId = null;
         $merchantProfileIdOptionKey = $this->pluginId . '_profile_merchant_id';
@@ -673,7 +673,7 @@ class Settings
              */
             if (!$merchantProfileId) {
                 try {
-                    $merchantProfile = $this->mollieWooCommerceMerchantProfile();
+                    $merchantProfile = $this->liquichainWooCommerceMerchantProfile();
                     $merchantProfileId = isset($merchantProfile->id) ? $merchantProfile->id : '';
                 } catch (ApiException $exception) {
                     $merchantProfileId = '';

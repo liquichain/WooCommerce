@@ -1,13 +1,13 @@
 <?php # -*- coding: utf-8 -*-
 
-namespace Mollie\WooCommerceTests\Functional\Payment;
+namespace Liquichain\WooCommerceTests\Functional\Payment;
 
-use Mollie\WooCommerce\Payment\OrderLineStatus;
-use Mollie\WooCommerce\Payment\PartialRefundException;
-use Mollie\WooCommerce\Payment\RefundLineItemsBuilder;
-use Mollie\WooCommerce\Shared\Data;
-use Mollie\WooCommerceTests\Stubs\WC_Order_Item;
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\WooCommerce\Payment\OrderLineStatus;
+use Liquichain\WooCommerce\Payment\PartialRefundException;
+use Liquichain\WooCommerce\Payment\RefundLineItemsBuilder;
+use Liquichain\WooCommerce\Shared\Data;
+use Liquichain\WooCommerceTests\Stubs\WC_Order_Item;
+use Liquichain\WooCommerceTests\TestCase;
 use PHPUnit_Framework_Exception;
 use PHPUnit_Framework_MockObject_MockObject;
 use stdClass;
@@ -262,8 +262,8 @@ class RefundLineItemsBuilderTest extends TestCase
     }
 
     /**
-     * When a refund for order items is performed Mollie need to have a match against the refunded
-     * item value and the order item price stored in the Mollie service.
+     * When a refund for order items is performed Liquichain need to have a match against the refunded
+     * item value and the order item price stored in the Liquichain service.
      *
      * If this value does not match a PartialRefundException is thrown
      *
@@ -301,7 +301,7 @@ class RefundLineItemsBuilderTest extends TestCase
 
         $this->expectException(PartialRefundException::class);
         $this->expectExceptionMessage(
-            'Mollie doesn\'t allow a partial refund of the full amount or quantity of at least one order line. Trying to process this as an amount refund instead.'
+            'Liquichain doesn\'t allow a partial refund of the full amount or quantity of at least one order line. Trying to process this as an amount refund instead.'
         );
 
         /*
@@ -317,9 +317,9 @@ class RefundLineItemsBuilderTest extends TestCase
 
     /**
      * When performing a refund for order items should there be a match against the refunding items
-     * and the order items retrieved by Mollie service.
+     * and the order items retrieved by Liquichain service.
      *
-     * If the refunding item does not exists in mollie service an UnexpectedValueException is thrown
+     * If the refunding item does not exists in liquichain service an UnexpectedValueException is thrown
      *
      * @throws PHPUnit_Framework_Exception
      * @throws PartialRefundException
@@ -356,7 +356,7 @@ class RefundLineItemsBuilderTest extends TestCase
 
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage(
-            "Cannot refund {$toRefundItemId} item because it was not found in Mollie order. Aborting refund process. Try to do a refund by amount."
+            "Cannot refund {$toRefundItemId} item because it was not found in Liquichain order. Aborting refund process. Try to do a refund by amount."
         );
 
         /*

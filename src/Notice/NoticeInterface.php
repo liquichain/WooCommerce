@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Notice;
+namespace Liquichain\WooCommerce\Notice;
 
 /**
  * Interface NoticeInterface
  *
- * @package Mollie\WC\Notice
+ * @package Liquichain\WC\Notice
  */
 interface NoticeInterface
 {

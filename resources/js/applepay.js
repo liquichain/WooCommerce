@@ -2,7 +2,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     var applePayMethodElement = document.querySelector(
-      '.payment_method_mollie_wc_gateway_applepay',
+      '.payment_method_liquichain_wc_gateway_applepay',
     )
 
     var woocommerceCheckoutForm = document.querySelector(
@@ -21,7 +21,7 @@
 
     woocommerceCheckoutForm.insertAdjacentHTML(
       'beforeend',
-      '<input type="hidden" name="mollie_apple_pay_method_allowed" value="1" />',
+      '<input type="hidden" name="liquichain_apple_pay_method_allowed" value="1" />',
     )
   })
 })(window.ApplePaySession)

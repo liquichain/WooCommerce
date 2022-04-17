@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods\PaymentFieldsStrategies;
+namespace Liquichain\WooCommerce\PaymentMethods\PaymentFieldsStrategies;
 
 class KbcFieldsStrategy implements PaymentFieldsStrategyI
 {

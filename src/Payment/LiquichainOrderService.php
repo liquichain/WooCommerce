@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Order;
-use Mollie\Api\Resources\Payment;
-use Mollie\WooCommerce\Gateway\AbstractGateway;
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\SDK\HttpResponse;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\Api\Resources\Order;
+use Liquichain\Api\Resources\Payment;
+use Liquichain\WooCommerce\Gateway\AbstractGateway;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\SDK\HttpResponse;
+use Liquichain\WooCommerce\Shared\Data;
 use Psr\Log\LoggerInterface as Logger;
 use Psr\Log\LogLevel;
 use WC_Order;
 
-class MollieOrderService
+class LiquichainOrderService
 {
 
     protected $gateway;
@@ -62,9 +62,9 @@ class MollieOrderService
 
     public function onWebhookAction()
     {
-        // Webhook test by Mollie
-        if (isset($_GET['testByMollie'])) {
-            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ': Webhook tested by Mollie.', [true]);
+        // Webhook test by Liquichain
+        if (isset($_GET['testByLiquichain'])) {
+            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ': Webhook tested by Liquichain.', [true]);
             return;
         }
 
@@ -93,7 +93,7 @@ class MollieOrderService
         }
         $gateway = wc_get_payment_gateway_by_order($order);
         $this->setGateway($gateway);
-        // No Mollie payment id provided
+        // No Liquichain payment id provided
         if (empty($_POST['id'])) {
             $this->httpResponse->setHttpResponseCode(400);
             $this->logger->log(LogLevel::DEBUG, __METHOD__ . ': No payment object ID provided.', [true]);
@@ -101,9 +101,9 @@ class MollieOrderService
         }
 
         $payment_object_id = sanitize_text_field($_POST['id']);
-        $test_mode = $data_helper->getActiveMolliePaymentMode($order_id) === 'test';
+        $test_mode = $data_helper->getActiveLiquichainPaymentMode($order_id) === 'test';
 
-        // Load the payment from Mollie, do not use cache
+        // Load the payment from Liquichain, do not use cache
         try {
             $payment_object = $this->paymentFactory->getPaymentObject(
                 $payment_object_id
@@ -130,7 +130,7 @@ class MollieOrderService
         }
 
         // Log a message that webhook was called, doesn't mean the payment is actually processed
-        $this->logger->log(LogLevel::DEBUG, $this->gateway->id . ": Mollie payment object {$payment->id} (" . $payment->mode . ") webhook call for order {$order->get_id()}.", [true]);
+        $this->logger->log(LogLevel::DEBUG, $this->gateway->id . ": Liquichain payment object {$payment->id} (" . $payment->mode . ") webhook call for order {$order->get_id()}.", [true]);
 
         // Order does not need a payment
         if (! $this->orderNeedsPayment($order)) {
@@ -160,10 +160,10 @@ class MollieOrderService
         } else {
             $order->add_order_note(sprintf(
                                    /* translators: Placeholder 1: payment method title, placeholder 2: payment status, placeholder 3: payment ID */
-                __('%1$s payment %2$s (%3$s), not processed.', 'mollie-payments-for-woocommerce'),
+                __('%1$s payment %2$s (%3$s), not processed.', 'liquichain-payments-for-woocommerce'),
                 $this->gateway->method_title,
                 $payment->status,
-                $payment->id . ($payment->mode === 'test' ? (' - ' . __('test mode', 'mollie-payments-for-woocommerce')) : '')
+                $payment->id . ($payment->mode === 'test' ? (' - ' . __('test mode', 'liquichain-payments-for-woocommerce')) : '')
             ));
         }
 
@@ -180,14 +180,14 @@ class MollieOrderService
 
         // Check whether the order is processed and paid via another gateway
         if ($this->isOrderPaidByOtherGateway($order)) {
-            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' ' . $this->gateway->id . ': Order ' . $order_id . ' orderNeedsPayment check: no, previously processed by other (non-Mollie) gateway.', [true]);
+            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' ' . $this->gateway->id . ': Order ' . $order_id . ' orderNeedsPayment check: no, previously processed by other (non-Liquichain) gateway.', [true]);
 
             return false;
         }
 
-        // Check whether the order is processed and paid via Mollie
+        // Check whether the order is processed and paid via Liquichain
         if (! $this->isOrderPaidAndProcessed($order)) {
-            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' ' . $this->gateway->id . ': Order ' . $order_id . ' orderNeedsPayment check: yes, order not previously processed by Mollie gateway.', [true]);
+            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' ' . $this->gateway->id . ': Order ' . $order_id . ' orderNeedsPayment check: yes, order not previously processed by Liquichain gateway.', [true]);
 
             return true;
         }
@@ -199,7 +199,7 @@ class MollieOrderService
         }
 
         // Has initial order status 'on-hold'
-        if ($this->gateway->paymentMethod->getInitialOrderStatus() === MolliePaymentGateway::STATUS_ON_HOLD && $order->has_status(MolliePaymentGateway::STATUS_ON_HOLD)) {
+        if ($this->gateway->paymentMethod->getInitialOrderStatus() === LiquichainPaymentGateway::STATUS_ON_HOLD && $order->has_status(LiquichainPaymentGateway::STATUS_ON_HOLD)) {
             $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' ' . $this->gateway->id . ': Order ' . $order_id . ' orderNeedsPayment check: yes, has status On-Hold. ', [true]);
 
             return true;
@@ -213,7 +213,7 @@ class MollieOrderService
      */
     protected function isOrderPaidAndProcessed(WC_Order $order)
     {
-        return $order->get_meta('_mollie_paid_and_processed', true);
+        return $order->get_meta('_liquichain_paid_and_processed', true);
     }
 
     /**
@@ -221,7 +221,7 @@ class MollieOrderService
      */
     protected function isOrderPaidByOtherGateway(WC_Order $order)
     {
-        return $order->get_meta('_mollie_paid_by_other_gateway', true);
+        return $order->get_meta('_liquichain_paid_by_other_gateway', true);
     }
 
     /**
@@ -268,9 +268,9 @@ class MollieOrderService
             );
 
             // Get possibly already processed refunds
-            if ($order->meta_exists('_mollie_processed_refund_ids')) {
+            if ($order->meta_exists('_liquichain_processed_refund_ids')) {
                 $processedRefundIds = $order->get_meta(
-                    '_mollie_processed_refund_ids',
+                    '_liquichain_processed_refund_ids',
                     true
                 );
             } else {
@@ -314,14 +314,14 @@ class MollieOrderService
                 $this->logger->log(
                     LogLevel::DEBUG,
                     __METHOD__
-                    . " New refund {$refundToProcess} processed in Mollie Dashboard for {$logId} Order note added, but order not updated."
+                    . " New refund {$refundToProcess} processed in Liquichain Dashboard for {$logId} Order note added, but order not updated."
                 );
                 /* translators: Placeholder 1: Refund to process id. */
                 $order->add_order_note(
                     sprintf(
                         __(
-                            'New refund %s processed in Mollie Dashboard! Order note added, but order not updated.',
-                            'mollie-payments-for-woocommerce'
+                            'New refund %s processed in Liquichain Dashboard! Order note added, but order not updated.',
+                            'liquichain-payments-for-woocommerce'
                         ),
                         $refundToProcess
                     )
@@ -331,7 +331,7 @@ class MollieOrderService
             }
 
             $order->update_meta_data(
-                '_mollie_processed_refund_ids',
+                '_liquichain_processed_refund_ids',
                 $processedRefundIds
             );
             $this->logger->log(
@@ -354,7 +354,7 @@ class MollieOrderService
             );
 
             return;
-        } catch (\Mollie\Api\Exceptions\ApiException $e) {
+        } catch (\Liquichain\Api\Exceptions\ApiException $e) {
             $this->logger->log(
                 LogLevel::DEBUG,
                 __FUNCTION__
@@ -408,9 +408,9 @@ class MollieOrderService
             );
 
             // Get possibly already processed chargebacks
-            if ($order->meta_exists('_mollie_processed_chargeback_ids')) {
+            if ($order->meta_exists('_liquichain_processed_chargeback_ids')) {
                 $processedChargebackIds = $order->get_meta(
-                    '_mollie_processed_chargeback_ids',
+                    '_liquichain_processed_chargeback_ids',
                     true
                 );
             } else {
@@ -466,7 +466,7 @@ class MollieOrderService
                     sprintf(
                         __(
                             'New chargeback %s processed! Order note and order status updated.',
-                            'mollie-payments-for-woocommerce'
+                            'liquichain-payments-for-woocommerce'
                         ),
                         $chargebackToProcess
                     )
@@ -480,7 +480,7 @@ class MollieOrderService
             //
 
             // New order status
-            $newOrderStatus = MolliePaymentGateway::STATUS_ON_HOLD;
+            $newOrderStatus = LiquichainPaymentGateway::STATUS_ON_HOLD;
 
             // Overwrite plugin-wide
             $newOrderStatus = apply_filters($this->pluginId . '_order_status_on_hold', $newOrderStatus);
@@ -497,13 +497,13 @@ class MollieOrderService
                 sprintf(
                 /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
                     __(
-                        '%1$s payment charged back via Mollie (%2$s). You will need to manually review the payment (and adjust product stocks if you use it).',
-                        'mollie-payments-for-woocommerce'
+                        '%1$s payment charged back via Liquichain (%2$s). You will need to manually review the payment (and adjust product stocks if you use it).',
+                        'liquichain-payments-for-woocommerce'
                     ),
                     $paymentMethodTitle,
                     $payment->id . ($payment->mode === 'test' ? (' - ' . __(
                         'test mode',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     )) : '')
                 ),
                 $restoreStock = false
@@ -519,7 +519,7 @@ class MollieOrderService
             }
 
             $order->update_meta_data(
-                '_mollie_processed_chargeback_ids',
+                '_liquichain_processed_chargeback_ids',
                 $processedChargebackIds
             );
             $this->logger->log(
@@ -560,14 +560,14 @@ class MollieOrderService
                         sprintf(
                         /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
                             __(
-                                '%1$s payment charged back via Mollie (%2$s). Subscription status updated, please review (and adjust product stocks if you use it).',
-                                'mollie-payments-for-woocommerce'
+                                '%1$s payment charged back via Liquichain (%2$s). Subscription status updated, please review (and adjust product stocks if you use it).',
+                                'liquichain-payments-for-woocommerce'
                             ),
                             $paymentMethodTitle,
                             $payment->id . ($payment->mode === 'test' ? (' - '
                                 . __(
                                     'test mode',
-                                    'mollie-payments-for-woocommerce'
+                                    'liquichain-payments-for-woocommerce'
                                 )) : '')
                         ),
                         $restoreStock = false
@@ -582,7 +582,7 @@ class MollieOrderService
             );
 
             return;
-        } catch (\Mollie\Api\Exceptions\ApiException $e) {
+        } catch (\Liquichain\Api\Exceptions\ApiException $e) {
             $this->logger->log(
                 LogLevel::DEBUG,
                 __FUNCTION__ . ": Could not load chargebacks for $payment->id: "
@@ -633,7 +633,7 @@ class MollieOrderService
             $this->updateStateRefund(
                 $order,
                 $payment,
-                MolliePaymentGateway::STATUS_REFUNDED,
+                LiquichainPaymentGateway::STATUS_REFUNDED,
                 '_order_status_refunded'
             );
         }
@@ -686,8 +686,8 @@ class MollieOrderService
         return sprintf(
         /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
             __(
-                '%1$s payment %2$s via Mollie (%3$s %4$s). You will need to manually review the payment (and adjust product stocks if you use it).',
-                'mollie-payments-for-woocommerce'
+                '%1$s payment %2$s via Liquichain (%3$s %4$s). You will need to manually review the payment (and adjust product stocks if you use it).',
+                'liquichain-payments-for-woocommerce'
             ),
             $paymentMethodTitle,
             $refundType,
@@ -698,7 +698,7 @@ class MollieOrderService
 
     protected function paymentTestModeNote($payment)
     {
-        $note = __('test mode', 'mollie-payments-for-woocommerce');
+        $note = __('test mode', 'liquichain-payments-for-woocommerce');
         $note = $payment->mode === 'test' ? " - {$note}" : '';
 
         return $note;
@@ -730,7 +730,7 @@ class MollieOrderService
         $order->update_status($new_status, $note);
 
         switch ($new_status) {
-            case MolliePaymentGateway::STATUS_ON_HOLD:
+            case LiquichainPaymentGateway::STATUS_ON_HOLD:
                 if ($restore_stock === true) {
                     if (! $order->get_meta('_order_stock_reduced', true)) {
                         // Reduce order stock
@@ -742,9 +742,9 @@ class MollieOrderService
 
                 break;
 
-            case MolliePaymentGateway::STATUS_PENDING:
-            case MolliePaymentGateway::STATUS_FAILED:
-            case MolliePaymentGateway::STATUS_CANCELLED:
+            case LiquichainPaymentGateway::STATUS_PENDING:
+            case LiquichainPaymentGateway::STATUS_FAILED:
+            case LiquichainPaymentGateway::STATUS_CANCELLED:
                 if ($order->get_meta('_order_stock_reduced', true)) {
                     // Restore order stock
                     $this->data->restoreOrderStock($order);

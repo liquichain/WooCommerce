@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Buttons\ApplePayButton;
+namespace Liquichain\WooCommerce\Buttons\ApplePayButton;
 
 use Psr\Log\LoggerInterface as Logger;
 use Psr\Log\LogLevel;

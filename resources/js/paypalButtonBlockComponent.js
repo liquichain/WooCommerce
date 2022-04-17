@@ -1,36 +1,36 @@
 import {ajaxCallToOrder} from "./paypalButtonUtils";
 
 (
-    function ({  molliepaypalButtonCart})
+    function ({  liquichainpaypalButtonCart})
     {
-        if (molliepaypalButtonCart.length === 0 ) {
+        if (liquichainpaypalButtonCart.length === 0 ) {
             return
         }
 
         const { registerPlugin } = wp.plugins;
         const { ExperimentalOrderMeta } = wc.blocksCheckout;
-        const { minFee, ajaxUrl, buttonMarkup } = molliepaypalButtonCart;
+        const { minFee, ajaxUrl, buttonMarkup } = liquichainpaypalButtonCart;
         const PayPalButtonComponent = ( { cart, extensions } ) => {
             let cartTotal = cart.cartTotals.total_price/Math.pow(10, cart.cartTotals.currency_minor_unit)
             const amountOverRangeSetting = cartTotal > minFee;
             const cartNeedsShipping = cart.cartNeedsShipping
             return amountOverRangeSetting && !cartNeedsShipping ? <div dangerouslySetInnerHTML={ {__html: buttonMarkup} }/>: null
         }
-        const MolliePayPalButtonCart = () => {
+        const LiquichainPayPalButtonCart = () => {
             return  <ExperimentalOrderMeta>
                     <PayPalButtonComponent />
                 </ExperimentalOrderMeta>
         };
 
-        registerPlugin( 'mollie-paypal-block-button', {
+        registerPlugin( 'liquichain-paypal-block-button', {
             render: () => {
-                return <MolliePayPalButtonCart />;
+                return <LiquichainPayPalButtonCart />;
             },
             scope: 'woocommerce-checkout'
         } );
 
         setTimeout(function(){
-            let payPalButton = document.getElementById('mollie-PayPal-button');
+            let payPalButton = document.getElementById('liquichain-PayPal-button');
             if(payPalButton == null || payPalButton.parentNode == null){
                 return
             }

@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Gateway;
+namespace Liquichain\WooCommerce\Gateway;
 
 use InvalidArgumentException;
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Method;
-use Mollie\Api\Resources\Payment;
-use Mollie\Api\Types\SequenceType;
-use Mollie\WooCommerce\Notice\NoticeInterface;
-use Mollie\WooCommerce\Payment\MollieObject;
-use Mollie\WooCommerce\Payment\MollieOrderService;
-use Mollie\WooCommerce\Payment\OrderInstructionsService;
-use Mollie\WooCommerce\Payment\PaymentFactory;
-use Mollie\WooCommerce\Payment\PaymentService;
-use Mollie\WooCommerce\PaymentMethods\PaymentMethodI;
-use Mollie\WooCommerce\SDK\HttpResponse;
-use Mollie\WooCommerce\Shared\Data;
-use Mollie\WooCommerce\Shared\SharedDataDictionary;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\Api\Resources\Method;
+use Liquichain\Api\Resources\Payment;
+use Liquichain\Api\Types\SequenceType;
+use Liquichain\WooCommerce\Notice\NoticeInterface;
+use Liquichain\WooCommerce\Payment\LiquichainObject;
+use Liquichain\WooCommerce\Payment\LiquichainOrderService;
+use Liquichain\WooCommerce\Payment\OrderInstructionsService;
+use Liquichain\WooCommerce\Payment\PaymentFactory;
+use Liquichain\WooCommerce\Payment\PaymentService;
+use Liquichain\WooCommerce\PaymentMethods\PaymentMethodI;
+use Liquichain\WooCommerce\SDK\HttpResponse;
+use Liquichain\WooCommerce\Shared\Data;
+use Liquichain\WooCommerce\Shared\SharedDataDictionary;
 use Psr\Log\LoggerInterface as Logger;
 use Psr\Log\LogLevel;
 use UnexpectedValueException;
@@ -26,7 +26,7 @@ use WC_Order;
 use WC_Payment_Gateway;
 use WP_Error;
 
-class MolliePaymentGateway extends WC_Payment_Gateway
+class LiquichainPaymentGateway extends WC_Payment_Gateway
 {
     /**
      * WooCommerce default statuses
@@ -35,7 +35,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
     public const STATUS_PROCESSING = 'processing';
     public const STATUS_ON_HOLD = 'on-hold';
     public const STATUS_COMPLETED = 'completed';
-    public const STATUS_CANCELLED = 'cancelled'; // Mollie uses canceled (US English spelling), WooCommerce and this plugin use cancelled.
+    public const STATUS_CANCELLED = 'cancelled'; // Liquichain uses canceled (US English spelling), WooCommerce and this plugin use cancelled.
     public const STATUS_FAILED = 'failed';
     public const STATUS_REFUNDED = 'refunded';
 
@@ -78,9 +78,9 @@ class MolliePaymentGateway extends WC_Payment_Gateway
      */
     public $paymentService;
     /**
-     * @var MollieOrderService
+     * @var LiquichainOrderService
      */
-    protected $mollieOrderService;
+    protected $liquichainOrderService;
     /**
      * @var HttpResponse
      */
@@ -94,9 +94,9 @@ class MolliePaymentGateway extends WC_Payment_Gateway
      */
     public $dataService;
     /**
-     * @var MollieObject
+     * @var LiquichainObject
      */
-    protected $mollieObject;
+    protected $liquichainObject;
     /**
      * @var PaymentFactory
      */
@@ -111,12 +111,12 @@ class MolliePaymentGateway extends WC_Payment_Gateway
         PaymentMethodI $paymentMethod,
         PaymentService $paymentService,
         OrderInstructionsService $orderInstructionsService,
-        MollieOrderService $mollieOrderService,
+        LiquichainOrderService $liquichainOrderService,
         Data $dataService,
         Logger $logger,
         NoticeInterface $notice,
         HttpResponse $httpResponse,
-        MollieObject $mollieObject,
+        LiquichainObject $liquichainObject,
         PaymentFactory $paymentFactory,
         string $pluginId
     ) {
@@ -125,10 +125,10 @@ class MolliePaymentGateway extends WC_Payment_Gateway
         $this->notice = $notice;
         $this->paymentService = $paymentService;
         $this->orderInstructionsService = $orderInstructionsService;
-        $this->mollieOrderService = $mollieOrderService;
+        $this->liquichainOrderService = $liquichainOrderService;
         $this->httpResponse = $httpResponse;
         $this->dataService = $dataService;
-        $this->mollieObject = $mollieObject;
+        $this->liquichainObject = $liquichainObject;
         $this->paymentFactory = $paymentFactory;
         $this->pluginId = $pluginId;
 
@@ -137,7 +137,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
         // Use gateway class name as gateway id
         $this->gatewayId();
         // Set gateway title (visible in admin)
-        $this->method_title = 'Mollie - ' . $this->paymentMethod->getProperty(
+        $this->method_title = 'Liquichain - ' . $this->paymentMethod->getProperty(
             'defaultTitle'
         );
         $this->method_description = $this->paymentMethod->getProperty(
@@ -160,11 +160,11 @@ class MolliePaymentGateway extends WC_Payment_Gateway
                 [$this, 'thankyou_page']
             );
         }
-        $this->mollieOrderService->setGateway($this);
+        $this->liquichainOrderService->setGateway($this);
 
         add_action(
             'woocommerce_api_' . $this->id,
-            [$this->mollieOrderService, 'onWebhookAction']
+            [$this->liquichainOrderService, 'onWebhookAction']
         );
         add_action(
             'woocommerce_update_options_payment_gateways_' . $this->id,
@@ -219,7 +219,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
     protected function gatewayId()
     {
         $paymentMethodId = $this->paymentMethod->getProperty('id');
-        $this->id = 'mollie_wc_gateway_' . $paymentMethodId;
+        $this->id = 'liquichain_wc_gateway_' . $paymentMethodId;
         return $this->id;
     }
 
@@ -270,12 +270,12 @@ class MolliePaymentGateway extends WC_Payment_Gateway
 
                 $this->errors[] = ($test_mode ? __(
                     'Test mode enabled.',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ) . ' ' : '') . sprintf(
                     /* translators: The surrounding %s's Will be replaced by a link to the global setting page */
                     __(
-                                'No API key provided. Please %1$sset you Mollie API key%2$s first.',
-                                'mollie-payments-for-woocommerce'
+                                'No API key provided. Please %1$sset you Liquichain API key%2$s first.',
+                                'liquichain-payments-for-woocommerce'
                             ),
                     '<a href="' . $this->dataService->getGlobalSettingsUrl() . '">',
                     '</a>'
@@ -285,15 +285,15 @@ class MolliePaymentGateway extends WC_Payment_Gateway
             }
 
             // This should be simpler, check for specific payment method in settings, not on all pages
-            if (null === $this->getMollieMethod()) {
+            if (null === $this->getLiquichainMethod()) {
                 $this->errors[] = sprintf(
-                /* translators: Placeholder 1: payment method title. The surrounding %s's Will be replaced by a link to the Mollie profile */
+                /* translators: Placeholder 1: payment method title. The surrounding %s's Will be replaced by a link to the Liquichain profile */
                     __(
-                        '%1$s not enabled in your Mollie profile. You can enable it by editing your %2$sMollie profile%3$s.',
-                        'mollie-payments-for-woocommerce'
+                        '%1$s not enabled in your Liquichain profile. You can enable it by editing your %2$sLiquichain profile%3$s.',
+                        'liquichain-payments-for-woocommerce'
                     ),
                     $this->paymentMethod->getProperty('defaultTitle'),
-                    '<a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">',
+                    '<a href="https://www.liquichain.io/dashboard/settings/profiles" target="_blank">',
                     '</a>'
                 );
 
@@ -302,13 +302,13 @@ class MolliePaymentGateway extends WC_Payment_Gateway
 
             if (!$this->isCurrencySupported()) {
                 $this->errors[] = sprintf(
-                /* translators: Placeholder 1: WooCommerce currency, placeholder 2: Supported Mollie currencies */
+                /* translators: Placeholder 1: WooCommerce currency, placeholder 2: Supported Liquichain currencies */
                     __(
-                        'Current shop currency %1$s not supported by Mollie. Read more about %2$ssupported currencies and payment methods.%3$s ',
-                        'mollie-payments-for-woocommerce'
+                        'Current shop currency %1$s not supported by Liquichain. Read more about %2$ssupported currencies and payment methods.%3$s ',
+                        'liquichain-payments-for-woocommerce'
                     ),
                     get_woocommerce_currency(),
-                    '<a href="https://help.mollie.com/hc/en-us/articles/360003980013-Which-currencies-are-supported-and-what-is-the-settlement-currency-" target="_blank">',
+                    '<a href="https://help.liquichain.io/hc/en-us/articles/360003980013-Which-currencies-are-supported-and-what-is-the-settlement-currency-" target="_blank">',
                     '</a>'
                 );
 
@@ -322,7 +322,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
     /**
      * @return Method|null
      */
-    public function getMollieMethod()
+    public function getLiquichainMethod()
     {
         return $this->dataService->getPaymentMethod(
             $this->paymentMethod->getProperty('id')
@@ -468,7 +468,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
             $filters
         );
 
-        // Get the ID of the WooCommerce/Mollie payment method
+        // Get the ID of the WooCommerce/Liquichain payment method
         $woocommerce_method = $this->paymentMethod->getProperty('id');
 
         // Set all other payment methods to false, so they can be updated if available
@@ -538,7 +538,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
         $this->logger->log(
             LogLevel::DEBUG,
             __METHOD__ . ' - ' . $this->id
-            . ": Order $order_id does not need a payment by Mollie (payment {$payment->id}).",
+            . ": Order $order_id does not need a payment by Liquichain (payment {$payment->id}).",
             [true]
         );
     }
@@ -558,12 +558,12 @@ class MolliePaymentGateway extends WC_Payment_Gateway
         $returnRedirect = $this->get_return_url($order);
         $failedRedirect = $order->get_checkout_payment_url(false);
 
-        $this->mollieOrderService->setGateway($this);
-        if ($this->mollieOrderService->orderNeedsPayment($order)) {
-            $hasCancelledMolliePayment = $this->paymentObject()
-                ->getCancelledMolliePaymentId($order_id);
+        $this->liquichainOrderService->setGateway($this);
+        if ($this->liquichainOrderService->orderNeedsPayment($order)) {
+            $hasCancelledLiquichainPayment = $this->paymentObject()
+                ->getCancelledLiquichainPaymentId($order_id);
 
-            if ($hasCancelledMolliePayment) {
+            if ($hasCancelledLiquichainPayment) {
                 $order_status_cancelled_payments
                 = $this->paymentMethod->getOrderStatusCancelledPayments();
 
@@ -578,7 +578,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
                         'notice',
                         __(
                             'You have cancelled your payment. Please complete your order with a different payment method.',
-                            'mollie-payments-for-woocommerce'
+                            'liquichain-payments-for-woocommerce'
                         )
                     );
 
@@ -598,7 +598,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
                         'notice',
                         __(
                             'Your payment was not successful. Please complete your order with a different payment method.',
-                            'mollie-payments-for-woocommerce'
+                            'liquichain-payments-for-woocommerce'
                         )
                     );
                     // Return to order payment page
@@ -612,7 +612,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
                     'notice',
                     __(
                         'Your payment was not successful. Please complete your order with a different payment method.',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     )
                 );
                 $exceptionMessage = $exc->getMessage();
@@ -649,7 +649,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
             sprintf(
                 __(
                     'Could not load order %s',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 $orderId
             )
@@ -660,11 +660,11 @@ class MolliePaymentGateway extends WC_Payment_Gateway
     /**
      * Retrieve the payment object
      *
-     * @return MollieObject
+     * @return LiquichainObject
      */
-    protected function paymentObject(): MollieObject
+    protected function paymentObject(): LiquichainObject
     {
-        return $this->mollieObject;
+        return $this->liquichainObject;
     }
 
     /**
@@ -679,7 +679,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
     protected function activePaymentObject($orderId, $useCache): Payment
     {
         $paymentObject = $this->paymentObject();
-        $activePaymentObject = $paymentObject->getActiveMolliePayment(
+        $activePaymentObject = $paymentObject->getActiveLiquichainPayment(
             $orderId,
             $useCache
         );
@@ -720,21 +720,21 @@ class MolliePaymentGateway extends WC_Payment_Gateway
             return new WP_Error('1', $error_message);
         }
 
-        // Check if there is a Mollie Payment Order object connected to this WooCommerce order
-        $payment_object_id = $this->paymentObject()->getActiveMollieOrderId(
+        // Check if there is a Liquichain Payment Order object connected to this WooCommerce order
+        $payment_object_id = $this->paymentObject()->getActiveLiquichainOrderId(
             $order_id
         );
 
-        // If there is no Mollie Payment Order object, try getting a Mollie Payment Payment object
+        // If there is no Liquichain Payment Order object, try getting a Liquichain Payment Payment object
         if (!$payment_object_id) {
             $payment_object_id = $this->paymentObject()
-                ->getActiveMolliePaymentId($order_id);
+                ->getActiveLiquichainPaymentId($order_id);
         }
 
-        // Mollie Payment object not found
+        // Liquichain Payment object not found
         if (!$payment_object_id) {
             $error_message
-            = "Can\'t process refund. Could not find Mollie Payment object id for order $order_id.";
+            = "Can\'t process refund. Could not find Liquichain Payment object id for order $order_id.";
 
             $this->logger->log(
                 LogLevel::DEBUG,
@@ -757,7 +757,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
 
         if (!$payment_object) {
             $error_message
-            = "Can\'t process refund. Could not find Mollie Payment object data for order $order_id.";
+            = "Can\'t process refund. Could not find Liquichain Payment object data for order $order_id.";
 
             $this->logger->log(
                 LogLevel::DEBUG,
@@ -824,11 +824,11 @@ class MolliePaymentGateway extends WC_Payment_Gateway
                 return;
             }
 
-            $payment = $this->paymentObject()->getActiveMolliePayment(
+            $payment = $this->paymentObject()->getActiveLiquichainPayment(
                 $order->get_id()
             );
 
-            // Mollie payment not found or invalid gateway
+            // Liquichain payment not found or invalid gateway
             if (
                 !$payment
                 || $payment->method != $this->paymentMethod->getProperty('id')
@@ -849,7 +849,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
                 if ($plain_text) {
                     echo $instructions . PHP_EOL;
                 } else {
-                    echo '<section class="woocommerce-order-details woocommerce-info mollie-instructions" >';
+                    echo '<section class="woocommerce-order-details woocommerce-info liquichain-instructions" >';
                     echo wpautop($instructions) . PHP_EOL;
                     echo '</section>';
                 }
@@ -911,16 +911,16 @@ class MolliePaymentGateway extends WC_Payment_Gateway
             if ($order->has_status('cancelled')) {
                 return __(
                     'Order cancelled',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 );
             }
 
             // Checks and title for pending/open orders
-            $payment = $this->paymentObject()->getActiveMolliePayment(
+            $payment = $this->paymentObject()->getActiveLiquichainPayment(
                 $order->get_id()
             );
 
-            // Mollie payment not found or invalid gateway
+            // Liquichain payment not found or invalid gateway
             if (!$payment || $payment->method != $this->paymentMethod->getProperty('id')) {
                 return $title;
             }
@@ -928,7 +928,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
             if ($payment->isOpen()) {
                 // Add a message to log and order explaining a payment with status "open", only if it hasn't been added already
                 if (
-                get_post_meta($order_id, '_mollie_open_status_note', true)
+                get_post_meta($order_id, '_liquichain_open_status_note', true)
                     !== '1'
                 ) {
                     // Get payment method title
@@ -940,7 +940,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
                         $this->id
                         . ': Customer returned to store, but payment still pending for order #'
                         . $order_id
-                        . '. Status should be updated automatically in the future, if it doesn\'t this might indicate a communication issue between the site and Mollie.'
+                        . '. Status should be updated automatically in the future, if it doesn\'t this might indicate a communication issue between the site and Liquichain.'
                     );
 
                     // Add message to order as order note
@@ -948,21 +948,21 @@ class MolliePaymentGateway extends WC_Payment_Gateway
                         sprintf(
                         /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
                             __(
-                                '%1$s payment still pending (%2$s) but customer already returned to the store. Status should be updated automatically in the future, if it doesn\'t this might indicate a communication issue between the site and Mollie.',
-                                'mollie-payments-for-woocommerce'
+                                '%1$s payment still pending (%2$s) but customer already returned to the store. Status should be updated automatically in the future, if it doesn\'t this might indicate a communication issue between the site and Liquichain.',
+                                'liquichain-payments-for-woocommerce'
                             ),
                             $payment_method_title,
                             $payment->id . ($payment->mode === 'test' ? (' - '
                                 . __(
                                     'test mode',
-                                    'mollie-payments-for-woocommerce'
+                                    'liquichain-payments-for-woocommerce'
                                 )) : '')
                         )
                     );
 
                     update_post_meta(
                         $order_id,
-                        '_mollie_open_status_note',
+                        '_liquichain_open_status_note',
                         '1'
                     );
                 }
@@ -970,7 +970,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
                 // Update the title on the Order received page to better communicate that the payment is pending.
                 $title .= __(
                     ', payment pending.',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 );
 
                 return $title;
@@ -1002,7 +1002,7 @@ class MolliePaymentGateway extends WC_Payment_Gateway
         if ($order->has_status('cancelled')) {
             return __(
                 'Your order has been cancelled.',
-                'mollie-payments-for-woocommerce'
+                'liquichain-payments-for-woocommerce'
             );
         }
 
@@ -1028,10 +1028,10 @@ class MolliePaymentGateway extends WC_Payment_Gateway
      */
     public function get_transaction_url($order): string
     {
-        $isPaymentApi = substr($order->get_meta('_mollie_order_id', true), 0, 3) === 'tr_'  ;
-        $resource = ($order->get_meta('_mollie_order_id', true) && !$isPaymentApi) ? 'orders' : 'payments';
+        $isPaymentApi = substr($order->get_meta('_liquichain_order_id', true), 0, 3) === 'tr_'  ;
+        $resource = ($order->get_meta('_liquichain_order_id', true) && !$isPaymentApi) ? 'orders' : 'payments';
 
-        $this->view_transaction_url = 'https://www.mollie.com/dashboard/'
+        $this->view_transaction_url = 'https://www.liquichain.io/dashboard/'
             . $resource . '/%s';
 
         return parent::get_transaction_url($order);

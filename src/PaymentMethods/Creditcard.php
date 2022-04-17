@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Creditcard extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -10,9 +10,9 @@ class Creditcard extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'creditcard',
-            'defaultTitle' => __('Credit card', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('Credit card', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => '',
-            'defaultDescription' => __('', 'mollie-payments-for-woocommerce'),
+            'defaultDescription' => __('', 'liquichain-payments-for-woocommerce'),
             'paymentFields' => $this->hasPaymentFields(),
             'instructions' => true,
             'supports' => [
@@ -29,28 +29,28 @@ class Creditcard extends AbstractPaymentMethod implements PaymentMethodI
 
     public function getFormFields($generalFormFields): array
     {
-        $componentFields = $this->includeMollieComponentsFields($generalFormFields);
+        $componentFields = $this->includeLiquichainComponentsFields($generalFormFields);
         return $this->includeCreditCardIconSelector($componentFields);
     }
 
     protected function hasPaymentFields()
     {
-        return $this->getProperty('mollie_components_enabled') === 'yes';
+        return $this->getProperty('liquichain_components_enabled') === 'yes';
     }
 
-    protected function includeMollieComponentsFields($generalFormFields)
+    protected function includeLiquichainComponentsFields($generalFormFields)
     {
         $fields = [
-            'mollie_components_enabled' => [
+            'liquichain_components_enabled' => [
                 'type' => 'checkbox',
-                'title' => __('Enable Mollie Components', 'mollie-payments-for-woocommerce'),
-                /* translators: Placeholder 1: Mollie Components.*/
+                'title' => __('Enable Liquichain Components', 'liquichain-payments-for-woocommerce'),
+                /* translators: Placeholder 1: Liquichain Components.*/
                 'description' => sprintf(
                     __(
-                        'Use the Mollie Components for this Gateway. Read more about <a href="https://www.mollie.com/en/news/post/better-checkout-flows-with-mollie-components">%s</a> and how it improves your conversion.',
-                        'mollie-payments-for-woocommerce'
+                        'Use the Liquichain Components for this Gateway. Read more about <a href="https://www.liquichain.io/en/news/post/better-checkout-flows-with-liquichain-components">%s</a> and how it improves your conversion.',
+                        'liquichain-payments-for-woocommerce'
                     ),
-                    __('Mollie Components', 'mollie-payments-for-woocommerce')
+                    __('Liquichain Components', 'liquichain-payments-for-woocommerce')
                 ),
                 'default' => 'no',
             ],
@@ -74,53 +74,53 @@ class Creditcard extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             [
-                'title' => __('Customize Icons', 'mollie-payments-for-woocommerce'),
+                'title' => __('Customize Icons', 'liquichain-payments-for-woocommerce'),
                 'type' => 'title',
                 'desc' => '',
                 'id' => 'customize_icons',
             ],
-            'mollie_creditcard_icons_enabler' => [
+            'liquichain_creditcard_icons_enabler' => [
                 'type' => 'checkbox',
-                'title' => __('Enable Icons Selector', 'mollie-payments-for-woocommerce'),
+                'title' => __('Enable Icons Selector', 'liquichain-payments-for-woocommerce'),
                 'description' => __(
                     'Show customized creditcard icons on checkout page',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 'checkboxgroup' => 'start',
                 'default' => 'no',
             ],
-            'mollie_creditcard_icons_amex' => [
-                'label' => __('Show American Express Icon', 'mollie-payments-for-woocommerce'),
+            'liquichain_creditcard_icons_amex' => [
+                'label' => __('Show American Express Icon', 'liquichain-payments-for-woocommerce'),
                 'type' => 'checkbox',
                 'default' => 'no',
             ],
-            'mollie_creditcard_icons_cartasi' => [
-                'label' => __('Show Carta Si Icon', 'mollie-payments-for-woocommerce'),
+            'liquichain_creditcard_icons_cartasi' => [
+                'label' => __('Show Carta Si Icon', 'liquichain-payments-for-woocommerce'),
                 'type' => 'checkbox',
                 'default' => 'no',
             ],
-            'mollie_creditcard_icons_cartebancaire' => [
-                'label' => __('Show Carte Bancaire Icon', 'mollie-payments-for-woocommerce'),
+            'liquichain_creditcard_icons_cartebancaire' => [
+                'label' => __('Show Carte Bancaire Icon', 'liquichain-payments-for-woocommerce'),
                 'type' => 'checkbox',
                 'default' => 'no',
             ],
-            'mollie_creditcard_icons_maestro' => [
-                'label' => __('Show Maestro Icon', 'mollie-payments-for-woocommerce'),
+            'liquichain_creditcard_icons_maestro' => [
+                'label' => __('Show Maestro Icon', 'liquichain-payments-for-woocommerce'),
                 'type' => 'checkbox',
                 'default' => 'no',
             ],
-            'mollie_creditcard_icons_mastercard' => [
-                'label' => __('Show Mastercard Icon', 'mollie-payments-for-woocommerce'),
+            'liquichain_creditcard_icons_mastercard' => [
+                'label' => __('Show Mastercard Icon', 'liquichain-payments-for-woocommerce'),
                 'type' => 'checkbox',
                 'default' => 'no',
             ],
-            'mollie_creditcard_icons_visa' => [
-                'label' => __('Show Visa Icon', 'mollie-payments-for-woocommerce'),
+            'liquichain_creditcard_icons_visa' => [
+                'label' => __('Show Visa Icon', 'liquichain-payments-for-woocommerce'),
                 'type' => 'checkbox',
                 'default' => 'no',
             ],
-            'mollie_creditcard_icons_vpay' => [
-                'label' => __('Show VPay Icon', 'mollie-payments-for-woocommerce'),
+            'liquichain_creditcard_icons_vpay' => [
+                'label' => __('Show VPay Icon', 'liquichain-payments-for-woocommerce'),
                 'type' => 'checkbox',
                 'checkboxgroup' => 'end',
                 'default' => 'no',

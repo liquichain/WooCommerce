@@ -1,9 +1,9 @@
-# Copyright (C) 2022 Mollie
+# Copyright (C) 2022 Liquichain
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Mollie Payments for WooCommerce 6.7.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mollie-payments-for-woocommerce\n"
+"Project-Id-Version: Liquichain Payments for WooCommerce 6.7.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/liquichain-payments-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,425 +12,425 @@ msgstr ""
 "POT-Creation-Date: 2022-01-18T10:01:34+00:00\n"
 "PO-Revision-Date: 2022-02-01 11:36+0100\n"
 "X-Generator: WP-CLI 2.5.0\n"
-"X-Domain: mollie-payments-for-woocommerce\n"
+"X-Domain: liquichain-payments-for-woocommerce\n"
 
 #. Plugin Name of the plugin
-msgid "Mollie Payments for WooCommerce"
-msgstr "Mollie-Zahlungen für WooCommerce"
+msgid "Liquichain Payments for WooCommerce"
+msgstr "Liquichain-Zahlungen für WooCommerce"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
-msgid "https://www.mollie.com"
-msgstr "https://www.mollie.com"
+msgid "https://www.liquichain.io"
+msgstr "https://www.liquichain.io"
 
 #. Description of the plugin
-msgid "Accept payments in WooCommerce with the official Mollie plugin"
-msgstr "WooCommerce-Zahlungen mit dem offiziellen Mollie-Plugin akzeptieren"
+msgid "Accept payments in WooCommerce with the official Liquichain plugin"
+msgstr "WooCommerce-Zahlungen mit dem offiziellen Liquichain-Plugin akzeptieren"
 
 #. Author of the plugin
-msgid "Mollie"
-msgstr "Mollie"
+msgid "Liquichain"
+msgstr "Liquichain"
 
-#: inc/settings/mollie_advanced_settings.php:10
-msgid "Mollie advanced settings"
-msgstr "Fortgeschrittene Mollie-Einstellungen"
+#: inc/settings/liquichain_advanced_settings.php:10
+msgid "Liquichain advanced settings"
+msgstr "Fortgeschrittene Liquichain-Einstellungen"
 
-#: inc/settings/mollie_advanced_settings.php:12
-#: src/Settings/Page/MollieSettingsPage.php:188
-msgid "The following options are required to use the plugin and are used by all Mollie payment methods"
-msgstr "Die folgenden Optionen sind für die Verwendung des Plugins verpflichtend und werden von allen Mollie-Bezahlmethoden verwendet"
+#: inc/settings/liquichain_advanced_settings.php:12
+#: src/Settings/Page/LiquichainSettingsPage.php:188
+msgid "The following options are required to use the plugin and are used by all Liquichain payment methods"
+msgstr "Die folgenden Optionen sind für die Verwendung des Plugins verpflichtend und werden von allen Liquichain-Bezahlmethoden verwendet"
 
-#: inc/settings/mollie_advanced_settings.php:16
+#: inc/settings/liquichain_advanced_settings.php:16
 msgid "Order status after cancelled payment"
 msgstr "Bestellstatus nach stornierter Zahlung"
 
-#: inc/settings/mollie_advanced_settings.php:22
-msgid "Status for orders when a payment (not a Mollie order via the Orders API) is cancelled. Default: pending. Orders with status Pending can be paid with another payment method, customers can try again. Cancelled orders are final. Set this to Cancelled if you only have one payment method or don't want customers to re-try paying with a different payment method. This doesn't apply to payments for orders via the new Orders API and Klarna payments."
-msgstr "Status für Bestellungen bei stornierter Bezahlung (keine Mollie-Bestellung über die Bestellungs-API). Standard: ausstehend Bestellungen mit ausstehendem Status können über eine andere Bezahlmethode abgewickelt werden, Kunden können die Bezahlung erneut versuchen. Stornierte Bestellungen sind final. Setze den Status auf storniert, wenn du nur eine Bezahlmethode anbietest oder nicht möchtest, dass Kunden die Bezahlung mit einer anderen Bezahlmethode erneut versuchen. Dies trifft nicht auf Zahlungen für Bestellungen über die neue Bestellungs-API oder Klarna-Zahlungen zu."
+#: inc/settings/liquichain_advanced_settings.php:22
+msgid "Status for orders when a payment (not a Liquichain order via the Orders API) is cancelled. Default: pending. Orders with status Pending can be paid with another payment method, customers can try again. Cancelled orders are final. Set this to Cancelled if you only have one payment method or don't want customers to re-try paying with a different payment method. This doesn't apply to payments for orders via the new Orders API and Klarna payments."
+msgstr "Status für Bestellungen bei stornierter Bezahlung (keine Liquichain-Bestellung über die Bestellungs-API). Standard: ausstehend Bestellungen mit ausstehendem Status können über eine andere Bezahlmethode abgewickelt werden, Kunden können die Bezahlung erneut versuchen. Stornierte Bestellungen sind final. Setzen Sie den Status auf storniert, wenn Sie nur eine Bezahlmethode anbieten oder nicht möchten, dass Kunden die Bezahlung mit einer anderen Bezahlmethode erneut versuchen. Dies trifft nicht auf Zahlungen für Bestellungen über die neue Bestellungs-API oder Klarna-Zahlungen zu."
 
-#: inc/settings/mollie_advanced_settings.php:27
+#: inc/settings/liquichain_advanced_settings.php:27
 msgid "Payment screen language"
 msgstr "Sprache der Bezahlseite"
 
-#: inc/settings/mollie_advanced_settings.php:30
+#: inc/settings/liquichain_advanced_settings.php:30
 msgid "Automatically send WordPress language"
 msgstr "WordPress-Sprache automatisch übermitteln"
 
-#: inc/settings/mollie_advanced_settings.php:33
-#: inc/settings/mollie_advanced_settings.php:93
-#: src/Settings/General/MollieGeneralSettings.php:258
+#: inc/settings/liquichain_advanced_settings.php:33
+#: inc/settings/liquichain_advanced_settings.php:93
+#: src/Settings/General/LiquichainGeneralSettings.php:258
 msgid "default"
 msgstr "Standard"
 
-#: inc/settings/mollie_advanced_settings.php:34
+#: inc/settings/liquichain_advanced_settings.php:34
 msgid "Detect using browser language"
 msgstr "Über Browsersprache erkennen"
 
-#: inc/settings/mollie_advanced_settings.php:38
+#: inc/settings/liquichain_advanced_settings.php:38
 msgid "English"
 msgstr "Englisch"
 
-#: inc/settings/mollie_advanced_settings.php:39
+#: inc/settings/liquichain_advanced_settings.php:39
 msgid "Dutch"
 msgstr "Niederländisch"
 
-#: inc/settings/mollie_advanced_settings.php:40
+#: inc/settings/liquichain_advanced_settings.php:40
 msgid "Flemish (Belgium)"
 msgstr "Flämisch (Belgien)"
 
-#: inc/settings/mollie_advanced_settings.php:41
+#: inc/settings/liquichain_advanced_settings.php:41
 msgid "French"
 msgstr "Französisch"
 
-#: inc/settings/mollie_advanced_settings.php:42
+#: inc/settings/liquichain_advanced_settings.php:42
 msgid "French (Belgium)"
 msgstr "Französisch (Belgien)"
 
-#: inc/settings/mollie_advanced_settings.php:43
+#: inc/settings/liquichain_advanced_settings.php:43
 msgid "German"
 msgstr "Deutsch"
 
-#: inc/settings/mollie_advanced_settings.php:44
+#: inc/settings/liquichain_advanced_settings.php:44
 msgid "Austrian German"
 msgstr "Deutsch (Österreich)"
 
-#: inc/settings/mollie_advanced_settings.php:45
+#: inc/settings/liquichain_advanced_settings.php:45
 msgid "Swiss German"
 msgstr "Deutsch (Schweiz)"
 
-#: inc/settings/mollie_advanced_settings.php:46
+#: inc/settings/liquichain_advanced_settings.php:46
 msgid "Spanish"
 msgstr "Spanisch"
 
-#: inc/settings/mollie_advanced_settings.php:47
+#: inc/settings/liquichain_advanced_settings.php:47
 msgid "Catalan"
 msgstr "Katalanisch"
 
-#: inc/settings/mollie_advanced_settings.php:48
+#: inc/settings/liquichain_advanced_settings.php:48
 msgid "Portuguese"
 msgstr "Portugiesisch"
 
-#: inc/settings/mollie_advanced_settings.php:49
+#: inc/settings/liquichain_advanced_settings.php:49
 msgid "Italian"
 msgstr "Italienisch"
 
-#: inc/settings/mollie_advanced_settings.php:50
+#: inc/settings/liquichain_advanced_settings.php:50
 msgid "Norwegian"
 msgstr "Norwegisch"
 
-#: inc/settings/mollie_advanced_settings.php:51
+#: inc/settings/liquichain_advanced_settings.php:51
 msgid "Swedish"
 msgstr "Schwedisch"
 
-#: inc/settings/mollie_advanced_settings.php:52
+#: inc/settings/liquichain_advanced_settings.php:52
 msgid "Finnish"
 msgstr "Finnisch"
 
-#: inc/settings/mollie_advanced_settings.php:53
+#: inc/settings/liquichain_advanced_settings.php:53
 msgid "Danish"
 msgstr "Dänisch"
 
-#: inc/settings/mollie_advanced_settings.php:54
+#: inc/settings/liquichain_advanced_settings.php:54
 msgid "Icelandic"
 msgstr "Isländisch"
 
-#: inc/settings/mollie_advanced_settings.php:55
+#: inc/settings/liquichain_advanced_settings.php:55
 msgid "Hungarian"
 msgstr "Ungarisch"
 
-#: inc/settings/mollie_advanced_settings.php:56
+#: inc/settings/liquichain_advanced_settings.php:56
 msgid "Polish"
 msgstr "Polnisch"
 
-#: inc/settings/mollie_advanced_settings.php:57
+#: inc/settings/liquichain_advanced_settings.php:57
 msgid "Latvian"
 msgstr "Lettisch"
 
-#: inc/settings/mollie_advanced_settings.php:58
+#: inc/settings/liquichain_advanced_settings.php:58
 msgid "Lithuanian"
 msgstr "Litauisch"
 
-#: inc/settings/mollie_advanced_settings.php:61
-msgid "Sending a language (or locale) is required. The option 'Automatically send WordPress language' will try to get the customer's language in WordPress (and respects multilanguage plugins) and convert it to a format Mollie understands. If this fails, or if the language is not supported, it will fall back to American English. You can also select one of the locales currently supported by Mollie, that will then be used for all customers."
-msgstr "Du musst eine Sprache (oder locale) übermitteln. Bei Verwendung der Option ‚WordPress-Sprache automatisch übermitteln‘ wird versucht, die Spracheinstellung des Kunden bei WordPress abzurufen (dabei werden mehrsprachige Plug-ins berücksichtigt) und in ein Mollie-kompatibles Format zu übertragen. Scheitert dies, oder wird die Sprache nicht unterstützt, wird auf American English zurückgegriffen. Du kannst auch eine momentan von Mollie unterstützte locale verwenden, die dann für alle Kunden angewandt wird."
+#: inc/settings/liquichain_advanced_settings.php:61
+msgid "Sending a language (or locale) is required. The option 'Automatically send WordPress language' will try to get the customer's language in WordPress (and respects multilanguage plugins) and convert it to a format Liquichain understands. If this fails, or if the language is not supported, it will fall back to American English. You can also select one of the locales currently supported by Liquichain, that will then be used for all customers."
+msgstr "Sie müssen eine Sprache (oder locale) übermitteln. Bei Verwendung der Option ‚WordPress-Sprache automatisch übermitteln‘ wird versucht, die Spracheinstellung des Kunden bei WordPress abzurufen (dabei werden mehrsprachige Plug-ins berücksichtigt) und in ein Liquichain-kompatibles Format zu übertragen. Scheitert dies, oder wird die Sprache nicht unterstützt, wird auf American English zurückgegriffen. Sie können auch eine momentan von Liquichain unterstützte locale verwenden, die dann für alle Kunden angewandt wird."
 
-#: inc/settings/mollie_advanced_settings.php:69
-msgid "Store customer details at Mollie"
-msgstr "Kundendetails des Geschäfts bei Mollie"
+#: inc/settings/liquichain_advanced_settings.php:69
+msgid "Store customer details at Liquichain"
+msgstr "Kundendetails des Geschäfts bei Liquichain"
 
 #. translators: Placeholder 1: enabled or disabled
-#: inc/settings/mollie_advanced_settings.php:72
-msgid "Should Mollie store customers name and email address for Single Click Payments? Default <code>%1$s</code>. Required if WooCommerce Subscriptions is being used! Read more about <a href=\"https://help.mollie.com/hc/en-us/articles/115000671249-What-are-single-click-payments-and-how-does-it-work-\">%2$s</a> and how it improves your conversion."
-msgstr "Soll Mollie den Namen und die E-Mail-Adresse des Kunden für Single-Click-Bezahlungen speichern? Standard: <code>%1$s</code>. Verpflichtend bei Verwendung von WooCommerce Subscriptions. Mollie-Komponenten für dieses Portal verwenden. Erfahre mehr über <a href=\"https://help.mollie.com/hc/en-us/articles/115000671249-What-are-single-click-payments-and-how-does-it-work-\">%2$s</a> und wie du damit deinen Umsatz steigern kannst."
+#: inc/settings/liquichain_advanced_settings.php:72
+msgid "Should Liquichain store customers name and email address for Single Click Payments? Default <code>%1$s</code>. Required if WooCommerce Subscriptions is being used! Read more about <a href=\"https://help.liquichain.io/hc/en-us/articles/115000671249-What-are-single-click-payments-and-how-does-it-work-\">%2$s</a> and how it improves your conversion."
+msgstr "Soll Liquichain den Namen und die E-Mail-Adresse des Kunden für Single-Click-Bezahlungen speichern? Standard: <code>%1$s</code>. Verpflichtend bei Verwendung von WooCommerce Subscriptions. Liquichain-Komponenten für dieses Portal verwenden. Erfahren Sie mehr über <a href=\"https://help.liquichain.io/hc/en-us/articles/115000671249-What-are-single-click-payments-and-how-does-it-work-\">%2$s</a> und wie es Ihren Umsatz steigert."
 
-#: inc/settings/mollie_advanced_settings.php:76
-#: src/Settings/Page/MollieSettingsPage.php:284
+#: inc/settings/liquichain_advanced_settings.php:76
+#: src/Settings/Page/LiquichainSettingsPage.php:284
 msgid "Enabled"
 msgstr "Aktiv"
 
-#: inc/settings/mollie_advanced_settings.php:77
+#: inc/settings/liquichain_advanced_settings.php:77
 msgid "Single Click Payments"
 msgstr "Zahlungen mit einem Klick"
 
-#: inc/settings/mollie_advanced_settings.php:85
+#: inc/settings/liquichain_advanced_settings.php:85
 msgid "Select API Method"
 msgstr "API-Methode auswählen"
 
 #. translators: Placeholder 1: opening link tag, placeholder 2: closing link tag
-#: inc/settings/mollie_advanced_settings.php:102
+#: inc/settings/liquichain_advanced_settings.php:102
 msgid "Click %1$shere%2$s to read more about the differences between the Payments and Orders API"
-msgstr "%1$sHier%2$s erfährst du mehr über die Unterschiede zwischen der Payments API und der Orders API"
+msgstr "%1$sHier%2$s erfahren Sie mehr über die Unterschiede zwischen der Payments API und der Orders API"
 
-#: inc/settings/mollie_advanced_settings.php:112
+#: inc/settings/liquichain_advanced_settings.php:112
 msgid "API Payment Description"
 msgstr "Beschreibung für Zahlung über API"
 
 #. translators: Placeholder 1: Opening paragraph tag, placeholder 2: Closing paragraph tag
-#: inc/settings/mollie_advanced_settings.php:127
+#: inc/settings/liquichain_advanced_settings.php:127
 msgid "Select among the available variables the description to be used for this transaction.%1$s(Note: this only works when the method is set to Payments API)%2$s"
-msgstr "Wähle die Beschreibung, die für diese Transaktion verwendet werden soll, aus den verfügbaren Variablen aus.%1$s(Hinweis: funktioniert nur, wenn die Methode Payments API ausgewählt wurde)%2$s"
+msgstr "Wählen Sie die Beschreibung, die für diese Transaktion verwendet werden soll, aus den verfügbaren Variablen aus.%1$s(Hinweis: funktioniert nur, wenn die Methode Payments API ausgewählt wurde)%2$s"
 
-#: inc/settings/mollie_advanced_settings.php:137
+#: inc/settings/liquichain_advanced_settings.php:137
 msgid "Surcharge gateway fee label"
 msgstr "Label für zusätzliche Gateway-Gebühr"
 
-#: inc/settings/mollie_advanced_settings.php:143
+#: inc/settings/liquichain_advanced_settings.php:143
 msgid "Gateway Fee"
 msgstr "Gateway-Gebühr"
 
-#: inc/settings/mollie_advanced_settings.php:145
+#: inc/settings/liquichain_advanced_settings.php:145
 msgid "This is the label will appear in frontend when the surcharge applies"
 msgstr "Dieses Label erscheint auf dem Frontend, wenn die zusätzliche Gebühr anfällt"
 
-#: inc/settings/mollie_applepay_settings.php:12
+#: inc/settings/liquichain_applepay_settings.php:12
 #: src/PaymentMethods/Applepay.php:13
 msgid "Apple Pay"
 msgstr "Apple Pay"
 
-#: inc/settings/mollie_applepay_settings.php:14
+#: inc/settings/liquichain_applepay_settings.php:14
 msgid "The following options are required to use the Apple Pay gateway"
 msgstr "Die folgenden Optionen sind für die Verwendung des Zahlungsportals Apple Pay verpflichtend"
 
-#: inc/settings/mollie_applepay_settings.php:19
-#: src/Settings/General/MollieGeneralSettings.php:18
+#: inc/settings/liquichain_applepay_settings.php:19
+#: src/Settings/General/LiquichainGeneralSettings.php:18
 msgid "Enable/Disable"
 msgstr "Aktivieren/deaktivieren"
 
 #. translators: Placeholder 1: Gateway title
-#: inc/settings/mollie_applepay_settings.php:21
-#: src/Settings/General/MollieGeneralSettings.php:24
+#: inc/settings/liquichain_applepay_settings.php:21
+#: src/Settings/General/LiquichainGeneralSettings.php:24
 msgid "Enable %s"
 msgstr "%s aktivieren"
 
-#: inc/settings/mollie_applepay_settings.php:29
-#: src/Settings/General/MollieGeneralSettings.php:38
+#: inc/settings/liquichain_applepay_settings.php:29
+#: src/Settings/General/LiquichainGeneralSettings.php:38
 msgid "Title"
 msgstr "Titel"
 
 #. translators: Placeholder 1: Gateway title
-#: inc/settings/mollie_applepay_settings.php:32
-#: src/Settings/General/MollieGeneralSettings.php:41
+#: inc/settings/liquichain_applepay_settings.php:32
+#: src/Settings/General/LiquichainGeneralSettings.php:41
 msgid "This controls the title which the user sees during checkout. Default <code>%s</code>"
 msgstr "Hierdurch wird der Titel gesteuert, den Benutzer beim Bezahlvorgang sehen. Standard: <code>%s</code>"
 
-#: inc/settings/mollie_applepay_settings.php:46
-#: inc/settings/mollie_applepay_settings.php:49
-#: src/Settings/General/MollieGeneralSettings.php:64
+#: inc/settings/liquichain_applepay_settings.php:46
+#: inc/settings/liquichain_applepay_settings.php:49
+#: src/Settings/General/LiquichainGeneralSettings.php:64
 msgid "Display logo"
 msgstr "Logo anzeigen"
 
-#: inc/settings/mollie_applepay_settings.php:62
-#: src/Settings/General/MollieGeneralSettings.php:51
+#: inc/settings/liquichain_applepay_settings.php:62
+#: src/Settings/General/LiquichainGeneralSettings.php:51
 msgid "Description"
 msgstr "Beschreibung"
 
 #. translators: Placeholder 1: Gateway description
-#: inc/settings/mollie_applepay_settings.php:65
-#: src/Settings/General/MollieGeneralSettings.php:54
+#: inc/settings/liquichain_applepay_settings.php:65
+#: src/Settings/General/LiquichainGeneralSettings.php:54
 msgid "Payment method description that the customer will see on your checkout. Default <code>%s</code>"
 msgstr "Beschreibung der Bezahlmethode, die der Kunde im Bezahlvorgang angezeigt bekommt. Standard: <code>%s</code>"
 
-#: inc/settings/mollie_applepay_settings.php:82
+#: inc/settings/liquichain_applepay_settings.php:82
 msgid "Apple Pay button settings"
 msgstr "Einstellungen zur Schaltfläche Apple Pay"
 
-#: inc/settings/mollie_applepay_settings.php:87
+#: inc/settings/liquichain_applepay_settings.php:87
 msgid "The following options are required to use the Apple Pay Direct Button"
 msgstr "Die folgenden Optionen sind für die Verwendung der Schaltfläche „Direktkauf über Apple Pay“ verpflichtend"
 
-#: inc/settings/mollie_applepay_settings.php:91
+#: inc/settings/liquichain_applepay_settings.php:91
 #: src/PaymentMethods/Applepay.php:33
 msgid "Enable Apple Pay Button on Cart page"
 msgstr "Schalfläche Apple Pay im Einkaufswagen aktivieren"
 
 #. translators: Placeholder 1: enabled or disabled
-#: inc/settings/mollie_applepay_settings.php:94
+#: inc/settings/liquichain_applepay_settings.php:94
 #: src/PaymentMethods/Applepay.php:35
 msgid "Enable the Apple Pay direct buy button on the Cart page"
 msgstr "Kaufschaltfläche „Direktkauf über Apple Pay“ im Einkaufswagen aktivieren"
 
-#: inc/settings/mollie_applepay_settings.php:107
+#: inc/settings/liquichain_applepay_settings.php:107
 #: src/PaymentMethods/Applepay.php:43
 msgid "Enable Apple Pay Button on Product page"
 msgstr "Schalfläche Apple Pay auf Produktseite aktivieren"
 
 #. translators: Placeholder 1: enabled or disabled
-#: inc/settings/mollie_applepay_settings.php:110
+#: inc/settings/liquichain_applepay_settings.php:110
 #: src/PaymentMethods/Applepay.php:45
 msgid "Enable the Apple Pay direct buy button on the Product page"
 msgstr "Kaufschaltfläche „Direktkauf über Apple Pay“ auf der Produktseite aktivieren"
 
-#: inc/settings/mollie_components.php:9
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:9
+msgctxt "Liquichain Components Settings"
 msgid "Base Styles"
 msgstr "Basisformat"
 
-#: inc/settings/mollie_components.php:18
-#: inc/settings/mollie_components.php:158
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:18
+#: inc/settings/liquichain_components.php:158
+msgctxt "Liquichain Components Settings"
 msgid "Background Color"
 msgstr "Hintergrundfarbe"
 
-#: inc/settings/mollie_components.php:24
-#: inc/settings/mollie_components.php:147
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:24
+#: inc/settings/liquichain_components.php:147
+msgctxt "Liquichain Components Settings"
 msgid "Text Color"
 msgstr "Textfarbe"
 
-#: inc/settings/mollie_components.php:30
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:30
+msgctxt "Liquichain Components Settings"
 msgid "Placeholder Color"
 msgstr "Platzhalterfarbe"
 
-#: inc/settings/mollie_components.php:36
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:36
+msgctxt "Liquichain Components Settings"
 msgid "Font Size"
 msgstr "Schriftgröße"
 
-#: inc/settings/mollie_components.php:37
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:37
+msgctxt "Liquichain Components Settings"
 msgid "Defines the component font size. Allowed units: 'em', 'px', 'rem'."
 msgstr "Legt die Schriftgröße der Komponente fest. Erlaubte Einheiten: ‚em‘, ‚px‘, ‚rem‘."
 
-#: inc/settings/mollie_components.php:47
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:47
+msgctxt "Liquichain Components Settings"
 msgid "Font Weight"
 msgstr "Schriftbreite"
 
-#: inc/settings/mollie_components.php:50
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:50
+msgctxt "Liquichain Components Settings"
 msgid "Lighter"
 msgstr "Schmaler"
 
-#: inc/settings/mollie_components.php:51
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:51
+msgctxt "Liquichain Components Settings"
 msgid "Regular"
 msgstr "Normal"
 
-#: inc/settings/mollie_components.php:52
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:52
+msgctxt "Liquichain Components Settings"
 msgid "Bold"
 msgstr "Fett"
 
-#: inc/settings/mollie_components.php:58
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:58
+msgctxt "Liquichain Components Settings"
 msgid "Letter Spacing"
 msgstr "Zeichenabstand"
 
-#: inc/settings/mollie_components.php:64
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:64
+msgctxt "Liquichain Components Settings"
 msgid "Line Height"
 msgstr "Zeilenhöhe"
 
-#: inc/settings/mollie_components.php:73
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:73
+msgctxt "Liquichain Components Settings"
 msgid "Padding"
 msgstr "Abstände"
 
-#: inc/settings/mollie_components.php:74
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:74
+msgctxt "Liquichain Components Settings"
 msgid "Add padding to the components. Allowed units include `16px 16px 16px 16px` and `em`, `px`, `rem`."
-msgstr "Füge Abstände zu den Komponenten hinzu. Beispiele für erlaubte Einheiten: ‚16px 16px 16px 16px‘, ‚em‘, ‚px‘, ‚rem‘."
+msgstr "Fügen Sie Abstände zu den Komponenten hinzu. Beispiele für erlaubte Einheiten: ‚16px 16px 16px 16px‘, ‚em‘, ‚px‘, ‚rem‘."
 
-#: inc/settings/mollie_components.php:84
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:84
+msgctxt "Liquichain Components Settings"
 msgid "Align Text"
 msgstr "Text ausrichten"
 
-#: inc/settings/mollie_components.php:87
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:87
+msgctxt "Liquichain Components Settings"
 msgid "Left"
 msgstr "Links"
 
-#: inc/settings/mollie_components.php:88
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:88
+msgctxt "Liquichain Components Settings"
 msgid "Right"
 msgstr "Rechts"
 
-#: inc/settings/mollie_components.php:89
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:89
+msgctxt "Liquichain Components Settings"
 msgid "Center"
 msgstr "Zentrieren"
 
-#: inc/settings/mollie_components.php:90
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:90
+msgctxt "Liquichain Components Settings"
 msgid "Justify"
 msgstr "Justieren"
 
-#: inc/settings/mollie_components.php:96
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:96
+msgctxt "Liquichain Components Settings"
 msgid "Transform Text "
-msgstr "Text transformieren "
+msgstr "Text umwandeln "
 
-#: inc/settings/mollie_components.php:99
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:99
+msgctxt "Liquichain Components Settings"
 msgid "None"
 msgstr "Keine"
 
-#: inc/settings/mollie_components.php:104
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:104
+msgctxt "Liquichain Components Settings"
 msgid "Capitalize"
 msgstr "Großschreibung"
 
-#: inc/settings/mollie_components.php:109
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:109
+msgctxt "Liquichain Components Settings"
 msgid "Uppercase"
 msgstr "Großbuchstaben"
 
-#: inc/settings/mollie_components.php:114
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:114
+msgctxt "Liquichain Components Settings"
 msgid "Lowercase"
 msgstr "Kleinbuchstaben"
 
-#: inc/settings/mollie_components.php:119
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:119
+msgctxt "Liquichain Components Settings"
 msgid "Full Width"
 msgstr "Gesamte Breite"
 
-#: inc/settings/mollie_components.php:124
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:124
+msgctxt "Liquichain Components Settings"
 msgid "Full Size Kana"
 msgstr "Gesamte Breite Kana"
 
-#: inc/settings/mollie_components.php:138
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:138
+msgctxt "Liquichain Components Settings"
 msgid "Invalid Status Styles"
 msgstr "Format für invalide Status"
 
-#: inc/settings/mollie_components.php:148
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:148
+msgctxt "Liquichain Components Settings"
 msgid "Text Color for invalid input."
 msgstr "Textfarbe bei ungültiger Eingabe."
 
-#: inc/settings/mollie_components.php:159
-msgctxt "Mollie Components Settings"
+#: inc/settings/liquichain_components.php:159
+msgctxt "Liquichain Components Settings"
 msgid "Background Color for invalid input."
 msgstr "Hintergrundfarbe bei ungültiger Eingabe."
 
 #. translators: Placeholder 1: Opening strong tag. Placeholder 2: Closing strong tag. Placeholder 3: Opening link tag to settings. Placeholder 4: Closing link tag.
 #: src/Activation/ActivationModule.php:155
-msgid "%1$sMollie Payments for WooCommerce: API keys missing%2$s Please%3$s set your API keys here%4$s."
-msgstr "%1$sMollie-Zahlungen für WooCommerce Fehlende API-Schlüssel%2$s Bitte%3$s richte deine API-Schlüssel hier ein%4$s."
+msgid "%1$sLiquichain Payments for WooCommerce: API keys missing%2$s Please%3$s set your API keys here%4$s."
+msgstr "%1$sLiquichain-Zahlungen für WooCommerce Fehlende API-Schlüssel%2$s Bitte%3$s richten Sie Ihre API-Schlüssel hier ein%4$s."
 
 #: src/Assets/AssetsModule.php:86
 msgid "No custom logo selected"
@@ -446,7 +446,7 @@ msgstr "Kartennummer"
 
 #: src/Assets/AssetsModule.php:435
 #: src/PaymentMethods/Banktransfer.php:62
-#: src/Settings/General/MollieGeneralSettings.php:234
+#: src/Settings/General/LiquichainGeneralSettings.php:234
 msgid "Expiry date"
 msgstr "Ablaufdatum"
 
@@ -456,11 +456,11 @@ msgstr "CVC/CVV"
 
 #: src/Assets/AssetsModule.php:446
 msgid "An unknown error occurred, please check the card fields."
-msgstr "Ein unbekannter Fehler ist aufgetreten, bitte überprüfe die Kartenfelder."
+msgstr "Ein unbekannter Fehler ist aufgetreten, bitte überprüfen Sie die Kartenfelder."
 
 #: src/Assets/AssetsModule.php:494
 msgid "Please choose a billing country to see the available payment methods"
-msgstr "Bitte wähle das Land aus, in dem die Rechnung erstellt wird, um die verfügbaren Zahlungsmethoden anzuzeigen"
+msgstr "Bitte wählen Sie das Land aus, in dem die Rechnung erstellt wird, um die verfügbaren Zahlungsmethoden anzuzeigen"
 
 #. translators: Placeholder 1: Payment method title
 #: src/Buttons/ApplePayButton/AppleAjaxRequests.php:722
@@ -473,86 +473,86 @@ msgstr "%s-Zahlung konnte nicht erstellt werden."
 #. translators: Placeholder 1: Opening strong tag. Placeholder 2: Closing strong tag. Placeholder 3: Opening link tag to documentation. Placeholder 4: Closing link tag.
 #: src/Buttons/ApplePayButton/ApplePayDirectHandler.php:41
 msgid "%1$sServer not compliant with Apple requirements%2$s Check %3$sApple Server requirements page%4$s to fix it in order to make the Apple Pay button work"
-msgstr "%1$sDer Server ist nicht mit Apple Pay kompatibel%2$s Überprüfe %3$sdie Anforderungsseite von Apple Pay,%4$s um den Fehler zu beheben, damit der Kaufbutton von Apple Pay verwendet werden kann"
+msgstr "%1$sServer erfüllt die Anforderungen von Apple nicht%2$s Überprüfen Sie die %3$sAnforderungen von Apple an Server%4$s, um den Fehler zu beheben, damit die Schaltfläche Apple Pay korrekt funktioniert"
 
 #. translators: Placeholder 1: Opening strong tag. Placeholder 2: Closing strong tag. Placeholder 3: Opening link tag to documentation. Placeholder 4: Closing link tag.
 #: src/Buttons/ApplePayButton/ApplePayDirectHandler.php:56
 msgid "%1$sApple Pay Validation Error%2$s Check %3$sApple Server requirements page%4$s to fix it in order to make the Apple Pay button work"
-msgstr "%1$sValidierungsfehler von Apple Pay%2$s Überprüfe %3$sdie Anforderungsseite von Apple Pay,%4$s um den Fehler zu beheben, damit der Kaufbutton von Apple Pay verwendet werden kann"
+msgstr "%1$sValidierungsfehler bei Apple Pay%2$s Überprüfen Sie die %3$sAnforderungen von Apple an Server%4$s, um den Fehler zu beheben, damit die Schaltfläche Apple Pay korrekt funktioniert"
 
-#: src/Gateway/MolliePaymentGateway.php:296
-#: src/Settings/Page/MollieSettingsPage.php:294
+#: src/Gateway/LiquichainPaymentGateway.php:296
+#: src/Settings/Page/LiquichainSettingsPage.php:294
 msgid "Test mode enabled."
 msgstr "Testmodus aktiviert."
 
 #. translators: The surrounding %s's Will be replaced by a link to the global setting page
-#: src/Gateway/MolliePaymentGateway.php:301
-msgid "No API key provided. Please %1$sset you Mollie API key%2$s first."
-msgstr "Kein API-Schlüssel vorgegeben. Bitte %1$slege deinen Mollie-API-Schlüssel fest%2$s."
+#: src/Gateway/LiquichainPaymentGateway.php:301
+msgid "No API key provided. Please %1$sset you Liquichain API key%2$s first."
+msgstr "Kein API-Schlüssel vorgegeben. Bitte %1$slegen Sie Ihren Liquichain-API-Schlüssel fest%2$s."
 
-#. translators: Placeholder 1: payment method title. The surrounding %s's Will be replaced by a link to the Mollie profile
-#: src/Gateway/MolliePaymentGateway.php:316
-msgid "%1$s not enabled in your Mollie profile. You can enable it by editing your %2$sMollie profile%3$s."
-msgstr "%1$s ist nicht in deinem Mollie-Profil aktiviert. Du kannst es aktivieren, indem du dein %2$sMollie-Profil%3$s bearbeitest."
+#. translators: Placeholder 1: payment method title. The surrounding %s's Will be replaced by a link to the Liquichain profile
+#: src/Gateway/LiquichainPaymentGateway.php:316
+msgid "%1$s not enabled in your Liquichain profile. You can enable it by editing your %2$sLiquichain profile%3$s."
+msgstr "%1$s ist nicht in Ihrem Liquichain-Profil aktiviert. Sie können es aktivieren, indem Sie Ihr %2$sLiquichain-Profil%3$s bearbeiten."
 
-#. translators: Placeholder 1: WooCommerce currency, placeholder 2: Supported Mollie currencies
-#: src/Gateway/MolliePaymentGateway.php:331
-msgid "Current shop currency %1$s not supported by Mollie. Read more about %2$ssupported currencies and payment methods.%3$s "
-msgstr "Die aktuelle Shopwährung %1$s wird von Mollie nicht unterstützt. Mehr Informationen zu %2$sunterstützten Währungen und Bezahlungsmethoden.%3$s "
+#. translators: Placeholder 1: WooCommerce currency, placeholder 2: Supported Liquichain currencies
+#: src/Gateway/LiquichainPaymentGateway.php:331
+msgid "Current shop currency %1$s not supported by Liquichain. Read more about %2$ssupported currencies and payment methods.%3$s "
+msgstr "Die aktuelle Shopwährung %1$s wird von Liquichain nicht unterstützt. Mehr Informationen zu %2$sunterstützten Währungen und Bezahlungsmethoden.%3$s "
 
-#: src/Gateway/MolliePaymentGateway.php:706
+#: src/Gateway/LiquichainPaymentGateway.php:706
 msgid "You have cancelled your payment. Please complete your order with a different payment method."
-msgstr "Du hast deine Zahlung storniert. Vervollständige deine Bestellung bitte mit einer anderen Zahlungsmethode."
+msgstr "Sie haben Ihre Zahlung storniert. Vervollständigen Sie Ihre Bestellung bitte mit einer anderen Zahlungsmethode."
 
-#: src/Gateway/MolliePaymentGateway.php:726
-#: src/Gateway/MolliePaymentGateway.php:740
+#: src/Gateway/LiquichainPaymentGateway.php:726
+#: src/Gateway/LiquichainPaymentGateway.php:740
 msgid "Your payment was not successful. Please complete your order with a different payment method."
-msgstr "Deine Zahlung war nicht erfolgreich. Vervollständige deine Bestellung bitte mit einer anderen Zahlungsmethode."
+msgstr "Ihre Zahlung war nicht erfolgreich. Vervollständigen Sie Ihre Bestellung bitte mit einer anderen Zahlungsmethode."
 
-#: src/Gateway/MolliePaymentGateway.php:777
+#: src/Gateway/LiquichainPaymentGateway.php:777
 msgid "Could not load order %s"
 msgstr "Bestellung %s konnte nicht geladen werden"
 
-#: src/Gateway/MolliePaymentGateway.php:1038
+#: src/Gateway/LiquichainPaymentGateway.php:1038
 msgid "Order cancelled"
 msgstr "Bestellung storniert"
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Gateway/MolliePaymentGateway.php:1076
-msgid "%1$s payment still pending (%2$s) but customer already returned to the store. Status should be updated automatically in the future, if it doesn't this might indicate a communication issue between the site and Mollie."
-msgstr "Eine %1$s-Zahlung ist noch offen (%2$s), der Kunde ist aber bereits zum Shop zurückgekehrt. Der Status sollte zukünftig automatisch aktualisiert werden. Falls dies nicht der Fall ist, liegt möglicherweise ein Kommunikationsproblem zwischen der Seite und Mollie vor."
+#: src/Gateway/LiquichainPaymentGateway.php:1076
+msgid "%1$s payment still pending (%2$s) but customer already returned to the store. Status should be updated automatically in the future, if it doesn't this might indicate a communication issue between the site and Liquichain."
+msgstr "Eine %1$s-Zahlung ist noch offen (%2$s), der Kunde ist aber bereits zum Shop zurückgekehrt. Der Status sollte zukünftig automatisch aktualisiert werden. Falls dies nicht der Fall ist, liegt möglicherweise ein Kommunikationsproblem zwischen der Seite und Liquichain vor."
 
-#: src/Gateway/MolliePaymentGateway.php:1082
-#: src/Payment/MollieObject.php:653
-#: src/Payment/MollieObject.php:686
-#: src/Payment/MollieOrder.php:269
-#: src/Payment/MollieOrder.php:329
-#: src/Payment/MollieOrder.php:374
-#: src/Payment/MollieOrder.php:457
-#: src/Payment/MollieOrder.php:520
-#: src/Payment/MollieOrder.php:934
-#: src/Payment/MollieOrderService.php:166
-#: src/Payment/MollieOrderService.php:504
-#: src/Payment/MollieOrderService.php:568
-#: src/Payment/MollieOrderService.php:701
-#: src/Payment/MolliePayment.php:245
-#: src/Payment/MolliePayment.php:335
-#: src/Payment/MolliePayment.php:404
-#: src/Payment/MolliePayment.php:427
+#: src/Gateway/LiquichainPaymentGateway.php:1082
+#: src/Payment/LiquichainObject.php:653
+#: src/Payment/LiquichainObject.php:686
+#: src/Payment/LiquichainOrder.php:269
+#: src/Payment/LiquichainOrder.php:329
+#: src/Payment/LiquichainOrder.php:374
+#: src/Payment/LiquichainOrder.php:457
+#: src/Payment/LiquichainOrder.php:520
+#: src/Payment/LiquichainOrder.php:934
+#: src/Payment/LiquichainOrderService.php:166
+#: src/Payment/LiquichainOrderService.php:504
+#: src/Payment/LiquichainOrderService.php:568
+#: src/Payment/LiquichainOrderService.php:701
+#: src/Payment/LiquichainPayment.php:245
+#: src/Payment/LiquichainPayment.php:335
+#: src/Payment/LiquichainPayment.php:404
+#: src/Payment/LiquichainPayment.php:427
 #: src/Payment/PaymentService.php:702
-#: src/Subscription/MollieSepaRecurringGateway.php:138
-#: src/Subscription/MollieSepaRecurringGateway.php:205
-#: src/Subscription/MollieSubscriptionGateway.php:465
+#: src/Subscription/LiquichainSepaRecurringGateway.php:138
+#: src/Subscription/LiquichainSepaRecurringGateway.php:205
+#: src/Subscription/LiquichainSubscriptionGateway.php:465
 msgid "test mode"
 msgstr "Testmodus"
 
-#: src/Gateway/MolliePaymentGateway.php:1097
+#: src/Gateway/LiquichainPaymentGateway.php:1097
 msgid ", payment pending."
 msgstr ", Zahlung ausstehend"
 
-#: src/Gateway/MolliePaymentGateway.php:1129
+#: src/Gateway/LiquichainPaymentGateway.php:1129
 msgid "Your order has been cancelled."
-msgstr "Deine Bestellung wurde storniert."
+msgstr "Ihre Bestellung wurde storniert."
 
 #. translators: Placeholder 1: Fee amount tag. Placeholder 2: Currency.
 #: src/Gateway/SurchargeLabelBuilder.php:72
@@ -570,16 +570,16 @@ msgid " +%1s%2s + %3s%% fee might apply"
 msgstr " Möglicherweise fällt eine +%1s%2s + %3s%%-Gebühr an"
 
 #: src/Gateway/Voucher/VoucherModule.php:52
-#: src/Settings/Page/MollieSettingsPage.php:45
-#: src/Settings/Page/MollieSettingsPage.php:185
-msgid "Mollie Settings"
-msgstr "Mollie-Einstellungen"
+#: src/Settings/Page/LiquichainSettingsPage.php:45
+#: src/Settings/Page/LiquichainSettingsPage.php:185
+msgid "Liquichain Settings"
+msgstr "Liquichain-Einstellungen"
 
 #: src/Gateway/Voucher/VoucherModule.php:83
 #: src/Gateway/Voucher/VoucherModule.php:118
 #: src/Gateway/Voucher/VoucherModule.php:141
-msgid "Mollie Voucher Category"
-msgstr "Mollie-Gutscheinkategorie"
+msgid "Liquichain Voucher Category"
+msgstr "Liquichain-Gutscheinkategorie"
 
 #: src/Gateway/Voucher/VoucherModule.php:86
 #: src/Gateway/Voucher/VoucherModule.php:120
@@ -618,16 +618,16 @@ msgstr "Geschenk"
 #: src/Gateway/Voucher/VoucherModule.php:126
 #: src/Gateway/Voucher/VoucherModule.php:163
 msgid "Select a voucher category to apply to all products with this category"
-msgstr "Wähle eine Gutscheinkategorie aus, die auf alle Produkte dieser Kategorie angewendet werden soll"
+msgstr "Wählen Sie eine Gutscheinkategorie aus, die auf alle Produkte dieser Kategorie angewendet werden soll"
 
 #: src/Gateway/Voucher/VoucherModule.php:198
 #: src/PaymentMethods/Voucher.php:53
 msgid "Select the default products category"
-msgstr "Wähle die Standard-Produktkategorie"
+msgstr "Standardkategorie für Produkte wählen"
 
 #: src/Gateway/Voucher/VoucherModule.php:202
 msgid "Products voucher category"
-msgstr "Produktgutschein-Kategorie"
+msgstr "Produktgutscheinkategorie"
 
 #: src/Gateway/Voucher/VoucherModule.php:209
 #: src/Gateway/Voucher/VoucherModule.php:274
@@ -636,169 +636,169 @@ msgstr "Entspricht Standardkategorie"
 
 #: src/Gateway/Voucher/VoucherModule.php:219
 msgid "In order to process it, all products in the order must have a category. To disable the product from voucher selection select \"No category\" option."
-msgstr "Um weiterverarbeitet werden zu können, müssen alle Produkte der Bestellung eine Kategorie haben. Um das Produkt von der Gutscheinauswahl auszuschließen, wähle die Option „Keine Kategorie“."
+msgstr "Um die Verarbeitung zu ermöglichen, müssen alle Produkte der Bestellung eine Kategorie haben. Um ein Produkt von der Auswahl von Gutscheinen auszuschließen, wählen Sie die Option „Keine Kategorie“."
 
 #: src/Gateway/Voucher/VoucherModule.php:271
-msgid "Mollie Voucher category"
-msgstr "Mollie-Gutscheinkategorie"
+msgid "Liquichain Voucher category"
+msgstr "Liquichain-Gutscheinkategorie"
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieObject.php:648
-msgid "%1$s renewal payment failed via Mollie (%2$s). You will need to manually review the payment and adjust product stocks if you use them."
-msgstr "Erneute %1$s-Zahlung über Mollie fehlgeschlagen (%2$s). Du musst die Zahlung händisch überprüfen und, falls verwendet, die Produktbestände anpassen."
+#: src/Payment/LiquichainObject.php:648
+msgid "%1$s renewal payment failed via Liquichain (%2$s). You will need to manually review the payment and adjust product stocks if you use them."
+msgstr "Erneute %1$s-Zahlung über Liquichain fehlgeschlagen (%2$s). Sie müssen die Zahlung händisch überprüfen und, falls verwendet, die Produktbestände anpassen."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieObject.php:681
-msgid "%1$s payment failed via Mollie (%2$s)."
-msgstr "%1$s-Bezahlung über Mollie fehlgeschlagen (%2$s)."
+#: src/Payment/LiquichainObject.php:681
+msgid "%1$s payment failed via Liquichain (%2$s)."
+msgstr "%1$s-Bezahlung über Liquichain fehlgeschlagen (%2$s)."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieObject.php:721
-msgid "Mollie webhook called, but payment also started via %s, so the order status is not updated."
-msgstr "Der Mollie-WebHook wurde aufgerufen, die Zahlung wurde jedoch gleichzeitig über %s gestartet. Der Bestellstatus wird deshalb nicht aktualisiert."
+#: src/Payment/LiquichainObject.php:721
+msgid "Liquichain webhook called, but payment also started via %s, so the order status is not updated."
+msgstr "Der Liquichain-WebHook wurde aufgerufen, die Zahlung wurde jedoch gleichzeitig über %s gestartet. Der Bestellstatus wird deshalb nicht aktualisiert."
 
 #. translators: Placeholder 1: PayPal consumer name, placeholder 2: PayPal email, placeholder 3: PayPal transaction ID
-#: src/Payment/MollieObject.php:740
+#: src/Payment/LiquichainObject.php:740
 #: src/PaymentMethods/InstructionStrategies/PaypalInstructionStrategy.php:20
 msgid "Payment completed by <strong>%1$s</strong> - %2$s (PayPal transaction ID: %3$s)"
 msgstr "Zahlung durch <strong>%1$s</strong> - %2$s (PayPal Transaktions-ID: %3$s) erfolgt"
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieOrder.php:265
-#: src/Payment/MolliePayment.php:243
-#: src/Subscription/MollieSepaRecurringGateway.php:211
+#: src/Payment/LiquichainOrder.php:265
+#: src/Payment/LiquichainPayment.php:243
+#: src/Subscription/LiquichainSepaRecurringGateway.php:211
 msgid "Order completed using %1$s payment (%2$s)."
 msgstr "Vorgang über %1$s-Bezahlung (%2$s) erfolgt."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieOrder.php:327
-msgid "Order authorized using %1$s payment (%2$s). Set order to completed in WooCommerce when you have shipped the products, to capture the payment. Do this within 28 days, or the order will expire. To handle individual order lines, process the order via the Mollie Dashboard."
-msgstr "Bestellung über %1$s-Bezahlung (%2$s) autorisiert. Setze die Bestellung in WooCommerce auf abgeschlossen, wenn du die Produkte versandt hast, um die Bezahlung zu erfassen. Erledige dies innerhalb von 28 Tagen, ansonsten verfällt die Bestellung. Um individuelle Auftragszeilen abzuwickeln, verarbeite die Bestellung über das Mollie-Dashboard."
+#: src/Payment/LiquichainOrder.php:327
+msgid "Order authorized using %1$s payment (%2$s). Set order to completed in WooCommerce when you have shipped the products, to capture the payment. Do this within 28 days, or the order will expire. To handle individual order lines, process the order via the Liquichain Dashboard."
+msgstr "Bestellung über %1$s-Bezahlung (%2$s) autorisiert. Setzen Sie die Bestellung in WooCommerce auf abgeschlossen, wenn Sie die Produkte versandt haben, um die Bezahlung zu erfassen. Erledigen Sie dies innerhalb von 28 Tagen, ansonsten verfällt die Bestellung. Um individuelle Auftragszeilen abzuwickeln, verarbeiten Sie die Bestellung über das Liquichain-Dashboard."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieOrder.php:372
-msgid "Order completed at Mollie for %1$s order (%2$s). At least one order line completed. Remember: Completed status for an order at Mollie is not the same as Completed status in WooCommerce!"
-msgstr "Bestellvorgang bei Mollie für %1$s-Bestellung (%2$s) abgeschlossen. Mindestens eine Auftragszeile abgeschlossen. Hinweis: Der abgeschlossene Status bei Mollie ist nicht mit dem abgeschlossenen Status bei WooCommerce gleichzusetzen."
+#: src/Payment/LiquichainOrder.php:372
+msgid "Order completed at Liquichain for %1$s order (%2$s). At least one order line completed. Remember: Completed status for an order at Liquichain is not the same as Completed status in WooCommerce!"
+msgstr "Bestellvorgang bei Liquichain für %1$s-Bestellung (%2$s) abgeschlossen. Mindestens eine Auftragszeile abgeschlossen. Hinweis: Der abgeschlossene Status bei Liquichain ist nicht mit dem abgeschlossenen Status bei WooCommerce gleichzusetzen."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieOrder.php:455
+#: src/Payment/LiquichainOrder.php:455
 msgid "%1$s order (%2$s) cancelled ."
 msgstr "%1$s-Bestellung (%2$s) abgebrochen."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieOrder.php:518
+#: src/Payment/LiquichainOrder.php:518
 msgid "%1$s order expired (%2$s) but not cancelled because of another pending payment (%3$s)."
 msgstr "%1$s-Bestellung (%2$s) abgelaufen, wegen einer weiteren offenen Zahlung (%3$s) jedoch nicht abgebrochen."
 
 #. translators: Placeholder 1: Number of items. Placeholder 2: Name of item. Placeholder 3: Currency. Placeholder 4: Amount.
-#: src/Payment/MollieOrder.php:744
-msgid "%1$sx %2$s cancelled for %3$s%4$s in WooCommerce and at Mollie."
-msgstr "%1$sx %2$s storniert für %3$s%4$s bei WooCommerce und Mollie."
+#: src/Payment/LiquichainOrder.php:744
+msgid "%1$sx %2$s cancelled for %3$s%4$s in WooCommerce and at Liquichain."
+msgstr "%1$sx %2$s storniert für %3$s%4$s bei WooCommerce und Liquichain."
 
 #. translators: Placeholder 1: Number of items. Placeholder 2: Name of item. Placeholder 3: Currency. Placeholder 4: Amount. Placeholder 5: Reason. Placeholder 6: Refund Id.
-#: src/Payment/MollieOrder.php:760
-msgid "%1$sx %2$s refunded for %3$s%4$s in WooCommerce and at Mollie.%5$s Refund ID: %6$s."
-msgstr "%1$sx %2$s erstattet für %3$s%4$s bei WooCommerce und Mollie.%5$s Erstattungs-ID: %6$s."
+#: src/Payment/LiquichainOrder.php:760
+msgid "%1$sx %2$s refunded for %3$s%4$s in WooCommerce and at Liquichain.%5$s Refund ID: %6$s."
+msgstr "%1$sx %2$s erstattet für %3$s%4$s bei WooCommerce und Liquichain.%5$s Erstattungs-ID: %6$s."
 
 #. translators: Placeholder 1: Currency. Placeholder 2: Refund amount. Placeholder 3: Reason. Placeholder 4: Refund id.
-#: src/Payment/MollieOrder.php:834
-msgid "Amount refund of %1$s%2$s refunded in WooCommerce and at Mollie.%3$s Refund ID: %4$s."
-msgstr "Erstattungsbetrag von %1$s erstatteten %2$s bei WooCommerce und Mollie.%3$s Erstattungs-ID: %4$s."
+#: src/Payment/LiquichainOrder.php:834
+msgid "Amount refund of %1$s%2$s refunded in WooCommerce and at Liquichain.%3$s Refund ID: %4$s."
+msgstr "Erstattungsbetrag von %1$s erstatteten %2$s bei WooCommerce und Liquichain.%3$s Erstattungs-ID: %4$s."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieOrder.php:929
+#: src/Payment/LiquichainOrder.php:929
 msgid "%1$s order (%2$s) expired ."
 msgstr "%1$s-Bestellung (%2$s) abgelaufen."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment status, placeholder 3: payment ID
-#: src/Payment/MollieOrderService.php:163
+#: src/Payment/LiquichainOrderService.php:163
 msgid "%1$s payment %2$s (%3$s), not processed."
 msgstr "%1$s-Zahlung %2$s (%3$s), nicht verarbeitet."
 
 #. translators: Placeholder 1: Refund to process id.
-#: src/Payment/MollieOrderService.php:322
-msgid "New refund %s processed in Mollie Dashboard! Order note added, but order not updated."
-msgstr "Neue Rückerstattung %s im Mollie-Dashboard verarbeitet. Bestellungsnotiz hinzugefügt, Bestellung jedoch nicht aktualisiert."
+#: src/Payment/LiquichainOrderService.php:322
+msgid "New refund %s processed in Liquichain Dashboard! Order note added, but order not updated."
+msgstr "Neue Rückerstattung %s im Liquichain-Dashboard verarbeitet. Bestellungsnotiz hinzugefügt, Bestellung jedoch nicht aktualisiert."
 
 #. translators: Placeholder 1: Chargeback to process id.
-#: src/Payment/MollieOrderService.php:467
+#: src/Payment/LiquichainOrderService.php:467
 msgid "New chargeback %s processed! Order note and order status updated."
 msgstr "Neue Rückbuchung %s erfasst. Bestellungsnotiz und Status aktualisiert."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieOrderService.php:499
-msgid "%1$s payment charged back via Mollie (%2$s). You will need to manually review the payment (and adjust product stocks if you use it)."
-msgstr "%1$s-Zahlung über Mollie zurückgebucht (%2$s). Du musst die Zahlung händisch überprüfen und, falls verwendet, die Produktbestände anpassen."
+#: src/Payment/LiquichainOrderService.php:499
+msgid "%1$s payment charged back via Liquichain (%2$s). You will need to manually review the payment (and adjust product stocks if you use it)."
+msgstr "%1$s-Zahlung über Liquichain zurückgebucht (%2$s). Sie müssen die Zahlung händisch überprüfen und, falls verwendet, die Produktbestände anpassen."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieOrderService.php:562
-msgid "%1$s payment charged back via Mollie (%2$s). Subscription status updated, please review (and adjust product stocks if you use it)."
-msgstr "%1$s-Zahlung über Mollie zurückgebucht (%2$s). Abonnementstatus aktualisiert, bitte prüfen (und, falls verwendet, Produktbestände anpassen)."
+#: src/Payment/LiquichainOrderService.php:562
+msgid "%1$s payment charged back via Liquichain (%2$s). Subscription status updated, please review (and adjust product stocks if you use it)."
+msgstr "%1$s-Zahlung über Liquichain zurückgebucht (%2$s). Abonnementstatus aktualisiert, bitte prüfen (und, falls verwendet, Produktbestände anpassen)."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MollieOrderService.php:688
-msgid "%1$s payment %2$s via Mollie (%3$s %4$s). You will need to manually review the payment (and adjust product stocks if you use it)."
-msgstr "%1$s-Zahlung %2$s über Mollie fehlgeschlagen (%3$s %4$s). Du musst die Zahlung händisch überprüfen und, falls verwendet, die Produktbestände anpassen."
+#: src/Payment/LiquichainOrderService.php:688
+msgid "%1$s payment %2$s via Liquichain (%3$s %4$s). You will need to manually review the payment (and adjust product stocks if you use it)."
+msgstr "%1$s-Bezahlung %2$s über Liquichain (%3$s%4$s). Sie müssen die Zahlung händisch überprüfen und, falls verwendet, die Produktbestände anpassen."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MolliePayment.php:333
+#: src/Payment/LiquichainPayment.php:333
 msgid "%1$s payment (%2$s) cancelled ."
 msgstr "%1$s-Bezahlvorgang (%2$s) abgebrochen."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MolliePayment.php:402
+#: src/Payment/LiquichainPayment.php:402
 msgid "%1$s payment expired (%2$s) but not cancelled because of another pending payment (%3$s)."
 msgstr "%1$s-Zahlung (%2$s) abgelaufen, wegen einer weiteren offenen Zahlung (%3$s) jedoch nicht abgebrochen."
 
 #. translators: Placeholder 1: payment method title, placeholder 2: payment ID
-#: src/Payment/MolliePayment.php:425
+#: src/Payment/LiquichainPayment.php:425
 msgid "%1$s payment expired (%2$s)."
 msgstr "%1$s-Zahlung abgelaufen (%2$s)."
 
 #. translators: Placeholder 1: currency, placeholder 2: refunded amount, placeholder 3: optional refund reason, placeholder 4: payment ID, placeholder 5: refund ID
-#: src/Payment/MolliePayment.php:501
+#: src/Payment/LiquichainPayment.php:501
 msgid "Refunded %1$s%2$s%3$s - Payment: %4$s, Refund: %5$s"
 msgstr "Rückerstattung %1$s%2$s%3$s – Zahlung: %4$s, Rückerstattung: %5$s"
 
 #: src/Payment/OrderItemsRefunder.php:121
-msgid "One of the WooCommerce order items does not have the refund item ID meta value associated to Mollie Order item."
-msgstr "Eine der WooCommerce-Auftragspositionen stimmt nicht mit dem entsprechenden Metawert für die ID des Rückerstattungsartikels der Mollie-Auftragsposition überein."
+msgid "One of the WooCommerce order items does not have the refund item ID meta value associated to Liquichain Order item."
+msgstr "Eine der WooCommerce-Auftragspositionen stimmt nicht mit dem entsprechenden Metawert für die ID des Rückerstattungsartikels der Liquichain-Auftragsposition überein."
 
 #: src/Payment/OrderItemsRefunder.php:166
 msgid "Impossible to retrieve the order item ID related to the remote item: %1$s. Try to do a refund by amount."
-msgstr "Die Auftragspositions-ID zum folgenden Remote-Artikel konnte nicht abgerufen werden: %1$s. Versuche, eine Rückerstattung nach Betrag durchzuführen."
+msgstr "Die Auftragspositions-ID zum folgenden Remote-Artikel konnte nicht abgerufen werden: %1$s. Versuchen Sie, eine Rückerstattung nach Betrag durchzuführen."
 
 #: src/Payment/OrderItemsRefunder.php:190
-msgid "Empty WooCommerce order items or mollie order lines."
-msgstr "Leere WooCommerce-Auftragspositionen oder Mollie-Auftragszeilen."
+msgid "Empty WooCommerce order items or liquichain order lines."
+msgstr "Leere WooCommerce-Auftragspositionen oder Liquichain-Auftragszeilen."
 
 #: src/Payment/OrderLines.php:496
 msgid "Shipping"
 msgstr "Versand"
 
 #: src/Payment/PaymentModule.php:182
-msgid "%1$s items refunded in WooCommerce and at Mollie."
-msgstr "%1$s erstattete Artikel bei WooCommerce und Mollie."
+msgid "%1$s items refunded in WooCommerce and at Liquichain."
+msgstr "%1$s erstattete Artikel bei WooCommerce und Liquichain."
 
 #: src/Payment/PaymentModule.php:200
-msgid "%1$s items cancelled in WooCommerce and at Mollie."
-msgstr "%1$s stornierte Artikel bei WooCommerce und Mollie."
+msgid "%1$s items cancelled in WooCommerce and at Liquichain."
+msgstr "%1$s stornierte Artikel bei WooCommerce und Liquichain."
 
 #: src/Payment/PaymentService.php:532
 msgid "Subscription switch failed, no valid mandate found. Place a completely new order to change your subscription."
-msgstr "Abonnement-Umstellung fehlgeschlagen, kein valides Mandat gefunden. Leite einen neuen Bestellvorgang ein, um dein Abonnement zu ändern."
+msgstr "Abonnement-Umstellung fehlgeschlagen, kein valides Mandat gefunden. Leiten Sie einen neuen Bestellvorgang ein, um Ihr Abonnement zu ändern."
 
 #: src/Payment/PaymentService.php:538
 msgid "Failed switching subscriptions, no valid mandate."
-msgstr "Abonnement-Wechsel fehlgeschlagen, kein valides Mandat."
+msgstr "Umstellen des Abonnements wegen Fehlen eines gültigen Mandats fehlgeschlagen."
 
 #: src/Payment/PaymentService.php:547
-msgid "Order completed internally because of an existing valid mandate at Mollie."
-msgstr "Die Bestellung wurde wegen eines bestehenden, gültigen Mandats bei Mollie intern abgewickelt."
+msgid "Order completed internally because of an existing valid mandate at Liquichain."
+msgstr "Die Bestellung wurde wegen eines bestehenden, gültigen Mandats bei Liquichain intern abgewickelt."
 
 #: src/Payment/PaymentService.php:679
-#: src/Subscription/MollieSepaRecurringGateway.php:127
-#: src/Subscription/MollieSubscriptionGateway.php:456
+#: src/Subscription/LiquichainSepaRecurringGateway.php:127
+#: src/Subscription/LiquichainSubscriptionGateway.php:456
 msgid "Awaiting payment confirmation."
 msgstr "Die Zahlungsbestätigung wird erwartet."
 
@@ -808,8 +808,8 @@ msgid "%s payment started (%s)."
 msgstr "%s-Bezahlung gestartet (%s)."
 
 #: src/Payment/RefundLineItemsBuilder.php:126
-msgid "Mollie doesn't allow a partial refund of the full amount or quantity of at least one order line. Trying to process this as an amount refund instead."
-msgstr "Mollie erlaubt keine teilweise Rückerstattung des vollen Betrags oder der vollen Menge mindestens einer Auftragszeile. Es wird stattdessen versucht, die Eingabe als Erstattungsbetrag zu verarbeiten."
+msgid "Liquichain doesn't allow a partial refund of the full amount or quantity of at least one order line. Trying to process this as an amount refund instead."
+msgstr "Liquichain erlaubt keine teilweise Rückerstattung des vollen Betrags oder der vollen Menge mindestens einer Auftragszeile. Es wird stattdessen versucht, die Eingabe als Erstattungsbetrag zu verarbeiten."
 
 #: src/PaymentMethods/Applepay.php:14
 msgid "To accept payments via Apple Pay"
@@ -824,18 +824,18 @@ msgid "Bank Transfer"
 msgstr "Überweisung"
 
 #: src/PaymentMethods/Banktransfer.php:55
-#: src/Settings/General/MollieGeneralSettings.php:227
+#: src/Settings/General/LiquichainGeneralSettings.php:227
 msgid "Activate expiry date setting"
-msgstr "Einstellung für das Ablaufdatum übernehmen"
+msgstr "Einstellungen zum Ablaufdatum aktivieren"
 
 #: src/PaymentMethods/Banktransfer.php:56
-#: src/Settings/General/MollieGeneralSettings.php:228
+#: src/Settings/General/LiquichainGeneralSettings.php:228
 msgid "Enable expiry date for payments"
 msgstr "Ablaufdatum für Zahlungen aktivieren"
 
 #: src/PaymentMethods/Banktransfer.php:57
 msgid "Enable this option if you want to be able to set the number of days after the payment will expire. This will turn all transactions into payments instead of orders"
-msgstr "Aktiviere diese Option, um die Anzahl der Tage nach Ende der Zahlungsfrist selbst festlegen zu können. Hiermit werden alle Transaktionen in Zahlungen anstatt Bestellungen umgewandelt"
+msgstr "Aktivieren Sie diese Option, wenn Sie eine Anzahl an Tagen festlegen möchten, nach deren Ablauf eine Bezahlung abläuft. Alle Transaktionen werden dadurch in Zahlungen anstatt Bestellungen umgewandelt"
 
 #. translators: Placeholder 1: Default expiry days.
 #: src/PaymentMethods/Banktransfer.php:64
@@ -843,16 +843,16 @@ msgid "Number of DAYS after the payment will expire. Default <code>%d</code> day
 msgstr "TAGE nach Ende der Zahlungsfrist. Standard: <code>%d</code> Tage."
 
 #: src/PaymentMethods/Banktransfer.php:73
-msgid "Skip Mollie payment screen"
-msgstr "Mollie-Bezahlseite überspringen"
+msgid "Skip Liquichain payment screen"
+msgstr "Liquichain-Bezahlseite überspringen"
 
 #: src/PaymentMethods/Banktransfer.php:74
-msgid "Skip Mollie payment screen when Bank Transfer is selected"
-msgstr "Mollie-Bezahlseite überspringen, wenn Überweisung ausgewählt wurde"
+msgid "Skip Liquichain payment screen when Bank Transfer is selected"
+msgstr "Liquichain-Bezahlseite überspringen, wenn Überweisung ausgewählt wurde"
 
 #: src/PaymentMethods/Banktransfer.php:75
-msgid "Enable this option if you want to skip redirecting your user to the Mollie payment screen, instead this will redirect your user directly to the WooCommerce order received page displaying instructions how to complete the Bank Transfer payment."
-msgstr "Aktiviere diese Option, um die Weiterleitung des Benutzers auf die Mollie-Bezahlseite zu überspringen. Stattdessen wird der Benutzer direkt zur Bestellbestätigung von WooCommerce weitergeleitet und bekommt eine Schrittanweisung zur Abwicklung der Überweisungszahlung angezeigt."
+msgid "Enable this option if you want to skip redirecting your user to the Liquichain payment screen, instead this will redirect your user directly to the WooCommerce order received page displaying instructions how to complete the Bank Transfer payment."
+msgstr "Aktivieren Sie diese Option, um die Weiterleitung Ihres Benutzers auf die Liquichain-Bezahlseite zu überspringen. Stattdessen wird Ihr Benutzer direkt zur Bestellbestätigung von WooCommerce weitergeleitet und bekommt eine Schrittanweisung zur Abwicklung der Überweisungszahlung angezeigt."
 
 #: src/PaymentMethods/Belfius.php:13
 msgid "Belfius Direct Net"
@@ -863,19 +863,19 @@ msgid "Credit card"
 msgstr "Kreditkarte"
 
 #: src/PaymentMethods/Creditcard.php:40
-msgid "Enable Mollie Components"
-msgstr "Mollie-Komponenten aktivieren"
+msgid "Enable Liquichain Components"
+msgstr "Liquichain-Komponenten aktivieren"
 
-#. translators: Placeholder 1: Mollie Components.
+#. translators: Placeholder 1: Liquichain Components.
 #: src/PaymentMethods/Creditcard.php:42
-msgid "Use the Mollie Components for this Gateway. Read more about <a href=\"https://www.mollie.com/en/news/post/better-checkout-flows-with-mollie-components\">%s</a> and how it improves your conversion."
-msgstr "Mollie-Komponenten für dieses Portal aktivieren Mollie-Komponenten für dieses Portal verwenden. Erfahre mehr über <a href=\"https://www.mollie.com/en/news/post/better-checkout-flows-with-mollie-components\">%s</a> und wie du damit deinen Umsatz steigern kannst."
+msgid "Use the Liquichain Components for this Gateway. Read more about <a href=\"https://www.liquichain.io/en/news/post/better-checkout-flows-with-liquichain-components\">%s</a> and how it improves your conversion."
+msgstr "Liquichain-Komponenten für dieses Portal aktivieren Liquichain-Komponenten für dieses Portal verwenden. Erfahren Sie mehr über <a href=\"https://www.liquichain.io/en/news/post/better-checkout-flows-with-liquichain-components\">%s</a> und wie es Ihren Umsatz steigert."
 
 #: src/PaymentMethods/Creditcard.php:46
 #: src/Settings/Page/Components.php:21
-#: src/Settings/Page/MollieSettingsPage.php:676
-msgid "Mollie Components"
-msgstr "Mollie-Komponenten"
+#: src/Settings/Page/LiquichainSettingsPage.php:676
+msgid "Liquichain Components"
+msgstr "Liquichain-Komponenten"
 
 #: src/PaymentMethods/Creditcard.php:70
 msgid "Customize Icons"
@@ -883,11 +883,11 @@ msgstr "Symbole personalisieren"
 
 #: src/PaymentMethods/Creditcard.php:77
 msgid "Enable Icons Selector"
-msgstr "Symbolauswahl aktivieren"
+msgstr "Auswahlwerkzeug für Symbole aktivieren"
 
 #: src/PaymentMethods/Creditcard.php:78
 msgid "Show customized creditcard icons on checkout page"
-msgstr "Personalisierte Kreditkartensymbole auf der Checkout-Seite anzeigen"
+msgstr "Benutzerdefinierte Kreditkartensymbole auf der Bezahlseite anzeigen"
 
 #: src/PaymentMethods/Creditcard.php:86
 msgid "Show American Express Icon"
@@ -923,7 +923,7 @@ msgstr "SEPA-Direktmandat"
 
 #: src/PaymentMethods/Directdebit.php:14
 msgid "SEPA Direct Debit is used for recurring payments with WooCommerce Subscriptions, and will not be shown in the WooCommerce checkout for regular payments! You also need to enable iDEAL and/or other \"first\" payment methods if you want to use SEPA Direct Debit."
-msgstr "Für wiederkehrende Zahlungen mit WooCommerce Subscriptions werden SEPA-Direktmandate verwendet. Diese werden nicht im WooCommerce-Bezahlvorgang für reguläre Zahlungen angezeigt. Du musst außerdem iDEAL und/oder weitere „erste“ Bezahlmethoden aktivieren, wenn du SEPA-Direktmandate verwenden möchtest."
+msgstr "Für wiederkehrende Zahlungen mit WooCommerce Subscriptions werden SEPA-Direktmandate verwendet. Diese werden nicht im WooCommerce-Bezahlvorgang für reguläre Zahlungen angezeigt. Sie müssen außerdem iDEAL und/oder weitere „erste“ Bezahlmethoden aktivieren, wenn Sie SEPA-Direktmandate verwenden möchten."
 
 #: src/PaymentMethods/Eps.php:13
 msgid "EPS"
@@ -931,8 +931,8 @@ msgstr "EPS"
 
 #: src/PaymentMethods/Giftcard.php:28
 msgctxt "Placeholder 1: giftcard issuer, Placeholder 2: amount value, Placeholder 3: currency"
-msgid "Mollie - Giftcard details: %1$s %2$s %3$s."
-msgstr "Details zum Mollie-Gutschein: %1$s %2$s %3$s."
+msgid "Liquichain - Giftcard details: %1$s %2$s %3$s."
+msgstr "Liquichain - Gutscheindetails: %1$s %2$s %3$s."
 
 #: src/PaymentMethods/Giftcard.php:40
 msgctxt "Placeholder 1: remainder method, Placeholder 2: amount value, Placeholder 3: currency"
@@ -945,15 +945,15 @@ msgstr "Geschenkkarten"
 
 #: src/PaymentMethods/Giftcard.php:60
 msgid "Select your gift card"
-msgstr "Wähle deine Geschenkkarte aus"
+msgstr "Wählen Sie Ihre Geschenkkarte aus"
 
 #: src/PaymentMethods/Giftcard.php:76
 msgid "Show gift cards dropdown"
 msgstr "Drop-down-Liste für Geschenkkarten anzeigen"
 
 #: src/PaymentMethods/Giftcard.php:82
-msgid "If you disable this, a dropdown with various gift cards will not be shown in the WooCommerce checkout, so users will select a gift card on the Mollie payment page after checkout."
-msgstr "Wenn du die Option deaktivieren, wird die Drop-down-Liste mit verschiedenen Geschenkkarten nicht im WooCommerce-Bezahlvorgang angezeigt, sondern die Benutzer wählen auf der Mollie-Bezahlseite nach dem WooCommerce-Bezahlvorgang eine Geschenkkarte aus."
+msgid "If you disable this, a dropdown with various gift cards will not be shown in the WooCommerce checkout, so users will select a gift card on the Liquichain payment page after checkout."
+msgstr "Wenn Sie die Option deaktivieren, wird die Drop-down-Liste mit verschiedenen Geschenkkarten nicht im WooCommerce-Bezahlvorgang angezeigt, sondern die Benutzer wählen auf der Liquichain-Bezahlseite nach dem WooCommerce-Bezahlvorgang eine Geschenkkarte aus."
 
 #: src/PaymentMethods/Giftcard.php:91
 #: src/PaymentMethods/Ideal.php:46
@@ -977,7 +977,7 @@ msgstr "iDEAL"
 #: src/PaymentMethods/Kbc.php:15
 #: tests/php/Functional/HelperMocks.php:148
 msgid "Select your bank"
-msgstr "Wähle deine Bank aus"
+msgstr "Wählen Sie Ihre Bank aus"
 
 #: src/PaymentMethods/Ideal.php:32
 msgid "Show iDEAL banks dropdown"
@@ -987,15 +987,15 @@ msgstr "Drop-down-Liste für iDEAL-Banken anzeigen"
 msgid ""
 "If you disable this, a dropdown with various iDEAL banks\n"
 "                         will not be shown in the WooCommerce checkout,\n"
-"                         so users will select a iDEAL bank on the Mollie payment page after checkout."
-msgstr "Wenn du die Option deaktivierst, wird die Drop-down-Liste mit verschiedenen iDEAL-Banken\n                         nicht im WooCommerce-Bezahlvorgang angezeigt,\n                         sondern die Benutzer wählen auf der Mollie-Bezahlseite nach dem WooCommerce-Bezahlvorgang eine iDEAL-Bank aus."
+"                         so users will select a iDEAL bank on the Liquichain payment page after checkout."
+msgstr "Wenn Sie die Option deaktivieren, wird die Drop-down-Liste mit verschiedenen iDEAL-Banken\n                         nicht im WooCommerce-Bezahlvorgang angezeigt,\n                         sondern die Benutzer wählen auf der Liquichain-Bezahlseite nach dem WooCommerce-Bezahlvorgang eine iDEAL-Bank aus."
 
 #: src/PaymentMethods/Ideal.php:49
 msgid ""
 "This text will be displayed as the first option in the iDEAL issuers drop down,\n"
 "                         if nothing is entered, \"Select your bank\" will be shown. Only if the above \n"
 "                         'Show iDEAL banks dropdown' is enabled."
-msgstr "Dieser Text wird als erste Option in der Drop-down-Liste für iDEAL-Kartenaussteller angezeigt.\n                         Erfolgt keine Eingabe, wird „Wähle deine Bank aus“ angezeigt. Nur wenn die obere Option \n                         „Drop-down-Liste für iDEAL-Banken anzeigen“ aktiviert wurde."
+msgstr "Dieser Text wird als erste Option in der Drop-down-Liste für iDEAL-Kartenaussteller angezeigt.\n                         Erfolgt keine Eingabe, wird „Wählen Sie Ihre Bank aus“ angezeigt. Nur wenn die obere Option \n                         „Drop-down-Liste für iDEAL-Banken anzeigen“ aktiviert wurde."
 
 #. translators: Placeholder 1: consumer name, placeholder 2: consumer IBAN, placeholder 3: consumer BIC
 #: src/PaymentMethods/InstructionStrategies/BanktransferInstructionStrategy.php:26
@@ -1007,9 +1007,9 @@ msgstr "Zahlung durch <strong>%1$s</strong> erfolgt (IBAN (letzte 4 Ziffern): %2
 
 #: src/PaymentMethods/InstructionStrategies/BanktransferInstructionStrategy.php:33
 msgid "Please complete your payment by transferring the total amount to the following bank account:"
-msgstr "Bitte schließe die Zahlung ab, indem du den vollen Betrag auf das folgende Konto überweist:"
+msgstr "Bitte schließen Sie die Zahlung ab, indem Sie den vollen Betrag auf das folgende Konto überweisen:"
 
-#. translators: Placeholder 1: 'Stichting Mollie Payments'
+#. translators: Placeholder 1: 'Stichting Liquichain Payments'
 #: src/PaymentMethods/InstructionStrategies/BanktransferInstructionStrategy.php:37
 msgid "Beneficiary: %s"
 msgstr "Begünstigter: %s"
@@ -1032,7 +1032,7 @@ msgstr "Zahlungsreferenz: %s"
 #. translators: Placeholder 1: Payment reference e.g. RF49-0000-4716-6216 (SEPA) or +++513/7587/59959+++ (Belgium)
 #: src/PaymentMethods/InstructionStrategies/BanktransferInstructionStrategy.php:46
 msgid "Please provide the payment reference <strong>%s</strong>"
-msgstr "Gib bitte die Zahlungsreferenz <strong>%s</strong> an"
+msgstr "Geben Sie bitte die Zahlungsreferenz <strong>%s</strong> an"
 
 #. translators: Placeholder 1: Payment expiry date
 #: src/PaymentMethods/InstructionStrategies/BanktransferInstructionStrategy.php:55
@@ -1042,7 +1042,7 @@ msgstr "Die Zahlungsfrist läuft am <strong>%s</strong> ab."
 #. translators: Placeholder 1: Payment expiry date
 #: src/PaymentMethods/InstructionStrategies/BanktransferInstructionStrategy.php:60
 msgid "The payment will expire on <strong>%s</strong>. Please make sure you transfer the total amount before this date."
-msgstr "Die Zahlungsfrist läuft am <strong>%s</strong> ab. Bitte überweise bis dahin den vollen Betrag."
+msgstr "Die Zahlungsfrist läuft am <strong>%s</strong> ab. Bitte überweisen Sie bis dahin den vollen Betrag."
 
 #. translators: Placeholder 1: card holder
 #: src/PaymentMethods/InstructionStrategies/CreditcardInstructionStrategy.php:20
@@ -1057,14 +1057,14 @@ msgstr "Wir haben keinen endgültigen Zahlungsstatus erhalten."
 msgid ""
 "We have not received a definite payment status. You will receive an email\n"
 "                     as soon as we receive a confirmation of the bank/merchant."
-msgstr "Wir haben keinen endgültigen Zahlungsstatus erhalten. Du erhältst eine E-Mail,\n                     sobald wir eine Bestätigung der Bank oder des Händlers erhalten."
+msgstr "Wir haben keinen endgültigen Zahlungsstatus erhalten. Sie erhalten eine E-Mail,\n                     sobald wir eine Bestätigung der Bank oder des Händlers erhalten."
 
 #. translators: Placeholder 1: payment method
 #: src/PaymentMethods/InstructionStrategies/DefaultInstructionStrategy.php:35
 msgid "Payment completed with <strong>%s</strong>"
 msgstr "Zahlung durch <strong>%s</strong> erfolgt"
 
-#. translators: Placeholder 1: Mollie_WC_Gateway_MyBank consumer name, placeholder 2: Consumer Account number
+#. translators: Placeholder 1: Liquichain_WC_Gateway_MyBank consumer name, placeholder 2: Consumer Account number
 #: src/PaymentMethods/InstructionStrategies/MybankInstructionStrategy.php:19
 msgid "Payment completed by <strong>%1$s</strong> - %2$s"
 msgstr "Zahlung durch <strong>%1$s</strong> - %2$s erfolgt"
@@ -1083,12 +1083,12 @@ msgid "Show KBC/CBC banks dropdown"
 msgstr "Drop-down-Liste für KBC/CBC-Banken anzeigen"
 
 #: src/PaymentMethods/Kbc.php:38
-msgid "If you disable this, a dropdown with various KBC/CBC banks will not be shown in the WooCommerce checkout, so users will select a KBC/CBC bank on the Mollie payment page after checkout."
-msgstr "Wenn du die Option deaktivierst, wird die Drop-down-Liste mit verschiedenen KBC/CBC-Banken nicht im WooCommerce-Bezahlvorgang angezeigt, sondern die Benutzer wählen auf der Mollie-Bezahlseite nach dem WooCommerce-Bezahlvorgang eine KBC/CBC-Bank aus."
+msgid "If you disable this, a dropdown with various KBC/CBC banks will not be shown in the WooCommerce checkout, so users will select a KBC/CBC bank on the Liquichain payment page after checkout."
+msgstr "Wenn Sie die Option deaktivieren, wird die Drop-down-Liste mit verschiedenen KBC/CBC-Banken nicht im WooCommerce-Bezahlvorgang angezeigt, sondern die Benutzer wählen auf der Liquichain-Bezahlseite nach dem WooCommerce-Bezahlvorgang eine KBC/CBC-Bank aus."
 
 #: src/PaymentMethods/Kbc.php:53
 msgid "This text will be displayed as the first option in the KBC/CBC issuers drop down, if nothing is entered, \"Select your bank\" will be shown. Only if the above ''Show KBC/CBC banks dropdown' is enabled."
-msgstr "Dieser Text wird als erste Option in der Drop-down-Liste für KBC/CBC-Kartenaussteller angezeigt. Erfolgt keine Eingabe, wird „Wähle deine Bank aus“ angezeigt. Nur wenn die obere Option „Drop-down-Liste für KBC/CBC-Banken anzeigen“ aktiviert wurde."
+msgstr "Dieser Text wird als erste Option in der Drop-down-Liste für KBC/CBC-Kartenaussteller angezeigt. Erfolgt keine Eingabe, wird „Wählen Sie Ihre Bank aus“ angezeigt. Nur wenn die obere Option „Drop-down-Liste für KBC/CBC-Banken anzeigen“ aktiviert wurde."
 
 #: src/PaymentMethods/Klarnapaylater.php:13
 msgid "Klarna Pay later"
@@ -1121,7 +1121,7 @@ msgstr "MyBank"
 msgid "To accept payments via MyBank"
 msgstr "Um Bezahlungen über MyBank zu akzeptieren"
 
-#. translators: Placeholder 1: Lock icon. Placeholder 2: Mollie logo.
+#. translators: Placeholder 1: Lock icon. Placeholder 2: Liquichain logo.
 #: src/PaymentMethods/PaymentFieldsStrategies/CreditcardFieldsStrategy.php:24
 msgid "%1$s Secure payments provided by %2$s"
 msgstr "%1$s Sichere Zahlungen bereitgestellt durch %2$s"
@@ -1140,7 +1140,7 @@ msgstr "Im Einkaufswagen anzeigen"
 
 #: src/PaymentMethods/Paypal.php:38
 msgid "Enable the PayPal button to be used in the cart page."
-msgstr "Aktiviere die PayPal-Schaltfläche, die im Einkaufswagen verwendet werden soll."
+msgstr "Aktivieren Sie die PayPal-Schaltfläche, die im Einkaufswagen verwendet werden soll."
 
 #: src/PaymentMethods/Paypal.php:46
 msgid "Display on product page"
@@ -1148,17 +1148,17 @@ msgstr "Auf der Produktseite anzeigen"
 
 #: src/PaymentMethods/Paypal.php:50
 msgid "Enable the PayPal button to be used in the product page."
-msgstr "Aktiviere die PayPal-Schaltfläche, die auf der Produktseite verwendet werden soll."
+msgstr "Aktivieren Sie die PayPal-Schaltfläche, die auf der Produktseite verwendet werden soll."
 
 #: src/PaymentMethods/Paypal.php:59
-msgctxt "Mollie PayPal Button Settings"
+msgctxt "Liquichain PayPal Button Settings"
 msgid "Button text language and color"
 msgstr "Sprache und Farbe des Schaltflächentextes"
 
 #: src/PaymentMethods/Paypal.php:60
-msgctxt "Mollie PayPal Button Settings"
+msgctxt "Liquichain PayPal Button Settings"
 msgid "Select the text and the colour of the button."
-msgstr "Wähle Text und Farbe der Schaltfläche aus."
+msgstr "Wählen Sie Text und Farbe der Schaltfläche aus."
 
 #: src/PaymentMethods/Paypal.php:70
 msgid "Minimum amount to display button"
@@ -1169,322 +1169,322 @@ msgid "If the product or the cart total amount is under this number, then the bu
 msgstr "Wenn der Betrag des Produkts oder des Einkaufswagens unter dieser Zahl liegt, wird die Schaltfläche nicht angezeigt."
 
 #: src/PaymentMethods/Paypal.php:89
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Buy with PayPal - Pill blue"
 msgstr "Englisch -- Kauf über PayPal - Klein und rund, blau"
 
 #: src/PaymentMethods/Paypal.php:90
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Buy with PayPal - Rounded blue"
 msgstr "Englisch -- Kauf über PayPal - Abgerundet, blau"
 
 #: src/PaymentMethods/Paypal.php:91
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Buy with PayPal - Pill golden"
 msgstr "Englisch -- Kauf über PayPal - Klein und rund, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:92
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Buy with PayPal - Rounded golden"
 msgstr "Englisch -- Kauf über PayPal - Abgerundet, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:93
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Buy with PayPal - Pill gray"
 msgstr "Englisch -- Kauf über PayPal - Klein und rund, grau"
 
 #: src/PaymentMethods/Paypal.php:94
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Buy with PayPal - Rounded gray"
 msgstr "Englisch -- Kauf über PayPal - Abgerundet, grau"
 
 #: src/PaymentMethods/Paypal.php:95
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Buy with PayPal - Pill white"
 msgstr "Englisch -- Kauf über PayPal - Klein und rund, weiß"
 
 #: src/PaymentMethods/Paypal.php:96
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Buy with PayPal - Rounded white"
 msgstr "Englisch -- Kauf über PayPal - Abgerundet, weiß"
 
 #: src/PaymentMethods/Paypal.php:97
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Checkout with PayPal - Pill black"
 msgstr "Englisch -- Bezahlung mit PayPal - Klein und rund, schwarz"
 
 #: src/PaymentMethods/Paypal.php:98
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Checkout with PayPal - Rounded black"
 msgstr "Englisch -- Bezahlung mit PayPal - Abgerundet, schwarz"
 
 #: src/PaymentMethods/Paypal.php:99
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Checkout with PayPal - Pill blue"
 msgstr "Englisch -- Bezahlung mit PayPal - Klein und rund, blau"
 
 #: src/PaymentMethods/Paypal.php:100
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Checkout with PayPal - Rounded blue"
 msgstr "Englisch -- Bezahlung mit PayPal - Abgerundet, blau"
 
 #: src/PaymentMethods/Paypal.php:101
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Checkout with PayPal - Pill golden"
 msgstr "Englisch -- Bezahlung mit PayPal - Klein und rund, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:102
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Checkout with PayPal - Rounded golden"
 msgstr "Englisch -- Bezahlung mit PayPal - Abgerundet, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:103
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Checkout with PayPal - Pill gray"
 msgstr "Englisch -- Bezahlung mit PayPal - Klein und rund, grau"
 
 #: src/PaymentMethods/Paypal.php:104
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Checkout with PayPal - Rounded gray"
 msgstr "Englisch -- Bezahlung mit PayPal - Abgerundet, grau"
 
 #: src/PaymentMethods/Paypal.php:105
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Checkout with PayPal - Pill white"
 msgstr "Englisch -- Bezahlung mit PayPal - Klein und rund, weiß"
 
 #: src/PaymentMethods/Paypal.php:106
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "English -- Checkout with PayPal - Rounded white"
 msgstr "Englisch -- Bezahlung mit PayPal - Abgerundet, weiß"
 
 #: src/PaymentMethods/Paypal.php:107
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Buy with PayPal - Pill black"
 msgstr "Niederländisch -- Kauf über PayPal - Klein und rund, schwarz"
 
 #: src/PaymentMethods/Paypal.php:108
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Buy with PayPal - Rounded black"
 msgstr "Niederländisch -- Kauf über PayPal - Abgerundet, schwarz"
 
 #: src/PaymentMethods/Paypal.php:109
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Buy with PayPal - Pill blue"
 msgstr "Niederländisch -- Kauf über PayPal - Klein und rund, blau"
 
 #: src/PaymentMethods/Paypal.php:110
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Buy with PayPal - Rounded blue"
 msgstr "Niederländisch -- Kauf über PayPal - Abgerundet, blau"
 
 #: src/PaymentMethods/Paypal.php:111
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Buy with PayPal - Pill golden"
 msgstr "Niederländisch -- Kauf über PayPal - Klein und rund, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:112
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Buy with PayPal - Rounded golden"
 msgstr "Niederländisch -- Kauf über PayPal - Abgerundet, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:113
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Buy with PayPal - Pill gray"
 msgstr "Niederländisch -- Kauf über PayPal - Klein und rund, grau"
 
 #: src/PaymentMethods/Paypal.php:114
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Buy with PayPal - Rounded gray"
 msgstr "Niederländisch -- Kauf über PayPal - Abgerundet, grau"
 
 #: src/PaymentMethods/Paypal.php:115
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Buy with PayPal - Pill white"
 msgstr "Niederländisch -- Kauf über PayPal - Klein und rund, weiß"
 
 #: src/PaymentMethods/Paypal.php:116
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Buy with PayPal - Rounded white"
 msgstr "Niederländisch -- Kauf über PayPal - Abgerundet, weiß"
 
 #: src/PaymentMethods/Paypal.php:117
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Checkout with PayPal - Pill black"
 msgstr "Niederländisch -- Bezahlung mit PayPal - Klein und rund, schwarz"
 
 #: src/PaymentMethods/Paypal.php:118
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Checkout with PayPal - Rounded black"
 msgstr "Niederländisch -- Bezahlung mit PayPal - Abgerundet, schwarz"
 
 #: src/PaymentMethods/Paypal.php:119
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Checkout with PayPal - Pill blue"
 msgstr "Niederländisch -- Bezahlung mit PayPal - Klein und rund, blau"
 
 #: src/PaymentMethods/Paypal.php:120
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Checkout with PayPal - Rounded blue"
 msgstr "Niederländisch -- Bezahlung mit PayPal - Abgerundet, blau"
 
 #: src/PaymentMethods/Paypal.php:121
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Checkout with PayPal - Pill golden"
 msgstr "Niederländisch -- Bezahlung mit PayPal - Klein und rund, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:122
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Checkout with PayPal - Rounded golden"
 msgstr "Niederländisch -- Bezahlung mit PayPal - Abgerundet, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:123
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Checkout with PayPal - Pill gray"
 msgstr "Niederländisch -- Bezahlung mit PayPal - Klein und rund, grau"
 
 #: src/PaymentMethods/Paypal.php:124
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Checkout with PayPal - Rounded gray"
 msgstr "Niederländisch -- Bezahlung mit PayPal - Abgerundet, grau"
 
 #: src/PaymentMethods/Paypal.php:125
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Checkout with PayPal - Pill white"
 msgstr "Niederländisch -- Bezahlung mit PayPal - Klein und rund, weiß"
 
 #: src/PaymentMethods/Paypal.php:126
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Dutch -- Checkout with PayPal - Rounded white"
 msgstr "Niederländisch -- Bezahlung mit PayPal - Abgerundet, weiß"
 
 #: src/PaymentMethods/Paypal.php:127
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Buy with PayPal - Pill black"
 msgstr "Deutsch -- Kauf über PayPal - Klein und rund, schwarz"
 
 #: src/PaymentMethods/Paypal.php:128
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Buy with PayPal - Rounded black"
 msgstr "Deutsch -- Kauf über PayPal - Abgerundet, schwarz"
 
 #: src/PaymentMethods/Paypal.php:129
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Buy with PayPal - Pill blue"
 msgstr "Deutsch -- Kauf über PayPal - Klein und rund, blau"
 
 #: src/PaymentMethods/Paypal.php:130
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Buy with PayPal - Rounded blue"
 msgstr "Deutsch -- Kauf über PayPal - Abgerundet, blau"
 
 #: src/PaymentMethods/Paypal.php:131
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Buy with PayPal - Pill golden"
 msgstr "Deutsch -- Kauf über PayPal - Klein und rund, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:132
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Buy with PayPal - Rounded golden"
 msgstr "Deutsch -- Kauf über PayPal - Abgerundet, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:133
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Buy with PayPal - Pill gray"
 msgstr "Deutsch -- Kauf über PayPal - Klein und rund, grau"
 
 #: src/PaymentMethods/Paypal.php:134
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Buy with PayPal - Rounded gray"
 msgstr "Deutsch -- Kauf über PayPal - Abgerundet, grau"
 
 #: src/PaymentMethods/Paypal.php:135
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Buy with PayPal - Pill white"
 msgstr "Deutsch -- Kauf über PayPal - Klein und rund, weiß"
 
 #: src/PaymentMethods/Paypal.php:136
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Buy with PayPal - Rounded white"
 msgstr "Deutsch -- Kauf über PayPal - Abgerundet, weiß"
 
 #: src/PaymentMethods/Paypal.php:137
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Checkout with PayPal - Pill black"
 msgstr "Deutsch -- Bezahlung mit PayPal - Klein und rund, schwarz"
 
 #: src/PaymentMethods/Paypal.php:138
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Checkout with PayPal - Rounded black"
 msgstr "Deutsch -- Bezahlung mit PayPal - Abgerundet, schwarz"
 
 #: src/PaymentMethods/Paypal.php:139
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Checkout with PayPal - Pill blue"
 msgstr "Deutsch -- Bezahlung mit PayPal - Klein und rund, blau"
 
 #: src/PaymentMethods/Paypal.php:140
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Checkout with PayPal - Rounded blue"
 msgstr "Deutsch -- Bezahlung mit PayPal - Abgerundet, blau"
 
 #: src/PaymentMethods/Paypal.php:141
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Checkout with PayPal - Pill golden"
 msgstr "Deutsch -- Bezahlung mit PayPal - Klein und rund, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:142
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Checkout with PayPal - Rounded golden"
 msgstr "Deutsch -- Bezahlung mit PayPal - Abgerundet, goldfarben"
 
 #: src/PaymentMethods/Paypal.php:143
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Checkout with PayPal - Pill gray"
 msgstr "Deutsch -- Bezahlung mit PayPal - Klein und rund, grau"
 
 #: src/PaymentMethods/Paypal.php:144
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Checkout with PayPal - Rounded gray"
 msgstr "Deutsch -- Bezahlung mit PayPal - Abgerundet, grau"
 
 #: src/PaymentMethods/Paypal.php:145
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Checkout with PayPal - Pill white"
 msgstr "Deutsch -- Bezahlung mit PayPal - Klein und rund, weiß"
 
 #: src/PaymentMethods/Paypal.php:146
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "German -- Checkout with PayPal - Rounded white"
 msgstr "Deutsch -- Bezahlung mit PayPal - Abgerundet, weiß"
 
 #: src/PaymentMethods/Paypal.php:147
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "French -- Buy with PayPal - Gold"
 msgstr "Französisch -- Kauf über PayPal - Gold"
 
 #: src/PaymentMethods/Paypal.php:148
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "French -- Checkout with PayPal - Gold"
 msgstr "Französisch -- Bezahlung mit PayPal - Gold"
 
 #: src/PaymentMethods/Paypal.php:149
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "French -- Checkout with PayPal - Silver"
 msgstr "Französisch -- Bezahlung mit PayPal - Silber"
 
 #: src/PaymentMethods/Paypal.php:150
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Polish -- Buy with PayPal - Gold"
 msgstr "Polnisch -- Kauf über PayPal - Gold"
 
 #: src/PaymentMethods/Paypal.php:151
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Polish -- Checkout with PayPal - Gold"
 msgstr "Polnisch -- Bezahlung mit PayPal - Gold"
 
 #: src/PaymentMethods/Paypal.php:152
-msgctxt "Mollie PayPal button Settings"
+msgctxt "Liquichain PayPal button Settings"
 msgid "Polish -- Checkout with PayPal - Silver"
 msgstr "Polnisch -- Bezahlung mit PayPal - Silber"
 
@@ -1510,286 +1510,286 @@ msgstr "Gutschein"
 
 #: src/PaymentMethods/Voucher.php:37
 msgid "Select your voucher"
-msgstr "Wähle deinen Gutschein aus"
+msgstr "Wählen Sie Ihren Gutschein aus"
 
 #. translators: Placeholder 1: Default order status, placeholder 2: Link to 'Hold Stock' setting
 #: src/PaymentMethods/Voucher.php:63
 msgid "In order to process it, all products in the order must have a category. This selector will assign the default category for the shop products"
-msgstr "Um weiterverarbeitet werden zu können, müssen alle Produkte der Bestellung eine Kategorie haben. Dieser Selektor weist den Produkten im Shop die Standardkategorie zu"
+msgstr "Um die Verarbeitung zu ermöglichen, müssen alle Produkte der Bestellung eine Kategorie haben. Dieses Auswahlwerkzeug weist den Produkten im Shop die Standardkategorie zu"
 
 #: src/SDK/Api.php:47
-msgid "No API key provided. Please set your Mollie API keys below."
-msgstr "Kein API-Schlüssel vorgegeben. Lege deine Mollie-API-Schlüssel unten fest."
+msgid "No API key provided. Please set your Liquichain API keys below."
+msgstr "Kein API-Schlüssel vorgegeben. Legen Sie Ihre Liquichain-API-Schlüssel unten fest."
 
 #: src/SDK/Api.php:49
-msgid "Invalid API key(s). Get them on the %1$sDevelopers page in the Mollie dashboard%2$s. The API key(s) must start with 'live_' or 'test_', be at least 30 characters and must not contain any special characters."
-msgstr "Invalide(r) API-Schlüssel. Du erhältst die API-Schlüssel über die %1$s-Entwicklerseite im mobilen Dashboard%2$s. API-Schlüssel müssen mit ‚live_‘ oder ‚test_‘ beginnen, mindestens 30 Zeichen enthalten und dürfen keine Sonderzeichen enthalten."
+msgid "Invalid API key(s). Get them on the %1$sDevelopers page in the Liquichain dashboard%2$s. The API key(s) must start with 'live_' or 'test_', be at least 30 characters and must not contain any special characters."
+msgstr "Invalide(r) API-Schlüssel. Beziehen Sie API-Schlüssel über die %1$s-Entwicklerseite im mobilen Dashboard%2$s. API-Schlüssel müssen mit ‚live_‘ oder ‚test_‘ beginnen, mindestens 30 Zeichen enthalten und dürfen keine Sonderzeichen enthalten."
 
 #. translators: Placeholder 1: Gateway title
-#: src/Settings/General/MollieGeneralSettings.php:31
+#: src/Settings/General/LiquichainGeneralSettings.php:31
 msgid "%s display settings"
 msgstr "%s Anzeigeeinstellungen"
 
-#: src/Settings/General/MollieGeneralSettings.php:69
+#: src/Settings/General/LiquichainGeneralSettings.php:69
 msgid "Display logo on checkout page. Default <code>enabled</code>"
 msgstr "Logo bei Bezahlvorgang anzeigen. Standard: <code>aktiviert</code>"
 
-#: src/Settings/General/MollieGeneralSettings.php:77
+#: src/Settings/General/LiquichainGeneralSettings.php:77
 msgid "Sales countries"
 msgstr "Vertriebsländer"
 
-#: src/Settings/General/MollieGeneralSettings.php:84
+#: src/Settings/General/LiquichainGeneralSettings.php:84
 #: src/Settings/Settings.php:245
 msgid "Sell to specific countries"
 msgstr "In bestimmten Ländern verkaufen"
 
 #. translators: Placeholder 1: Gateway title
-#: src/Settings/General/MollieGeneralSettings.php:95
+#: src/Settings/General/LiquichainGeneralSettings.php:95
 msgid "%s custom logo"
 msgstr "%s Eigenes Logo"
 
-#: src/Settings/General/MollieGeneralSettings.php:102
+#: src/Settings/General/LiquichainGeneralSettings.php:102
 msgid "Enable custom logo"
 msgstr "Eigenes Logo aktivieren"
 
-#: src/Settings/General/MollieGeneralSettings.php:107
+#: src/Settings/General/LiquichainGeneralSettings.php:107
 msgid "Enable the feature to add a custom logo for this gateway. This feature will have precedence over other logo options."
-msgstr "Aktiviere die Funktion zum Hinzufügen eines eigenen Logos für dieses Zahlungsportal. Die Funktion hat Vorrang gegenüber anderen Logo-Optionen."
+msgstr "Aktivieren Sie die Funktion zum Hinzufügen eines eigenen Logos für dieses Zahlungsportal. Die Funktion hat Vorrang über andere Logo-Optionen."
 
-#: src/Settings/General/MollieGeneralSettings.php:113
+#: src/Settings/General/LiquichainGeneralSettings.php:113
 msgid "Upload custom logo"
 msgstr "Eigenes Logo hochladen"
 
-#: src/Settings/General/MollieGeneralSettings.php:120
+#: src/Settings/General/LiquichainGeneralSettings.php:120
 msgid "Upload a custom icon for this gateway. The feature must be enabled."
-msgstr "Lade ein eigenes Symbol für dieses Zahlungsportal hoch. Die entsprechende Funktion muss aktiviert sein."
+msgstr "Laden Sie ein eigenes Symbol für dieses Zahlungsportal hoch. Die entsprechende Funktion muss aktiviert sein."
 
 #. translators: Placeholder 1: Gateway title
-#: src/Settings/General/MollieGeneralSettings.php:129
+#: src/Settings/General/LiquichainGeneralSettings.php:129
 msgid "%s surcharge"
-msgstr "%s-Zuschlag"
+msgstr "%s Zuschlag"
 
-#: src/Settings/General/MollieGeneralSettings.php:136
+#: src/Settings/General/LiquichainGeneralSettings.php:136
 msgid "Payment Surcharge"
 msgstr "Zahlungsgebühr"
 
-#: src/Settings/General/MollieGeneralSettings.php:142
+#: src/Settings/General/LiquichainGeneralSettings.php:142
 msgid "No fee"
 msgstr "Keine Gebühr"
 
-#: src/Settings/General/MollieGeneralSettings.php:146
+#: src/Settings/General/LiquichainGeneralSettings.php:146
 msgid "Fixed fee"
 msgstr "Feste Gebühr"
 
-#: src/Settings/General/MollieGeneralSettings.php:150
+#: src/Settings/General/LiquichainGeneralSettings.php:150
 msgid "Percentage"
 msgstr "Prozentsatz"
 
-#: src/Settings/General/MollieGeneralSettings.php:154
+#: src/Settings/General/LiquichainGeneralSettings.php:154
 msgid "Fixed fee and percentage"
 msgstr "Feste Gebühr und Prozentsatz"
 
-#: src/Settings/General/MollieGeneralSettings.php:160
+#: src/Settings/General/LiquichainGeneralSettings.php:160
 msgid "Choose a payment surcharge for this gateway"
-msgstr "Wähle eine Zahlungsgebühr für dieses Zahlungsportal aus"
+msgstr "Wählen Sie eine Zahlungsgebühr für dieses Zahlungsportal aus"
 
 #. translators: Placeholder 1: Currency
-#: src/Settings/General/MollieGeneralSettings.php:167
+#: src/Settings/General/LiquichainGeneralSettings.php:167
 msgid "Payment surcharge fixed amount in %s"
-msgstr "Fester Betrag der Zahlungsgebühr in %s"
+msgstr "Fester Betrag des Zuschlags in %s"
 
-#: src/Settings/General/MollieGeneralSettings.php:170
+#: src/Settings/General/LiquichainGeneralSettings.php:170
 msgid "Control the fee added on checkout. Default 0.00"
-msgstr "Lege die Gebühr fest, die zum Einkaufswagen hinzugefügt wird. Standard: 0,00"
+msgstr "Legen Sie die Gebühr fest, die zum Einkaufswagen hinzugefügt wird. Standard: 0,00"
 
-#: src/Settings/General/MollieGeneralSettings.php:180
+#: src/Settings/General/LiquichainGeneralSettings.php:180
 msgid "Payment surcharge percentage amount %"
-msgstr "Prozentsatz für die Zahlungsgebühr in %"
+msgstr "Prozentsatz für den Zuschlag in %"
 
-#: src/Settings/General/MollieGeneralSettings.php:183
+#: src/Settings/General/LiquichainGeneralSettings.php:183
 msgid "Control the percentage fee added on checkout. Default 0.00"
-msgstr "Lege einen Prozentsatz für die Gebühr fest, die zum Einkaufswagen hinzugefügt wird. Standard: 0,00"
+msgstr "Legen Sie einen Prozentsatz für die Gebühr fest, die zum Einkaufswagen hinzugefügt wird. Standard: 0,00"
 
 #. translators: Placeholder 1: Currency
-#: src/Settings/General/MollieGeneralSettings.php:193
+#: src/Settings/General/LiquichainGeneralSettings.php:193
 msgid "Payment surcharge limit in %s"
-msgstr "Grenzwert für die Zahlungsgebühr in %s"
+msgstr "Grenzwert für den Zuschlag in %s"
 
-#: src/Settings/General/MollieGeneralSettings.php:196
+#: src/Settings/General/LiquichainGeneralSettings.php:196
 msgid "Limit the maximum fee added on checkout. Default 0, means no limit"
-msgstr "Setze einen Grenzwert für die Gebühr, die zum Einkaufswagen hinzugefügt wird. Der Standardwert 0 steht für kein Limit"
+msgstr "Setzen Sie einen Grenzwert für die Gebühr, die zum Einkaufswagen hinzugefügt wird. Der Standardwert 0 steht für keinen Grenzwert"
 
 #. translators: Placeholder 1: Currency
-#: src/Settings/General/MollieGeneralSettings.php:206
+#: src/Settings/General/LiquichainGeneralSettings.php:206
 msgid "Surcharge only under this limit, in %s"
 msgstr "Nur unterhalb dieses Grenzwerts in %s fallen Gebühren an"
 
-#: src/Settings/General/MollieGeneralSettings.php:209
+#: src/Settings/General/LiquichainGeneralSettings.php:209
 msgid "Maximum order amount to apply surcharge. If the order is above this number the surcharge will not apply. Default 0, means no maximum"
 msgstr "Maximaler Kaufbetrag, bei dem der Zuschlag fällig wird. Wenn die Bestellung mehr als diese Zahl beträgt, wird der Zuschlag nicht fällig. Der Standardwert 0 steht für kein Maximum"
 
 #. translators: Placeholder 1: gateway title
-#: src/Settings/General/MollieGeneralSettings.php:220
+#: src/Settings/General/LiquichainGeneralSettings.php:220
 msgid "%s advanced"
 msgstr "%s fortgeschritten"
 
-#: src/Settings/General/MollieGeneralSettings.php:229
+#: src/Settings/General/LiquichainGeneralSettings.php:229
 msgid "Enable this option if you want to be able to set the number of days after the order will expire."
-msgstr "Aktiviere diese Option, wenn du eine Anzahl an Tagen festlegen möchtest, nach deren Ablauf eine Bestellung abläuft."
+msgstr "Aktivieren Sie diese Option, wenn Sie eine Anzahl an Tagen festlegen möchten, nach deren Ablauf eine Bestellung abläuft."
 
-#: src/Settings/General/MollieGeneralSettings.php:237
-msgid "Number of MINUTES after the order will expire and will be canceled at Mollie and WooCommerce. A value of 0 means no expiry date will be considered."
-msgstr "Zeit in MINUTEN, nach der die Bestellung abläuft und bei Mollie und WooCommerce storniert wird. Der Wert 0 bedeutet, dass kein Ablaufdatum berücksichtigt wird."
+#: src/Settings/General/LiquichainGeneralSettings.php:237
+msgid "Number of MINUTES after the order will expire and will be canceled at Liquichain and WooCommerce. A value of 0 means no expiry date will be considered."
+msgstr "Zeit in MINUTEN, nach der die Bestellung abläuft und bei Liquichain und WooCommerce storniert wird. Der Wert 0 bedeutet, dass kein Ablaufdatum berücksichtigt wird."
 
-#: src/Settings/General/MollieGeneralSettings.php:250
+#: src/Settings/General/LiquichainGeneralSettings.php:250
 msgid "Initial order status"
 msgstr "Initialer Bestellstatus"
 
 #. translators: Placeholder 1: Default order status, placeholder 2: Link to 'Hold Stock' setting
-#: src/Settings/General/MollieGeneralSettings.php:269
+#: src/Settings/General/LiquichainGeneralSettings.php:269
 msgid "Some payment methods take longer than a few hours to complete. The initial order state is then set to '%1$s'. This ensures the order is not cancelled when the setting %2$s is used."
 msgstr "Einige Bezahlmethoden benötigen mehr als ein paar Stunden bis zum Abschluss. Der initiale Bestellstatus wird in diesem Fall auf ‚%1$s‘ gesetzt. Dadurch wird sichergestellt, dass die Bestellung nicht storniert wird, wenn die Einstellung %2$s verwendet wird."
 
-#: src/Settings/Page/MollieSettingsPage.php:115
+#: src/Settings/Page/LiquichainSettingsPage.php:115
 msgid "Quickly integrate all major payment methods in WooCommerce, wherever you need them."
-msgstr "Integriere schnell alle gängigen Zahlungsmethoden in WooCommerce, wo immer du sie brauchst"
+msgstr "Integrieren Sie schnell alle gängigen Zahlungsmethoden in WooCommerce, wo immer Sie sie brauchen"
 
-#: src/Settings/Page/MollieSettingsPage.php:119
-msgid " Simply drop them ready-made into your WooCommerce webshop with this powerful plugin by Mollie."
-msgstr " Mit dem wirkungsvollen Plugin von Mollie kannst du fertig konfigurierte Zahlungsmethoden einfach in deinen WooCommerce-Onlineshop einfügen."
+#: src/Settings/Page/LiquichainSettingsPage.php:119
+msgid " Simply drop them ready-made into your WooCommerce webshop with this powerful plugin by Liquichain."
+msgstr " Mit dem wirkungsvollen Plugin von Liquichain können Sie fertig konfigurierte Zahlungsmethoden einfach in Ihren WooCommerce-Onlineshop einfügen."
 
-#: src/Settings/Page/MollieSettingsPage.php:123
-msgid " Mollie is dedicated to making payments better for WooCommerce. "
-msgstr " Ziel von Mollie ist es, Zahlungen für WooCommerce zu verbessern. "
+#: src/Settings/Page/LiquichainSettingsPage.php:123
+msgid " Liquichain is dedicated to making payments better for WooCommerce. "
+msgstr " Ziel von Liquichain ist es, Zahlungen für WooCommerce zu verbessern. "
 
-#: src/Settings/Page/MollieSettingsPage.php:127
+#: src/Settings/Page/LiquichainSettingsPage.php:127
 msgid "Please go to"
-msgstr "Bitte gehe zur"
+msgstr "Bitte gehen Sie zur"
 
-#: src/Settings/Page/MollieSettingsPage.php:130
+#: src/Settings/Page/LiquichainSettingsPage.php:130
 msgid " the signup page"
 msgstr " Anmeldeseite,"
 
-#: src/Settings/Page/MollieSettingsPage.php:134
-msgid "to create a new Mollie account and start receiving payments in a couple of minutes. "
-msgstr "um ein neues Mollie-Konto zu eröffnen und in wenigen Minuten Zahlungen zu erhalten. "
+#: src/Settings/Page/LiquichainSettingsPage.php:134
+msgid "to create a new Liquichain account and start receiving payments in a couple of minutes. "
+msgstr "um ein neues Liquichain-Konto zu eröffnen und in wenigen Minuten Zahlungen zu erhalten. "
 
-#: src/Settings/Page/MollieSettingsPage.php:138
+#: src/Settings/Page/LiquichainSettingsPage.php:138
 msgid "Contact "
-msgstr "Kontaktiere uns, "
+msgstr "Kontaktieren Sie uns, "
 
-#: src/Settings/Page/MollieSettingsPage.php:142
+#: src/Settings/Page/LiquichainSettingsPage.php:142
 msgid " if you have any questions or comments about this plugin."
-msgstr " falls du Fragen oder Anmerkungen zu diesem Plugin hast."
+msgstr " falls Sie Fragen oder Anmerkungen zu diesem Plugin haben."
 
-#: src/Settings/Page/MollieSettingsPage.php:146
+#: src/Settings/Page/LiquichainSettingsPage.php:146
 msgid "Our pricing is always per transaction. No startup fees, no monthly fees, and no gateway fees. No hidden fees, period."
 msgstr "Unsere Leistungen werden immer per Transaktion abgerechnet. Es gibt keine Startgebühr, monatliche Gebühr oder Gebühren, um bestimmte Funktionen freizuschalten. Keine versteckten Kosten – Punkt."
 
-#: src/Settings/Page/MollieSettingsPage.php:152
+#: src/Settings/Page/LiquichainSettingsPage.php:152
 msgid "Plugin Documentation"
 msgstr "Plugin-Dokumentation"
 
-#: src/Settings/Page/MollieSettingsPage.php:155
+#: src/Settings/Page/LiquichainSettingsPage.php:155
 msgid "Contact Support"
 msgstr "Support kontaktieren"
 
-#: src/Settings/Page/MollieSettingsPage.php:167
+#: src/Settings/Page/LiquichainSettingsPage.php:167
 msgid "Log plugin events."
 msgstr "Plugin-Vorgänge protokollieren."
 
 #. translators: Placeholder 1: Location of the log files
-#: src/Settings/Page/MollieSettingsPage.php:173
+#: src/Settings/Page/LiquichainSettingsPage.php:173
 msgid "Log files are saved to <code>%s</code>"
 msgstr "Protokolldateien werden unter <code>%s</code> gespeichert"
 
-#: src/Settings/Page/MollieSettingsPage.php:195
+#: src/Settings/Page/LiquichainSettingsPage.php:195
 msgid "Live API key"
 msgstr "Live-API-Schlüssel"
 
-#. translators: Placeholder 1: API key mode (live or test). The surrounding %s's Will be replaced by a link to the Mollie profile
-#: src/Settings/Page/MollieSettingsPage.php:200
-#: src/Settings/Page/MollieSettingsPage.php:231
-msgid "The API key is used to connect to Mollie. You can find your <strong>%1$s</strong> API key in your %2$sMollie profile%3$s"
-msgstr "Der API-Schlüssel wird für die Verbindung mit Mollie verwendet. Du findest deinen <strong>%1$s</strong>-API-Schlüssel in deinem %2$sMollie-Profil%3$s"
+#. translators: Placeholder 1: API key mode (live or test). The surrounding %s's Will be replaced by a link to the Liquichain profile
+#: src/Settings/Page/LiquichainSettingsPage.php:200
+#: src/Settings/Page/LiquichainSettingsPage.php:231
+msgid "The API key is used to connect to Liquichain. You can find your <strong>%1$s</strong> API key in your %2$sLiquichain profile%3$s"
+msgstr "Der API-Schlüssel wird für die Verbindung mit Liquichain verwendet. Sie finden Ihren <strong>%1$s</strong>-API-Schlüssel in Ihrem %2$sLiquichain-Profil%3$s"
 
-#: src/Settings/Page/MollieSettingsPage.php:209
+#: src/Settings/Page/LiquichainSettingsPage.php:209
 msgid "Live API key should start with live_"
 msgstr "Der Live-API-Schlüssel sollte mit live_ beginnen"
 
-#: src/Settings/Page/MollieSettingsPage.php:216
+#: src/Settings/Page/LiquichainSettingsPage.php:216
 msgid "Enable test mode"
 msgstr "Testmodus aktivieren"
 
-#: src/Settings/Page/MollieSettingsPage.php:219
+#: src/Settings/Page/LiquichainSettingsPage.php:219
 msgid "Enable test mode if you want to test the plugin without using real payments."
-msgstr "Aktiviere den Testmodus, wenn du das Plugin ohne echte Bezahlung testen möchtest."
+msgstr "Aktivieren Sie den Testmodus, wenn Sie das Plugin ohne echte Bezahlung testen möchten."
 
-#: src/Settings/Page/MollieSettingsPage.php:226
+#: src/Settings/Page/LiquichainSettingsPage.php:226
 msgid "Test API key"
 msgstr "Test-API-Schlüssel"
 
-#: src/Settings/Page/MollieSettingsPage.php:240
+#: src/Settings/Page/LiquichainSettingsPage.php:240
 msgid "Test API key should start with test_"
 msgstr "Der Test-API-Schlüssel sollte mit test_ beginnen"
 
-#: src/Settings/Page/MollieSettingsPage.php:247
+#: src/Settings/Page/LiquichainSettingsPage.php:247
 msgid "Debug Log"
 msgstr "Debug-Protokoll"
 
-#: src/Settings/Page/MollieSettingsPage.php:281
+#: src/Settings/Page/LiquichainSettingsPage.php:281
 msgid "Gateway enabled"
 msgstr "Gateway aktiviert"
 
-#: src/Settings/Page/MollieSettingsPage.php:285
+#: src/Settings/Page/LiquichainSettingsPage.php:285
 msgid "Gateway disabled"
 msgstr "Gateway deaktiviert"
 
-#: src/Settings/Page/MollieSettingsPage.php:288
+#: src/Settings/Page/LiquichainSettingsPage.php:288
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#. translators: The surrounding %s's Will be replaced by a link to the Mollie profile
-#: src/Settings/Page/MollieSettingsPage.php:299
-msgid "The following payment methods are activated in your %1$sMollie profile%2$s:"
-msgstr "Die folgenden Bezahlmethoden sind in deinem %1$sMollie-Profil%2$s aktiviert:"
+#. translators: The surrounding %s's Will be replaced by a link to the Liquichain profile
+#: src/Settings/Page/LiquichainSettingsPage.php:299
+msgid "The following payment methods are activated in your %1$sLiquichain profile%2$s:"
+msgstr "Die folgenden Bezahlmethoden sind in Ihrem %1$sLiquichain-Profil%2$s aktiviert:"
 
-#: src/Settings/Page/MollieSettingsPage.php:314
+#: src/Settings/Page/LiquichainSettingsPage.php:314
 msgid "Refresh"
 msgstr "Aktualisieren"
 
-#: src/Settings/Page/MollieSettingsPage.php:333
+#: src/Settings/Page/LiquichainSettingsPage.php:333
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: src/Settings/Page/MollieSettingsPage.php:380
+#: src/Settings/Page/LiquichainSettingsPage.php:380
 msgid "You have WooCommerce Subscriptions activated, but not SEPA Direct Debit. Enable SEPA Direct Debit if you want to allow customers to pay subscriptions with iDEAL and/or other \"first\" payment methods."
-msgstr "Du hast WooCommerce Subscriptions aktiviert, SEPA-Direktmandate aber deaktiviert. Aktiviere SEPA-Direktmandate, wenn du möchtest, dass Kunden Abonnements mit iDEAL und/oder anderen „ersten“ Bezahlmethoden bezahlen dürfen."
+msgstr "Sie haben WooCommerce Subscriptions aktiviert, SEPA-Direktmandate aber deaktiviert. Aktivieren Sie SEPA-Direktmandate, wenn Sie möchten, dass Kunden Abonnements mit iDEAL und/oder anderen „ersten“ Bezahlmethoden bezahlen dürfen."
 
-#: src/Settings/Page/MollieSettingsPage.php:406
-msgid "You have the WooCommerce default Direct Bank Transfer (BACS) payment gateway enabled in WooCommerce. Mollie strongly advices only using Bank Transfer via Mollie and disabling the default WooCommerce BACS payment gateway to prevent possible conflicts."
-msgstr "Du hast das Standard-Überweisungsgateway von WooCommerce (BACS) in WooCommerce aktiviert. Mollie empfiehlt ausdrücklich, die Banküberweisung über Mollie zu verwenden und das Standard-Überweisungsgateway von WooCommerce (BACS) zu deaktivieren, um potenzielle Konflikte zu vermeiden."
+#: src/Settings/Page/LiquichainSettingsPage.php:406
+msgid "You have the WooCommerce default Direct Bank Transfer (BACS) payment gateway enabled in WooCommerce. Liquichain strongly advices only using Bank Transfer via Liquichain and disabling the default WooCommerce BACS payment gateway to prevent possible conflicts."
+msgstr "Sie haben das Standard-Überweisungsgateway von WooCommerce (BACS) in WooCommerce aktiviert. Liquichain empfiehlt ausdrücklich, die Banküberweisung über Liquichain zu verwenden und das Standard-Überweisungsgateway von WooCommerce (BACS) zu deaktivieren, um potenzielle Konflikte zu vermeiden."
 
 #. translators: Placeholder 1: Opening link tag. Placeholder 2: Closing link tag. Placeholder 3: Opening link tag. Placeholder 4: Closing link tag.
-#: src/Settings/Page/MollieSettingsPage.php:435
+#: src/Settings/Page/LiquichainSettingsPage.php:435
 msgid "You have activated Klarna. To accept payments, please make sure all default WooCommerce checkout fields are enabled and required. For more information, go to %1$1sKlarna Pay Later documentation%2$2s or  %3$3sKlarna Slice it documentation%4$4s"
-msgstr "Du hast Klarna aktiviert. Um Zahlungen entgegenzunehmen, vergewissere dich bitte, dass alle standardmäßigen WooCommerce-Felder für den Bezahlvorgang aktiviert und verpflichtend sind. Weitere Informationen findest du in der %1$1sDokumentation zu Klarna Pay Later%2$2s oder der %3$3sDokumentation zu Klarna Slice it%4$4s"
+msgstr "Sie haben Klarna aktiviert. Um Zahlungen entgegenzunehmen, vergewissern Sie sich bitte, dass alle standardmäßigen WooCommerce-Felder für den Bezahlvorgang aktiviert und verpflichtend sind. Weitere Informationen finden Sie in der %1$1sDokumentation zu Klarna Pay later%2$2s oder der %3$3sDokumentation zu Klarna Slice it%4$4s"
 
-#: src/Settings/Page/MollieSettingsPage.php:675
+#: src/Settings/Page/LiquichainSettingsPage.php:675
 msgid "General"
 msgstr "Allgemein"
 
-#: src/Settings/Page/MollieSettingsPage.php:680
+#: src/Settings/Page/LiquichainSettingsPage.php:680
 msgid "Apple Pay Button"
 msgstr "Schaltfläche Apple Pay"
 
-#: src/Settings/Page/MollieSettingsPage.php:684
+#: src/Settings/Page/LiquichainSettingsPage.php:684
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
 #: src/Settings/Settings.php:167
-msgid "%1$sMollie Payments for WooCommerce%2$s Unable to upload the file. Size must be under 500kb."
-msgstr "%1$sMollie-Zahlungen für WooCommerce%2$s Datei konnte nicht hochgeladen werden. Die Dateigröße darf nicht mehr als 500 KB betragen."
+msgid "%1$sLiquichain Payments for WooCommerce%2$s Unable to upload the file. Size must be under 500kb."
+msgstr "%1$sLiquichain-Zahlungen für WooCommerce%2$s Datei konnte nicht hochgeladen werden. Die Dateigröße muss weniger als 500 KB betragen."
 
 #: src/Settings/Settings.php:209
 msgid "Gateway Disabled"
@@ -1820,16 +1820,16 @@ msgid "Error"
 msgstr "Fehler"
 
 #: src/Settings/Settings.php:466
-msgid "Mollie status:"
-msgstr "Mollie-Status:"
+msgid "Liquichain status:"
+msgstr "Liquichain-Status:"
 
 #: src/Settings/Settings.php:467
 msgid "Connected"
 msgstr "Verbunden"
 
 #: src/Settings/SettingsModule.php:134
-msgid "Mollie settings"
-msgstr "Mollie-Einstellungen"
+msgid "Liquichain settings"
+msgstr "Liquichain-Einstellungen"
 
 #: src/Settings/SettingsModule.php:140
 msgid "Logs"
@@ -1837,52 +1837,52 @@ msgstr "Protokolle"
 
 #. translators: Placeholder 1: Opening strong tag. Placeholder 2: Closing strong tag. Placeholder 3: Opening link tag. Placeholder 4: Closing link tag.
 #: src/Settings/SettingsModule.php:149
-msgid "%1$sMollie Payments for WooCommerce%2$s The test mode is active, %3$s disable it%4$s before deploying into production."
-msgstr "%1$sMollie-Zahlungen für WooCommerce%2$s Der Testmodus ist aktiv. %3$s Deaktiviere den Testmodus,%4$s bevor du in die Produktionsumgebung wechselst."
+msgid "%1$sLiquichain Payments for WooCommerce%2$s The test mode is active, %3$s disable it%4$s before deploying into production."
+msgstr "%1$sLiquichain-Zahlungen für WooCommerce%2$s Testmodus aktiv. %3$s Deaktivieren Sie den Testmodus,%4$s bevor Sie Änderungen in die Produktivumgebung einbinden."
 
 #. translators: Placeholder 1: Plugin title. Placeholder 2: Min WooCommerce version. Placeholder 3: WooCommerce version used.
 #: src/Shared/Status.php:73
 msgid "The %1$s plugin requires at least WooCommerce version %2$s, you are using version %3$s. Please update your WooCommerce plugin."
-msgstr "Das %1$s-Plugin benötigt WooCommerce %2$s oder höher, du verwendest Version %3$s. Aktualisiere bitte dein WooCommerce-Plugin."
+msgstr "Das %1$s-Plugin benötigt WooCommerce %2$s oder höher, Sie verwenden Version %3$s. Aktualisieren Sie bitte Ihr WooCommerce-Plugin."
 
 #: src/Shared/Status.php:86
-msgid "Mollie API client not installed. Please make sure the plugin is installed correctly."
-msgstr "Mobiler API-Client nicht installiert. Vergewissere dich, dass das Plugin korrekt installiert ist."
+msgid "Liquichain API client not installed. Please make sure the plugin is installed correctly."
+msgstr "Mobiler API-Client nicht installiert. Vergewissern Sie sich, dass das Plugin korrekt installiert ist."
 
 #: src/Shared/Status.php:95
-msgid "Mollie Payments for WooCommerce requires the JSON extension for PHP. Enable it in your server or ask your webhoster to enable it for you."
-msgstr "Mollie Payments for WooCommerce benötigt die JSON-Erweiterung für PHP. Schalte sie auf deinem Server frei oder bitten deinen Hosting-Anbieter, sie freizuschalten."
+msgid "Liquichain Payments for WooCommerce requires the JSON extension for PHP. Enable it in your server or ask your webhoster to enable it for you."
+msgstr "Liquichain Payments for WooCommerce benötigt die JSON-Erweiterung für PHP. Schalten Sie sie auf Ihrem Server frei oder bitten Sie Ihren Hosting-Anbieter, sie freizuschalten."
 
 #. translators: Placeholder 1: Min PHP version. Placeholder 2: PHP version used. Placeholder 3: Opening link tag. placeholder 4: Closing link tag.
 #: src/Shared/Status.php:109
-msgid "Mollie Payments for WooCommerce require PHP %1$s or higher, you have PHP %2$s. Please upgrade and view %3$sthis FAQ%4$s"
-msgstr "Für Mollie-Zahlungen für WooCommerce wird mindestens PHP %1$s benötigt. Du verwendest PHP %2$s. Bitte aktualisiere PHP und beachte %3$sdiese häufig gestellten Fragen%4$s."
+msgid "Liquichain Payments for WooCommerce require PHP %1$s or higher, you have PHP %2$s. Please upgrade and view %3$sthis FAQ%4$s"
+msgstr "Für Liquichain-Zahlungen für WooCommerce wird mindestens PHP %1$s benötigt. Sie verwenden PHP %2$s. Bitte aktualisieren Sie PHP und beachten Sie %3$sdiese häufig gestellten Fragen%4$s."
 
 #: src/Shared/Status.php:121
-msgid "Mollie Payments for WooCommerce requires the PHP extension JSON to be enabled. Please enable the 'json' extension in your PHP configuration."
-msgstr "Für Mollie-Zahlungen für WooCommerce wird die PHP-Erweiterung JSON benötigt. Bitte aktiviere die ‚json‘-Erweiterung in deiner PHP-Konfiguration."
+msgid "Liquichain Payments for WooCommerce requires the PHP extension JSON to be enabled. Please enable the 'json' extension in your PHP configuration."
+msgstr "Für Liquichain-Zahlungen für WooCommerce wird die PHP-Erweiterung JSON benötigt. Bitte aktivieren Sie die ‚json‘-Erweiterung in Ihrer PHP-Konfiguration."
 
 #: src/Shared/Status.php:128
-msgid "Mollie Payments for WooCommerce requires the PHP extension cURL to be enabled. Please enable the 'curl' extension in your PHP configuration."
-msgstr "Für Mollie-Zahlungen für WooCommerce wird die PHP-Erweiterung cURL benötigt. Bitte aktiviere die ‚curl‘-Erweiterung in deiner PHP-Konfiguration."
+msgid "Liquichain Payments for WooCommerce requires the PHP extension cURL to be enabled. Please enable the 'curl' extension in your PHP configuration."
+msgstr "Für Liquichain-Zahlungen für WooCommerce wird die PHP-Erweiterung cURL benötigt. Bitte aktivieren Sie die ‚curl‘-Erweiterung in Ihrer PHP-Konfiguration."
 
 #: src/Shared/Status.php:136
-msgid "Mollie Payments for WooCommerce require PHP cURL functions to be available. Please make sure all of these functions are available."
-msgstr "Für Mollie-Zahlungen für WooCommerce müssen PHP cURL-Funktionen verfügbar sein. Vergewissere dich, dass alle diese Funktionen verfügbar sind."
+msgid "Liquichain Payments for WooCommerce require PHP cURL functions to be available. Please make sure all of these functions are available."
+msgstr "Für Liquichain-Zahlungen für WooCommerce müssen PHP cURL-Funktionen verfügbar sein. Vergewissern Sie sich, dass alle diese Funktionen verfügbar sind."
 
 #. translators: Placeholder 1: Payment method title, placeholder 2: payment ID
-#: src/Subscription/MollieSepaRecurringGateway.php:136
-#: src/Subscription/MollieSubscriptionGateway.php:463
+#: src/Subscription/LiquichainSepaRecurringGateway.php:136
+#: src/Subscription/LiquichainSubscriptionGateway.php:463
 msgid "%1$s payment started (%2$s)."
 msgstr "%1$s-Zahlung gestartet (%2$s)."
 
 #. translators: Placeholder 1: Payment method title, placeholder 2: payment ID
-#: src/Subscription/MollieSubscriptionGateway.php:198
+#: src/Subscription/LiquichainSubscriptionGateway.php:198
 msgid "Updated subscription from 'On hold' to 'Active' until payment fails, because a SEPA Direct Debit payment takes some time to process."
 msgstr "Das Abonnement wird von ‚ausstehend‘ auf ‚aktiv‘ aktualisiert, bis die Zahlung fehlschlägt, da SEPA-Direktmandate etwas Zeit in Anspruch nehmen."
 
 #. translators: Placeholder 1: Payment method title
-#: src/Subscription/MollieSubscriptionGateway.php:361
+#: src/Subscription/LiquichainSubscriptionGateway.php:361
 msgid "Could not create %s renewal payment."
 msgstr "Erneute %s-Zahlung konnte nicht erstellt werden."
 

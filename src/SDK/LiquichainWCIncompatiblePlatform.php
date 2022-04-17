@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\SDK;
+namespace Liquichain\WooCommerce\SDK;
 
-use Mollie\WooCommerce\Shared\MollieException;
+use Liquichain\WooCommerce\Shared\LiquichainException;
 
-class MollieWCIncompatiblePlatform extends MollieException
+class LiquichainWCIncompatiblePlatform extends LiquichainException
 {
     /**
      * @var int

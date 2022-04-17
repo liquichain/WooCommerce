@@ -14,7 +14,7 @@
         if(isOrderPay){
             jQuery( function( $ ) {
                 let orderId = false;
-                let hiddenField = $('input:hidden[name="mollie-woocommerce-orderId"]')
+                let hiddenField = $('input:hidden[name="liquichain-woocommerce-orderId"]')
                 if(hiddenField.length){
                     orderId = hiddenField.val()
                 }

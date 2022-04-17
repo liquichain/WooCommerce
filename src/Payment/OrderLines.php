@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\WooCommerce\PaymentMethods\Voucher;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\WooCommerce\PaymentMethods\Voucher;
+use Liquichain\WooCommerce\Shared\Data;
 use WC_Order;
 use WC_Order_Item;
 use WC_Tax;
@@ -39,7 +39,7 @@ class OrderLines
     protected $pluginId;
 
     /**
-     * Mollie_WC_Helper_Order_Lines constructor.
+     * Liquichain_WC_Helper_Order_Lines constructor.
      *
      * @param object      $order        WooCommerce Order
      */
@@ -69,7 +69,7 @@ class OrderLines
     }
 
     /**
-     * Get order lines formatted for Mollie Orders API.
+     * Get order lines formatted for Liquichain Orders API.
      *
      * @access private
      * @return mixed
@@ -80,13 +80,13 @@ class OrderLines
     }
 
     /**
-     * Process WooCommerce order items to Mollie Orders API - order lines.
+     * Process WooCommerce order items to Liquichain Orders API - order lines.
      *
      * @access private
      */
     private function process_items()
     {
-        $voucherSettings = get_option('mollie_wc_gateway_voucher_settings')?:get_option('mollie_wc_gateway_mealvoucher_settings');
+        $voucherSettings = get_option('liquichain_wc_gateway_voucher_settings')?:get_option('liquichain_wc_gateway_mealvoucher_settings');
         $isMealVoucherEnabled = $voucherSettings ? ($voucherSettings['enabled'] == 'yes') : false;
         if (!$voucherSettings) {
             $isMealVoucherEnabled = $this->dataHelper->getPaymentMethod('voucher')?true:false;
@@ -104,7 +104,7 @@ class OrderLines
 
                 $this->currency = $this->dataHelper->getOrderCurrency($this->order);
 
-                $mollie_order_item =  [
+                $liquichain_order_item =  [
                     'sku' => $this->get_item_reference($product),
                     'name' => $this->get_item_name($cart_item),
                     'quantity' => $this->get_item_quantity($cart_item),
@@ -134,11 +134,11 @@ class OrderLines
                 ];
 
                 if ($isMealVoucherEnabled && $this->get_item_category($product) != "no_category") {
-                    $mollie_order_item['category'] = $this->get_item_category(
+                    $liquichain_order_item['category'] = $this->get_item_category(
                         $product
                     );
                 }
-                $this->order_lines[] = $mollie_order_item;
+                $this->order_lines[] = $liquichain_order_item;
 
                 do_action($this->pluginId . '_orderlines_process_items_after_processing_item', $cart_item);
             }
@@ -146,7 +146,7 @@ class OrderLines
     }
 
     /**
-     * Process WooCommerce shipping to Mollie Orders API - order lines.
+     * Process WooCommerce shipping to Liquichain Orders API - order lines.
      *
      * @access private
      */
@@ -306,7 +306,7 @@ class OrderLines
      * @param  WC_Order_Item  $cart_item Cart item.
      * @param  object $product   Product object.
      *
-     * @return integer $item_vatRate Item tax percentage formatted for Mollie Orders API.
+     * @return integer $item_vatRate Item tax percentage formatted for Liquichain Orders API.
      */
     private function get_item_vatRate($cart_item, $product)
     {
@@ -440,11 +440,11 @@ class OrderLines
     private function get_item_category($product)
     {
         $mealvoucherSettings = get_option(
-            'mollie_wc_gateway_voucher_settings'
+            'liquichain_wc_gateway_voucher_settings'
         );
         if(!$mealvoucherSettings){
             $mealvoucherSettings = get_option(
-                'mollie_wc_gateway_mealvoucher_settings'
+                'liquichain_wc_gateway_mealvoucher_settings'
             );
         }
 
@@ -460,7 +460,7 @@ class OrderLines
         if (is_array($catTerms)) {
             $term = end($catTerms);
             $term_id = $term->term_id;
-            $metaVoucher = get_term_meta($term_id, '_mollie_voucher_category', true);
+            $metaVoucher = get_term_meta($term_id, '_liquichain_voucher_category', true);
             $category = $metaVoucher ?: $category;
         }
 
@@ -505,7 +505,7 @@ class OrderLines
         }
 
         if (! isset($shipping_name)) {
-            $shipping_name = __('Shipping', 'mollie-payments-for-woocommerce');
+            $shipping_name = __('Shipping', 'liquichain-payments-for-woocommerce');
         }
 
         return (string) $shipping_name;

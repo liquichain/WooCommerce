@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\PaymentMethods\InstructionStrategies\DefaultInstructionStrategy;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\PaymentMethods\InstructionStrategies\DefaultInstructionStrategy;
 
 class OrderInstructionsService
 {
@@ -15,13 +15,13 @@ class OrderInstructionsService
         if (!$gateway->paymentMethod->getProperty('instructions')) {
             $this->strategy = new DefaultInstructionStrategy();
         } else {
-            $className = 'Mollie\\WooCommerce\\PaymentMethods\\InstructionStrategies\\' . ucfirst($gateway->paymentMethod->getProperty('id')) . 'InstructionStrategy';
+            $className = 'Liquichain\\WooCommerce\\PaymentMethods\\InstructionStrategies\\' . ucfirst($gateway->paymentMethod->getProperty('id')) . 'InstructionStrategy';
             $this->strategy = class_exists($className) ? new $className() : new DefaultInstructionStrategy();
         }
     }
 
     public function executeStrategy(
-        MolliePaymentGateway $gateway,
+        LiquichainPaymentGateway $gateway,
         $payment,
         $order = null,
         $admin_instructions = false

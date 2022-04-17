@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Klarnapaynow extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -10,10 +10,10 @@ class Klarnapaynow extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'klarnapaynow',
-            'defaultTitle' => __('Klarna Pay Now', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('Klarna Pay Now', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => __(
                 'To accept payments via Klarna, all default WooCommerce checkout fields should be enabled and required.',
-                'mollie-payments-for-woocommerce'
+                'liquichain-payments-for-woocommerce'
             ),
             'defaultDescription' => '',
             'paymentFields' => false,

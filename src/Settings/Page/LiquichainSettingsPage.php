@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Settings\Page;
+namespace Liquichain\WooCommerce\Settings\Page;
 
-use Mollie\WooCommerce\Settings\Settings;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\WooCommerce\Settings\Settings;
+use Liquichain\WooCommerce\Shared\Data;
 use WC_Admin_Settings;
 use WC_Gateway_BACS;
 use WC_Settings_Page;
 
-class MollieSettingsPage extends WC_Settings_Page
+class LiquichainSettingsPage extends WC_Settings_Page
 {
-    public const FILTER_COMPONENTS_SETTINGS = 'mollie_settings';
+    public const FILTER_COMPONENTS_SETTINGS = 'liquichain_settings';
     protected $settingsHelper;
 
     /**
@@ -45,8 +45,8 @@ class MollieSettingsPage extends WC_Settings_Page
         Data $dataHelper
     ) {
 
-        $this->id = 'mollie_settings';
-        $this->label = __('Mollie Settings', 'mollie-payments-for-woocommerce');
+        $this->id = 'liquichain_settings';
+        $this->label = __('Liquichain Settings', 'liquichain-payments-for-woocommerce');
         $this->settingsHelper = $settingsHelper;
         $this->pluginPath = $pluginPath;
         $this->registeredGateways = $gateways;
@@ -71,18 +71,18 @@ class MollieSettingsPage extends WC_Settings_Page
 
     public function get_settings($currentSection = '')
     {
-        $mollieSettings = $this->addGlobalSettingsFields([]);
+        $liquichainSettings = $this->addGlobalSettingsFields([]);
 
-        if ('mollie_components' === $currentSection) {
-            $mollieSettings = $this->sectionSettings(
+        if ('liquichain_components' === $currentSection) {
+            $liquichainSettings = $this->sectionSettings(
                 $this->componentsFilePath()
             );
         }
         if ('applepay_button' === $currentSection) {
-            $mollieSettings = $this->sectionSettings($this->applePaySection());
+            $liquichainSettings = $this->sectionSettings($this->applePaySection());
         }
         if ('advanced' === $currentSection) {
-            $mollieSettings = $this->sectionSettings($this->advancedSectionFilePath());
+            $liquichainSettings = $this->sectionSettings($this->advancedSectionFilePath());
         }
 
         /**
@@ -90,14 +90,14 @@ class MollieSettingsPage extends WC_Settings_Page
          *
          * @param array $componentSettings Default components settings for the Credit Card Gateway
          */
-        $mollieSettings = apply_filters(
+        $liquichainSettings = apply_filters(
             self::FILTER_COMPONENTS_SETTINGS,
-            $mollieSettings
+            $liquichainSettings
         );
 
         return apply_filters(
             'woocommerce_get_settings_' . $this->id,
-            $mollieSettings,
+            $liquichainSettings,
             $currentSection
         );
     }
@@ -110,47 +110,47 @@ class MollieSettingsPage extends WC_Settings_Page
     {
         $presentationText = __(
             'Quickly integrate all major payment methods in WooCommerce, wherever you need them.',
-            'mollie-payments-for-woocommerce'
+            'liquichain-payments-for-woocommerce'
         );
         $presentationText .= __(
-            ' Simply drop them ready-made into your WooCommerce webshop with this powerful plugin by Mollie.',
-            'mollie-payments-for-woocommerce'
+            ' Simply drop them ready-made into your WooCommerce webshop with this powerful plugin by Liquichain.',
+            'liquichain-payments-for-woocommerce'
         );
         $presentationText .= __(
-            ' Mollie is dedicated to making payments better for WooCommerce. ',
-            'mollie-payments-for-woocommerce'
+            ' Liquichain is dedicated to making payments better for WooCommerce. ',
+            'liquichain-payments-for-woocommerce'
         );
         $presentationText .= '<p>' . __(
             'Please go to',
-            'mollie-payments-for-woocommerce'
-        ) . '<a href="https://www.mollie.com/dashboard/signup">' . __(
+            'liquichain-payments-for-woocommerce'
+        ) . '<a href="https://www.liquichain.io/dashboard/signup">' . __(
             ' the signup page',
-            'mollie-payments-for-woocommerce'
+            'liquichain-payments-for-woocommerce'
         ) . '</a> ';
         $presentationText .= __(
-            'to create a new Mollie account and start receiving payments in a couple of minutes. ',
-            'mollie-payments-for-woocommerce'
+            'to create a new Liquichain account and start receiving payments in a couple of minutes. ',
+            'liquichain-payments-for-woocommerce'
         );
         $presentationText .= __(
             'Contact ',
-            'mollie-payments-for-woocommerce'
-        ) . '<a href="mailto:info@mollie.com">info@mollie.com</a>';
+            'liquichain-payments-for-woocommerce'
+        ) . '<a href="mailto:info@liquichain.io">info@liquichain.io</a>';
         $presentationText .= __(
             ' if you have any questions or comments about this plugin.',
-            'mollie-payments-for-woocommerce'
+            'liquichain-payments-for-woocommerce'
         ) . '</p>';
         $presentationText .= '<p style="border-left: 4px solid black; padding: 8px; height:32px; font-weight:bold; font-size: medium;">' . __(
             'Our pricing is always per transaction. No startup fees, no monthly fees, and no gateway fees. No hidden fees, period.',
-            'mollie-payments-for-woocommerce'
+            'liquichain-payments-for-woocommerce'
         ) . '</p>';
 
         $presentation = ''
-            . '<div style="width:1000px"><div style="font-weight:bold;"><a href="https://github.com/mollie/WooCommerce/wiki">' . __(
+            . '<div style="width:1000px"><div style="font-weight:bold;"><a href="https://github.com/liquichain/WooCommerce/wiki">' . __(
                 'Plugin Documentation',
-                'mollie-payments-for-woocommerce'
-            ) . '</a> | <a href="https://mollie.inpsyde.com/docs/how-to-request-support-via-website-widget/">' . __(
+                'liquichain-payments-for-woocommerce'
+            ) . '</a> | <a href="https://liquichain.inpsyde.com/docs/how-to-request-support-via-website-widget/">' . __(
                 'Contact Support',
-                'mollie-payments-for-woocommerce'
+                'liquichain-payments-for-woocommerce'
             ) . '</a></div></div>'
             . '<span></span>'
             . '<div id="" class="" style="width: 1000px; padding:5px 0 0 10px"><p>' . $presentationText . '</p></div>';
@@ -158,9 +158,9 @@ class MollieSettingsPage extends WC_Settings_Page
         $content = ''
             . $presentation
             . $this->settingsHelper->getPluginStatus()
-            . $this->getMollieMethods();
+            . $this->getLiquichainMethods();
 
-        $debugDesc = __('Log plugin events.', 'mollie-payments-for-woocommerce');
+        $debugDesc = __('Log plugin events.', 'liquichain-payments-for-woocommerce');
 
         // Display location of log files
 
@@ -169,79 +169,79 @@ class MollieSettingsPage extends WC_Settings_Page
             /* translators: Placeholder 1: Location of the log files */
             __(
                 'Log files are saved to <code>%s</code>',
-                'mollie-payments-for-woocommerce'
+                'liquichain-payments-for-woocommerce'
             ),
             defined('WC_LOG_DIR') ? WC_LOG_DIR
                     : WC()->plugin_path() . '/logs/'
         );
 
-        // Global Mollie settings
-        $mollieSettings = [
+        // Global Liquichain settings
+        $liquichainSettings = [
             [
                 'id' => $this->settingsHelper->getSettingId('title'),
-                'title' => __('Mollie Settings', 'mollie-payments-for-woocommerce'),
+                'title' => __('Liquichain Settings', 'liquichain-payments-for-woocommerce'),
                 'type' => 'title',
                 'desc' => '<p id="' . $this->settingsHelper->pluginId . '">' . $content . '</p>'
                     . '<p>' . __(
-                        'The following options are required to use the plugin and are used by all Mollie payment methods',
-                        'mollie-payments-for-woocommerce'
+                        'The following options are required to use the plugin and are used by all Liquichain payment methods',
+                        'liquichain-payments-for-woocommerce'
                     ) . '</p>',
             ],
             [
                 'id' => $this->settingsHelper->getSettingId('live_api_key'),
-                'title' => __('Live API key', 'mollie-payments-for-woocommerce'),
+                'title' => __('Live API key', 'liquichain-payments-for-woocommerce'),
                 'default' => '',
                 'type' => 'text',
                 'desc' => sprintf(
-                /* translators: Placeholder 1: API key mode (live or test). The surrounding %s's Will be replaced by a link to the Mollie profile */
+                /* translators: Placeholder 1: API key mode (live or test). The surrounding %s's Will be replaced by a link to the Liquichain profile */
                     __(
-                        'The API key is used to connect to Mollie. You can find your <strong>%1$s</strong> API key in your %2$sMollie profile%3$s',
-                        'mollie-payments-for-woocommerce'
+                        'The API key is used to connect to Liquichain. You can find your <strong>%1$s</strong> API key in your %2$sLiquichain profile%3$s',
+                        'liquichain-payments-for-woocommerce'
                     ),
                     'live',
-                    '<a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">',
+                    '<a href="https://www.liquichain.io/dashboard/settings/profiles" target="_blank">',
                     '</a>'
                 ),
                 'css' => 'width: 350px',
                 'placeholder' => __(
                     'Live API key should start with live_',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
             ],
             [
                 'id' => $this->settingsHelper->getSettingId('test_mode_enabled'),
-                'title' => __('Enable test mode', 'mollie-payments-for-woocommerce'),
+                'title' => __('Enable test mode', 'liquichain-payments-for-woocommerce'),
                 'default' => 'no',
                 'type' => 'checkbox',
                 'desc_tip' => __(
                     'Enable test mode if you want to test the plugin without using real payments.',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
             ],
             [
                 'id' => $this->settingsHelper->getSettingId('test_api_key'),
-                'title' => __('Test API key', 'mollie-payments-for-woocommerce'),
+                'title' => __('Test API key', 'liquichain-payments-for-woocommerce'),
                 'default' => '',
                 'type' => 'text',
                 'desc' => sprintf(
-                /* translators: Placeholder 1: API key mode (live or test). The surrounding %s's Will be replaced by a link to the Mollie profile */
+                /* translators: Placeholder 1: API key mode (live or test). The surrounding %s's Will be replaced by a link to the Liquichain profile */
                     __(
-                        'The API key is used to connect to Mollie. You can find your <strong>%1$s</strong> API key in your %2$sMollie profile%3$s',
-                        'mollie-payments-for-woocommerce'
+                        'The API key is used to connect to Liquichain. You can find your <strong>%1$s</strong> API key in your %2$sLiquichain profile%3$s',
+                        'liquichain-payments-for-woocommerce'
                     ),
                     'test',
-                    '<a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">',
+                    '<a href="https://www.liquichain.io/dashboard/settings/profiles" target="_blank">',
                     '</a>'
                 ),
                 'css' => 'width: 350px',
                 'placeholder' => __(
                     'Test API key should start with test_',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
             ],
             [
                 'id' => $this->settingsHelper->getSettingId('debug'),
-                'title' => __('Debug Log', 'mollie-payments-for-woocommerce'),
+                'title' => __('Debug Log', 'liquichain-payments-for-woocommerce'),
                 'type' => 'checkbox',
                 'desc' => $debugDesc,
                 'default' => 'yes',
@@ -252,10 +252,10 @@ class MollieSettingsPage extends WC_Settings_Page
             ],
         ];
 
-        return $this->mergeSettings($settings, $mollieSettings);
+        return $this->mergeSettings($settings, $liquichainSettings);
     }
 
-    public function getMollieMethods()
+    public function getLiquichainMethods()
     {
         $content = '';
 
@@ -267,22 +267,22 @@ class MollieSettingsPage extends WC_Settings_Page
 
         if (
             isset($_GET['refresh-methods']) && wp_verify_nonce(
-                $_GET['nonce_mollie_refresh_methods'],
-                'nonce_mollie_refresh_methods'
+                $_GET['nonce_liquichain_refresh_methods'],
+                'nonce_liquichain_refresh_methods'
             )
         ) {
-            /* Reload active Mollie methods */
+            /* Reload active Liquichain methods */
             $methods = $dataHelper->getAllPaymentMethods($apiKey, $testMode, false);
             foreach ($methods as $key => $method){
-                $methods['mollie_wc_gateway_'.$method['id']] = $method;
+                $methods['liquichain_wc_gateway_'.$method['id']] = $method;
                 unset($methods[$key]);
             }
             $this->registeredGateways = $methods;
         }
         if (
-            isset($_GET['cleanDB-mollie']) && wp_verify_nonce(
-                $_GET['nonce_mollie_cleanDb'],
-                'nonce_mollie_cleanDb'
+            isset($_GET['cleanDB-liquichain']) && wp_verify_nonce(
+                $_GET['nonce_liquichain_cleanDb'],
+                'nonce_liquichain_cleanDb'
             )
         ) {
             $cleaner = $this->settingsHelper->cleanDb();
@@ -291,63 +291,63 @@ class MollieSettingsPage extends WC_Settings_Page
 
         $iconAvailable = ' <span style="color: green; cursor: help;" title="' . __(
             'Gateway enabled',
-            'mollie-payments-for-woocommerce'
-        ) . '">' . strtolower(__('Enabled', 'mollie-payments-for-woocommerce')) . '</span>';
+            'liquichain-payments-for-woocommerce'
+        ) . '">' . strtolower(__('Enabled', 'liquichain-payments-for-woocommerce')) . '</span>';
         $iconNoAvailable = ' <span style="color: red; cursor: help;" title="' . __(
             'Gateway disabled',
-            'mollie-payments-for-woocommerce'
-        ) . '">' . strtolower(__('Disabled', 'mollie-payments-for-woocommerce')) . '</span>';
+            'liquichain-payments-for-woocommerce'
+        ) . '">' . strtolower(__('Disabled', 'liquichain-payments-for-woocommerce')) . '</span>';
 
         $content .= '<br /><br />';
         $content .= '<div style="width:1000px;height:350px; background:white; padding:10px; margin-top:10px;">';
 
         if ($testMode) {
-            $content .= '<strong>' . __('Test mode enabled.', 'mollie-payments-for-woocommerce') . '</strong> ';
+            $content .= '<strong>' . __('Test mode enabled.', 'liquichain-payments-for-woocommerce') . '</strong> ';
         }
 
         $content .= sprintf(
-        /* translators: The surrounding %s's Will be replaced by a link to the Mollie profile */
+        /* translators: The surrounding %s's Will be replaced by a link to the Liquichain profile */
             __(
-                'The following payment methods are activated in your %1$sMollie profile%2$s:',
-                'mollie-payments-for-woocommerce'
+                'The following payment methods are activated in your %1$sLiquichain profile%2$s:',
+                'liquichain-payments-for-woocommerce'
             ),
-            '<a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">',
+            '<a href="https://www.liquichain.io/dashboard/settings/profiles" target="_blank">',
             '</a>'
         );
 
-        // Set a "refresh" link so payment method status can be refreshed from Mollie API
-        $nonce_mollie_refresh_methods = wp_create_nonce('nonce_mollie_refresh_methods');
+        // Set a "refresh" link so payment method status can be refreshed from Liquichain API
+        $nonce_liquichain_refresh_methods = wp_create_nonce('nonce_liquichain_refresh_methods');
         $refresh_methods_url = add_query_arg(
-            ['refresh-methods' => 1, 'nonce_mollie_refresh_methods' => $nonce_mollie_refresh_methods]
+            ['refresh-methods' => 1, 'nonce_liquichain_refresh_methods' => $nonce_liquichain_refresh_methods]
         );
 
         $content .= ' (<a href="' . esc_attr($refresh_methods_url) . '">' . strtolower(
-            __('Refresh', 'mollie-payments-for-woocommerce')
+            __('Refresh', 'liquichain-payments-for-woocommerce')
         ) . '</a>)';
 
         $content .= '<ul style="width: 1000px; padding:20px 0 0 10px">';
 
-        $mollieGateways = $this->registeredGateways;//this are the gateways enabled
+        $liquichainGateways = $this->registeredGateways;//this are the gateways enabled
         $paymentMethods = $this->paymentMethods;
         foreach ($paymentMethods as $paymentMethod) {
             $paymentMethodId = $paymentMethod->getProperty('id');
-            $gatewayKey = 'mollie_wc_gateway_' . $paymentMethodId;
-            $paymentMethodEnabledAtMollie = array_key_exists($gatewayKey , $mollieGateways);
+            $gatewayKey = 'liquichain_wc_gateway_' . $paymentMethodId;
+            $paymentMethodEnabledAtLiquichain = array_key_exists($gatewayKey , $liquichainGateways);
             $content .= '<li style="float: left; width: 32%; height:32px;">';
             $content .= $paymentMethod->getIconUrl();
             $content .= ' ' . esc_html($paymentMethod->getProperty('defaultTitle'));
-            if ($paymentMethodEnabledAtMollie) {
+            if ($paymentMethodEnabledAtLiquichain) {
                 $content .= $iconAvailable;
                 $content .= ' <a href="' . $this->getGatewaySettingsUrl($gatewayKey) . '">' . strtolower(
-                    __('Edit', 'mollie-payments-for-woocommerce')
+                    __('Edit', 'liquichain-payments-for-woocommerce')
                 ) . '</a>';
 
                 $content .= '</li>';
                 continue;
             }
             $content .= $iconNoAvailable;
-            $content .= ' <a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">' . strtolower(
-                    __('Activate', 'mollie-payments-for-woocommerce')
+            $content .= ' <a href="https://www.liquichain.io/dashboard/settings/profiles" target="_blank">' . strtolower(
+                    __('Activate', 'liquichain-payments-for-woocommerce')
                 ) . '</a>';
 
             $content .= '</li>';
@@ -360,9 +360,9 @@ class MollieSettingsPage extends WC_Settings_Page
         // iDEAL is needed for the first payment of subscriptions with SEPA Direct Debit
         $content = $this->checkDirectDebitStatus($content);
 
-        // Advice users to use bank transfer via Mollie, not
+        // Advice users to use bank transfer via Liquichain, not
         // WooCommerce default BACS method
-        $content = $this->checkMollieBankTransferNotBACS($content);
+        $content = $this->checkLiquichainBankTransferNotBACS($content);
 
         // Warn users that all default WooCommerce checkout fields
         // are required to accept Klarna as payment method
@@ -389,13 +389,13 @@ class MollieSettingsPage extends WC_Settings_Page
      */
     protected function checkDirectDebitStatus($content): string
     {
-        $idealGateway = !empty($this->registeredGateways["mollie_wc_gateway_ideal"]) && $this->paymentMethods["ideal"]->getProperty('enabled') === 'yes';
-        $sepaGateway = !empty($this->registeredGateways["mollie_wc_gateway_directdebit"]) && $this->paymentMethods["directdebit"]->getProperty('enabled') === 'yes';
+        $idealGateway = !empty($this->registeredGateways["liquichain_wc_gateway_ideal"]) && $this->paymentMethods["ideal"]->getProperty('enabled') === 'yes';
+        $sepaGateway = !empty($this->registeredGateways["liquichain_wc_gateway_directdebit"]) && $this->paymentMethods["directdebit"]->getProperty('enabled') === 'yes';
 
         if ((class_exists('WC_Subscription')) && $idealGateway && !$sepaGateway) {
             $warning_message = __(
                 'You have WooCommerce Subscriptions activated, but not SEPA Direct Debit. Enable SEPA Direct Debit if you want to allow customers to pay subscriptions with iDEAL and/or other "first" payment methods.',
-                'mollie-payments-for-woocommerce'
+                'liquichain-payments-for-woocommerce'
             );
 
             $content .= '<div class="notice notice-warning is-dismissible"><p>';
@@ -413,15 +413,15 @@ class MollieSettingsPage extends WC_Settings_Page
      *
      * @return string
      */
-    protected function checkMollieBankTransferNotBACS($content)
+    protected function checkLiquichainBankTransferNotBACS($content)
     {
         $woocommerce_banktransfer_gateway = new WC_Gateway_BACS();
 
         if ($woocommerce_banktransfer_gateway->is_available()) {
             $content .= '<div class="notice notice-warning is-dismissible"><p>';
             $content .= __(
-                'You have the WooCommerce default Direct Bank Transfer (BACS) payment gateway enabled in WooCommerce. Mollie strongly advices only using Bank Transfer via Mollie and disabling the default WooCommerce BACS payment gateway to prevent possible conflicts.',
-                'mollie-payments-for-woocommerce'
+                'You have the WooCommerce default Direct Bank Transfer (BACS) payment gateway enabled in WooCommerce. Liquichain strongly advices only using Bank Transfer via Liquichain and disabling the default WooCommerce BACS payment gateway to prevent possible conflicts.',
+                'liquichain-payments-for-woocommerce'
             );
             $content .= '</p></div> ';
 
@@ -438,9 +438,9 @@ class MollieSettingsPage extends WC_Settings_Page
      */
     protected function warnAboutRequiredCheckoutFieldForKlarna($content)
     {
-        $woocommerceKlarnapaylaterGateway = !empty($this->registeredGateways["mollie_wc_gateway_klarnapaylater"]) && $this->paymentMethods["klarnapaylater"]->getProperty('enabled') === 'yes';
-        $woocommerceKlarnasliceitGateway = !empty($this->registeredGateways["mollie_wc_gateway_klarnasliceit"]) && $this->paymentMethods["klarnasliceit"]->getProperty('enabled') === 'yes';
-        $woocommerceKlarnapaynowGateway = !empty($this->registeredGateways["mollie_wc_gateway_klarnapaynow"]) && $this->paymentMethods["klarnapaynow"]->getProperty('enabled') === 'yes';
+        $woocommerceKlarnapaylaterGateway = !empty($this->registeredGateways["liquichain_wc_gateway_klarnapaylater"]) && $this->paymentMethods["klarnapaylater"]->getProperty('enabled') === 'yes';
+        $woocommerceKlarnasliceitGateway = !empty($this->registeredGateways["liquichain_wc_gateway_klarnasliceit"]) && $this->paymentMethods["klarnasliceit"]->getProperty('enabled') === 'yes';
+        $woocommerceKlarnapaynowGateway = !empty($this->registeredGateways["liquichain_wc_gateway_klarnapaynow"]) && $this->paymentMethods["klarnapaynow"]->getProperty('enabled') === 'yes';
 
         if (
             $woocommerceKlarnapaylaterGateway || $woocommerceKlarnasliceitGateway || $woocommerceKlarnapaynowGateway
@@ -450,11 +450,11 @@ class MollieSettingsPage extends WC_Settings_Page
             /* translators: Placeholder 1: Opening link tag. Placeholder 2: Closing link tag. Placeholder 3: Opening link tag. Placeholder 4: Closing link tag. */
                 __(
                     'You have activated Klarna. To accept payments, please make sure all default WooCommerce checkout fields are enabled and required. For more information, go to %1$1sKlarna Pay Later documentation%2$2s or  %3$3sKlarna Slice it documentation%4$4s',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
-                '<a href="https://github.com/mollie/WooCommerce/wiki/Setting-up-Klarna-Pay-later-gateway">',
+                '<a href="https://github.com/liquichain/WooCommerce/wiki/Setting-up-Klarna-Pay-later-gateway">',
                 '</a>',
-                '<a href=" https://github.com/mollie/WooCommerce/wiki/Setting-up-Klarna-Slice-it-gateway">',
+                '<a href=" https://github.com/liquichain/WooCommerce/wiki/Setting-up-Klarna-Slice-it-gateway">',
                 '</a>'
             );
             $content .= '</p></div> ';
@@ -467,13 +467,13 @@ class MollieSettingsPage extends WC_Settings_Page
 
     /**
      * @param array $settings
-     * @param array $mollie_settings
+     * @param array $liquichain_settings
      * @return array
      */
-    protected function mergeSettings(array $settings, array $mollie_settings): array
+    protected function mergeSettings(array $settings, array $liquichain_settings): array
     {
         $new_settings = [];
-        $mollie_settings_merged = false;
+        $liquichain_settings_merged = false;
 
         // Find payment gateway options index
         foreach ($settings as $index => $setting) {
@@ -481,17 +481,17 @@ class MollieSettingsPage extends WC_Settings_Page
                 isset($setting['id']) && $setting['id'] === 'payment_gateways_options'
                 && (!isset($setting['type']) || $setting['type'] != 'sectionend')
             ) {
-                $new_settings = array_merge($new_settings, $mollie_settings);
-                $mollie_settings_merged = true;
+                $new_settings = array_merge($new_settings, $liquichain_settings);
+                $liquichain_settings_merged = true;
             }
 
             $new_settings[] = $setting;
         }
 
-        // Mollie settings not merged yet, payment_gateways_options not found
-        if (!$mollie_settings_merged) {
-            // Append Mollie settings
-            $new_settings = array_merge($new_settings, $mollie_settings);
+        // Liquichain settings not merged yet, payment_gateways_options not found
+        if (!$liquichain_settings_merged) {
+            // Append Liquichain settings
+            $new_settings = array_merge($new_settings, $liquichain_settings);
         }
 
         return $new_settings;
@@ -522,7 +522,7 @@ class MollieSettingsPage extends WC_Settings_Page
      */
     protected function componentsFilePath()
     {
-        return $this->pluginPath . '/inc/settings/mollie_components.php';
+        return $this->pluginPath . '/inc/settings/liquichain_components.php';
     }
 
     /**
@@ -530,7 +530,7 @@ class MollieSettingsPage extends WC_Settings_Page
      */
     protected function applePaySection()
     {
-        return $this->pluginPath . '/inc/settings/mollie_applepay_settings.php';
+        return $this->pluginPath . '/inc/settings/liquichain_applepay_settings.php';
     }
 
     /**
@@ -538,7 +538,7 @@ class MollieSettingsPage extends WC_Settings_Page
      */
     protected function advancedSectionFilePath()
     {
-        return $this->pluginPath . '/inc/settings/mollie_advanced_settings.php';
+        return $this->pluginPath . '/inc/settings/liquichain_advanced_settings.php';
     }
 
     /**
@@ -548,8 +548,8 @@ class MollieSettingsPage extends WC_Settings_Page
      */
     protected function hideKeysIntoStars($settings)
     {
-        $liveKeyName = 'mollie-payments-for-woocommerce_live_api_key';
-        $testKeyName = 'mollie-payments-for-woocommerce_test_api_key';
+        $liveKeyName = 'liquichain-payments-for-woocommerce_live_api_key';
+        $testKeyName = 'liquichain-payments-for-woocommerce_test_api_key';
         $liveValue = get_option($liveKeyName);
         $testValue = get_option($testKeyName);
 
@@ -597,23 +597,23 @@ class MollieSettingsPage extends WC_Settings_Page
         isset($data['display_logo']) && ($data['display_logo'] === '1') ?
             $applepaySettings['display_logo'] = 'yes'
             : $applepaySettings['display_logo'] = 'no';
-        isset($data['mollie_apple_pay_button_enabled_cart'])
-        && ($data['mollie_apple_pay_button_enabled_cart'] === '1') ?
-            $applepaySettings['mollie_apple_pay_button_enabled_cart'] = 'yes'
-            : $applepaySettings['mollie_apple_pay_button_enabled_cart'] = 'no';
-        isset($data['mollie_apple_pay_button_enabled_product'])
-        && ($data['mollie_apple_pay_button_enabled_product'] === '1')
+        isset($data['liquichain_apple_pay_button_enabled_cart'])
+        && ($data['liquichain_apple_pay_button_enabled_cart'] === '1') ?
+            $applepaySettings['liquichain_apple_pay_button_enabled_cart'] = 'yes'
+            : $applepaySettings['liquichain_apple_pay_button_enabled_cart'] = 'no';
+        isset($data['liquichain_apple_pay_button_enabled_product'])
+        && ($data['liquichain_apple_pay_button_enabled_product'] === '1')
             ?
-            $applepaySettings['mollie_apple_pay_button_enabled_product'] = 'yes'
+            $applepaySettings['liquichain_apple_pay_button_enabled_product'] = 'yes'
             :
-            $applepaySettings['mollie_apple_pay_button_enabled_product'] = 'no';
+            $applepaySettings['liquichain_apple_pay_button_enabled_product'] = 'no';
         isset($data['title']) ? $applepaySettings['title'] = $data['title']
             : $applepaySettings['title'] = '';
         isset($data['description']) ?
             $applepaySettings['description'] = $data['description']
             : $applepaySettings['description'] = '';
         update_option(
-            'mollie_wc_gateway_applepay_settings',
+            'liquichain_wc_gateway_applepay_settings',
             $applepaySettings
         );
     }
@@ -625,8 +625,8 @@ class MollieSettingsPage extends WC_Settings_Page
      */
     protected function saveApiKeys($settings)
     {
-        $liveKeyName = 'mollie-payments-for-woocommerce_live_api_key';
-        $testKeyName = 'mollie-payments-for-woocommerce_test_api_key';
+        $liveKeyName = 'liquichain-payments-for-woocommerce_live_api_key';
+        $testKeyName = 'liquichain-payments-for-woocommerce_test_api_key';
         $liveValueInDb = get_option($liveKeyName);
         $testValueInDb = get_option($testKeyName);
         $postedLiveValue = isset($_POST[$liveKeyName]) ? sanitize_text_field($_POST[$liveKeyName]) : '';
@@ -687,19 +687,19 @@ class MollieSettingsPage extends WC_Settings_Page
      */
     public function get_sections()
     {
-        $isAppleEnabled =array_key_exists('mollie_wc_gateway_applepay', $this->registeredGateways);
+        $isAppleEnabled =array_key_exists('liquichain_wc_gateway_applepay', $this->registeredGateways);
         $sections = [
-            '' => __('General', 'mollie-payments-for-woocommerce'),
-            'mollie_components' => __(
-                'Mollie Components',
-                'mollie-payments-for-woocommerce'
+            '' => __('General', 'liquichain-payments-for-woocommerce'),
+            'liquichain_components' => __(
+                'Liquichain Components',
+                'liquichain-payments-for-woocommerce'
             ),
-            'advanced' => __('Advanced', 'mollie-payments-for-woocommerce'),
+            'advanced' => __('Advanced', 'liquichain-payments-for-woocommerce'),
         ];
         if($isAppleEnabled){
             $sections['applepay_button'] = __(
                 'Apple Pay Button',
-                'mollie-payments-for-woocommerce'
+                'liquichain-payments-for-woocommerce'
             );
         }
 

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\SDK;
+namespace Liquichain\WooCommerce\SDK;
 
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Exceptions\CurlConnectTimeoutException;
-use Mollie\Api\HttpAdapter\MollieHttpAdapterInterface;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\Api\Exceptions\CurlConnectTimeoutException;
+use Liquichain\Api\HttpAdapter\LiquichainHttpAdapterInterface;
 
-class WordPressHttpAdapter implements MollieHttpAdapterInterface
+class WordPressHttpAdapter implements LiquichainHttpAdapterInterface
 {
     /**
      * Default response timeout (in seconds).
@@ -74,7 +74,7 @@ class WordPressHttpAdapter implements MollieHttpAdapterInterface
 
         // GUARDS
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new ApiException("Unable to decode Mollie response: '{$response}'.");
+            throw new ApiException("Unable to decode Liquichain response: '{$response}'.");
         }
 
         if (isset($body->error)) {

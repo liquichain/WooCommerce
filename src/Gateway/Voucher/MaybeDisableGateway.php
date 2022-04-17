@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Gateway\Voucher;
+namespace Liquichain\WooCommerce\Gateway\Voucher;
 
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\PaymentMethods\Voucher;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\PaymentMethods\Voucher;
 
 class MaybeDisableGateway
 {
     /**
-     * Disable Meal Mollie_WC_Gateway_Voucher Gateway if no categories associated with any product
+     * Disable Meal Liquichain_WC_Gateway_Voucher Gateway if no categories associated with any product
      * in the cart
      *
      * @param array $gateways
@@ -42,10 +42,10 @@ class MaybeDisableGateway
         }
         $mealVoucherGatewayIndex = false;
         foreach ($gateways as $key => $gateway) {
-            if (!($gateway instanceof MolliePaymentGateway)) {
+            if (!($gateway instanceof LiquichainPaymentGateway)) {
                 continue;
             }
-            if ($gateway->id === 'mollie_wc_gateway_voucher') {
+            if ($gateway->id === 'liquichain_wc_gateway_voucher') {
                 $mealVoucherGatewayIndex = $key;
             }
         }
@@ -84,11 +84,11 @@ class MaybeDisableGateway
         $cart = WC()->cart;
         $products = $cart->get_cart_contents();
         $mealvoucherSettings = get_option(
-            'mollie_wc_gateway_voucher_settings'
+            'liquichain_wc_gateway_voucher_settings'
         );
         if(!$mealvoucherSettings){
             $mealvoucherSettings = get_option(
-                'mollie_wc_gateway_mealvoucher_settings'
+                'liquichain_wc_gateway_mealvoucher_settings'
             );
         }
         //Check if mealvoucherSettings is an array as to prevent notice from being thrown for PHP 7.4 and up.

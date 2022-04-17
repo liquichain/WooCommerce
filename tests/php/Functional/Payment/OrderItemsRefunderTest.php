@@ -1,21 +1,21 @@
 <?php # -*- coding: utf-8 -*-
 
-namespace Mollie\WooCommerceTests\Functional\Payment;
+namespace Liquichain\WooCommerceTests\Functional\Payment;
 
 use Brain\Monkey\Expectation\Exception\ExpectationArgsRequired;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Mollie\Api\Endpoints\OrderEndpoint;
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Order;
-use Mollie\Api\Resources\Refund;
-use Mollie\WooCommerce\Payment\OrderItemsRefunder;
-use Mollie\WooCommerce\Payment\RefundLineItemsBuilder;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\Api\Endpoints\OrderEndpoint;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\Api\Resources\Order;
+use Liquichain\Api\Resources\Refund;
+use Liquichain\WooCommerce\Payment\OrderItemsRefunder;
+use Liquichain\WooCommerce\Payment\RefundLineItemsBuilder;
+use Liquichain\WooCommerce\Shared\Data;
 
 
 use WC_Order_Item;
 
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\WooCommerceTests\TestCase;
 use PHPUnit_Framework_Exception;
 use PHPUnit_Framework_MockObject_MockObject;
 use stdClass;
@@ -222,7 +222,7 @@ class OrderItemsRefunderTest extends TestCase
          */
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage(
-            'One of the WooCommerce order items does not have the refund item ID meta value associated to Mollie Order item.'
+            'One of the WooCommerce order items does not have the refund item ID meta value associated to Liquichain Order item.'
         );
 
         /*
@@ -303,7 +303,7 @@ class OrderItemsRefunderTest extends TestCase
         * Expectations
         */
         $this->expectException(UnexpectedValueException::class);
-        $this->expectExceptionMessage('Empty WooCommerce order items or mollie order lines.');
+        $this->expectExceptionMessage('Empty WooCommerce order items or liquichain order lines.');
 
         /*
          * Execute Test

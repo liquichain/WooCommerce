@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Giropay extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -10,7 +10,7 @@ class Giropay extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'giropay',
-            'defaultTitle' => __('Giropay', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('Giropay', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => '',
             'defaultDescription' => '',
             'paymentFields' => false,

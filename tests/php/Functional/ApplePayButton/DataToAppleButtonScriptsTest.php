@@ -1,11 +1,11 @@
 <?php
 
-namespace Mollie\WooCommerceTests\Functional\ApplePayButton;
+namespace Liquichain\WooCommerceTests\Functional\ApplePayButton;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Mollie\WooCommerce\Buttons\ApplePayButton\DataToAppleButtonScripts;
-use Mollie\WooCommerceTests\Stubs\postDTOTestsStubs;
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\WooCommerce\Buttons\ApplePayButton\DataToAppleButtonScripts;
+use Liquichain\WooCommerceTests\Stubs\postDTOTestsStubs;
+use Liquichain\WooCommerceTests\TestCase;
 
 use function Brain\Monkey\Functions\stubs;
 use function Brain\Monkey\Functions\when;
@@ -82,7 +82,7 @@ class ApplePayDirectHandlerTest extends TestCase
                 'totalLabel' => 'test',
             ],
             'ajaxUrl' => 'admin-ajax.php',
-            'buttonMarkup' => '<div id="mollie-applepayDirect-button">testNonce</div>',
+            'buttonMarkup' => '<div id="liquichain-applepayDirect-button">testNonce</div>',
         ];
         stubs(
             [

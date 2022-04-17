@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Voucher extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -26,15 +26,15 @@ class Voucher extends AbstractPaymentMethod implements PaymentMethodI
     /**
      * @var string
      */
-    public const MOLLIE_VOUCHER_CATEGORY_OPTION = '_mollie_voucher_category';
+    public const MOLLIE_VOUCHER_CATEGORY_OPTION = '_liquichain_voucher_category';
 
     protected function getConfig(): array
     {
         return [
             'id' => 'voucher',
-            'defaultTitle' => __('Voucher', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('Voucher', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => '',
-            'defaultDescription' => __('', 'mollie-payments-for-woocommerce'),
+            'defaultDescription' => __('', 'liquichain-payments-for-woocommerce'),
             'paymentFields' => false,
             'instructions' => false,
             'supports' => [
@@ -51,7 +51,7 @@ class Voucher extends AbstractPaymentMethod implements PaymentMethodI
         $paymentMethodFormFieds = [
 
             'mealvoucher_category_default' => [
-                'title' => __('Select the default products category', 'mollie-payments-for-woocommerce'),
+                'title' => __('Select the default products category', 'liquichain-payments-for-woocommerce'),
                 'type' => 'select',
                 'options' => [
                     self::NO_CATEGORY => $this->categoryName(self::NO_CATEGORY),
@@ -61,7 +61,7 @@ class Voucher extends AbstractPaymentMethod implements PaymentMethodI
                 ],
                 'default' => self::NO_CATEGORY,
                 /* translators: Placeholder 1: Default order status, placeholder 2: Link to 'Hold Stock' setting */
-                'description' => __('In order to process it, all products in the order must have a category. This selector will assign the default category for the shop products', 'mollie-payments-for-woocommerce'),
+                'description' => __('In order to process it, all products in the order must have a category. This selector will assign the default category for the shop products', 'liquichain-payments-for-woocommerce'),
                 'desc_tip' => true,
             ],
         ];
@@ -70,6 +70,6 @@ class Voucher extends AbstractPaymentMethod implements PaymentMethodI
 
     private function categoryName($category)
     {
-        return __(ucwords(str_replace('_', ' ', $category)), 'mollie-payments-for-woocommerce');
+        return __(ucwords(str_replace('_', ' ', $category)), 'liquichain-payments-for-woocommerce');
     }
 }

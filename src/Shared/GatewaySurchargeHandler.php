@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Shared;
+namespace Liquichain\WooCommerce\Shared;
 
-use Mollie\WooCommerce\Gateway\Surcharge;
+use Liquichain\WooCommerce\Gateway\Surcharge;
 use \WC_Order_Item_Fee;
 
 class GatewaySurchargeHandler
@@ -49,13 +49,13 @@ class GatewaySurchargeHandler
                 }
         );
         add_action(
-                'wp_ajax_mollie_checkout_blocks_surchage',
+                'wp_ajax_liquichain_checkout_blocks_surchage',
                 function () {
                     return $this->updateSurchargeCheckoutBlock();
                 }
         );
         add_action(
-                'wp_ajax_nopriv_mollie_checkout_blocks_surchage',
+                'wp_ajax_nopriv_liquichain_checkout_blocks_surchage',
                 function () {
                     return $this->updateSurchargeCheckoutBlock();
                 }
@@ -66,13 +66,13 @@ class GatewaySurchargeHandler
     public function setHiddenOrderId($item_id, $item, $order, $bool = false)
     {
         ?>
-        <input type="hidden" name="mollie-woocommerce-orderId" value="<?php echo $order->get_id() ?>">
+        <input type="hidden" name="liquichain-woocommerce-orderId" value="<?php echo $order->get_id() ?>">
         <?php
     }
 
     public function enqueueSurchargeScript()
     {
-        if (is_admin() || !mollieWooCommerceIsCheckoutContext()) {
+        if (is_admin() || !liquichainWooCommerceIsCheckoutContext()) {
             return;
         }
         wp_enqueue_script('gatewaySurcharge');
@@ -198,7 +198,7 @@ class GatewaySurchargeHandler
 
     public function add_engraving_fees($cart)
     {
-        if (!mollieWooCommerceIsCheckoutContext()
+        if (!liquichainWooCommerceIsCheckoutContext()
                 && !has_block('woocommerce/checkout')
 
         ) {
@@ -248,15 +248,15 @@ class GatewaySurchargeHandler
                     ));
         }
 
-        if (!$this->isMollieGateway($gateway)) {
+        if (!$this->isLiquichainGateway($gateway)) {
             return false;
         }
         return $gateway;
     }
 
-    protected function isMollieGateway($gateway)
+    protected function isLiquichainGateway($gateway)
     {
-        return !empty($gateway) && strpos($gateway, 'mollie_wc_gateway_') !== false;
+        return !empty($gateway) && strpos($gateway, 'liquichain_wc_gateway_') !== false;
     }
 
     private function gatewaySettings($gateway)
@@ -318,7 +318,7 @@ class GatewaySurchargeHandler
         if (!$gateway) {
             return false;
         }
-        if (!$this->isMollieGateway($gateway)) {
+        if (!$this->isLiquichainGateway($gateway)) {
             return false;
         }
         return $gateway;
@@ -327,8 +327,8 @@ class GatewaySurchargeHandler
     protected function surchargeFeeOption()
     {
         return get_option(
-                'mollie-payments-for-woocommerce_gatewayFeeLabel',
-                __(Surcharge::DEFAULT_FEE_LABEL, 'mollie-payments-for-woocommerce')
+                'liquichain-payments-for-woocommerce_gatewayFeeLabel',
+                __(Surcharge::DEFAULT_FEE_LABEL, 'liquichain-payments-for-woocommerce')
         );
     }
 }

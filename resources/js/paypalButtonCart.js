@@ -1,13 +1,13 @@
 import {ajaxCallToOrder} from "./paypalButtonUtils";
 
 (
-    function ({_, molliepaypalButtonCart, jQuery}) {
+    function ({_, liquichainpaypalButtonCart, jQuery}) {
 
-        if (_.isEmpty(molliepaypalButtonCart)) {
+        if (_.isEmpty(liquichainpaypalButtonCart)) {
             return
         }
 
-        const {product: {minFee}, ajaxUrl} = molliepaypalButtonCart
+        const {product: {minFee}, ajaxUrl} = liquichainpaypalButtonCart
 
         if (!ajaxUrl) {
             return
@@ -20,7 +20,7 @@ import {ajaxCallToOrder} from "./paypalButtonUtils";
         }
 
         const hideButton = () => {
-            let payPalButton = document.getElementById('mollie-PayPal-button');
+            let payPalButton = document.getElementById('liquichain-PayPal-button');
             if (payPalButton.parentNode !== null) {
                 payPalButton.parentNode.removeChild(payPalButton)
             }
@@ -63,7 +63,7 @@ import {ajaxCallToOrder} from "./paypalButtonUtils";
         }
 
         jQuery(document.body).on('updated_cart_totals', function (event) {
-            let payPalButton = document.getElementById('mollie-PayPal-button')
+            let payPalButton = document.getElementById('liquichain-PayPal-button')
             if(payPalButton == null || payPalButton.parentNode == null){
                 return
             }
@@ -72,7 +72,7 @@ import {ajaxCallToOrder} from "./paypalButtonUtils";
         })
 
         setTimeout(function(){
-            let payPalButton = document.getElementById('mollie-PayPal-button');
+            let payPalButton = document.getElementById('liquichain-PayPal-button');
             if(payPalButton == null || payPalButton.parentNode == null){
                 return
             }

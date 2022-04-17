@@ -4,11 +4,11 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Uninstall;
+namespace Liquichain\WooCommerce\Uninstall;
 
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
-use Mollie\WooCommerce\Shared\SharedDataDictionary;
+use Liquichain\WooCommerce\Shared\SharedDataDictionary;
 
 class UninstallModule implements ServiceModule
 {

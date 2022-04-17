@@ -4,22 +4,22 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Activation;
+namespace Liquichain\WooCommerce\Activation;
 
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Package;
-use Mollie\WooCommerce\Notice\AdminNotice;
+use Liquichain\WooCommerce\Notice\AdminNotice;
 use Psr\Container\ContainerInterface;
 
-use function Mollie\WooCommerce\mollie_wc_plugin_autoload;
+use function Liquichain\WooCommerce\liquichain_wc_plugin_autoload;
 
 class ActivationModule implements ExecutableModule
 {
     use ModuleClassNameIdTrait;
 
-    public const DB_VERSION_PARAM_NAME = 'mollie-db-version';
-    public const PENDING_PAYMENT_DB_TABLE_NAME = 'mollie_pending_payment';
+    public const DB_VERSION_PARAM_NAME = 'liquichain-db-version';
+    public const PENDING_PAYMENT_DB_TABLE_NAME = 'liquichain_pending_payment';
     public const DB_VERSION = '1.0';
     private $baseFile;
 
@@ -45,7 +45,7 @@ class ActivationModule implements ExecutableModule
         );
 
         $this->handleTranslations();
-        $this->mollieWcNoticeApiKeyMissing();
+        $this->liquichainWcNoticeApiKeyMissing();
         $this->appleValidationFileRewriteRules();
         return true;
     }
@@ -56,7 +56,7 @@ class ActivationModule implements ExecutableModule
     public function initDb()
     {
         global $wpdb;
-        $wpdb->mollie_pending_payment = $wpdb->prefix . self::PENDING_PAYMENT_DB_TABLE_NAME;
+        $wpdb->liquichain_pending_payment = $wpdb->prefix . self::PENDING_PAYMENT_DB_TABLE_NAME;
         if (get_option(self::DB_VERSION_PARAM_NAME, '') !== self::DB_VERSION) {
             global $wpdb;
             $pendingPaymentConfirmTable = $wpdb->prefix . self::PENDING_PAYMENT_DB_TABLE_NAME;
@@ -72,7 +72,7 @@ class ActivationModule implements ExecutableModule
                 dbDelta($sql);
 
                 /**
-                 * Remove redundant 'DESCRIBE *__mollie_pending_payment' error so it doesn't show up in error logs
+                 * Remove redundant 'DESCRIBE *__liquichain_pending_payment' error so it doesn't show up in error logs
                  */
                 global $EZSQL_ERROR;
                 array_pop($EZSQL_ERROR);
@@ -86,7 +86,7 @@ class ActivationModule implements ExecutableModule
      */
     public function handleTranslations(): void
     {
-        add_action('core_upgrade_preamble', 'mollieDeleteWPTranslationFiles');
+        add_action('core_upgrade_preamble', 'liquichainDeleteWPTranslationFiles');
         add_filter(
             'site_transient_update_plugins',
             static function ($value) {
@@ -95,7 +95,7 @@ class ActivationModule implements ExecutableModule
                     foreach ($value->translations as $translation) {
                         if (
                             $translation["slug"]
-                            === "mollie-payments-for-woocommerce"
+                            === "liquichain-payments-for-woocommerce"
                         ) {
                             unset($value->translations[$i]);
                         }
@@ -151,11 +151,11 @@ class ActivationModule implements ExecutableModule
     /**
      *
      */
-    public function mollieWcNoticeApiKeyMissing()
+    public function liquichainWcNoticeApiKeyMissing()
     {
         //if test/live keys are in db return
-        $liveKeySet = get_option('mollie-payments-for-woocommerce_live_api_key');
-        $testKeySet = get_option('mollie-payments-for-woocommerce_test_api_key');
+        $liveKeySet = get_option('liquichain-payments-for-woocommerce_live_api_key');
+        $testKeySet = get_option('liquichain-payments-for-woocommerce_test_api_key');
         $apiKeysSetted = $liveKeySet || $testKeySet;
         if ($apiKeysSetted) {
             return;
@@ -165,12 +165,12 @@ class ActivationModule implements ExecutableModule
         /* translators: Placeholder 1: Opening strong tag. Placeholder 2: Closing strong tag. Placeholder 3: Opening link tag to settings. Placeholder 4: Closing link tag.*/
         $message = sprintf(
             esc_html__(
-                '%1$sMollie Payments for WooCommerce: API keys missing%2$s Please%3$s set your API keys here%4$s.',
-                'mollie-payments-for-woocommerce'
+                '%1$sLiquichain Payments for WooCommerce: API keys missing%2$s Please%3$s set your API keys here%4$s.',
+                'liquichain-payments-for-woocommerce'
             ),
             '<strong>',
             '</strong>',
-            '<a href="' . esc_url(admin_url('admin.php?page=wc-settings&tab=mollie_settings')) . '">',
+            '<a href="' . esc_url(admin_url('admin.php?page=wc-settings&tab=liquichain_settings')) . '">',
             '</a>'
         );
 
@@ -183,7 +183,7 @@ class ActivationModule implements ExecutableModule
     public function pluginInit()
     {
         load_plugin_textdomain(
-            'mollie-payments-for-woocommerce',
+            'liquichain-payments-for-woocommerce',
             false,
             dirname(plugin_basename($this->baseFile)) . '/languages/'
         );

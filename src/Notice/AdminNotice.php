@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Notice;
+namespace Liquichain\WooCommerce\Notice;
 
 class AdminNotice implements NoticeInterface
 {

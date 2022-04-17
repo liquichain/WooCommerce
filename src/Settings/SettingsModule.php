@@ -4,16 +4,16 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Settings;
+namespace Liquichain\WooCommerce\Settings;
 
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
-use Mollie\WooCommerce\Notice\AdminNotice;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\Settings\Page\MollieSettingsPage;
-use Mollie\WooCommerce\Shared\Data;
-use Mollie\WooCommerce\Uninstall\CleanDb;
+use Liquichain\WooCommerce\Notice\AdminNotice;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\Settings\Page\LiquichainSettingsPage;
+use Liquichain\WooCommerce\Shared\Data;
+use Liquichain\WooCommerce\Uninstall\CleanDb;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface as Logger;
 
@@ -90,7 +90,7 @@ class SettingsModule implements ServiceModule, ExecutableModule
         add_filter(
             'woocommerce_get_settings_pages',
             function ($settings) use ($pluginPath, $gateways, $paymentMethods) {
-                $settings[] = new MollieSettingsPage(
+                $settings[] = new LiquichainSettingsPage(
                     $this->settingsHelper,
                     $pluginPath,
                     $gateways,
@@ -109,13 +109,13 @@ class SettingsModule implements ServiceModule, ExecutableModule
             2
         );
         add_action(
-            'update_option_mollie-payments-for-woocommerce_live_api_key',
+            'update_option_liquichain-payments-for-woocommerce_live_api_key',
             [$this->settingsHelper, 'updateMerchantIdAfterApiKeyChanges'],
             10,
             3
         );
         add_action(
-            'update_option_mollie-payments-for-woocommerce_test_api_key',
+            'update_option_liquichain-payments-for-woocommerce_test_api_key',
             [$this->settingsHelper, 'updateMerchantIdAfterApiKeyChanges'],
             10,
             3
@@ -135,15 +135,15 @@ class SettingsModule implements ServiceModule, ExecutableModule
     public function addPluginActionLinks(array $links): array
     {
         $action_links = [
-            // Add link to global Mollie settings
+            // Add link to global Liquichain settings
             '<a href="' . $this->settingsHelper->getGlobalSettingsUrl()
-            . '">' . __('Mollie settings', 'mollie-payments-for-woocommerce')
+            . '">' . __('Liquichain settings', 'liquichain-payments-for-woocommerce')
             . '</a>',
         ];
 
         // Add link to WooCommerce logs
         $action_links[] = '<a href="' . $this->settingsHelper->getLogsUrl()
-            . '">' . __('Logs', 'mollie-payments-for-woocommerce') . '</a>';
+            . '">' . __('Logs', 'liquichain-payments-for-woocommerce') . '</a>';
         return array_merge($action_links, $links);
     }
 
@@ -154,13 +154,13 @@ class SettingsModule implements ServiceModule, ExecutableModule
             $message = sprintf(
                 /* translators: Placeholder 1: Opening strong tag. Placeholder 2: Closing strong tag. Placeholder 3: Opening link tag. Placeholder 4: Closing link tag. */
                 esc_html__(
-                    '%1$sMollie Payments for WooCommerce%2$s The test mode is active, %3$s disable it%4$s before deploying into production.',
-                    'mollie-payments-for-woocommerce'
+                    '%1$sLiquichain Payments for WooCommerce%2$s The test mode is active, %3$s disable it%4$s before deploying into production.',
+                    'liquichain-payments-for-woocommerce'
                 ),
                 '<strong>',
                 '</strong>',
                 '<a href="' . esc_url(
-                    admin_url('admin.php?page=wc-settings&tab=mollie_settings')
+                    admin_url('admin.php?page=wc-settings&tab=liquichain_settings')
                 ) . '">',
                 '</a>'
             );

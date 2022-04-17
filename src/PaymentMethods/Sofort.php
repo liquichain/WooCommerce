@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Sofort extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -11,7 +11,7 @@ class Sofort extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'sofort',
-            'defaultTitle' => __('SOFORT Banking', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('SOFORT Banking', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => '',
             'defaultDescription' => '',
             'paymentFields' => false,

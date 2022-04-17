@@ -4,7 +4,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Log;
+namespace Liquichain\WooCommerce\Log;
 
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;

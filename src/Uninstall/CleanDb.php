@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Uninstall;
+namespace Liquichain\WooCommerce\Uninstall;
 
-use Mollie\WooCommerce\Shared\SharedDataDictionary;
+use Liquichain\WooCommerce\Shared\SharedDataDictionary;
 
 class CleanDb
 {
@@ -22,7 +22,7 @@ class CleanDb
     }
 
     public function cleanAll(){
-        $options = $this->allMollieOptionNames();
+        $options = $this->allLiquichainOptionNames();
         $this->deleteSiteOptions($options);
         $this->cleanScheduledJobs();
     }
@@ -40,10 +40,10 @@ class CleanDb
 
     protected function cleanScheduledJobs()
     {
-        as_unschedule_action( 'mollie_woocommerce_cancel_unpaid_orders' );
+        as_unschedule_action( 'liquichain_woocommerce_cancel_unpaid_orders' );
     }
 
-    protected function allMollieOptionNames(): array
+    protected function allLiquichainOptionNames(): array
     {
         $names = SharedDataDictionary::MOLLIE_OPTIONS_NAMES;
         foreach ($this->gatewayClassnames as $gateway){

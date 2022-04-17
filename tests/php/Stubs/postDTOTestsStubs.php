@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Mollie\WooCommerceTests\Stubs;
+namespace Liquichain\WooCommerceTests\Stubs;
 
 use Faker;
 use Faker\Generator;

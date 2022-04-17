@@ -2,41 +2,41 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Subscription;
+namespace Liquichain\WooCommerce\Subscription;
 
 use Exception;
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\Payment\MollieObject;
-use Mollie\WooCommerce\Payment\MollieSubscription;
-use Mollie\WooCommerce\Payment\OrderInstructionsService;
-use Mollie\WooCommerce\Payment\PaymentCheckoutRedirectService;
-use Mollie\WooCommerce\Payment\PaymentFactory;
-use Mollie\WooCommerce\Payment\PaymentService;
-use Mollie\WooCommerce\Notice\NoticeInterface;
-use Mollie\WooCommerce\Payment\MollieOrderService;
-use Mollie\WooCommerce\PaymentMethods\PaymentMethodI;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\SDK\HttpResponse;
-use Mollie\WooCommerce\SDK\InvalidApiKey;
-use Mollie\WooCommerce\Settings\Settings;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\Payment\LiquichainObject;
+use Liquichain\WooCommerce\Payment\LiquichainSubscription;
+use Liquichain\WooCommerce\Payment\OrderInstructionsService;
+use Liquichain\WooCommerce\Payment\PaymentCheckoutRedirectService;
+use Liquichain\WooCommerce\Payment\PaymentFactory;
+use Liquichain\WooCommerce\Payment\PaymentService;
+use Liquichain\WooCommerce\Notice\NoticeInterface;
+use Liquichain\WooCommerce\Payment\LiquichainOrderService;
+use Liquichain\WooCommerce\PaymentMethods\PaymentMethodI;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\SDK\HttpResponse;
+use Liquichain\WooCommerce\SDK\InvalidApiKey;
+use Liquichain\WooCommerce\Settings\Settings;
+use Liquichain\WooCommerce\Shared\Data;
 use Psr\Log\LoggerInterface as Logger;
 use Psr\Log\LogLevel;
 use WC_Order;
 
-class MollieSubscriptionGateway extends MolliePaymentGateway
+class LiquichainSubscriptionGateway extends LiquichainPaymentGateway
 {
 
     const PAYMENT_TEST_MODE = 'test';
-    const METHODS_NEEDING_UPDATE = ['mollie_wc_gateway_bancontact',
-        'mollie_wc_gateway_belfius',
-        'mollie_wc_gateway_directdebit',
-        'mollie_wc_gateway_eps',
-        'mollie_wc_gateway_giropay',
-        'mollie_wc_gateway_ideal',
-        'mollie_wc_gateway_kbc',
-        'mollie_wc_gateway_sofort'];
+    const METHODS_NEEDING_UPDATE = ['liquichain_wc_gateway_bancontact',
+        'liquichain_wc_gateway_belfius',
+        'liquichain_wc_gateway_directdebit',
+        'liquichain_wc_gateway_eps',
+        'liquichain_wc_gateway_giropay',
+        'liquichain_wc_gateway_ideal',
+        'liquichain_wc_gateway_kbc',
+        'liquichain_wc_gateway_sofort'];
     const DIRECTDEBIT = 'directdebit';
 
 
@@ -44,7 +44,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
     protected $apiHelper;
     public $settingsHelper;
     /**
-     * @var MollieSubscription
+     * @var LiquichainSubscription
      */
     protected $subscriptionObject;
 
@@ -55,13 +55,13 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
         PaymentMethodI $paymentMethod,
         PaymentService $paymentService,
         OrderInstructionsService $orderInstructionsService,
-        MollieOrderService $mollieOrderService,
+        LiquichainOrderService $liquichainOrderService,
         Data $dataService,
         Logger $logger,
         NoticeInterface $notice,
         HttpResponse $httpResponse,
         Settings $settingsHelper,
-        MollieObject $mollieObject,
+        LiquichainObject $liquichainObject,
         PaymentFactory $paymentFactory,
         string $pluginId,
         Api $apiHelper
@@ -71,18 +71,18 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
             $paymentMethod,
             $paymentService,
             $orderInstructionsService,
-            $mollieOrderService,
+            $liquichainOrderService,
             $dataService,
             $logger,
             $notice,
             $httpResponse,
-            $mollieObject,
+            $liquichainObject,
             $paymentFactory,
             $pluginId
         );
 
         $this->apiHelper = $apiHelper;
-        $this->subscriptionObject = new mollieSubscription(
+        $this->subscriptionObject = new liquichainSubscription(
             $pluginId,
             $apiHelper,
             $settingsHelper,
@@ -99,7 +99,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
             // After creating a renewal order to record a scheduled subscription payment with the same post meta, order items etc.
              add_action('wcs_renewal_order_created', [ $this, 'delete_renewal_meta' ], 10);
 
-            add_action('woocommerce_subscription_failing_payment_method_updated_mollie', [ $this, 'update_failing_payment_method' ], 10, 2);
+            add_action('woocommerce_subscription_failing_payment_method_updated_liquichain', [ $this, 'update_failing_payment_method' ], 10, 2);
 
             add_filter('woocommerce_subscription_payment_meta', [ $this, 'add_subscription_payment_meta' ], 10, 2);
             add_filter('woocommerce_subscription_validate_payment_meta', [ $this, 'validate_subscription_payment_meta' ], 10, 2);
@@ -156,7 +156,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
         if (wcs_order_contains_renewal($renewal_order_id)) {
             // Get required information about order and subscription
             $renewal_order = wc_get_order($renewal_order_id);
-            $mollie_payment_id = $renewal_order->get_meta('_mollie_payment_id', $single = true);
+            $liquichain_payment_id = $renewal_order->get_meta('_liquichain_payment_id', $single = true);
             $subscription_id = $renewal_order->get_meta('_subscription_renewal', $single = true);
             $subscription = wcs_get_subscription($subscription_id);
             $current_method = $subscription->get_payment_method();
@@ -181,7 +181,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
             }
 
             // Check that a new payment is made for renewal order
-            if ($mollie_payment_id === null) {
+            if ($liquichain_payment_id === null) {
                 return;
             }
 
@@ -196,7 +196,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
             // Add order note to subscription explaining the change
             $subscription->add_order_note(
             /* translators: Placeholder 1: Payment method title, placeholder 2: payment ID */
-                __('Updated subscription from \'On hold\' to \'Active\' until payment fails, because a SEPA Direct Debit payment takes some time to process.', 'mollie-payments-for-woocommerce')
+                __('Updated subscription from \'On hold\' to \'Active\' until payment fails, because a SEPA Direct Debit payment takes some time to process.', 'liquichain-payments-for-woocommerce')
             );
         }
         return;
@@ -234,17 +234,17 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
         // Overwrite gateway-wide
         $initial_order_status = apply_filters($this->pluginId . '_initial_order_status_' . $this->id, $initial_order_status);
 
-        // Get Mollie customer ID
-        $customer_id = $this->getOrderMollieCustomerId($renewal_order);
+        // Get Liquichain customer ID
+        $customer_id = $this->getOrderLiquichainCustomerId($renewal_order);
 
         $subscriptions = wcs_get_subscriptions_for_renewal_order($renewal_order->get_id());
         $subscription = array_pop($subscriptions); // Just need one valid subscription
-        $subscription_mollie_payment_id = $subscription->get_meta('_mollie_payment_id');
+        $subscription_liquichain_payment_id = $subscription->get_meta('_liquichain_payment_id');
         $subcriptionParentOrder = $subscription->get_parent();
-        $mandateId = !empty($subcriptionParentOrder) ? $subcriptionParentOrder->get_meta('_mollie_mandate_id') : null;
+        $mandateId = !empty($subcriptionParentOrder) ? $subcriptionParentOrder->get_meta('_liquichain_mandate_id') : null;
 
-        if (! empty($subscription_mollie_payment_id) && ! empty($subscription)) {
-            $customer_id = $this->restore_mollie_customer_id_and_mandate($customer_id, $subscription_mollie_payment_id, $subscription);
+        if (! empty($subscription_liquichain_payment_id) && ! empty($subscription)) {
+            $customer_id = $this->restore_liquichain_customer_id_and_mandate($customer_id, $subscription_liquichain_payment_id, $subscription);
         }
 
         // Get all data for the renewal payment
@@ -258,17 +258,17 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
         try {
             do_action($this->pluginId . '_create_payment', $data, $renewal_order);
             $apiKey = $this->dataService->getApiKey();
-            $mollieApiClient = $this->apiHelper->getApiClient($apiKey);
+            $liquichainApiClient = $this->apiHelper->getApiClient($apiKey);
             $validMandate = false;
             $renewalOrderMethod = $renewal_order->get_payment_method();
             $isRenewalMethodDirectDebit = in_array($renewalOrderMethod, self::METHODS_NEEDING_UPDATE);
-            $renewalOrderMethod = str_replace("mollie_wc_gateway_", "", $renewalOrderMethod);
+            $renewalOrderMethod = str_replace("liquichain_wc_gateway_", "", $renewalOrderMethod);
 
             try {
                 if (!empty($mandateId)) {
                     $this->logger->log(LogLevel::DEBUG, $this->id . ': Found mandate ID for renewal order ' . $renewal_order_id . ' with customer ID ' . $customer_id);
 
-                    $mandate =  $mollieApiClient->customers->get($customer_id)->getMandate($mandateId);
+                    $mandate =  $liquichainApiClient->customers->get($customer_id)->getMandate($mandateId);
                     $bothDirectDebit = $mandate->method === self::DIRECTDEBIT
                         && $isRenewalMethodDirectDebit;
                     $bothCreditcard = $mandate->method !== self::DIRECTDEBIT
@@ -283,7 +283,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
                 if(!$validMandate){
                     // Get all mandates for the customer ID
                     $this->logger->log(LogLevel::DEBUG,$this->id . ': Try to get all mandates for renewal order ' . $renewal_order_id . ' with customer ID ' . $customer_id );
-                    $mandates =  $mollieApiClient->customers->get($customer_id)->mandates();
+                    $mandates =  $liquichainApiClient->customers->get($customer_id)->mandates();
                     foreach ($mandates as $mandate) {
                         if ($mandate->status === 'valid') {
                             $validMandate = true;
@@ -296,7 +296,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
                     }
                 }
             } catch (ApiException $e) {
-                throw new ApiException(sprintf(__('The customer (%s) could not be used or found. ' . $e->getMessage(), 'mollie-payments-for-woocommerce-mandate-problem'), $customer_id));
+                throw new ApiException(sprintf(__('The customer (%s) could not be used or found. ' . $e->getMessage(), 'liquichain-payments-for-woocommerce-mandate-problem'), $customer_id));
             }
 
             // Check that there is at least one valid mandate
@@ -304,7 +304,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
                 if ( $validMandate ) {
                     $payment = $this->apiHelper->getApiClient($apiKey)->payments->create( $data );
                     //check the payment method is the one in the order, if not we want this payment method in the order MOL-596
-                    $paymentMethodUsed = 'mollie_wc_gateway_'.$payment->method;
+                    $paymentMethodUsed = 'liquichain_wc_gateway_'.$payment->method;
                     if($paymentMethodUsed !== $renewalOrderMethod){
                         $renewal_order->set_payment_method($paymentMethodUsed);
                     }
@@ -317,13 +317,13 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
                     ) {
                         $this->logger->log(LogLevel::DEBUG,"{$this->id}: updating to mandate {$payment->mandateId}");
                         $subcriptionParentOrder->update_meta_data(
-                            '_mollie_mandate_id',
+                            '_liquichain_mandate_id',
                             $payment->mandateId
                         );
                         $subcriptionParentOrder->save();
                     }
                 } else {
-                    throw new ApiException(sprintf(__('The customer (%s) does not have a valid mandate.', 'mollie-payments-for-woocommerce-mandate-problem'), $customer_id));
+                    throw new ApiException(sprintf(__('The customer (%s) does not have a valid mandate.', 'liquichain-payments-for-woocommerce-mandate-problem'), $customer_id));
                 }
             } catch (ApiException $e) {
                 throw $e;
@@ -335,14 +335,14 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
             // Log successful creation of payment
             $this->logger->log(LogLevel::DEBUG, $this->id . ': Renewal payment ' . $payment->id . ' (' . $payment->mode . ') created for order ' . $renewal_order_id . ' payment json response: ' . json_encode($payment));
 
-            // Unset & set active Mollie payment
-            // Get correct Mollie Payment Object
+            // Unset & set active Liquichain payment
+            // Get correct Liquichain Payment Object
             $payment_object = $this->paymentFactory->getPaymentObject($payment);
-            $payment_object->unsetActiveMolliePayment($renewal_order_id);
-            $payment_object->setActiveMolliePayment($renewal_order_id);
+            $payment_object->unsetActiveLiquichainPayment($renewal_order_id);
+            $payment_object->setActiveLiquichainPayment($renewal_order_id);
 
-            // Set Mollie customer
-            $this->dataService->setUserMollieCustomerIdAtSubscription($renewal_order_id, $payment_object::$customerId);
+            // Set Liquichain customer
+            $this->dataService->setUserLiquichainCustomerIdAtSubscription($renewal_order_id, $payment_object::$customerId);
 
             // Tell WooCommerce a new payment was created for the order/subscription
             do_action($this->pluginId . '_payment_created', $payment, $renewal_order);
@@ -363,7 +363,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
             $this->logger->log(LogLevel::DEBUG, $this->id . ': Failed to create payment for order ' . $renewal_order_id . ': ' . $e->getMessage());
 
             /* translators: Placeholder 1: Payment method title */
-            $message = sprintf(__('Could not create %s renewal payment.', 'mollie-payments-for-woocommerce'), $this->title);
+            $message = sprintf(__('Could not create %s renewal payment.', 'liquichain-payments-for-woocommerce'), $this->title);
             $message .= ' ' . $e->getMessage();
             $renewal_order->update_status('failed', $message);
         }
@@ -380,12 +380,12 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
         }
 
         foreach ($subscriptions as $subscription) {
-            $paymentMode = $subscription->get_meta('_mollie_payment_mode', true);
+            $paymentMode = $subscription->get_meta('_liquichain_payment_mode', true);
 
             // If subscription does not contain the mode, try getting it from the parent order
             if (empty($paymentMode)) {
                 $parent_order = new \WC_Order($subscription->get_parent_id());
-                $paymentMode = $parent_order->get_meta('_mollie_payment_mode', true);
+                $paymentMode = $parent_order->get_meta('_liquichain_payment_mode', true);
             }
 
             if ($paymentMode === self::PAYMENT_TEST_MODE) {
@@ -400,7 +400,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
     /**
      * @param WC_Order                            $renewal_order
      * @param                                     $renewal_order_id
-     * @param \Mollie\Api\Resources\Payment        $payment
+     * @param \Liquichain\Api\Resources\Payment        $payment
      *
      */
     public function updateFirstPaymentMethodToRecurringPaymentMethod($renewal_order, $renewal_order_id, $payment)
@@ -410,19 +410,19 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
         // later renewal orders switch to SEPA Direct Debit.
 
         $methods_needing_update =  [
-            'mollie_wc_gateway_bancontact',
-            'mollie_wc_gateway_belfius',
-            'mollie_wc_gateway_eps',
-            'mollie_wc_gateway_giropay',
-            'mollie_wc_gateway_ideal',
-            'mollie_wc_gateway_kbc',
-            'mollie_wc_gateway_sofort',
+            'liquichain_wc_gateway_bancontact',
+            'liquichain_wc_gateway_belfius',
+            'liquichain_wc_gateway_eps',
+            'liquichain_wc_gateway_giropay',
+            'liquichain_wc_gateway_ideal',
+            'liquichain_wc_gateway_kbc',
+            'liquichain_wc_gateway_sofort',
         ];
 
         $current_method = get_post_meta($renewal_order_id, '_payment_method', $single = true);
         if (in_array($current_method, $methods_needing_update) && $payment->method === self::DIRECTDEBIT) {
             try {
-                $renewal_order->set_payment_method('mollie_wc_gateway_directdebit');
+                $renewal_order->set_payment_method('liquichain_wc_gateway_directdebit');
                 $renewal_order->set_payment_method_title('SEPA Direct Debit');
                 $renewal_order->save();
             } catch (\WC_Data_Exception $e) {
@@ -443,9 +443,9 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
      * @param $order
      * @return mixed
      */
-    public function getOrderMollieCustomerId($order)
+    public function getOrderLiquichainCustomerId($order)
     {
-        return $order->get_meta('_mollie_customer_id', true);
+        return $order->get_meta('_liquichain_customer_id', true);
     }
 
     /**
@@ -455,19 +455,19 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
      */
     protected function _updateScheduledPaymentOrder($renewal_order, $initial_order_status, $payment)
     {
-        $this->mollieOrderService->updateOrderStatus(
+        $this->liquichainOrderService->updateOrderStatus(
             $renewal_order,
             $initial_order_status,
-            __('Awaiting payment confirmation.', 'mollie-payments-for-woocommerce') . "\n"
+            __('Awaiting payment confirmation.', 'liquichain-payments-for-woocommerce') . "\n"
         );
 
         $payment_method_title = $this->paymentMethod->getProperty('title');
 
         $renewal_order->add_order_note(sprintf(
         /* translators: Placeholder 1: Payment method title, placeholder 2: payment ID */
-            __('%1$s payment started (%2$s).', 'mollie-payments-for-woocommerce'),
+            __('%1$s payment started (%2$s).', 'liquichain-payments-for-woocommerce'),
             $payment_method_title,
-            $payment->id . ($payment->mode === 'test' ? (' - ' . __('test mode', 'mollie-payments-for-woocommerce')) : '')
+            $payment->id . ($payment->mode === 'test' ? (' - ' . __('test mode', 'liquichain-payments-for-woocommerce')) : '')
         ));
     }
 
@@ -485,8 +485,8 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
      */
     public function delete_renewal_meta($renewal_order)
     {
-        $renewal_order->delete_meta_data('_mollie_payment_id');
-        $renewal_order->delete_meta_data('_mollie_cancelled_payment_id');
+        $renewal_order->delete_meta_data('_liquichain_payment_id');
+        $renewal_order->delete_meta_data('_liquichain_cancelled_payment_id');
         $renewal_order->save();
         return $renewal_order;
     }
@@ -496,27 +496,27 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
      * @param $subscription
      *
      * @return mixed
-     * @throws \Mollie\Api\Exceptions\ApiException
+     * @throws \Liquichain\Api\Exceptions\ApiException
      */
     public function add_subscription_payment_meta($payment_meta, $subscription)
     {
-        $mollie_payment_id = $subscription->get_meta('_mollie_payment_id', true);
-        $mollie_payment_mode = $subscription->get_meta('_mollie_payment_mode', true);
-        $mollie_customer_id = $subscription->get_meta('_mollie_customer_id', true);
+        $liquichain_payment_id = $subscription->get_meta('_liquichain_payment_id', true);
+        $liquichain_payment_mode = $subscription->get_meta('_liquichain_payment_mode', true);
+        $liquichain_customer_id = $subscription->get_meta('_liquichain_customer_id', true);
 
         $payment_meta[ $this->id ] =  [
             'post_meta' =>  [
-                '_mollie_payment_id' =>  [
-                    'value' => $mollie_payment_id,
-                    'label' => 'Mollie Payment ID',
+                '_liquichain_payment_id' =>  [
+                    'value' => $liquichain_payment_id,
+                    'label' => 'Liquichain Payment ID',
                 ],
-                '_mollie_payment_mode' =>  [
-                    'value' => $mollie_payment_mode,
-                    'label' => 'Mollie Payment Mode',
+                '_liquichain_payment_mode' =>  [
+                    'value' => $liquichain_payment_mode,
+                    'label' => 'Liquichain Payment Mode',
                 ],
-                '_mollie_customer_id' =>  [
-                    'value' => $mollie_customer_id,
-                    'label' => 'Mollie Customer ID',
+                '_liquichain_customer_id' =>  [
+                    'value' => $liquichain_customer_id,
+                    'label' => 'Liquichain Customer ID',
                 ],
             ],
         ];
@@ -532,9 +532,9 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
     public function validate_subscription_payment_meta($payment_method_id, $payment_meta)
     {
         if ($this->id === $payment_method_id) {
-            // Check that a Mollie Customer ID is entered
-            if (! isset($payment_meta['post_meta']['_mollie_customer_id']['value']) || empty($payment_meta['post_meta']['_mollie_customer_id']['value'])) {
-                throw new Exception('A "_mollie_customer_id" value is required.');
+            // Check that a Liquichain Customer ID is entered
+            if (! isset($payment_meta['post_meta']['_liquichain_customer_id']['value']) || empty($payment_meta['post_meta']['_liquichain_customer_id']['value'])) {
+                throw new Exception('A "_liquichain_customer_id" value is required.');
             }
         }
     }
@@ -546,8 +546,8 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
     public function update_failing_payment_method($subscription, $renewal_order)
     {
         $subscription = wc_get_order($subscription->id);
-        $subscription->update_meta_data('_mollie_customer_id', $renewal_order->mollie_customer_id);
-        $subscription->update_meta_data('_mollie_payment_id', $renewal_order->mollie_payment_id);
+        $subscription->update_meta_data('_liquichain_customer_id', $renewal_order->liquichain_customer_id);
+        $subscription->update_meta_data('_liquichain_payment_id', $renewal_order->liquichain_payment_id);
         $subscription->save();
     }
 
@@ -555,7 +555,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
      * @param int $order_id
      *
      * @return array
-     * @throws \Mollie\Api\Exceptions\ApiException
+     * @throws \Liquichain\Api\Exceptions\ApiException
      * @throws InvalidApiKey
      */
     public function process_payment($order_id)
@@ -598,38 +598,38 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
     }
 
     /**
-     * @param $mollie_customer_id
-     * @param $mollie_payment_id
+     * @param $liquichain_customer_id
+     * @param $liquichain_payment_id
      * @param $subscription
      *
      * @return string
      */
-    public function restore_mollie_customer_id_and_mandate($mollie_customer_id, $mollie_payment_id, $subscription)
+    public function restore_liquichain_customer_id_and_mandate($liquichain_customer_id, $liquichain_payment_id, $subscription)
     {
         try {
             // Get subscription ID
             $subscription_id = $subscription->get_id();
 
-            // Get full payment object from Mollie API
-            $payment_object_resource = $this->paymentFactory->getPaymentObject($mollie_payment_id);
+            // Get full payment object from Liquichain API
+            $payment_object_resource = $this->paymentFactory->getPaymentObject($liquichain_payment_id);
 
             //
             // If there is no known customer ID, try to get it from the API
             //
 
-            if (empty($mollie_customer_id)) {
-                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: no valid customer ID found, trying to restore from Mollie API payment (' . $mollie_payment_id . ').');
+            if (empty($liquichain_customer_id)) {
+                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: no valid customer ID found, trying to restore from Liquichain API payment (' . $liquichain_payment_id . ').');
 
                 // Try to get the customer ID from the payment object
-                $mollie_customer_id = $payment_object_resource->getMollieCustomerIdFromPaymentObject($mollie_payment_id);
+                $liquichain_customer_id = $payment_object_resource->getLiquichainCustomerIdFromPaymentObject($liquichain_payment_id);
 
-                if (empty($mollie_customer_id)) {
+                if (empty($liquichain_customer_id)) {
                     $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: stopped processing, no customer ID found for this customer/payment combination.');
 
-                    return $mollie_customer_id;
+                    return $liquichain_customer_id;
                 }
 
-                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: customer ID (' . $mollie_customer_id . ') found, verifying status of customer and mandate(s).');
+                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: customer ID (' . $liquichain_customer_id . ') found, verifying status of customer and mandate(s).');
             }
 
             //
@@ -640,13 +640,13 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
             // Get the WooCommerce payment gateway for this subscription
             $gateway = wc_get_payment_gateway_by_order($subscription);
 
-            if (! $gateway || ! ( $gateway instanceof MolliePaymentGateway )) {
-                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: stopped processing, not a Mollie payment gateway, could not restore customer ID.');
+            if (! $gateway || ! ( $gateway instanceof LiquichainPaymentGateway )) {
+                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: stopped processing, not a Liquichain payment gateway, could not restore customer ID.');
 
-                return $mollie_customer_id;
+                return $liquichain_customer_id;
             }
 
-            $mollie_method = $gateway->paymentMethod->getProperty('id');
+            $liquichain_method = $gateway->paymentMethod->getProperty('id');
 
             // Check that first payment method is related to SEPA Direct Debit and update
             $methods_needing_update =  [
@@ -659,31 +659,31 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
                 'sofort',
             ];
 
-            if (in_array($mollie_method, $methods_needing_update) != false) {
-                $mollie_method = self::DIRECTDEBIT;
+            if (in_array($liquichain_method, $methods_needing_update) != false) {
+                $liquichain_method = self::DIRECTDEBIT;
             }
 
             // Get all mandates for the customer
-            $mandates = $this->apiHelper->getApiClient($apiKey)->customers->get($mollie_customer_id);
+            $mandates = $this->apiHelper->getApiClient($apiKey)->customers->get($liquichain_customer_id);
 
             // Check credit card payments and mandates
-            if ($mollie_method === 'creditcard' && ! $mandates->hasValidMandateForMethod($mollie_method)) {
-                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: failed! No valid mandate for payment method ' . $mollie_method . ' found.');
+            if ($liquichain_method === 'creditcard' && ! $mandates->hasValidMandateForMethod($liquichain_method)) {
+                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: failed! No valid mandate for payment method ' . $liquichain_method . ' found.');
 
-                return $mollie_customer_id;
+                return $liquichain_customer_id;
             }
 
-            // Get a Payment object from Mollie to check for paid status
-            $payment_object = $payment_object_resource->getPaymentObject($mollie_payment_id);
+            // Get a Payment object from Liquichain to check for paid status
+            $payment_object = $payment_object_resource->getPaymentObject($liquichain_payment_id);
 
             // Extra check that first payment was not sequenceType first
-            $sequence_type = $payment_object_resource->getSequenceTypeFromPaymentObject($mollie_payment_id);
+            $sequence_type = $payment_object_resource->getSequenceTypeFromPaymentObject($liquichain_payment_id);
 
             // Check SEPA Direct Debit payments and mandates
-            if ($mollie_method === self::DIRECTDEBIT && ! $mandates->hasValidMandateForMethod($mollie_method) && $payment_object->isPaid() && $sequence_type === 'oneoff') {
-                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: no valid mandate for payment method ' . $mollie_method . ' found, trying to create one.');
+            if ($liquichain_method === self::DIRECTDEBIT && ! $mandates->hasValidMandateForMethod($liquichain_method) && $payment_object->isPaid() && $sequence_type === 'oneoff') {
+                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: no valid mandate for payment method ' . $liquichain_method . ' found, trying to create one.');
 
-                $options = $payment_object_resource->getMollieCustomerIbanDetailsFromPaymentObject($mollie_payment_id);
+                $options = $payment_object_resource->getLiquichainCustomerIbanDetailsFromPaymentObject($liquichain_payment_id);
 
                 // consumerName can be empty for Bancontact payments, in that case use the WooCommerce customer name
                 if (empty($options['consumerName'])) {
@@ -694,9 +694,9 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
                 }
 
                 // Set method
-                $options['method'] = $mollie_method;
+                $options['method'] = $liquichain_method;
 
-                $customer = $this->apiHelper->getApiClient($apiKey)->customers->get($mollie_customer_id);
+                $customer = $this->apiHelper->getApiClient($apiKey)->customers->get($liquichain_customer_id);
                 $this->apiHelper->getApiClient($apiKey)->mandates->createFor($customer, $options);
 
                 $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: mandate created successfully, customer restored.');
@@ -704,11 +704,11 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
                 $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: the subscription doesn\'t meet the conditions for a mandate restore.');
             }
 
-            return $mollie_customer_id;
+            return $liquichain_customer_id;
         } catch (ApiException $e) {
             $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - Subscription ' . $subscription_id . ' renewal payment: customer id and mandate restore failed. ' . $e->getMessage());
 
-            return $mollie_customer_id;
+            return $liquichain_customer_id;
         }
     }
 
@@ -740,7 +740,7 @@ class MollieSubscriptionGateway extends MolliePaymentGateway
         if(!$subcriptionParentOrder){
             return false;
         }
-        $orderIdMeta = $subcriptionParentOrder->get_meta('_mollie_order_id');
+        $orderIdMeta = $subcriptionParentOrder->get_meta('_liquichain_order_id');
 
         $parentOrderMeta = $orderIdMeta?: PaymentService::PAYMENT_METHOD_TYPE_PAYMENT;
 

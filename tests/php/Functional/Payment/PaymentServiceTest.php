@@ -1,17 +1,17 @@
 <?php # -*- coding: utf-8 -*-
 
-namespace Mollie\WooCommerceTests\Functional\Payment;
+namespace Liquichain\WooCommerceTests\Functional\Payment;
 
-use Mollie\Api\Endpoints\OrderEndpoint;
-use Mollie\Api\MollieApiClient;
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\Payment\PaymentCheckoutRedirectService;
-use Mollie\WooCommerce\Payment\PaymentService;
-use Mollie\WooCommerce\PaymentMethods\IconFactory;
-use Mollie\WooCommerceTests\Functional\HelperMocks;
-use Mollie\WooCommerceTests\Stubs\WC_Order_Item_Product;
-use Mollie\WooCommerceTests\Stubs\WC_Settings_API;
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\Api\Endpoints\OrderEndpoint;
+use Liquichain\Api\LiquichainApiClient;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\Payment\PaymentCheckoutRedirectService;
+use Liquichain\WooCommerce\Payment\PaymentService;
+use Liquichain\WooCommerce\PaymentMethods\IconFactory;
+use Liquichain\WooCommerceTests\Functional\HelperMocks;
+use Liquichain\WooCommerceTests\Stubs\WC_Order_Item_Product;
+use Liquichain\WooCommerceTests\Stubs\WC_Settings_API;
+use Liquichain\WooCommerceTests\TestCase;
 
 
 
@@ -22,7 +22,7 @@ use function Brain\Monkey\Functions\stubs;
 use function Brain\Monkey\Functions\when;
 
 /**
- * Class Mollie_WC_Plugin_Test
+ * Class Liquichain_WC_Plugin_Test
  */
 class PaymentServiceTest extends TestCase
 {
@@ -55,18 +55,18 @@ class PaymentServiceTest extends TestCase
         $wcOrderId = 1;
         $wcOrderKey = 'wc_order_hxZniP1zDcnM8';
         $wcOrder = $this->wcOrder($wcOrderId, $wcOrderKey);
-        $mollieOrderId = 'wvndyu';//ord_wvndyu
-        $processPaymentRedirect = 'https://www.mollie.com/payscreen/order/checkout/'. $mollieOrderId;
+        $liquichainOrderId = 'wvndyu';//ord_wvndyu
+        $processPaymentRedirect = 'https://www.liquichain.io/payscreen/order/checkout/'. $liquichainOrderId;
 
         $paymentMethod = $this->helperMocks->paymentMethodBuilder($paymentMethodId);
         $orderEndpoints = $this->createConfiguredMock(
             OrderEndpoint::class,
             [
-                'create' => new MollieOrderResponse(),
+                'create' => new LiquichainOrderResponse(),
             ]
         );
         $apiClientMock = $this->createConfiguredMock(
-            MollieApiClient::class,
+            LiquichainApiClient::class,
             []
         );
         $apiClientMock->orders = $orderEndpoints;
@@ -80,19 +80,19 @@ class PaymentServiceTest extends TestCase
             $this->helperMocks->pluginId(),
             $this->paymentCheckoutService($apiClientMock)
         );
-        $testee->setGateway($this->createMock(MolliePaymentGateway::class));
+        $testee->setGateway($this->createMock(LiquichainPaymentGateway::class));
         stubs(
             [
                 'admin_url' => 'http://admin.com',
                 'wc_get_order' => $wcOrder,
                 'wc_get_product' => $this->wcProduct(),
-                'wc_get_payment_gateway_by_order' => $this->mollieGateway($paymentMethodId, $testee),
-                'add_query_arg' => 'https://webshop.example.org/wc-api/mollie_return?order_id=1&key=wc_order_hxZniP1zDcnM8',
+                'wc_get_payment_gateway_by_order' => $this->liquichainGateway($paymentMethodId, $testee),
+                'add_query_arg' => 'https://webshop.example.org/wc-api/liquichain_return?order_id=1&key=wc_order_hxZniP1zDcnM8',
                 'WC' => $this->wooCommerce()
             ]
         );
-        $expectedRequestToMollie = $this->expectedRequestData($wcOrder);
-        $orderEndpoints->method('create')->with($expectedRequestToMollie);
+        $expectedRequestToLiquichain = $this->expectedRequestData($wcOrder);
+        $orderEndpoints->method('create')->with($expectedRequestToLiquichain);
 
         /*
          *  Expectations
@@ -100,7 +100,7 @@ class PaymentServiceTest extends TestCase
         expect('is_plugin_active')
             ->andReturn(false);
         expect('get_option')
-            ->with('mollie-payments-for-woocommerce_api_switch')
+            ->with('liquichain-payments-for-woocommerce_api_switch')
             ->andReturn(false);
         expect('get_transient')->andReturn(['ideal'=>['id'=>'ideal']]);
 
@@ -133,9 +133,9 @@ class PaymentServiceTest extends TestCase
 
         when('__')->returnArg(1);
     }
-    protected function mollieGateway($paymentMethodName, $testee, $isSepa = false, $isSubscription = false){
+    protected function liquichainGateway($paymentMethodName, $testee, $isSepa = false, $isSubscription = false){
         $gateway = $this->createConfiguredMock(
-            MolliePaymentGateway::class,
+            LiquichainPaymentGateway::class,
             [
                 'getSelectedIssuer' => 'ideal_INGBNL2A',
                 'get_return_url' => 'https://webshop.example.org/wc-api/',
@@ -180,7 +180,7 @@ class PaymentServiceTest extends TestCase
                 'get_shipping_country' => 'shippingcountry',
                 'get_shipping_methods' => false,
                 'get_order_number' => 1,
-                'get_payment_method' => 'mollie_wc_gateway_ideal',
+                'get_payment_method' => 'liquichain_wc_gateway_ideal',
                 'get_currency' => 'EUR',
             ]
         );
@@ -196,7 +196,7 @@ class PaymentServiceTest extends TestCase
         $item = $this->createConfiguredMock(
             'WooCommerce',
             [
-                'api_request_url' => 'https://webshop.example.org/wc-api/mollie_return'
+                'api_request_url' => 'https://webshop.example.org/wc-api/liquichain_return'
             ]
         );
 
@@ -256,9 +256,9 @@ class PaymentServiceTest extends TestCase
                 'value' => '20.00'
             ],
             'redirectUrl' =>
-                'https://webshop.example.org/wc-api/mollie_return?order_id=1&key=wc_order_hxZniP1zDcnM8',
+                'https://webshop.example.org/wc-api/liquichain_return?order_id=1&key=wc_order_hxZniP1zDcnM8',
             'webhookUrl' =>
-                'https://webshop.example.org/wc-api/mollie_return?order_id=1&key=wc_order_hxZniP1zDcnM8',
+                'https://webshop.example.org/wc-api/liquichain_return?order_id=1&key=wc_order_hxZniP1zDcnM8',
             'method' =>
                 'ideal',
             'payment' =>
@@ -425,7 +425,7 @@ class PaymentServiceTest extends TestCase
 
 
 
-class MollieOrderResponse
+class LiquichainOrderResponse
 {
     public $resource;
     public $id;
@@ -434,13 +434,13 @@ class MollieOrderResponse
     public $metadata;
 
     /**
-     * MollieOrder constructor.
+     * LiquichainOrder constructor.
      * @param $resource
      */
     public function __construct($resource = 'order')
     {
         $this->resource = $resource;
-        $this->id = 'mollieOrderId';
+        $this->id = 'liquichainOrderId';
         $this->mode = 'test';
         $this->method = 'ideal';
         $this->metadata = new stdClass();
@@ -449,7 +449,7 @@ class MollieOrderResponse
 
     public function getCheckoutUrl()
     {
-        return 'https://www.mollie.com/payscreen/order/checkout/wvndyu';
+        return 'https://www.liquichain.io/payscreen/order/checkout/wvndyu';
     }
 
 }

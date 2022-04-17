@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Buttons\ApplePayButton;
+namespace Liquichain\WooCommerce\Buttons\ApplePayButton;
 
 use Exception;
-use Mollie\WooCommerce\Gateway\Surcharge;
-use Mollie\WooCommerce\Notice\NoticeInterface;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\Settings\Settings;
-use Mollie\WooCommerce\Shared\GatewaySurchargeHandler;
+use Liquichain\WooCommerce\Gateway\Surcharge;
+use Liquichain\WooCommerce\Notice\NoticeInterface;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\Settings\Settings;
+use Liquichain\WooCommerce\Shared\GatewaySurchargeHandler;
 use Psr\Log\LoggerInterface as Logger;
 use WC_Cart;
 use WC_Data_Exception;
@@ -121,7 +121,7 @@ class AppleAjaxRequests
         );
     }
     /**
-     * Method to validate the merchant against Apple system through Mollie
+     * Method to validate the merchant against Apple system through Liquichain
      * On fail triggers and option that shows an admin notice showing the error
      * On success returns the validation data to the script
      */
@@ -149,17 +149,17 @@ class AppleAjaxRequests
                 $validationUrl,
                 $apiKey
             );
-        } catch (\Mollie\Api\Exceptions\ApiException $apiException) {
-            update_option('mollie_wc_applepay_validated', 'no');
+        } catch (\Liquichain\Api\Exceptions\ApiException $apiException) {
+            update_option('liquichain_wc_applepay_validated', 'no');
             $errorMessage = $apiException->getMessage();
             wp_send_json_error(
                 __(
                     $errorMessage,
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 )
             );
         }
-        update_option('mollie_wc_applepay_validated', 'yes');
+        update_option('liquichain_wc_applepay_validated', 'yes');
 
         wp_send_json_success($json);
     }
@@ -251,7 +251,7 @@ class AppleAjaxRequests
      * and the url to redirect the user
      *
      * @throws WC_Data_Exception
-     * @throws \Mollie\Api\Exceptions\ApiException
+     * @throws \Liquichain\Api\Exceptions\ApiException
      */
     public function createWcOrder()
     {
@@ -282,7 +282,7 @@ class AppleAjaxRequests
      * and the url to redirect the user
      *
      * @throws WC_Data_Exception
-     * @throws \Mollie\Api\Exceptions\ApiException
+     * @throws \Liquichain\Api\Exceptions\ApiException
      */
     public function createWcOrderFromCart()
     {
@@ -527,10 +527,10 @@ class AppleAjaxRequests
     ): array {
         $surcharge = new Surcharge();
         $surchargeLabel = get_option(
-            'mollie-payments-for-woocommerce_gatewayFeeLabel',
-            __(Surcharge::DEFAULT_FEE_LABEL, 'mollie-payments-for-woocommerce')
+            'liquichain-payments-for-woocommerce_gatewayFeeLabel',
+            __(Surcharge::DEFAULT_FEE_LABEL, 'liquichain-payments-for-woocommerce')
         );
-        $settings = get_option('mollie_wc_gateway_applepay_settings', false);
+        $settings = get_option('liquichain_wc_gateway_applepay_settings', false);
 
         $calculatedFee = round((float)$surcharge->calculateFeeAmount($cart, $settings ), 2);
         $surchargeFeeValue = !empty($settings)?$calculatedFee:0;
@@ -665,13 +665,13 @@ class AppleAjaxRequests
     }
 
     /**
-     * Calls Mollie API wallets to validate merchant session
+     * Calls Liquichain API wallets to validate merchant session
      *
      * @param string $domain
      * @param        $validationUrl
      *
      * @return false|string
-     * @throws \Mollie\Api\Exceptions\ApiException
+     * @throws \Liquichain\Api\Exceptions\ApiException
      */
     protected function validationApiWalletsEndpointCall(
         $domain,
@@ -727,7 +727,7 @@ class AppleAjaxRequests
                     $message = sprintf(
                         __(
                             'Could not create %s payment.',
-                            'mollie-payments-for-woocommerce'
+                            'liquichain-payments-for-woocommerce'
                         ),
                         'ApplePay'
                     );

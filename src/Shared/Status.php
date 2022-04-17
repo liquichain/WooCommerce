@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Shared;
+namespace Liquichain\WooCommerce\Shared;
 
-use Mollie\Api\CompatibilityChecker;
-use Mollie\Api\Exceptions\IncompatiblePlatform;
-use Mollie\Api\MollieApiClient;
+use Liquichain\Api\CompatibilityChecker;
+use Liquichain\Api\Exceptions\IncompatiblePlatform;
+use Liquichain\Api\LiquichainApiClient;
 use WooCommerce;
 
 class Status
@@ -73,7 +73,7 @@ class Status
                 /* translators: Placeholder 1: Plugin title. Placeholder 2: Min WooCommerce version. Placeholder 3: WooCommerce version used. */
                 __(
                     'The %1$s plugin requires at least WooCommerce version %2$s, you are using version %3$s. Please update your WooCommerce plugin.',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 $this->pluginTitle,
                 self::MIN_WOOCOMMERCE_VERSION,
@@ -85,8 +85,8 @@ class Status
 
         if (!$this->isApiClientInstalled()) {
             $this->errors[] = __(
-                'Mollie API client not installed. Please make sure the plugin is installed correctly.',
-                'mollie-payments-for-woocommerce'
+                'Liquichain API client not installed. Please make sure the plugin is installed correctly.',
+                'liquichain-payments-for-woocommerce'
             );
 
             return $isCompatible = false;
@@ -94,8 +94,8 @@ class Status
 
         if (function_exists('extension_loaded') && !extension_loaded('json')) {
             $this->errors[] = __(
-                'Mollie Payments for WooCommerce requires the JSON extension for PHP. Enable it in your server or ask your webhoster to enable it for you.',
-                'mollie-payments-for-woocommerce'
+                'Liquichain Payments for WooCommerce requires the JSON extension for PHP. Enable it in your server or ask your webhoster to enable it for you.',
+                'liquichain-payments-for-woocommerce'
             );
 
             return $isCompatible = false;
@@ -109,35 +109,35 @@ class Status
                     $error = sprintf(
                     /* translators: Placeholder 1: Min PHP version. Placeholder 2: PHP version used. Placeholder 3: Opening link tag. placeholder 4: Closing link tag. */
                         __(
-                            'Mollie Payments for WooCommerce require PHP %1$s or higher, you have PHP %2$s. Please upgrade and view %3$sthis FAQ%4$s',
-                            'mollie-payments-for-woocommerce'
+                            'Liquichain Payments for WooCommerce require PHP %1$s or higher, you have PHP %2$s. Please upgrade and view %3$sthis FAQ%4$s',
+                            'liquichain-payments-for-woocommerce'
                         ),
                         CompatibilityChecker::MIN_PHP_VERSION,
                         PHP_VERSION,
-                        '<a href="https://github.com/mollie/WooCommerce/wiki/PHP-&-Mollie-API-v2" target="_blank">',
+                        '<a href="https://github.com/liquichain/WooCommerce/wiki/PHP-&-Liquichain-API-v2" target="_blank">',
                         '</a>'
                     );
                     break;
 
                 case IncompatiblePlatform::INCOMPATIBLE_JSON_EXTENSION:
                     $error = __(
-                        "Mollie Payments for WooCommerce requires the PHP extension JSON to be enabled. Please enable the 'json' extension in your PHP configuration.",
-                        'mollie-payments-for-woocommerce'
+                        "Liquichain Payments for WooCommerce requires the PHP extension JSON to be enabled. Please enable the 'json' extension in your PHP configuration.",
+                        'liquichain-payments-for-woocommerce'
                     );
                     break;
 
                 case IncompatiblePlatform::INCOMPATIBLE_CURL_EXTENSION:
                     $error = __(
-                        "Mollie Payments for WooCommerce requires the PHP extension cURL to be enabled. Please enable the 'curl' extension in your PHP configuration.",
-                        'mollie-payments-for-woocommerce'
+                        "Liquichain Payments for WooCommerce requires the PHP extension cURL to be enabled. Please enable the 'curl' extension in your PHP configuration.",
+                        'liquichain-payments-for-woocommerce'
                     );
                     break;
 
                 case IncompatiblePlatform::INCOMPATIBLE_CURL_FUNCTION:
                     $error =
                         __(
-                            'Mollie Payments for WooCommerce require PHP cURL functions to be available. Please make sure all of these functions are available.',
-                            'mollie-payments-for-woocommerce'
+                            'Liquichain Payments for WooCommerce require PHP cURL functions to be available. Please make sure all of these functions are available.',
+                            'liquichain-payments-for-woocommerce'
                         );
                     break;
 
@@ -175,25 +175,25 @@ class Status
      */
     protected function isApiClientInstalled()
     {
-        return class_exists(MollieApiClient::class);
+        return class_exists(LiquichainApiClient::class);
     }
 
     /**
-     * @throws \Mollie\Api\Exceptions\ApiException
+     * @throws \Liquichain\Api\Exceptions\ApiException
      */
-    public function getMollieApiStatus($apiClient)
+    public function getLiquichainApiStatus($apiClient)
     {
         try {
-            // Try to load Mollie issuers
+            // Try to load Liquichain issuers
             $apiClient->methods->all();
-        } catch (\Mollie\Api\Exceptions\ApiException $apiException) {
-            if ($apiException->getMessage() === 'Error executing API call (401: Unauthorized Request): Missing authentication, or failed to authenticate. Documentation: https://docs.mollie.com/guides/authentication') {
-                throw new \Mollie\Api\Exceptions\ApiException(
+        } catch (\Liquichain\Api\Exceptions\ApiException $apiException) {
+            if ($apiException->getMessage() === 'Error executing API call (401: Unauthorized Request): Missing authentication, or failed to authenticate. Documentation: https://docs.liquichain.io/guides/authentication') {
+                throw new \Liquichain\Api\Exceptions\ApiException(
                     'incorrect API key or other authentication issue. Please check your API keys!'
                 );
             }
 
-            throw new \Mollie\Api\Exceptions\ApiException(
+            throw new \Liquichain\Api\Exceptions\ApiException(
                 $apiException->getMessage()
             );
         }

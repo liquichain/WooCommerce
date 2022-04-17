@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods\InstructionStrategies;
+namespace Liquichain\WooCommerce\PaymentMethods\InstructionStrategies;
 
 class PaypalInstructionStrategy implements InstructionStrategyI
 {
@@ -17,7 +17,7 @@ class PaypalInstructionStrategy implements InstructionStrategyI
         if ($payment->isPaid() && $payment->details) {
             return sprintf(
             /* translators: Placeholder 1: PayPal consumer name, placeholder 2: PayPal email, placeholder 3: PayPal transaction ID */
-                __("Payment completed by <strong>%1\$s</strong> - %2\$s (PayPal transaction ID: %3\$s)", 'mollie-payments-for-woocommerce'),
+                __("Payment completed by <strong>%1\$s</strong> - %2\$s (PayPal transaction ID: %3\$s)", 'liquichain-payments-for-woocommerce'),
                 $payment->details->consumerName,
                 $payment->details->consumerAccount,
                 $payment->details->paypalReference

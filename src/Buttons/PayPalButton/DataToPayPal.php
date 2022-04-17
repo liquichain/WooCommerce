@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Buttons\PayPalButton;
+namespace Liquichain\WooCommerce\Buttons\PayPalButton;
 
 class DataToPayPal
 {
@@ -26,13 +26,13 @@ class DataToPayPal
      */
     public function paypalbuttonScriptData($isBlock = false)
     {
-        $paypalSettings = get_option('mollie_wc_gateway_paypal_settings', false);
+        $paypalSettings = get_option('liquichain_wc_gateway_paypal_settings', false);
         $minAmount = 0;
         if ($paypalSettings) {
             $minAmount
-                = isset($paypalSettings['mollie_paypal_button_minimum_amount'])
-            && $paypalSettings['mollie_paypal_button_minimum_amount'] > 0
-                ? $paypalSettings['mollie_paypal_button_minimum_amount'] : 0;
+                = isset($paypalSettings['liquichain_paypal_button_minimum_amount'])
+            && $paypalSettings['liquichain_paypal_button_minimum_amount'] > 0
+                ? $paypalSettings['liquichain_paypal_button_minimum_amount'] : 0;
         }
 
         if (is_product()) {
@@ -64,7 +64,7 @@ class DataToPayPal
      */
     protected function whichPayPalButton()
     {
-        $paypalSettings = get_option('mollie_wc_gateway_paypal_settings');
+        $paypalSettings = get_option('liquichain_wc_gateway_paypal_settings');
         if(!$paypalSettings){
             return "";
         }
@@ -98,7 +98,7 @@ class DataToPayPal
         if ($product->get_type() === 'variable') {
             $isVariation = true;
         }
-        $productNeedShipping = mollieWooCommerceCheckIfNeedShipping($product);
+        $productNeedShipping = liquichainWooCommerceCheckIfNeedShipping($product);
         $productId = get_the_id();
         $productPrice = $product->get_price();
 
@@ -141,8 +141,8 @@ class DataToPayPal
      */
     protected function dataForBlockCartPage($minAmount): array
     {
-        $nonce = wp_nonce_field('mollie_PayPal_button');
-        $buttonMarkup = '<div id="mollie-PayPal-button" class="mol-PayPal">'
+        $nonce = wp_nonce_field('liquichain_PayPal_button');
+        $buttonMarkup = '<div id="liquichain-PayPal-button" class="mol-PayPal">'
                 . $nonce . '<input type="image" src="' . esc_url(
                         $this->selectedPaypalButtonUrl()
                 ) . '" alt="PayPal Button">

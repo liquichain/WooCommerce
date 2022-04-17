@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Refund;
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\SDK\Api;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\Api\Resources\Refund;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\SDK\Api;
 use Psr\Log\LogLevel;
 use WC_Order;
 use WC_Payment_Gateway;
 use WC_Subscriptions_Manager;
 use WP_Error;
 
-class MolliePayment extends MollieObject
+class LiquichainPayment extends LiquichainObject
 {
 
-    public const ACTION_AFTER_REFUND_PAYMENT_CREATED = 'mollie-payments-for-woocommerce' . '_refund_payment_created';
+    public const ACTION_AFTER_REFUND_PAYMENT_CREATED = 'liquichain-payments-for-woocommerce' . '_refund_payment_created';
     protected $pluginId;
 
     public function __construct($data, $pluginId, Api $apiHelper, $settingsHelper, $dataHelper, $logger)
@@ -67,7 +67,7 @@ class MolliePayment extends MollieObject
 
         $gateway = wc_get_payment_gateway_by_order($order);
 
-        if (!$gateway || !($gateway instanceof MolliePaymentGateway)) {
+        if (!$gateway || !($gateway instanceof LiquichainPaymentGateway)) {
             return ['result' => 'failure'];
         }
 
@@ -107,7 +107,7 @@ class MolliePayment extends MollieObject
             $paymentRequestData['customerId'] = $customerId;
         }
 
-        $cardToken = mollieWooCommerceCardToken();
+        $cardToken = liquichainWooCommerceCardToken();
         if ($cardToken) {
             $paymentRequestData['cardToken'] = $cardToken;
         }
@@ -127,19 +127,19 @@ class MolliePayment extends MollieObject
         return $paymentRequestData;
     }
 
-    public function setActiveMolliePayment($orderId)
+    public function setActiveLiquichainPayment($orderId)
     {
-        self::$paymentId = $this->getMolliePaymentIdFromPaymentObject();
-        self::$customerId = $this->getMollieCustomerIdFromPaymentObject();
+        self::$paymentId = $this->getLiquichainPaymentIdFromPaymentObject();
+        self::$customerId = $this->getLiquichainCustomerIdFromPaymentObject();
         self::$order = wc_get_order($orderId);
 
-        self::$order->update_meta_data('_mollie_payment_id', $this->data->id);
+        self::$order->update_meta_data('_liquichain_payment_id', $this->data->id);
         self::$order->save();
 
-        parent::setActiveMolliePayment($orderId);
+        parent::setActiveLiquichainPayment($orderId);
     }
 
-    public function getMolliePaymentIdFromPaymentObject()
+    public function getLiquichainPaymentIdFromPaymentObject()
     {
         if (isset($this->data->id)) {
             return $this->data->id;
@@ -148,7 +148,7 @@ class MolliePayment extends MollieObject
         return null;
     }
 
-    public function getMollieCustomerIdFromPaymentObject($payment = null)
+    public function getLiquichainCustomerIdFromPaymentObject($payment = null)
     {
         if ($payment === null) {
             $payment = $this->data->id;
@@ -178,7 +178,7 @@ class MolliePayment extends MollieObject
         return null;
     }
 
-    public function getMollieCustomerIbanDetailsFromPaymentObject($payment = null)
+    public function getLiquichainCustomerIbanDetailsFromPaymentObject($payment = null)
     {
         if ($payment === null) {
             $payment = $this->data->id;
@@ -194,7 +194,7 @@ class MolliePayment extends MollieObject
 
     /**
      * @param \WC_Order                     $order
-     * @param \Mollie\Api\Resources\Payment $payment
+     * @param \Liquichain\Api\Resources\Payment $payment
      * @param string                       $paymentMethodTitle
      */
     public function onWebhookPaid(WC_Order $order, $payment, $paymentMethodTitle)
@@ -219,21 +219,21 @@ class MolliePayment extends MollieObject
 
             $order->add_order_note(sprintf(
             /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
-                __('Order completed using %1$s payment (%2$s).', 'mollie-payments-for-woocommerce'),
+                __('Order completed using %1$s payment (%2$s).', 'liquichain-payments-for-woocommerce'),
                 $paymentMethodTitle,
-                $payment->id . ( $payment->mode === 'test' ? ( ' - ' . __('test mode', 'mollie-payments-for-woocommerce') ) : '' )
+                $payment->id . ( $payment->mode === 'test' ? ( ' - ' . __('test mode', 'liquichain-payments-for-woocommerce') ) : '' )
             ));
 
-            // Mark the order as processed and paid via Mollie
+            // Mark the order as processed and paid via Liquichain
             $this->setOrderPaidAndProcessed($order);
 
             // Remove (old) cancelled payments from this order
-            $this->unsetCancelledMolliePaymentId($orderId);
+            $this->unsetCancelledLiquichainPaymentId($orderId);
 
             // Add messages to log
             $this->logger->log(
                 LogLevel::DEBUG,
-                __METHOD__ . ' processing paid payment via Mollie plugin fully completed for order ' . $orderId
+                __METHOD__ . ' processing paid payment via Liquichain plugin fully completed for order ' . $orderId
             );
 
             // Subscription processing
@@ -247,14 +247,14 @@ class MolliePayment extends MollieObject
             // Add messages to log
             $this->logger->log(
                 LogLevel::DEBUG,
-                __METHOD__ . ' payment at Mollie not paid, so no processing for order ' . $orderId
+                __METHOD__ . ' payment at Liquichain not paid, so no processing for order ' . $orderId
             );
         }
     }
 
     /**
      * @param WC_Order                     $order
-     * @param \Mollie\Api\Resources\Payment $payment
+     * @param \Liquichain\Api\Resources\Payment $payment
      * @param string                       $paymentMethodTitle
      */
     public function onWebhookCanceled(WC_Order $order, $payment, $paymentMethodTitle)
@@ -277,8 +277,8 @@ class MolliePayment extends MollieObject
         }
 
         //status is Pending|Failed|Processing|On-hold so Cancel
-        $this->unsetActiveMolliePayment($orderId, $payment->id);
-        $this->setCancelledMolliePaymentId($orderId, $payment->id);
+        $this->unsetActiveLiquichainPayment($orderId, $payment->id);
+        $this->setCancelledLiquichainPaymentId($orderId, $payment->id);
 
         // What status does the user want to give orders with cancelled payments?
         $settingsHelper = $this->settingsHelper;
@@ -286,13 +286,13 @@ class MolliePayment extends MollieObject
 
         // New order status
         if ($orderStatusCancelledPayments === 'pending' || $orderStatusCancelledPayments === null) {
-            $newOrderStatus = MolliePaymentGateway::STATUS_PENDING;
+            $newOrderStatus = LiquichainPaymentGateway::STATUS_PENDING;
         } elseif ($orderStatusCancelledPayments === 'cancelled') {
-            $newOrderStatus = MolliePaymentGateway::STATUS_CANCELLED;
+            $newOrderStatus = LiquichainPaymentGateway::STATUS_CANCELLED;
         }
-        // if I cancel manually the order is canceled in Woo before calling Mollie
+        // if I cancel manually the order is canceled in Woo before calling Liquichain
         if ($order->get_status() === 'cancelled') {
-            $newOrderStatus = MolliePaymentGateway::STATUS_CANCELLED;
+            $newOrderStatus = LiquichainPaymentGateway::STATUS_CANCELLED;
         }
 
         // Get current gateway
@@ -306,12 +306,12 @@ class MolliePayment extends MollieObject
         // Update order status, but only if there is no payment started by another gateway
         $this->maybeUpdateStatus($order, $gateway, $newOrderStatus, $orderId);
 
-        // User cancelled payment on Mollie or issuer page, add a cancel note.. do not cancel order.
+        // User cancelled payment on Liquichain or issuer page, add a cancel note.. do not cancel order.
         $order->add_order_note(sprintf(
         /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
-            __('%1$s payment (%2$s) cancelled .', 'mollie-payments-for-woocommerce'),
+            __('%1$s payment (%2$s) cancelled .', 'liquichain-payments-for-woocommerce'),
             $paymentMethodTitle,
-            $payment->id . ( $payment->mode === 'test' ? ( ' - ' . __('test mode', 'mollie-payments-for-woocommerce') ) : '' )
+            $payment->id . ( $payment->mode === 'test' ? ( ' - ' . __('test mode', 'liquichain-payments-for-woocommerce') ) : '' )
         ));
 
         // Subscription processing
@@ -320,7 +320,7 @@ class MolliePayment extends MollieObject
 
     /**
      * @param WC_Order                     $order
-     * @param \Mollie\Api\Resources\Payment $payment
+     * @param \Liquichain\Api\Resources\Payment $payment
      * @param string                       $paymentMethodTitle
      */
     public function onWebhookFailed(WC_Order $order, $payment, $paymentMethodTitle)
@@ -334,7 +334,7 @@ class MolliePayment extends MollieObject
         $gateway = wc_get_payment_gateway_by_order($order);
 
         // New order status
-        $newOrderStatus = MolliePaymentGateway::STATUS_FAILED;
+        $newOrderStatus = LiquichainPaymentGateway::STATUS_FAILED;
 
         // Overwrite plugin-wide
         $newOrderStatus = apply_filters($this->pluginId . '_order_status_failed', $newOrderStatus);
@@ -358,13 +358,13 @@ class MolliePayment extends MollieObject
 
     /**
      * @param WC_Order                     $order
-     * @param \Mollie\Api\Resources\Payment $payment
+     * @param \Liquichain\Api\Resources\Payment $payment
      * @param string                       $paymentMethodTitle
      */
     public function onWebhookExpired(WC_Order $order, $payment, $paymentMethodTitle)
     {
         $orderId = $order->get_id();
-        $molliePaymentId = $order->get_meta('_mollie_payment_id', true);
+        $liquichainPaymentId = $order->get_meta('_liquichain_payment_id', true);
 
         // Add messages to log
         $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' called for order ' . $orderId);
@@ -372,23 +372,23 @@ class MolliePayment extends MollieObject
         // Get current gateway
         $gateway = wc_get_payment_gateway_by_order($order);
 
-        // Check that this payment is the most recent, based on Mollie Payment ID from post meta, do not cancel the order if it isn't
-        if ($molliePaymentId != $payment->id) {
-            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' called for order ' . $orderId . ' and payment ' . $payment->id . ', not processed because of a newer pending payment ' . $molliePaymentId);
+        // Check that this payment is the most recent, based on Liquichain Payment ID from post meta, do not cancel the order if it isn't
+        if ($liquichainPaymentId != $payment->id) {
+            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' called for order ' . $orderId . ' and payment ' . $payment->id . ', not processed because of a newer pending payment ' . $liquichainPaymentId);
 
             $order->add_order_note(sprintf(
             /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
-                __('%1$s payment expired (%2$s) but not cancelled because of another pending payment (%3$s).', 'mollie-payments-for-woocommerce'),
+                __('%1$s payment expired (%2$s) but not cancelled because of another pending payment (%3$s).', 'liquichain-payments-for-woocommerce'),
                 $paymentMethodTitle,
-                $payment->id . ( $payment->mode === 'test' ? ( ' - ' . __('test mode', 'mollie-payments-for-woocommerce') ) : '' ),
-                $molliePaymentId
+                $payment->id . ( $payment->mode === 'test' ? ( ' - ' . __('test mode', 'liquichain-payments-for-woocommerce') ) : '' ),
+                $liquichainPaymentId
             ));
 
             return;
         }
 
         // New order status
-        $newOrderStatus = MolliePaymentGateway::STATUS_CANCELLED;
+        $newOrderStatus = LiquichainPaymentGateway::STATUS_CANCELLED;
 
         // Overwrite plugin-wide
         $newOrderStatus = apply_filters($this->pluginId . '_order_status_expired', $newOrderStatus);
@@ -401,13 +401,13 @@ class MolliePayment extends MollieObject
 
         $order->add_order_note(sprintf(
         /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
-            __('%1$s payment expired (%2$s).', 'mollie-payments-for-woocommerce'),
+            __('%1$s payment expired (%2$s).', 'liquichain-payments-for-woocommerce'),
             $paymentMethodTitle,
-            $payment->id . ( $payment->mode === 'test' ? ( ' - ' . __('test mode', 'mollie-payments-for-woocommerce') ) : '' )
+            $payment->id . ( $payment->mode === 'test' ? ( ' - ' . __('test mode', 'liquichain-payments-for-woocommerce') ) : '' )
         ));
 
         // Remove (old) cancelled payments from this order
-        $this->unsetCancelledMolliePaymentId($orderId);
+        $this->unsetCancelledLiquichainPaymentId($orderId);
     }
 
     /**
@@ -426,10 +426,10 @@ class MolliePayment extends MollieObject
         $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $orderId . ' - Try to process refunds for individual order line(s).');
 
         try {
-            $paymentObject = $this->getActiveMolliePayment($orderId);
+            $paymentObject = $this->getActiveLiquichainPayment($orderId);
 
             if (! $paymentObject) {
-                $errorMessage = "Could not find active Mollie payment for WooCommerce order ' . $orderId";
+                $errorMessage = "Could not find active Liquichain payment for WooCommerce order ' . $orderId";
 
                 $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $errorMessage);
 
@@ -449,7 +449,7 @@ class MolliePayment extends MollieObject
             do_action($this->pluginId . '_create_refund', $paymentObject, $order);
 
             $apiKey = $this->settingsHelper->getApiKey();
-            // Send refund to Mollie
+            // Send refund to Liquichain
             $refund = $this->apiHelper->getApiClient($apiKey)->payments->refund($paymentObject, [
                 'amount' =>  [
                     'currency' => $this->dataHelper->getOrderCurrency($order),
@@ -477,7 +477,7 @@ class MolliePayment extends MollieObject
 
             $order->add_order_note(sprintf(
             /* translators: Placeholder 1: currency, placeholder 2: refunded amount, placeholder 3: optional refund reason, placeholder 4: payment ID, placeholder 5: refund ID */
-                __('Refunded %1$s%2$s%3$s - Payment: %4$s, Refund: %5$s', 'mollie-payments-for-woocommerce'),
+                __('Refunded %1$s%2$s%3$s - Payment: %4$s, Refund: %5$s', 'liquichain-payments-for-woocommerce'),
                 $this->dataHelper->getOrderCurrency($order),
                 $amount,
                 ( ! empty($reason) ? ' (reason: ' . $reason . ')' : '' ),
@@ -493,13 +493,13 @@ class MolliePayment extends MollieObject
 
     /**
      * @param WC_Order $order
-     * @param MolliePaymentGateway $gateway
+     * @param LiquichainPaymentGateway $gateway
      * @param                    $newOrderStatus
      * @param                    $orderId
      */
     protected function maybeUpdateStatus(
         WC_Order $order,
-        MolliePaymentGateway $gateway,
+        LiquichainPaymentGateway $gateway,
         $newOrderStatus,
         $orderId
     ) {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerceTests;
+namespace Liquichain\WooCommerceTests;
 
 use Faker\Generator;
 use Faker;

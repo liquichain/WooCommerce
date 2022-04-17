@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods\PaymentRedirectStrategies;
+namespace Liquichain\WooCommerce\PaymentMethods\PaymentRedirectStrategies;
 
-use Mollie\WooCommerce\Payment\MollieObject;
-use Mollie\WooCommerce\PaymentMethods\PaymentMethodI;
+use Liquichain\WooCommerce\Payment\LiquichainObject;
+use Liquichain\WooCommerce\PaymentMethods\PaymentMethodI;
 use WC_Order;
 
 interface PaymentRedirectStrategyI

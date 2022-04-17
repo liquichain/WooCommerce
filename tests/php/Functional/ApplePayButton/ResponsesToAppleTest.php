@@ -1,14 +1,14 @@
 <?php
 
-namespace Mollie\WooCommerceTests\Functional\ApplePayButton;
+namespace Liquichain\WooCommerceTests\Functional\ApplePayButton;
 
 use Faker;
 use Faker\Generator;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Mollie\WooCommerce\Buttons\ApplePayButton\ResponsesToApple;
-use Mollie\WooCommerce\Subscription\MollieSubscriptionGateway;
-use Mollie\WooCommerceTests\Functional\HelperMocks;
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\WooCommerce\Buttons\ApplePayButton\ResponsesToApple;
+use Liquichain\WooCommerce\Subscription\LiquichainSubscriptionGateway;
+use Liquichain\WooCommerceTests\Functional\HelperMocks;
+use Liquichain\WooCommerceTests\TestCase;
 
 use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Functions\when;
@@ -80,7 +80,7 @@ class ResponsesToAppleTest extends TestCase
          * Sut
          */
         $logger = $this->helperMocks->loggerMock();
-        $appleGateway = $this->mollieGateway('applepay', false, true);
+        $appleGateway = $this->liquichainGateway('applepay', false, true);
         $responsesTemplate = new ResponsesToApple($logger, $appleGateway);
         $response = $responsesTemplate->appleFormattedResponse($paymentDetails);
 
@@ -141,7 +141,7 @@ class ResponsesToAppleTest extends TestCase
          * Sut
          */
         $logger = $this->helperMocks->loggerMock();
-        $appleGateway = $this->mollieGateway('applepay', false, true);
+        $appleGateway = $this->liquichainGateway('applepay', false, true);
         $responsesTemplate = new ResponsesToApple($logger, $appleGateway);
         $response = $responsesTemplate->appleFormattedResponse($paymentDetails);
 
@@ -158,9 +158,9 @@ class ResponsesToAppleTest extends TestCase
         when('__')->returnArg(1);
     }
 
-    public function mollieGateway($paymentMethodName, $isSepa = false, $isSubscription = false){
+    public function liquichainGateway($paymentMethodName, $isSepa = false, $isSubscription = false){
         $gateway = $this->createConfiguredMock(
-            MollieSubscriptionGateway::class,
+            LiquichainSubscriptionGateway::class,
             []
         );
         $gateway->paymentMethod = $this->helperMocks->paymentMethodBuilder($paymentMethodName, $isSepa, $isSubscription);

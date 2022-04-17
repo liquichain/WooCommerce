@@ -4,14 +4,14 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Refund;
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\Api\Resources\Refund;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface as Logger;
 use Psr\Log\LogLevel;
@@ -52,14 +52,14 @@ class PaymentModule implements ServiceModule, ExecutableModule
                $logger = $container->get(Logger::class);
                return new PaymentFactory($data, $apiHelper, $settingsHelper, $pluginId, $logger);
            },
-           MollieObject::class => static function (ContainerInterface $container): MollieObject {
+           LiquichainObject::class => static function (ContainerInterface $container): LiquichainObject {
                $logger = $container->get(Logger::class);
                $data = $container->get('settings.data_helper');
                $apiHelper = $container->get('SDK.api_helper');
                $pluginId = $container->get('shared.plugin_id');
                $paymentFactory = $container->get(PaymentFactory::class);
                $settingsHelper = $container->get('settings.settings_helper');
-               return new MollieObject($data, $logger, $paymentFactory, $apiHelper, $settingsHelper, $pluginId);
+               return new LiquichainObject($data, $logger, $paymentFactory, $apiHelper, $settingsHelper, $pluginId);
            },
         ];
     }
@@ -74,17 +74,17 @@ class PaymentModule implements ServiceModule, ExecutableModule
         $this->gatewayClassnames = $container->get('gateway.classnames');
 
         // Listen to return URL call
-        add_action('woocommerce_api_mollie_return', [ $this, 'onMollieReturn' ]);
-        add_action('template_redirect', [ $this, 'mollieReturnRedirect' ]);
+        add_action('woocommerce_api_liquichain_return', [ $this, 'onLiquichainReturn' ]);
+        add_action('template_redirect', [ $this, 'liquichainReturnRedirect' ]);
 
-        // Show Mollie instructions on order details page
+        // Show Liquichain instructions on order details page
         add_action('woocommerce_order_details_after_order_table', [ $this, 'onOrderDetails' ], 10, 1);
 
-        // Cancel order at Mollie (for Orders API/Klarna)
-        add_action('woocommerce_order_status_cancelled', [ $this, 'cancelOrderAtMollie' ]);
+        // Cancel order at Liquichain (for Orders API/Klarna)
+        add_action('woocommerce_order_status_cancelled', [ $this, 'cancelOrderAtLiquichain' ]);
 
-        // Capture order at Mollie (for Orders API/Klarna)
-        add_action('woocommerce_order_status_completed', [ $this, 'shipAndCaptureOrderAtMollie' ]);
+        // Capture order at Liquichain (for Orders API/Klarna)
+        add_action('woocommerce_order_status_completed', [ $this, 'shipAndCaptureOrderAtLiquichain' ]);
 
         add_filter(
             'woocommerce_cancel_unpaid_order',
@@ -120,13 +120,13 @@ class PaymentModule implements ServiceModule, ExecutableModule
     public function maybeLetWCCancelOrder($willCancel, $order)
     {
         if (!empty($willCancel)) {
-            $isMollieGateway = mollieWooCommerceIsMollieGateway($order->get_payment_method(
+            $isLiquichainGateway = liquichainWooCommerceIsLiquichainGateway($order->get_payment_method(
             ));
 
-            $mollieDueDateEnabled = mollieWooCommerceIsGatewayEnabled($order->get_payment_method(
+            $liquichainDueDateEnabled = liquichainWooCommerceIsGatewayEnabled($order->get_payment_method(
             ), 'activate_expiry_days_setting');
             if (
-                !$isMollieGateway || !$mollieDueDateEnabled
+                !$isLiquichainGateway || !$liquichainDueDateEnabled
             ) {
                 return $willCancel;
             }
@@ -148,7 +148,7 @@ class PaymentModule implements ServiceModule, ExecutableModule
                 continue;
             }
             $heldDurationInSeconds = $heldDuration * 60;
-            if ($gateway === 'mollie_wc_gateway_bankTransfer') {
+            if ($gateway === 'liquichain_wc_gateway_bankTransfer') {
                 $durationInHours = absint($heldDuration) * 24;
                 $durationInMinutes = $durationInHours * 60;
                 $heldDurationInSeconds = $durationInMinutes * 60;
@@ -165,11 +165,11 @@ class PaymentModule implements ServiceModule, ExecutableModule
             if ($unpaid_orders) {
                 foreach ($unpaid_orders as $unpaid_order) {
                     $order = wc_get_order($unpaid_order);
-                    add_filter('mollie-payments-for-woocommerce_order_status_cancelled', static function ($newOrderStatus) {
-                        return MolliePaymentGateway::STATUS_CANCELLED;
+                    add_filter('liquichain-payments-for-woocommerce_order_status_cancelled', static function ($newOrderStatus) {
+                        return LiquichainPaymentGateway::STATUS_CANCELLED;
                     });
                     $order->update_status('cancelled', __('Unpaid order cancelled - time limit reached.', 'woocommerce'), true);
-                    $this->cancelOrderAtMollie($order->get_id());
+                    $this->cancelOrderAtLiquichain($order->get_id());
                 }
             }
         }
@@ -188,8 +188,8 @@ class PaymentModule implements ServiceModule, ExecutableModule
 
         $orderNote = sprintf(
             __(
-                '%1$s items refunded in WooCommerce and at Mollie.',
-                'mollie-payments-for-woocommerce'
+                '%1$s items refunded in WooCommerce and at Liquichain.',
+                'liquichain-payments-for-woocommerce'
             ),
             self::extractRemoteItemsIds($data)
         );
@@ -206,8 +206,8 @@ class PaymentModule implements ServiceModule, ExecutableModule
     {
         $orderNote = sprintf(
             __(
-                '%1$s items cancelled in WooCommerce and at Mollie.',
-                'mollie-payments-for-woocommerce'
+                '%1$s items cancelled in WooCommerce and at Liquichain.',
+                'liquichain-payments-for-woocommerce'
             ),
             self::extractRemoteItemsIds($data)
         );
@@ -220,7 +220,7 @@ class PaymentModule implements ServiceModule, ExecutableModule
      * Old Payment return url callback
      *
      */
-    public function onMollieReturn()
+    public function onLiquichainReturn()
     {
         try {
             $order = self::orderByRequest();
@@ -244,7 +244,7 @@ class PaymentModule implements ServiceModule, ExecutableModule
             return;
         }
 
-        if (!($gateway instanceof MolliePaymentGateway)) {
+        if (!($gateway instanceof LiquichainPaymentGateway)) {
             $this->httpResponse->setHttpResponseCode(400);
             $this->logger->log(LogLevel::DEBUG, __METHOD__ . ": Invalid gateway {get_class($gateway)} for this plugin. Order {$orderId}.");
             return;
@@ -265,12 +265,12 @@ class PaymentModule implements ServiceModule, ExecutableModule
      * New Payment return url callback
      *
      */
-    public function mollieReturnRedirect()
+    public function liquichainReturnRedirect()
     {
         if (isset($_GET['filter_flag'])) {
             $filterFlag = filter_input(INPUT_GET, 'filter_flag', FILTER_SANITIZE_STRING);
-            if ($filterFlag === 'onMollieReturn') {
-                self::onMollieReturn();
+            if ($filterFlag === 'onLiquichainReturn') {
+                self::onLiquichainReturn();
             }
         }
     }
@@ -285,46 +285,46 @@ class PaymentModule implements ServiceModule, ExecutableModule
              * Do not show instruction again below details on order received page
              * Instructions already displayed on top of order received page by $gateway->thankyou_page()
              *
-             * @see MolliePaymentGateway::thankyou_page
+             * @see LiquichainPaymentGateway::thankyou_page
              */
             return;
         }
 
         $gateway = wc_get_payment_gateway_by_order($order);
 
-        if (!$gateway || !($gateway instanceof MolliePaymentGateway)) {
+        if (!$gateway || !($gateway instanceof LiquichainPaymentGateway)) {
             return;
         }
 
-        /** @var MolliePaymentGateway $gateway */
+        /** @var LiquichainPaymentGateway $gateway */
 
         $gateway->displayInstructions($order);
     }
     /**
-     * Ship all order lines and capture an order at Mollie.
+     * Ship all order lines and capture an order at Liquichain.
      *
      */
-    public function shipAndCaptureOrderAtMollie($order_id)
+    public function shipAndCaptureOrderAtLiquichain($order_id)
     {
         $order = wc_get_order($order_id);
 
-        // Does WooCommerce order contain a Mollie payment?
-        if (strstr($order->get_payment_method(), 'mollie_wc_gateway_') === false) {
+        // Does WooCommerce order contain a Liquichain payment?
+        if (strstr($order->get_payment_method(), 'liquichain_wc_gateway_') === false) {
             return;
         }
 
-        // To disable automatic shipping and capturing of the Mollie order when a WooCommerce order status is updated to completed,
-        // store an option 'mollie-payments-for-woocommerce_disableShipOrderAtMollie' with value 1
-        if (get_option($this->pluginId . '_' . 'disableShipOrderAtMollie', '0') === '1') {
+        // To disable automatic shipping and capturing of the Liquichain order when a WooCommerce order status is updated to completed,
+        // store an option 'liquichain-payments-for-woocommerce_disableShipOrderAtLiquichain' with value 1
+        if (get_option($this->pluginId . '_' . 'disableShipOrderAtLiquichain', '0') === '1') {
             return;
         }
 
-        $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Try to process completed order for a potential capture at Mollie.');
+        $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Try to process completed order for a potential capture at Liquichain.');
 
-        // Does WooCommerce order contain a Mollie Order?
-        $mollie_order_id = ( $mollie_order_id = $order->get_meta('_mollie_order_id', true) ) ? $mollie_order_id : false;
+        // Does WooCommerce order contain a Liquichain Order?
+        $liquichain_order_id = ( $liquichain_order_id = $order->get_meta('_liquichain_order_id', true) ) ? $liquichain_order_id : false;
         // Is it a payment? you cannot ship a payment
-        if ($mollie_order_id === false || substr($mollie_order_id, 0, 3) === 'tr_') {
+        if ($liquichain_order_id === false || substr($liquichain_order_id, 0, 3) === 'tr_') {
             $order->add_order_note('Processing a payment, no capture needed');
             $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Processing a payment, no capture needed.');
 
@@ -333,34 +333,34 @@ class PaymentModule implements ServiceModule, ExecutableModule
 
         $apiKey = $this->settingsHelper->getApiKey();
         try {
-            // Get the order from the Mollie API
-            $mollie_order = $this->apiHelper->getApiClient($apiKey)->orders->get($mollie_order_id);
+            // Get the order from the Liquichain API
+            $liquichain_order = $this->apiHelper->getApiClient($apiKey)->orders->get($liquichain_order_id);
 
             // Check that order is Paid or Authorized and can be captured
-            if ($mollie_order->isCanceled()) {
-                $order->add_order_note('Order already canceled at Mollie, can not be shipped/captured.');
-                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order already canceled at Mollie, can not be shipped/captured.');
+            if ($liquichain_order->isCanceled()) {
+                $order->add_order_note('Order already canceled at Liquichain, can not be shipped/captured.');
+                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order already canceled at Liquichain, can not be shipped/captured.');
 
                 return;
             }
 
-            if ($mollie_order->isCompleted()) {
-                $order->add_order_note('Order already completed at Mollie, can not be shipped/captured.');
-                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order already completed at Mollie, can not be shipped/captured.');
+            if ($liquichain_order->isCompleted()) {
+                $order->add_order_note('Order already completed at Liquichain, can not be shipped/captured.');
+                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order already completed at Liquichain, can not be shipped/captured.');
 
                 return;
             }
 
-            if ($mollie_order->isPaid() || $mollie_order->isAuthorized()) {
-                $this->apiHelper->getApiClient($apiKey)->orders->get($mollie_order_id)->shipAll();
-                $order->add_order_note('Order successfully updated to shipped at Mollie, capture of funds underway.');
-                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order successfully updated to shipped at Mollie, capture of funds underway.');
+            if ($liquichain_order->isPaid() || $liquichain_order->isAuthorized()) {
+                $this->apiHelper->getApiClient($apiKey)->orders->get($liquichain_order_id)->shipAll();
+                $order->add_order_note('Order successfully updated to shipped at Liquichain, capture of funds underway.');
+                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order successfully updated to shipped at Liquichain, capture of funds underway.');
 
                 return;
             }
 
-            $order->add_order_note('Order not paid or authorized at Mollie yet, can not be shipped.');
-            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order not paid or authorized at Mollie yet, can not be shipped.');
+            $order->add_order_note('Order not paid or authorized at Liquichain yet, can not be shipped.');
+            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order not paid or authorized at Liquichain yet, can not be shipped.');
         } catch (ApiException $e) {
             $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Processing shipment & capture failed, error: ' . $e->getMessage());
         }
@@ -369,37 +369,37 @@ class PaymentModule implements ServiceModule, ExecutableModule
     }
 
     /**
-     * Cancel an order at Mollie.
+     * Cancel an order at Liquichain.
      *
      */
-    public function cancelOrderAtMollie($order_id)
+    public function cancelOrderAtLiquichain($order_id)
     {
         $order = wc_get_order($order_id);
 
-        // Does WooCommerce order contain a Mollie payment?
-        if (strstr($order->get_payment_method(), 'mollie_wc_gateway_') === false) {
+        // Does WooCommerce order contain a Liquichain payment?
+        if (strstr($order->get_payment_method(), 'liquichain_wc_gateway_') === false) {
             return;
         }
 
-        // To disable automatic canceling of the Mollie order when a WooCommerce order status is updated to canceled,
-        // store an option 'mollie-payments-for-woocommerce_disableCancelOrderAtMollie' with value 1
-        if (get_option($this->pluginId . '_' . 'disableCancelOrderAtMollie', '0') === '1') {
+        // To disable automatic canceling of the Liquichain order when a WooCommerce order status is updated to canceled,
+        // store an option 'liquichain-payments-for-woocommerce_disableCancelOrderAtLiquichain' with value 1
+        if (get_option($this->pluginId . '_' . 'disableCancelOrderAtLiquichain', '0') === '1') {
             return;
         }
 
-        $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Try to process cancelled order at Mollie.');
+        $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Try to process cancelled order at Liquichain.');
 
-        $mollie_order_id = ( $mollie_order_id = $order->get_meta('_mollie_order_id', true) ) ? $mollie_order_id : false;
+        $liquichain_order_id = ( $liquichain_order_id = $order->get_meta('_liquichain_order_id', true) ) ? $liquichain_order_id : false;
 
-        if ($mollie_order_id === false) {
-            $order->add_order_note('Order contains Mollie payment method, but not a valid Mollie Order ID. Canceling order failed.');
-            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order contains Mollie payment method, but not a valid Mollie Order ID. Canceling order failed.');
+        if ($liquichain_order_id === false) {
+            $order->add_order_note('Order contains Liquichain payment method, but not a valid Liquichain Order ID. Canceling order failed.');
+            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order contains Liquichain payment method, but not a valid Liquichain Order ID. Canceling order failed.');
 
             return;
         }
 
         $orderStr = "ord_";
-        if (substr($mollie_order_id, 0, strlen($orderStr)) !== $orderStr) {
+        if (substr($liquichain_order_id, 0, strlen($orderStr)) !== $orderStr) {
             $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order uses Payment API, cannot cancel as order.');
 
             return;
@@ -407,30 +407,30 @@ class PaymentModule implements ServiceModule, ExecutableModule
 
         $apiKey = $this->settingsHelper->getApiKey();
         try {
-            // Get the order from the Mollie API
-            $mollie_order = $this->apiHelper->getApiClient($apiKey)->orders->get($mollie_order_id);
+            // Get the order from the Liquichain API
+            $liquichain_order = $this->apiHelper->getApiClient($apiKey)->orders->get($liquichain_order_id);
 
-            // Check that order is not already canceled at Mollie
-            if ($mollie_order->isCanceled()) {
-                $order->add_order_note('Order already canceled at Mollie, can not be canceled again.');
-                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order already canceled at Mollie, can not be canceled again.');
+            // Check that order is not already canceled at Liquichain
+            if ($liquichain_order->isCanceled()) {
+                $order->add_order_note('Order already canceled at Liquichain, can not be canceled again.');
+                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order already canceled at Liquichain, can not be canceled again.');
 
                 return;
             }
 
             // Check that order has the correct status to be canceled
-            if ($mollie_order->isCreated() || $mollie_order->isAuthorized() || $mollie_order->isShipping()) {
-                $this->apiHelper->getApiClient($apiKey)->orders->get($mollie_order_id)->cancel();
-                $order->add_order_note('Order also cancelled at Mollie.');
-                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order cancelled in WooCommerce, also cancelled at Mollie.');
+            if ($liquichain_order->isCreated() || $liquichain_order->isAuthorized() || $liquichain_order->isShipping()) {
+                $this->apiHelper->getApiClient($apiKey)->orders->get($liquichain_order_id)->cancel();
+                $order->add_order_note('Order also cancelled at Liquichain.');
+                $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order cancelled in WooCommerce, also cancelled at Liquichain.');
 
                 return;
             }
 
-            $order->add_order_note('Order could not be canceled at Mollie, because order status is ' . $mollie_order->status . '.');
-            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order could not be canceled at Mollie, because order status is ' . $mollie_order->status . '.');
+            $order->add_order_note('Order could not be canceled at Liquichain, because order status is ' . $liquichain_order->status . '.');
+            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Order could not be canceled at Liquichain, because order status is ' . $liquichain_order->status . '.');
         } catch (ApiException $e) {
-            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Updating order to canceled at Mollie failed, error: ' . $e->getMessage());
+            $this->logger->log(LogLevel::DEBUG, __METHOD__ . ' - ' . $order_id . ' - Updating order to canceled at Liquichain failed, error: ' . $e->getMessage());
         }
 
         return;
@@ -438,18 +438,18 @@ class PaymentModule implements ServiceModule, ExecutableModule
 
     public function handleExpiryDateCancelation()
     {
-        if(!mollieWooCommercIsExpiryDateEnabled()){
-            as_unschedule_action( 'mollie_woocommerce_cancel_unpaid_orders' );
+        if(!liquichainWooCommercIsExpiryDateEnabled()){
+            as_unschedule_action( 'liquichain_woocommerce_cancel_unpaid_orders' );
             return;
         }
         $canSchedule = function_exists('as_schedule_single_action');
         if ($canSchedule) {
-            if ( false === as_next_scheduled_action( 'mollie_woocommerce_cancel_unpaid_orders' ) ) {
-                as_schedule_recurring_action( time(), 600, 'mollie_woocommerce_cancel_unpaid_orders');
+            if ( false === as_next_scheduled_action( 'liquichain_woocommerce_cancel_unpaid_orders' ) ) {
+                as_schedule_recurring_action( time(), 600, 'liquichain_woocommerce_cancel_unpaid_orders');
             }
 
             add_action(
-                'mollie_woocommerce_cancel_unpaid_orders',
+                'liquichain_woocommerce_cancel_unpaid_orders',
                 [$this, 'cancelOrderOnExpiryDate'],
                 11,
                 2

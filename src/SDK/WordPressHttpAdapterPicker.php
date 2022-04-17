@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\SDK;
+namespace Liquichain\WooCommerce\SDK;
 
-use Mollie\Api\HttpAdapter\MollieHttpAdapterPickerInterface;
+use Liquichain\Api\HttpAdapter\LiquichainHttpAdapterPickerInterface;
 
-class WordPressHttpAdapterPicker implements MollieHttpAdapterPickerInterface
+class WordPressHttpAdapterPicker implements LiquichainHttpAdapterPickerInterface
 {
     public function pickHttpAdapter($httpClient)
     {

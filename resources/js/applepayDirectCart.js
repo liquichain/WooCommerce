@@ -3,11 +3,11 @@ import {request} from "./applePayRequest";
 import {maybeShowButton} from './maybeShowApplePayButton.js';
 
 (
-    function ({_, mollieApplePayDirectDataCart, jQuery}) {
-        if (_.isEmpty(mollieApplePayDirectDataCart)) {
+    function ({_, liquichainApplePayDirectDataCart, jQuery}) {
+        if (_.isEmpty(liquichainApplePayDirectDataCart)) {
             return
         }
-        const {product: {needShipping = true, subtotal}, shop: {countryCode, currencyCode = 'EUR', totalLabel = ''}, ajaxUrl} = mollieApplePayDirectDataCart
+        const {product: {needShipping = true, subtotal}, shop: {countryCode, currencyCode = 'EUR', totalLabel = ''}, ajaxUrl} = liquichainApplePayDirectDataCart
 
         if (!subtotal || !countryCode || !ajaxUrl) {
             return
@@ -26,7 +26,7 @@ import {maybeShowButton} from './maybeShowApplePayButton.js';
                     url: ajaxUrl,
                     method: 'POST',
                     data: {
-                        action: 'mollie_apple_pay_update_shipping_method',
+                        action: 'liquichain_apple_pay_update_shipping_method',
                         shippingMethod: event.shippingMethod,
                         callerPage: 'cart',
                         simplifiedContact: updatedContactInfo,
@@ -53,7 +53,7 @@ import {maybeShowButton} from './maybeShowApplePayButton.js';
                     url: ajaxUrl,
                     method: 'POST',
                     data: {
-                        action: 'mollie_apple_pay_update_shipping_contact',
+                        action: 'liquichain_apple_pay_update_shipping_contact',
                         simplifiedContact: event.shippingContact,
                         callerPage: 'cart',
                         needShipping: needShipping,
@@ -83,7 +83,7 @@ import {maybeShowButton} from './maybeShowApplePayButton.js';
                     url: ajaxUrl,
                     method: 'POST',
                     data: {
-                        action: 'mollie_apple_pay_validation',
+                        action: 'liquichain_apple_pay_validation',
                         validationUrl: applePayValidateMerchantEvent.validationURL,
                         'woocommerce-process-checkout-nonce': nonce,
                     },
@@ -110,12 +110,12 @@ import {maybeShowButton} from './maybeShowApplePayButton.js';
                     url: ajaxUrl,
                     method: 'POST',
                     data: {
-                        action: 'mollie_apple_pay_create_order_cart',
+                        action: 'liquichain_apple_pay_create_order_cart',
                         shippingContact: ApplePayPayment.payment.shippingContact,
                         billingContact: ApplePayPayment.payment.billingContact,
                         token: ApplePayPayment.payment.token,
                         shippingMethod: selectedShippingMethod,
-                        'mollie-payments-for-woocommerce_issuer_applepay': 'applepay',
+                        'liquichain-payments-for-woocommerce_issuer_applepay': 'applepay',
                         'woocommerce-process-checkout-nonce': nonce,
                         'billing_first_name': billingContact.givenName || '',
                         'billing_last_name': billingContact.familyName || '',
@@ -140,7 +140,7 @@ import {maybeShowButton} from './maybeShowApplePayButton.js';
                         'shipping_phone': shippingContact.phoneNumber || '000000000000',
                         'shipping_email': shippingContact.emailAddress || '',
                         'order_comments' : '',
-                        'payment_method' : 'mollie_wc_gateway_applepay',
+                        'payment_method' : 'liquichain_wc_gateway_applepay',
                         '_wp_http_referer' : '/?wc-ajax=update_order_review'
                     },
                     complete: (jqXHR, textStatus) => {
@@ -171,12 +171,12 @@ import {maybeShowButton} from './maybeShowApplePayButton.js';
 
         jQuery(document.body).on('updated_cart_totals', function (event) {
             maybeShowButton()
-            document.querySelector('#mollie_applepay_button').addEventListener('click', (evt) => {
+            document.querySelector('#liquichain_applepay_button').addEventListener('click', (evt) => {
                 applePaySession()
             })
         })
 
-        document.querySelector('#mollie_applepay_button').addEventListener('click', (evt) => {
+        document.querySelector('#liquichain_applepay_button').addEventListener('click', (evt) => {
             applePaySession()
         })
     }

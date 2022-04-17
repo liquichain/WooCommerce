@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\Api\Types\OrderLineStatus as ApiOrderLineStatus;
+use Liquichain\Api\Types\OrderLineStatus as ApiOrderLineStatus;
 
 /**
  * Class OrderLineStatus

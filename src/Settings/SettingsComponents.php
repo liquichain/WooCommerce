@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Settings;
+namespace Liquichain\WooCommerce\Settings;
 
-use Mollie\WooCommerce\Components\StylesPropertiesDictionary;
+use Liquichain\WooCommerce\Components\StylesPropertiesDictionary;
 
 class SettingsComponents
 {
@@ -52,7 +52,7 @@ class SettingsComponents
         foreach ($group as $key) {
             $styleKey = str_replace(self::STYLE_KEY_PREFIXES, '', $key);
             $optionValue = get_option(
-                sprintf('mollie_components_%s', $key),
+                sprintf('liquichain_components_%s', $key),
                 $this->defaultOptionFor($defaults, $key)
             );
             $settings[$styleKey] = $optionValue;
@@ -63,13 +63,13 @@ class SettingsComponents
 
     protected function defaultSettings()
     {
-        $mollieComponentsFilePath = $this->pluginPath . '/inc/settings/mollie_components.php';
+        $liquichainComponentsFilePath = $this->pluginPath . '/inc/settings/liquichain_components.php';
 
-        if (!file_exists($mollieComponentsFilePath)) {
+        if (!file_exists($liquichainComponentsFilePath)) {
             return [];
         }
 
-        $componentsFields = include $mollieComponentsFilePath;
+        $componentsFields = include $liquichainComponentsFilePath;
 
         return (array)$componentsFields;
     }

@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Subscription;
+namespace Liquichain\WooCommerce\Subscription;
 
 use DateInterval;
 use DateTime;
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Types\SequenceType;
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\Notice\NoticeInterface;
-use Mollie\WooCommerce\Payment\MollieObject;
-use Mollie\WooCommerce\Payment\MollieOrderService;
-use Mollie\WooCommerce\Payment\OrderInstructionsService;
-use Mollie\WooCommerce\Payment\PaymentCheckoutRedirectService;
-use Mollie\WooCommerce\Payment\PaymentFactory;
-use Mollie\WooCommerce\Payment\PaymentService;
-use Mollie\WooCommerce\PaymentMethods\PaymentMethodI;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\SDK\HttpResponse;
-use Mollie\WooCommerce\Settings\Settings;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\Api\Types\SequenceType;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\Notice\NoticeInterface;
+use Liquichain\WooCommerce\Payment\LiquichainObject;
+use Liquichain\WooCommerce\Payment\LiquichainOrderService;
+use Liquichain\WooCommerce\Payment\OrderInstructionsService;
+use Liquichain\WooCommerce\Payment\PaymentCheckoutRedirectService;
+use Liquichain\WooCommerce\Payment\PaymentFactory;
+use Liquichain\WooCommerce\Payment\PaymentService;
+use Liquichain\WooCommerce\PaymentMethods\PaymentMethodI;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\SDK\HttpResponse;
+use Liquichain\WooCommerce\Settings\Settings;
+use Liquichain\WooCommerce\Shared\Data;
 use Psr\Log\LoggerInterface as Logger;
 use Psr\Log\LogLevel;
 
-class MollieSepaRecurringGateway extends MollieSubscriptionGateway
+class LiquichainSepaRecurringGateway extends LiquichainSubscriptionGateway
 {
 
     const WAITING_CONFIRMATION_PERIOD_DAYS = '21';
 
-    protected $recurringMollieMethod = null;
+    protected $recurringLiquichainMethod = null;
     protected $dataHelper;
 
     /**
@@ -40,13 +40,13 @@ class MollieSepaRecurringGateway extends MollieSubscriptionGateway
         PaymentMethodI $paymentMethod,
         PaymentService $paymentService,
         OrderInstructionsService $orderInstructionsService,
-        MollieOrderService $mollieOrderService,
+        LiquichainOrderService $liquichainOrderService,
         Data $dataService,
         Logger $logger,
         NoticeInterface $notice,
         HttpResponse $httpResponse,
         Settings $settingsHelper,
-        MollieObject $mollieObject,
+        LiquichainObject $liquichainObject,
         PaymentFactory $paymentFactory,
         string $pluginId,
         Api $apiHelper
@@ -56,33 +56,33 @@ class MollieSepaRecurringGateway extends MollieSubscriptionGateway
             $paymentMethod,
             $paymentService,
             $orderInstructionsService,
-            $mollieOrderService,
+            $liquichainOrderService,
             $dataService,
             $logger,
             $notice,
             $httpResponse,
             $settingsHelper,
-            $mollieObject,
+            $liquichainObject,
             $paymentFactory,
             $pluginId,
             $apiHelper
         );
-        $directDebit = new MolliePaymentGateway(
+        $directDebit = new LiquichainPaymentGateway(
             $directDebitPaymentMethod,
             $paymentService,
             $orderInstructionsService,
-            $mollieOrderService,
+            $liquichainOrderService,
             $dataService,
             $logger,
             $notice,
             $httpResponse,
-            $mollieObject,
+            $liquichainObject,
             $paymentFactory,
             $pluginId
         );
         if ($directDebit->enabled === 'yes') {
             $this->initSubscriptionSupport();
-            $this->recurringMollieMethod = $directDebit;
+            $this->recurringLiquichainMethod = $directDebit;
         }
         return $this;
     }
@@ -90,11 +90,11 @@ class MollieSepaRecurringGateway extends MollieSubscriptionGateway
     /**
      * @return string
      */
-    protected function getRecurringMollieMethodId()
+    protected function getRecurringLiquichainMethodId()
     {
         $result = null;
-        if ($this->recurringMollieMethod) {
-            $result = $this->recurringMollieMethod->paymentMethod->getProperty('id');
+        if ($this->recurringLiquichainMethod) {
+            $result = $this->recurringLiquichainMethod->paymentMethod->getProperty('id');
         }
 
         return $result;
@@ -103,11 +103,11 @@ class MollieSepaRecurringGateway extends MollieSubscriptionGateway
     /**
      * @return string
      */
-    protected function getRecurringMollieMethodTitle()
+    protected function getRecurringLiquichainMethodTitle()
     {
         $result = null;
-        if ($this->recurringMollieMethod) {
-            $result = $this->recurringMollieMethod->paymentMethod->getProperty('title');
+        if ($this->recurringLiquichainMethod) {
+            $result = $this->recurringLiquichainMethod->paymentMethod->getProperty('title');
         }
 
         return $result;
@@ -120,11 +120,11 @@ class MollieSepaRecurringGateway extends MollieSubscriptionGateway
      */
     protected function _updateScheduledPaymentOrder($renewal_order, $initial_order_status, $payment)
     {
-        $this->mollieOrderService->updateOrderStatus(
+        $this->liquichainOrderService->updateOrderStatus(
             $renewal_order,
             $initial_order_status,
             sprintf(
-                __("Awaiting payment confirmation.", 'mollie-payments-for-woocommerce') . "\n",
+                __("Awaiting payment confirmation.", 'liquichain-payments-for-woocommerce') . "\n",
                 self::WAITING_CONFIRMATION_PERIOD_DAYS
             )
         );
@@ -133,9 +133,9 @@ class MollieSepaRecurringGateway extends MollieSubscriptionGateway
 
         $renewal_order->add_order_note(sprintf(
         /* translators: Placeholder 1: Payment method title, placeholder 2: payment ID */
-            __('%1$s payment started (%2$s).', 'mollie-payments-for-woocommerce'),
+            __('%1$s payment started (%2$s).', 'liquichain-payments-for-woocommerce'),
             $payment_method_title,
-            $payment->id . ($payment->mode === 'test' ? (' - ' . __('test mode', 'mollie-payments-for-woocommerce')) : '')
+            $payment->id . ($payment->mode === 'test' ? (' - ' . __('test mode', 'liquichain-payments-for-woocommerce')) : '')
         ));
 
         $this->addPendingPaymentOrder($renewal_order);
@@ -160,7 +160,7 @@ class MollieSepaRecurringGateway extends MollieSubscriptionGateway
         $period = 'P' . self::WAITING_CONFIRMATION_PERIOD_DAYS . 'D';
         $confirmationDate->add(new DateInterval($period));
         $wpdb->insert(
-            $wpdb->mollie_pending_payment,
+            $wpdb->liquichain_pending_payment,
             [
                 'post_id' => $renewal_order->get_id(),
                 'expired_time' => $confirmationDate->getTimestamp(),
@@ -176,8 +176,8 @@ class MollieSepaRecurringGateway extends MollieSubscriptionGateway
     {
         $payment_method_title = $this->method_title;
         $orderId = isset($payment->metadata) ? $payment->metadata->order_id : false;
-        if ($orderId && $this->dataService->isWcSubscription($orderId) && $payment->method === $this->getRecurringMollieMethodId()) {
-            $payment_method_title = $this->getRecurringMollieMethodTitle();
+        if ($orderId && $this->dataService->isWcSubscription($orderId) && $payment->method === $this->getRecurringLiquichainMethodId()) {
+            $payment_method_title = $this->getRecurringLiquichainMethodTitle();
         }
 
         return $payment_method_title;
@@ -202,7 +202,7 @@ class MollieSepaRecurringGateway extends MollieSubscriptionGateway
             $isTestMode = $payment->mode === 'test';
             $paymentMessage = $payment->id . (
                 $isTestMode
-                    ? (' - ' . __('test mode', 'mollie-payments-for-woocommerce'))
+                    ? (' - ' . __('test mode', 'liquichain-payments-for-woocommerce'))
                     : ''
                 );
             $order->add_order_note(
@@ -210,7 +210,7 @@ class MollieSepaRecurringGateway extends MollieSubscriptionGateway
                 /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
                     __(
                         'Order completed using %1$s payment (%2$s).',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     ),
                     $payment_method_title,
                     $paymentMessage

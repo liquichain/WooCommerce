@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Eps extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -10,7 +10,7 @@ class Eps extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'eps',
-            'defaultTitle' => __('EPS', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('EPS', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => '',
             'defaultDescription' => '',
             'paymentFields' => false,

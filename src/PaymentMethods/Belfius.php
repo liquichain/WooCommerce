@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Belfius extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -10,7 +10,7 @@ class Belfius extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'belfius',
-            'defaultTitle' => __('Belfius Direct Net', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('Belfius Direct Net', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => '',
             'defaultDescription' => '',
             'paymentFields' => false,

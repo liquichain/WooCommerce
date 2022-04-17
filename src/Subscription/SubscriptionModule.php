@@ -4,12 +4,12 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Subscription;
+namespace Liquichain\WooCommerce\Subscription;
 
 use DateTime;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface as Logger;
 use Psr\Log\LogLevel;
@@ -83,7 +83,7 @@ class SubscriptionModule implements ExecutableModule
     {
         global $wpdb;
         $currentDate = new DateTime();
-        $items = $wpdb->get_results("SELECT * FROM {$wpdb->mollie_pending_payment} WHERE expired_time < {$currentDate->getTimestamp()};");
+        $items = $wpdb->get_results("SELECT * FROM {$wpdb->liquichain_pending_payment} WHERE expired_time < {$currentDate->getTimestamp()};");
         foreach ($items as $item) {
             $order = wc_get_order($item->post_id);
 
@@ -92,15 +92,15 @@ class SubscriptionModule implements ExecutableModule
                 return false;
             }
 
-            if ($order->get_status() === MolliePaymentGateway::STATUS_COMPLETED) {
-                $new_order_status = MolliePaymentGateway::STATUS_FAILED;
+            if ($order->get_status() === LiquichainPaymentGateway::STATUS_COMPLETED) {
+                $new_order_status = LiquichainPaymentGateway::STATUS_FAILED;
                 $paymentMethodId = $order->get_meta('_payment_method_title', true);
-                $molliePaymentId = $order->get_meta('_mollie_payment_id', true);
+                $liquichainPaymentId = $order->get_meta('_liquichain_payment_id', true);
                 $order->add_order_note(sprintf(
                                        /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
-                    __('%1$s payment failed (%2$s).', 'mollie-payments-for-woocommerce'),
+                    __('%1$s payment failed (%2$s).', 'liquichain-payments-for-woocommerce'),
                     $paymentMethodId,
-                    $molliePaymentId
+                    $liquichainPaymentId
                 ));
 
                 $order->update_status($new_order_status, '');
@@ -112,7 +112,7 @@ class SubscriptionModule implements ExecutableModule
                 }
 
                 $wpdb->delete(
-                    $wpdb->mollie_pending_payment,
+                    $wpdb->liquichain_pending_payment,
                     [
                         'post_id' => $order->get_id(),
                     ]

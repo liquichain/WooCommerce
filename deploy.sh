@@ -3,18 +3,18 @@
 set -e
 
 echo
-echo "Deploy mollie-payments-for-woocommerce WordPress Plugin"
+echo "Deploy liquichain-payments-for-woocommerce WordPress Plugin"
 echo
 
 # Set up some default values. Feel free to change these in your own script
 CURRENTDIR=`pwd`
-PLUGINSLUG="mollie-payments-for-woocommerce"
+PLUGINSLUG="liquichain-payments-for-woocommerce"
 PLUGINDIR="$CURRENTDIR/$PLUGINSLUG"
 SVNPATH="/tmp/$PLUGINSLUG"
 SVNURL="http://plugins.svn.wordpress.org/$PLUGINSLUG"
 MAINFILE="$PLUGINSLUG.php"
 
-default_svnuser="mollie"
+default_svnuser="liquichain"
 
 # Get some user input
 # Can't use the -i flag for read, since that doesn't work for bash 3

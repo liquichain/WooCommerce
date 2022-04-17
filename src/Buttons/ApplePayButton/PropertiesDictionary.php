@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Buttons\ApplePayButton;
+namespace Liquichain\WooCommerce\Buttons\ApplePayButton;
 
 class PropertiesDictionary
 {
@@ -134,25 +134,25 @@ class PropertiesDictionary
     /**
      * @var string
      */
-    public const UPDATE_SHIPPING_CONTACT = 'mollie_apple_pay_update_shipping_contact';
+    public const UPDATE_SHIPPING_CONTACT = 'liquichain_apple_pay_update_shipping_contact';
     /**
      * @var string
      */
-    public const UPDATE_SHIPPING_METHOD = 'mollie_apple_pay_update_shipping_method';
+    public const UPDATE_SHIPPING_METHOD = 'liquichain_apple_pay_update_shipping_method';
     /**
      * @var string
      */
-    public const VALIDATION = 'mollie_apple_pay_validation';
+    public const VALIDATION = 'liquichain_apple_pay_validation';
     /**
      * @var string
      */
-    public const CREATE_ORDER = 'mollie_apple_pay_create_order';
+    public const CREATE_ORDER = 'liquichain_apple_pay_create_order';
     /**
      * @var string
      */
-    public const CREATE_ORDER_CART = 'mollie_apple_pay_create_order_cart';
+    public const CREATE_ORDER_CART = 'liquichain_apple_pay_create_order_cart';
     /**
      * @var string
      */
-    public const REDIRECT = 'mollie_apple_pay_redirect';
+    public const REDIRECT = 'liquichain_apple_pay_redirect';
 }

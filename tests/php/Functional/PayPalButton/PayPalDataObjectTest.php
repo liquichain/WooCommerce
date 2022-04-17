@@ -1,13 +1,13 @@
 <?php
 
-namespace Mollie\WooCommerceTests\Functional\PayPalButton;
+namespace Liquichain\WooCommerceTests\Functional\PayPalButton;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Mollie\WooCommerce\Buttons\PayPalButton\PayPalDataObjectHttp;
-use Mollie\WooCommerceTests\Functional\HelperMocks;
-use Mollie\WooCommerceTests\Stubs\postDTOTestsStubs;
-use Mollie\WooCommerceTests\TestCase;
-use Mollie_WC_PayPalButton_PayPalDataObjectHttp;
+use Liquichain\WooCommerce\Buttons\PayPalButton\PayPalDataObjectHttp;
+use Liquichain\WooCommerceTests\Functional\HelperMocks;
+use Liquichain\WooCommerceTests\Stubs\postDTOTestsStubs;
+use Liquichain\WooCommerceTests\TestCase;
+use Liquichain_WC_PayPalButton_PayPalDataObjectHttp;
 
 use function Brain\Monkey\Functions\when;
 

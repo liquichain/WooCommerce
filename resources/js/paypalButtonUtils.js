@@ -1,5 +1,5 @@
 export const ajaxCallToOrder = (ajaxUrl) => {
-    let button = document.getElementById('mollie-PayPal-button')
+    let button = document.getElementById('liquichain-PayPal-button')
     if(!button){
         return
     }
@@ -16,8 +16,8 @@ export const ajaxCallToOrder = (ajaxUrl) => {
             url: ajaxUrl,
             method: 'POST',
             data: {
-                action: 'mollie_paypal_create_order_cart',
-                'mollie-payments-for-woocommerce_issuer_paypal_button': 'paypal',
+                action: 'liquichain_paypal_create_order_cart',
+                'liquichain-payments-for-woocommerce_issuer_paypal_button': 'paypal',
                 nonce: nonce,
             },
             success: (response) => {

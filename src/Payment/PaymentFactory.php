@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\Settings\Settings;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\Settings\Settings;
+use Liquichain\WooCommerce\Shared\Data;
 
 class PaymentFactory
 {
@@ -40,7 +40,7 @@ class PaymentFactory
 
     /**
      * @param $data
-     * @return bool|MollieOrder|MolliePayment
+     * @return bool|LiquichainOrder|LiquichainPayment
      * @throws ApiException
      */
     public function getPaymentObject($data)
@@ -60,7 +60,7 @@ class PaymentFactory
                 $this->apiHelper->getApiClient($apiKey)->orders
             );
 
-            return new MollieOrder(
+            return new LiquichainOrder(
                 $orderItemsRefunded,
                 $data,
                 $this->pluginId,
@@ -76,7 +76,7 @@ class PaymentFactory
             || (!is_object($data) && strpos($data, 'tr_') !== false)
             || (is_object($data) && $data->resource === 'payment')
         ) {
-            return new MolliePayment(
+            return new LiquichainPayment(
                 $data,
                 $this->pluginId,
                 $this->apiHelper,

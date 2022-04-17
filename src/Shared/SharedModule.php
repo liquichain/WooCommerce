@@ -4,13 +4,13 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Shared;
+namespace Liquichain\WooCommerce\Shared;
 
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
 use Inpsyde\Modularity\Package;
-use Mollie\Api\CompatibilityChecker;
-use Mollie\WooCommerce\SDK\Api;
+use Liquichain\Api\CompatibilityChecker;
+use Liquichain\WooCommerce\SDK\Api;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface as Logger;
 
@@ -18,14 +18,14 @@ class SharedModule implements ServiceModule
 {
     use ModuleClassNameIdTrait;
 
-    public const PLUGIN_ID = 'mollie-payments-for-woocommerce';
+    public const PLUGIN_ID = 'liquichain-payments-for-woocommerce';
 
     public function services(): array
     {
         return [
             'shared.plugin_id' => static function (): string {
                 //Get plugin legacy id
-                return 'mollie-payments-for-woocommerce';
+                return 'liquichain-payments-for-woocommerce';
             },
             'shared.plugin_version' => static function (): string {
                 //Get plugin version
@@ -33,7 +33,7 @@ class SharedModule implements ServiceModule
             },
             'shared.plugin_title' => static function (): string {
                 //Get plugin version
-                return 'Mollie Payments for WooCommerce';
+                return 'Liquichain Payments for WooCommerce';
             },
             'shared.plugin_file' => static function (): string {
                 //Get location of main plugin file TODO handle with properties

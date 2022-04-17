@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\WooCommerce\Shared\Data;
 use stdClass;
 use UnexpectedValueException;
 use WC_Order_Item;
 
 /**
- * Create the line items list to refund according to Mollie rest api documentation
+ * Create the line items list to refund according to Liquichain rest api documentation
  *
- * @link https://docs.mollie.com/reference/v2/orders-api/create-order-refund
+ * @link https://docs.liquichain.io/reference/v2/orders-api/create-order-refund
  */
 class RefundLineItemsBuilder
 {
@@ -59,7 +59,7 @@ class RefundLineItemsBuilder
 
             if ($toRefundRemoteItem === null) {
                 throw new UnexpectedValueException(
-                    sprintf('Cannot refund %s item because it was not found in Mollie order. Aborting refund process. Try to do a refund by amount.', $toRefundItemId)
+                    sprintf('Cannot refund %s item because it was not found in Liquichain order. Aborting refund process. Try to do a refund by amount.', $toRefundItemId)
                 );
             }
 
@@ -124,8 +124,8 @@ class RefundLineItemsBuilder
         if ($toRefundRemoteItemAmount !== $toRefundItemAmount) {
             throw new PartialRefundException(
                 __(
-                    "Mollie doesn't allow a partial refund of the full amount or quantity of at least one order line. Trying to process this as an amount refund instead.",
-                    'mollie-payments-for-woocommerce'
+                    "Liquichain doesn't allow a partial refund of the full amount or quantity of at least one order line. Trying to process this as an amount refund instead.",
+                    'liquichain-payments-for-woocommerce'
                 )
             );
         }

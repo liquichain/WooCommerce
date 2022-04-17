@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Activation;
+namespace Liquichain\WooCommerce\Activation;
 
 class PluginDisabler
 {

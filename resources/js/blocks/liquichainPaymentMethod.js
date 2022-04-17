@@ -2,14 +2,14 @@
 let onSubmitLocal
 let activePaymentMethodLocal
 let cachedAvailableGateways
-let creditCardSelected = new Event("mollie_creditcard_component_selected", {bubbles: true});
+let creditCardSelected = new Event("liquichain_creditcard_component_selected", {bubbles: true});
 
-const MollieComponent = (props) => {
+const LiquichainComponent = (props) => {
     let {onSubmit, activePaymentMethod, billing, item, useEffect, ajaxUrl, jQuery, emitResponse, eventRegistration} = props
     const {  responseTypes } = emitResponse;
     const {onPaymentProcessing} = eventRegistration;
     const [ selectedIssuer, selectIssuer ] = wp.element.useState('');
-    const issuerKey = 'mollie-payments-for-woocommerce_issuer_' + activePaymentMethod
+    const issuerKey = 'liquichain-payments-for-woocommerce_issuer_' + activePaymentMethod
 
     function updateTotalLabel(newTotal, currency) {
         let feeText = newTotal + " " + currency
@@ -63,7 +63,7 @@ const MollieComponent = (props) => {
     }
 
     useEffect(() => {
-        if(activePaymentMethodLocal !== activePaymentMethod && activePaymentMethod === 'mollie_wc_gateway_creditcard'){
+        if(activePaymentMethodLocal !== activePaymentMethod && activePaymentMethod === 'liquichain_wc_gateway_creditcard'){
             document.documentElement.dispatchEvent(creditCardSelected);
         }
         activePaymentMethodLocal = activePaymentMethod
@@ -71,7 +71,7 @@ const MollieComponent = (props) => {
             url: ajaxUrl,
             method: 'POST',
             data: {
-                action: 'mollie_checkout_blocks_surchage',
+                action: 'liquichain_checkout_blocks_surchage',
                 method: activePaymentMethod
             },
             complete: (jqXHR, textStatus) => {
@@ -113,7 +113,7 @@ const MollieComponent = (props) => {
         selectIssuer( changeEvent.target.value )
     };
 
-    if (item.issuers && item.name !== "mollie_wc_gateway_creditcard"){
+    if (item.issuers && item.name !== "liquichain_wc_gateway_creditcard"){
         return <div><p>{item.content}</p><select name={issuerKey} dangerouslySetInnerHTML={ {__html: item.issuers} } value={selectedIssuer} onChange={updateIssuer}></select></div>
     }
 
@@ -122,19 +122,19 @@ const MollieComponent = (props) => {
 }
 
 
-const molliePaymentMethod = (useEffect, ajaxUrl, filters, gatewayData, availableGateways, item, jQuery) =>{
+const liquichainPaymentMethod = (useEffect, ajaxUrl, filters, gatewayData, availableGateways, item, jQuery) =>{
     let billingCountry = filters.billingCountry
     let cartTotal = filters.cartTotal
     cachedAvailableGateways = availableGateways
     let changedBillingCountry = filters.billingCountry
 
-    document.addEventListener('mollie_components_ready_to_submit', function () {
+    document.addEventListener('liquichain_components_ready_to_submit', function () {
         onSubmitLocal()
     })
     return {
         name: item.name,
         label: <div dangerouslySetInnerHTML={{__html: item.label}}/>,
-        content: <MollieComponent item={item} useEffect={useEffect} ajaxUrl={ajaxUrl} jQuery={jQuery}/>,
+        content: <LiquichainComponent item={item} useEffect={useEffect} ajaxUrl={ajaxUrl} jQuery={jQuery}/>,
         edit: <div>{item.edit}</div>,
         paymentMethodId: item.paymentMethodId,
         canMakePayment: ({cartTotals, billingData}) => {
@@ -153,7 +153,7 @@ const molliePaymentMethod = (useEffect, ajaxUrl, filters, gatewayData, available
             let currentFilterKey = currencyCode + "-" + filters.paymentLocale + "-" + billingCountry
 
             function creditcardSelectedEvent() {
-                if (item.name === "mollie_wc_gateway_creditcard") {
+                if (item.name === "liquichain_wc_gateway_creditcard") {
                     document.documentElement.dispatchEvent(creditCardSelected);
                 }
             }
@@ -165,7 +165,7 @@ const molliePaymentMethod = (useEffect, ajaxUrl, filters, gatewayData, available
                         url: ajaxUrl,
                         method: 'POST',
                         data: {
-                            action: 'mollie_checkout_blocks_canmakepayment',
+                            action: 'liquichain_checkout_blocks_canmakepayment',
                             currentGateway: item,
                             currency: currencyCode,
                             billingCountry: billingCountry,
@@ -203,5 +203,5 @@ const molliePaymentMethod = (useEffect, ajaxUrl, filters, gatewayData, available
     };
 }
 
-export default molliePaymentMethod
+export default liquichainPaymentMethod
 

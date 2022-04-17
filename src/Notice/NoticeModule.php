@@ -4,13 +4,13 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Notice;
+namespace Liquichain\WooCommerce\Notice;
 
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
-use Mollie\WooCommerce\Notice\AdminNotice;
+use Liquichain\WooCommerce\Notice\AdminNotice;
 use Psr\Container\ContainerInterface;
-use Mollie\WooCommerce\Notice\NoticeInterface as Notice;
+use Liquichain\WooCommerce\Notice\NoticeInterface as Notice;
 
 class NoticeModule implements ServiceModule
 {

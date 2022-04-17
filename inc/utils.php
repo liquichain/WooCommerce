@@ -1,18 +1,18 @@
 <?php
 
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\CurrentProfile;
-use Mollie\WooCommerce\Components\ComponentsStyles;
-use Mollie\WooCommerce\Plugin;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\Settings\SettingsComponents;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\Api\Resources\CurrentProfile;
+use Liquichain\WooCommerce\Components\ComponentsStyles;
+use Liquichain\WooCommerce\Plugin;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\Settings\SettingsComponents;
 
 /**
  * Check if the current page context is for checkout
  *
  * @return bool
  */
-function mollieWooCommerceIsCheckoutContext()
+function liquichainWooCommerceIsCheckoutContext()
 {
     global $wp_query;
     if (!isset($wp_query)) {
@@ -26,23 +26,23 @@ function mollieWooCommerceIsCheckoutContext()
  *
  * @return array
  */
-function mollieWooCommerceComponentsStylesForAvailableGateways()
+function liquichainWooCommerceComponentsStylesForAvailableGateways()
 {
     $pluginPath = untrailingslashit(M4W_PLUGIN_DIR) . '/';
 
-    $mollieComponentsStyles = new ComponentsStyles(
+    $liquichainComponentsStyles = new ComponentsStyles(
         new SettingsComponents($pluginPath),
         WC()->payment_gateways()
     );
 
-    return $mollieComponentsStyles->forAvailableGateways();
+    return $liquichainComponentsStyles->forAvailableGateways();
 }
 /**
- * Retrieve the cardToken value for Mollie Components
+ * Retrieve the cardToken value for Liquichain Components
  *
  * @return string
  */
-function mollieWooCommerceCardToken()
+function liquichainWooCommerceCardToken()
 {
     return $cardToken = filter_input(INPUT_POST, 'cardToken', FILTER_SANITIZE_STRING) ?: '';
 }
@@ -55,11 +55,11 @@ function mollieWooCommerceCardToken()
  * @param bool $default
  * @return bool
  */
-function mollieWooCommerceIsGatewayEnabled($gatewaySettingsName, $settingToCheck, $default = false)
+function liquichainWooCommerceIsGatewayEnabled($gatewaySettingsName, $settingToCheck, $default = false)
 {
 
     $gatewaySettings = get_option($gatewaySettingsName);
-    return mollieWooCommerceStringToBoolOption(
+    return liquichainWooCommerceStringToBoolOption(
         checkIndexExistOrDefault($gatewaySettings, $settingToCheck, $default)
     );
 }
@@ -71,10 +71,10 @@ function mollieWooCommerceIsGatewayEnabled($gatewaySettingsName, $settingToCheck
  *
  * @return bool
  */
-function mollieWooCommerceisApplePayDirectEnabled($page)
+function liquichainWooCommerceisApplePayDirectEnabled($page)
 {
-    $pageToCheck = 'mollie_apple_pay_button_enabled_' . $page;
-    return mollieWooCommerceIsGatewayEnabled('mollie_wc_gateway_applepay_settings', $pageToCheck);
+    $pageToCheck = 'liquichain_apple_pay_button_enabled_' . $page;
+    return liquichainWooCommerceIsGatewayEnabled('liquichain_wc_gateway_applepay_settings', $pageToCheck);
 }
 /**
  * Check if the PayPal gateway is enabled and then if the button is enabled too.
@@ -83,15 +83,15 @@ function mollieWooCommerceisApplePayDirectEnabled($page)
  *
  * @return bool
  */
-function mollieWooCommerceIsPayPalButtonEnabled($page)
+function liquichainWooCommerceIsPayPalButtonEnabled($page)
 {
-    $payPalGatewayEnabled = mollieWooCommerceIsGatewayEnabled('mollie_wc_gateway_paypal_settings', 'enabled');
+    $payPalGatewayEnabled = liquichainWooCommerceIsGatewayEnabled('liquichain_wc_gateway_paypal_settings', 'enabled');
 
     if (!$payPalGatewayEnabled) {
         return false;
     }
-    $settingToCheck = 'mollie_paypal_button_enabled_' . $page;
-    return mollieWooCommerceIsGatewayEnabled('mollie_wc_gateway_paypal_settings', $settingToCheck);
+    $settingToCheck = 'liquichain_paypal_button_enabled_' . $page;
+    return liquichainWooCommerceIsGatewayEnabled('liquichain_wc_gateway_paypal_settings', $settingToCheck);
 }
 
 /**
@@ -101,7 +101,7 @@ function mollieWooCommerceIsPayPalButtonEnabled($page)
  *
  * @return bool
  */
-function mollieWooCommerceCheckIfNeedShipping($product)
+function liquichainWooCommerceCheckIfNeedShipping($product)
 {
     if (
         !wc_shipping_enabled()
@@ -130,10 +130,10 @@ function checkIndexExistOrDefault($array, $key, $default)
 /**
  * Check if the issuers dropdown for this gateway is enabled.
  *
- * @param string $gatewaySettingsName mollie_wc_gateway_xxxx_settings
+ * @param string $gatewaySettingsName liquichain_wc_gateway_xxxx_settings
  * @return bool
  */
-function mollieWooCommerceIsDropdownEnabled($gatewaySettingsName)
+function liquichainWooCommerceIsDropdownEnabled($gatewaySettingsName)
 {
     $gatewaySettings = get_option($gatewaySettingsName);
     $optionValue = checkIndexExistOrDefault($gatewaySettings, 'issuers_dropdown_shown', 'yes');
@@ -145,33 +145,33 @@ function mollieWooCommerceIsDropdownEnabled($gatewaySettingsName)
  *
  * @return bool
  */
-function mollieWooCommerceIsVoucherEnabled()
+function liquichainWooCommerceIsVoucherEnabled()
 {
-    $voucherSettings = get_option('mollie_wc_gateway_voucher_settings');
+    $voucherSettings = get_option('liquichain_wc_gateway_voucher_settings');
     if (!$voucherSettings) {
-        $voucherSettings = get_option('mollie_wc_gateway_mealvoucher_settings');
+        $voucherSettings = get_option('liquichain_wc_gateway_mealvoucher_settings');
     }
     return $voucherSettings ? ($voucherSettings['enabled'] == 'yes') : false;
 }
 
 /**
- * Check if is a Mollie gateway
+ * Check if is a Liquichain gateway
  * @param $gateway string
  *
  * @return bool
 */
-function mollieWooCommerceIsMollieGateway($gateway)
+function liquichainWooCommerceIsLiquichainGateway($gateway)
 {
-    if (strpos($gateway, 'mollie_wc_gateway_') !== false) {
+    if (strpos($gateway, 'liquichain_wc_gateway_') !== false) {
         return true;
     }
     return false;
 }
 
-function mollieWooCommercIsExpiryDateEnabled()
+function liquichainWooCommercIsExpiryDateEnabled()
 {
     global $wpdb;
-    $option = 'mollie_wc_gateway_%_settings';
+    $option = 'liquichain_wc_gateway_%_settings';
     $gatewaySettings = $wpdb->get_results($wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name LIKE %s", $option));
     $expiryDateEnabled = false;
     foreach ($gatewaySettings as $gatewaySetting) {
@@ -187,7 +187,7 @@ function mollieWooCommercIsExpiryDateEnabled()
 }
 
 /**
- * Format the value that is sent to Mollie's API
+ * Format the value that is sent to Liquichain's API
  * with the required number of decimals
  * depending on the currency used
  *
@@ -195,7 +195,7 @@ function mollieWooCommercIsExpiryDateEnabled()
  * @param $currency
  * @return string
  */
-function mollieWooCommerceFormatCurrencyValue($value, $currency)
+function liquichainWooCommerceFormatCurrencyValue($value, $currency)
 {
     $currenciesWithNoDecimals = ["JPY", "ISK"];
     if(in_array($currency, $currenciesWithNoDecimals)){
@@ -205,7 +205,7 @@ function mollieWooCommerceFormatCurrencyValue($value, $currency)
     return number_format($value, 2, '.', '');
 }
 
-function mollieDeleteWPTranslationFiles()
+function liquichainDeleteWPTranslationFiles()
 {
     WP_Filesystem();
     global $wp_filesystem;
@@ -226,7 +226,7 @@ function mollieDeleteWPTranslationFiles()
     ];
     $translationExtensions = ['.mo', '.po'];
     $destination = WP_LANG_DIR
-        . '/plugins/mollie-payments-for-woocommerce-';
+        . '/plugins/liquichain-payments-for-woocommerce-';
     foreach ($languageExtensions as $languageExtension) {
         foreach ($translationExtensions as $translationExtension) {
             $file = $destination . $languageExtension

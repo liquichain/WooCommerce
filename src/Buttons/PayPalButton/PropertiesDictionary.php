@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Buttons\PayPalButton;
+namespace Liquichain\WooCommerce\Buttons\PayPalButton;
 
 class PropertiesDictionary
 {
@@ -46,17 +46,17 @@ class PropertiesDictionary
     /**
      * @var string
      */
-    public const CREATE_ORDER = 'mollie_paypal_create_order';
+    public const CREATE_ORDER = 'liquichain_paypal_create_order';
     /**
      * @var string
      */
-    public const CREATE_ORDER_CART = 'mollie_paypal_create_order_cart';
+    public const CREATE_ORDER_CART = 'liquichain_paypal_create_order_cart';
     /**
      * @var string
      */
-    public const UPDATE_AMOUNT = 'mollie_paypal_update_amount';
+    public const UPDATE_AMOUNT = 'liquichain_paypal_update_amount';
     /**
      * @var string
      */
-    public const REDIRECT = 'mollie_paypal_redirect';
+    public const REDIRECT = 'liquichain_paypal_redirect';
 }

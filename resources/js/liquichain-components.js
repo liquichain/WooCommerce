@@ -1,10 +1,10 @@
 const SELECTOR_TOKEN_ELEMENT = '.cardToken'
-const SELECTOR_MOLLIE_COMPONENTS_CONTAINER = '.mollie-components'
+const SELECTOR_MOLLIE_COMPONENTS_CONTAINER = '.liquichain-components'
 const SELECTOR_FORM = 'form'
 const SELECTOR_MOLLIE_GATEWAY_CONTAINER = '.wc_payment_methods'
 const SELECTOR_MOLLIE_GATEWAY_BLOCK_CONTAINER = '.wc-block-components-radio-control'
 
-const SELECTOR_MOLLIE_NOTICE_CONTAINER = '#mollie-notice'
+const SELECTOR_MOLLIE_NOTICE_CONTAINER = '#liquichain-notice'
 
 function returnFalse ()
 {
@@ -27,7 +27,7 @@ function gatewayContainer (container)
 
 function containerForGateway (gateway, container)
 {
-  return container ? container.querySelector(`.payment_method_mollie_wc_gateway_${gateway}`) : null
+  return container ? container.querySelector(`.payment_method_liquichain_wc_gateway_${gateway}`) : null
 }
 
 function noticeContainer (container)
@@ -55,7 +55,7 @@ function cleanContainer (container)
 function renderNotice ({ content, type })
 {
   return `
-      <div id="mollie-notice" class="woocommerce-${type}">
+      <div id="liquichain-notice" class="woocommerce-${type}">
         ${content}
       </div>
     `
@@ -65,10 +65,10 @@ function printNotice (jQuery, noticeData)
 {
   const container = gatewayContainer(document)
   const formContainer = closestFormForElement(container).parentNode || null
-  const mollieNotice = noticeContainer(document)
+  const liquichainNotice = noticeContainer(document)
   const renderedNotice = renderNotice(noticeData)
 
-  mollieNotice && mollieNotice.remove()
+  liquichainNotice && liquichainNotice.remove()
 
   if (!formContainer) {
     alert(noticeData.content)
@@ -107,9 +107,9 @@ function tokenElementWithin (container)
   return container.querySelector(SELECTOR_TOKEN_ELEMENT)
 }
 
-async function retrievePaymentToken (mollie)
+async function retrievePaymentToken (liquichain)
 {
-  const { token, error } = await mollie.createToken(SELECTOR_TOKEN_ELEMENT)
+  const { token, error } = await liquichain.createToken(SELECTOR_TOKEN_ELEMENT)
 
   if (error) {
     throw new Error(error.message || '')
@@ -136,7 +136,7 @@ function closestFormForElement (element)
   return element ? element.closest(SELECTOR_FORM) : null
 }
 
-function turnMollieComponentsSubmissionOff ($form)
+function turnLiquichainComponentsSubmissionOff ($form)
 {
   $form.off('checkout_place_order', returnFalse)
   $form.off('submit', submitForm)
@@ -151,10 +151,10 @@ function isGatewaySelected (gateway)
 {
   const gatewayContainer = containerForGateway(gateway, document)
   const gatewayInput = gatewayContainer
-    ? gatewayContainer.querySelector(`#payment_method_mollie_wc_gateway_${gateway}`)
+    ? gatewayContainer.querySelector(`#payment_method_liquichain_wc_gateway_${gateway}`)
     : null
     //if we are in blocks then the input is different
-    const gatewayBlockInput = document.getElementById("radio-control-wc-payment-method-options-mollie_wc_gateway_creditcard")
+    const gatewayBlockInput = document.getElementById("radio-control-wc-payment-method-options-liquichain_wc_gateway_creditcard")
     if(gatewayBlockInput){
         return gatewayBlockInput.checked || false
     }
@@ -169,14 +169,14 @@ function isGatewaySelected (gateway)
 async function submitForm (evt)
 {
   let token = ''
-  const { jQuery, mollie, gateway, gatewayContainer, messages } = evt.data
+  const { jQuery, liquichain, gateway, gatewayContainer, messages } = evt.data
   const form = closestFormForElement(gatewayContainer)
   const $form = jQuery(form)
   const $document = jQuery(document.body)
 
   if (!isGatewaySelected(gateway)) {
     // Let other gateway to submit the form
-    turnMollieComponentsSubmissionOff($form)
+    turnLiquichainComponentsSubmissionOff($form)
     $form.submit()
     return
   }
@@ -185,7 +185,7 @@ async function submitForm (evt)
   evt.stopImmediatePropagation()
 
   try {
-    token = await retrievePaymentToken(mollie)
+    token = await retrievePaymentToken(liquichain)
   } catch (error) {
     const content = { message = messages.defaultErrorMessage } = error
     content && printNotice(jQuery, { content, type: 'error' })
@@ -195,12 +195,12 @@ async function submitForm (evt)
     return
   }
 
-  turnMollieComponentsSubmissionOff($form)
+  turnLiquichainComponentsSubmissionOff($form)
 
   token && setTokenValueToField(token, tokenElementWithin(gatewayContainer))
     if(evt.type === 'click'){
         turnBlockListenerOff(jQuery(evt.target))
-        let readyToSubmitBlock = new Event("mollie_components_ready_to_submit", {bubbles: true});
+        let readyToSubmitBlock = new Event("liquichain_components_ready_to_submit", {bubbles: true});
         document.documentElement.dispatchEvent(readyToSubmitBlock);
         return
     }
@@ -213,14 +213,14 @@ async function submitForm (evt)
    ---------------------------------------------------------------- */
 function componentElementByNameFromWithin (name, container)
 {
-  return container ? container.querySelector(`.mollie-component--${name}`) : null
+  return container ? container.querySelector(`.liquichain-component--${name}`) : null
 }
 
 function createComponentLabelElementWithin (container, { label })
 {
   container.insertAdjacentHTML(
     'beforebegin',
-    `<b class="mollie-component-label">${label}</b>`
+    `<b class="liquichain-component-label">${label}</b>`
   )
 }
 
@@ -232,38 +232,38 @@ function createComponentsErrorContainerWithin (container, { name })
   )
 }
 
-function componentByName (name, mollie, settings, mollieComponentsMap)
+function componentByName (name, liquichain, settings, liquichainComponentsMap)
 {
   let component
 
-  if (mollieComponentsMap.has(name)) {
-    component = mollieComponentsMap.get(name)
+  if (liquichainComponentsMap.has(name)) {
+    component = liquichainComponentsMap.get(name)
   }
   if (!component) {
-    component = mollie.createComponent(name, settings)
+    component = liquichain.createComponent(name, settings)
   }
 
   return component
 }
 
-function unmountComponents (mollieComponentsMap)
+function unmountComponents (liquichainComponentsMap)
 {
-  mollieComponentsMap.forEach(component => component.unmount())
+  liquichainComponentsMap.forEach(component => component.unmount())
 }
 
 function mountComponent (
-  mollie,
+  liquichain,
   componentSettings,
   componentAttributes,
-  mollieComponentsMap,
+  liquichainComponentsMap,
   baseContainer
 )
 {
   const { name: componentName } = componentAttributes
-  const component = componentByName(componentName, mollie, componentSettings, mollieComponentsMap)
-  const mollieComponentsContainer = componentsContainerFromWithin(baseContainer)
+  const component = componentByName(componentName, liquichain, componentSettings, liquichainComponentsMap)
+  const liquichainComponentsContainer = componentsContainerFromWithin(baseContainer)
 
-  mollieComponentsContainer.insertAdjacentHTML('beforeend', `<div id="${componentName}"></div>`)
+  liquichainComponentsContainer.insertAdjacentHTML('beforeend', `<div id="${componentName}"></div>`)
   component.mount(`#${componentName}`)
 
   const currentComponentElement = componentElementByNameFromWithin(componentName, baseContainer)
@@ -283,23 +283,23 @@ function mountComponent (
       }
   })
 
-  !mollieComponentsMap.has(componentName) && mollieComponentsMap.set(componentName, component)
+  !liquichainComponentsMap.has(componentName) && liquichainComponentsMap.set(componentName, component)
 }
 
 function mountComponents (
-  mollie,
+  liquichain,
   componentSettings,
   componentsAttributes,
-  mollieComponentsMap,
+  liquichainComponentsMap,
   baseContainer
 )
 {
   componentsAttributes.forEach(
     componentAttributes => mountComponent(
-      mollie,
+      liquichain,
       componentSettings,
       componentAttributes,
-      mollieComponentsMap,
+      liquichainComponentsMap,
       baseContainer
     )
   )
@@ -315,7 +315,7 @@ function mountComponents (
  */
 function initializeComponents (
   jQuery,
-  mollie,
+  liquichain,
   {
     options,
     merchantProfileId,
@@ -324,50 +324,50 @@ function initializeComponents (
     enabledGateways,
     messages
   },
-  mollieComponentsMap
+  liquichainComponentsMap
 )
 {
 
   /*
    * WooCommerce update the DOM when something on checkout page happen.
-   * Mollie does not allow to keep a copy of the mounted components.
+   * Liquichain does not allow to keep a copy of the mounted components.
    *
    * We have to mount every time the components but we cannot recreate them.
    */
-  unmountComponents(mollieComponentsMap)
+  unmountComponents(liquichainComponentsMap)
 
   enabledGateways.forEach(gateway =>
   {
     const gatewayContainer = containerForGateway(gateway, document)
-    const mollieComponentsContainer = componentsContainerFromWithin(gatewayContainer)
+    const liquichainComponentsContainer = componentsContainerFromWithin(gatewayContainer)
     const form = closestFormForElement(gatewayContainer)
     const $form = jQuery(form)
 
     if (!gatewayContainer) {
-      console.warn(`Cannot initialize Mollie Components for gateway ${gateway}.`)
+      console.warn(`Cannot initialize Liquichain Components for gateway ${gateway}.`)
       return
     }
 
     if (!form) {
-      console.warn('Cannot initialize Mollie Components, no form found.')
+      console.warn('Cannot initialize Liquichain Components, no form found.')
       return
     }
 
     // Remove old listener before add new ones or form will not be submitted
-    turnMollieComponentsSubmissionOff($form)
+    turnLiquichainComponentsSubmissionOff($form)
 
     /*
-     * Clean container for mollie components because we do not know in which context we may need
+     * Clean container for liquichain components because we do not know in which context we may need
      * to create components.
      */
-    cleanContainer(mollieComponentsContainer)
-    createTokenFieldWithin(mollieComponentsContainer)
+    cleanContainer(liquichainComponentsContainer)
+    createTokenFieldWithin(liquichainComponentsContainer)
 
     mountComponents(
-      mollie,
+      liquichain,
       componentsSettings[gateway],
       componentsAttributes,
-      mollieComponentsMap,
+      liquichainComponentsMap,
       gatewayContainer
     )
 
@@ -377,7 +377,7 @@ function initializeComponents (
       null,
       {
         jQuery,
-        mollie,
+        liquichain,
         gateway,
         gatewayContainer,
         messages
@@ -391,7 +391,7 @@ function initializeComponents (
           jQuery(submitButton).click(
               {
                   jQuery,
-                  mollie,
+                  liquichain,
                   gateway,
                   gatewayContainer,
                   messages
@@ -403,17 +403,17 @@ function initializeComponents (
 }
 
 (
-    function ({ _, Mollie, mollieComponentsSettings, jQuery })
+    function ({ _, Liquichain, liquichainComponentsSettings, jQuery })
     {
-        if (_.isEmpty(mollieComponentsSettings) || !_.isFunction(Mollie)) {
+        if (_.isEmpty(liquichainComponentsSettings) || !_.isFunction(Liquichain)) {
             return
         }
 
         let eventName = 'updated_checkout'
-        const mollieComponentsMap = new Map()
+        const liquichainComponentsMap = new Map()
         const $document = jQuery(document)
-        const { merchantProfileId, options, isCheckoutPayPage } = mollieComponentsSettings
-        const mollie = new Mollie(merchantProfileId, options)
+        const { merchantProfileId, options, isCheckoutPayPage } = liquichainComponentsSettings
+        const liquichain = new Liquichain(merchantProfileId, options)
 
 
         if (isCheckoutPayPage) {
@@ -422,29 +422,29 @@ function initializeComponents (
                 eventName,
                 () => initializeComponents(
                     jQuery,
-                    mollie,
-                    mollieComponentsSettings,
-                    mollieComponentsMap
+                    liquichain,
+                    liquichainComponentsSettings,
+                    liquichainComponentsMap
                 )
             )
             return
         }
 
-        document.addEventListener("mollie_creditcard_component_selected", function(event) {
+        document.addEventListener("liquichain_creditcard_component_selected", function(event) {
             setTimeout(function(){
                 initializeComponents(
                     jQuery,
-                    mollie,
-                    mollieComponentsSettings,
-                    mollieComponentsMap
+                    liquichain,
+                    liquichainComponentsSettings,
+                    liquichainComponentsMap
                 )
             },500);
         });
 
         function checkInit() {
             return function () {
-                let copySettings = JSON.parse(JSON.stringify(mollieComponentsSettings))
-                mollieComponentsSettings.enabledGateways.forEach(function (gateway, index) {
+                let copySettings = JSON.parse(JSON.stringify(liquichainComponentsSettings))
+                liquichainComponentsSettings.enabledGateways.forEach(function (gateway, index) {
                     const gatewayContainer = containerForGateway(gateway, document)
                     if (!gatewayContainer) {
                         copySettings.enabledGateways.splice(index, 1)
@@ -457,9 +457,9 @@ function initializeComponents (
                 }
                 initializeComponents(
                     jQuery,
-                    mollie,
+                    liquichain,
                     copySettings,
-                    mollieComponentsMap
+                    liquichainComponentsMap
                 )
             };
         }

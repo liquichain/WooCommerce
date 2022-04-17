@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Components;
+namespace Liquichain\WooCommerce\Components;
 
 class StylesPropertiesDictionary
 {

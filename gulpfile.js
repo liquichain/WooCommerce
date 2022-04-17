@@ -26,7 +26,7 @@ const options = {
             ],
             default: {
                 packageVersion: 'dev',
-                packageName: 'mollie-payments-for-woocommerce',
+                packageName: 'liquichain-payments-for-woocommerce',
                 baseDir: __dirname,
                 buildDir: `${__dirname}/build`,
                 distDir: `${__dirname}/dist`,
@@ -232,7 +232,7 @@ function _archive({baseDir, buildDir, distDir, packageVersion, packageName}) {
                             'node_modules/**/*.*',
                             '!node_modules/.package.lock.json',
                             'license.txt',
-                            'mollie-payments-for-woocommerce.php',
+                            'liquichain-payments-for-woocommerce.php',
 
                             // Cleanup
                             '!**/README',

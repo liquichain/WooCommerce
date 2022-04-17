@@ -1,21 +1,21 @@
 <?php
 
 
-namespace Mollie\WooCommerceTests\Functional;
+namespace Liquichain\WooCommerceTests\Functional;
 
 
-use Mollie\Api\MollieApiClient;
-use Mollie\WooCommerce\Notice\AdminNotice;
-use Mollie\WooCommerce\Payment\MollieOrderService;
-use Mollie\WooCommerce\Payment\OrderInstructionsService;
-use Mollie\WooCommerce\Payment\PaymentFactory;
-use Mollie\WooCommerce\Payment\PaymentService;
-use Mollie\WooCommerce\PaymentMethods\Ideal;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\Settings\Settings;
-use Mollie\WooCommerce\Shared\Data;
-use Mollie\WooCommerceTests\Stubs\Status;
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\Api\LiquichainApiClient;
+use Liquichain\WooCommerce\Notice\AdminNotice;
+use Liquichain\WooCommerce\Payment\LiquichainOrderService;
+use Liquichain\WooCommerce\Payment\OrderInstructionsService;
+use Liquichain\WooCommerce\Payment\PaymentFactory;
+use Liquichain\WooCommerce\Payment\PaymentService;
+use Liquichain\WooCommerce\PaymentMethods\Ideal;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\Settings\Settings;
+use Liquichain\WooCommerce\Shared\Data;
+use Liquichain\WooCommerceTests\Stubs\Status;
+use Liquichain\WooCommerceTests\TestCase;
 use Psr\Log\LoggerInterface;
 
 class HelperMocks extends TestCase
@@ -25,7 +25,7 @@ class HelperMocks extends TestCase
 
     public function pluginId()
     {
-        return 'mollie-payments-for-woocommerce';
+        return 'liquichain-payments-for-woocommerce';
     }
     public function pluginVersion()
     {
@@ -79,10 +79,10 @@ class HelperMocks extends TestCase
             ]
         );
     }
-    public function mollieOrderService()
+    public function liquichainOrderService()
     {
         return $this->createConfiguredMock(
-            MollieOrderService::class,
+            LiquichainOrderService::class,
             [
 
             ]
@@ -108,7 +108,7 @@ class HelperMocks extends TestCase
     }
 
     public function apiClient(){
-        return $this->getMockBuilder(MollieApiClient::class)
+        return $this->getMockBuilder(LiquichainApiClient::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -141,9 +141,9 @@ class HelperMocks extends TestCase
     {
         return [
             'id' => strtolower($paymentMethodId),
-            'defaultTitle' => __($paymentMethodId, 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __($paymentMethodId, 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => '',
-            'defaultDescription' => __('Select your bank', 'mollie-payments-for-woocommerce'),
+            'defaultDescription' => __('Select your bank', 'liquichain-payments-for-woocommerce'),
             'paymentFields' => true,
             'instructions' => true,
             'supports' => [
@@ -177,8 +177,8 @@ class HelperMocks extends TestCase
             'issuers_dropdown_shown' => isset($testParams['issuers_dropdown_shown']) ? $testParams['issuers_dropdown_shown'] : 'yes',
             'issuers_empty_option' => isset($testParams['issuers_empty_option']) ? $testParams['issuers_empty_option'] : 'Select your bank',
             'initial_order_status' => isset($testParams['initial_order_status']) ? $testParams['initial_order_status'] : 'on-hold',
-            'mollie_creditcard_icons_enabler' => isset($testParams['mollie_creditcard_icons_enabler']) ? $testParams['mollie_creditcard_icons_enabler'] : false,
-            'mollie_creditcard_icons_amex' => isset($testParams['mollie_creditcard_icons_amex']) ? $testParams['mollie_creditcard_icons_amex'] : '',
+            'liquichain_creditcard_icons_enabler' => isset($testParams['liquichain_creditcard_icons_enabler']) ? $testParams['liquichain_creditcard_icons_enabler'] : false,
+            'liquichain_creditcard_icons_amex' => isset($testParams['liquichain_creditcard_icons_amex']) ? $testParams['liquichain_creditcard_icons_amex'] : '',
         ];
     }
 

@@ -1,7 +1,7 @@
 (
     function ({_, jQuery }) {
 
-        function mollie_settings__insertTextAtCursor(target, text, dontIgnoreSelection) {
+        function liquichain_settings__insertTextAtCursor(target, text, dontIgnoreSelection) {
             if (target.setRangeText) {
                 if ( !dontIgnoreSelection ) {
                     // insert at end
@@ -17,23 +17,23 @@
             target.focus();
         }
         jQuery(document).ready(function($) {
-            $(".mollie-settings-advanced-payment-desc-label")
+            $(".liquichain-settings-advanced-payment-desc-label")
                 .data("ignore-click", "false")
                 .on("mousedown", function(e) {
-                    const input = document.getElementById("mollie-payments-for-woocommerce_api_payment_description");
+                    const input = document.getElementById("liquichain-payments-for-woocommerce_api_payment_description");
                     if ( document.activeElement && input === document.activeElement ) {
-                        $(this).on("mouseup.molliesettings", function(e) {
+                        $(this).on("mouseup.liquichainsettings", function(e) {
                             $(this).data("ignore-click", "true");
-                            $(this).off(".molliesettings");
+                            $(this).off(".liquichainsettings");
                             const tag = $(this).data("tag");
-                            const input = document.getElementById("mollie-payments-for-woocommerce_api_payment_description");
-                            mollie_settings__insertTextAtCursor(input, tag, true);
+                            const input = document.getElementById("liquichain-payments-for-woocommerce_api_payment_description");
+                            liquichain_settings__insertTextAtCursor(input, tag, true);
                         });
                     }
                     let $this = $(this);
-                    $(window).on("mouseup.molliesettings drag.molliesettings blur.molliesettings", function(e) {
-                        $this.off(".molliesettings");
-                        $(window).off(".molliesettings");
+                    $(window).on("mouseup.liquichainsettings drag.liquichainsettings blur.liquichainsettings", function(e) {
+                        $this.off(".liquichainsettings");
+                        $(window).off(".liquichainsettings");
                     });
                 })
                 .on("click", function(e) {
@@ -41,8 +41,8 @@
                     e.stopImmediatePropagation();
                     if ( $(this).data("ignore-click") === "false" ) {
                         const tag = $(this).data("tag");
-                        const input = document.getElementById("mollie-payments-for-woocommerce_api_payment_description");
-                        mollie_settings__insertTextAtCursor(input, tag, false);
+                        const input = document.getElementById("liquichain-payments-for-woocommerce_api_payment_description");
+                        liquichain_settings__insertTextAtCursor(input, tag, false);
                     } else {
                         $(this).data("ignore-click", "false");
                     }

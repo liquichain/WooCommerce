@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Mybank extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -11,8 +11,8 @@ class Mybank extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'mybank',
-            'defaultTitle' => __('MyBank', 'mollie-payments-for-woocommerce'),
-            'settingsDescription' => __('To accept payments via MyBank', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('MyBank', 'liquichain-payments-for-woocommerce'),
+            'settingsDescription' => __('To accept payments via MyBank', 'liquichain-payments-for-woocommerce'),
             'defaultDescription' => '',
             'paymentFields' => false,
             'instructions' => true,

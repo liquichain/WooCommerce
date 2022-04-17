@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Mollie\WooCommerceTests\Stubs;
+namespace Liquichain\WooCommerceTests\Stubs;
 use Faker\Generator;
 use Faker;
 
@@ -50,7 +50,7 @@ class varPolylangTestsStubs
         $this->orderId = $this->faker->randomDigit;
         $this->orderKey = $this->faker->word;
         $this->homeUrl = rtrim($this->faker->url, '/\\');
-        $this->apiRequestUrl = "{$this->homeUrl}/wc-api/mollie_return";
+        $this->apiRequestUrl = "{$this->homeUrl}/wc-api/liquichain_return";
         $this->untrailedUrl = rtrim($this->apiRequestUrl, '/\\');
         $this->urlWithParams
             = "{$this->untrailedUrl}?order_id={$this->orderId}&key=wc_order_{$this->orderKey}";

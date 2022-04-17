@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="mollie-wc.myhost">
+<dataSource name="liquichain-wc.myhost">
   <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.19">
     <root id="1">
       <ServerVersion>10.5.4</ServerVersion>
@@ -1033,7 +1033,7 @@
     <table id="329" parent="3" name="wp_links">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>
-    <table id="330" parent="3" name="wp_mollie_pending_payment"/>
+    <table id="330" parent="3" name="wp_liquichain_pending_payment"/>
     <table id="331" parent="3" name="wp_options">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>

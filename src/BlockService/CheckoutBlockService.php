@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\BlockService;
+namespace Liquichain\WooCommerce\BlockService;
 
 use InvalidArgumentException;
-use Mollie\WooCommerce\Gateway\Voucher\MaybeDisableGateway;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\WooCommerce\Gateway\Voucher\MaybeDisableGateway;
+use Liquichain\WooCommerce\Shared\Data;
 
 /**
  * Class CheckoutBlockService
- * @package Mollie\WooCommerce\BlockService
+ * @package Liquichain\WooCommerce\BlockService
  */
 class CheckoutBlockService
 {
@@ -34,7 +34,7 @@ class CheckoutBlockService
      */
     public function bootstrapAjaxRequest()
     {
-        $actionName = 'mollie_checkout_blocks_canmakepayment';
+        $actionName = 'liquichain_checkout_blocks_canmakepayment';
         add_action(
             'wp_ajax_' . $actionName,
             function () {
@@ -75,7 +75,7 @@ class CheckoutBlockService
         if ($filters) {
             WC()->customer->set_billing_country($billingCountry);
             $availableGateways = WC()->payment_gateways()->get_available_payment_gateways();
-            $availableGateways = $this->removeNonMollieGateway($availableGateways);
+            $availableGateways = $this->removeNonLiquichainGateway($availableGateways);
             $availableGateways = $this->maybeRemoveVoucher($availableGateways);
             $filterKey = "{$filters['amount']['currency']}-{$filters['locale']}-{$filters['billingCountry']}";
             foreach ($availableGateways as $key => $gateway){
@@ -95,7 +95,7 @@ class CheckoutBlockService
     protected function maybeRemoveVoucher(array $availableGateways): array
     {
         foreach ($availableGateways as $key => $gateway) {
-            if ($key !=='mollie_wc_gateway_voucher') {
+            if ($key !=='liquichain_wc_gateway_voucher') {
                 continue;
             }
             $shouldRemoveVoucher = $this->voucherDisabler->shouldRemoveVoucher();
@@ -107,16 +107,16 @@ class CheckoutBlockService
     }
 
     /**
-     * Remove the non Mollie gateways from the available ones
+     * Remove the non Liquichain gateways from the available ones
      * so we don't deal with them in our block logic
      *
      * @param array $availableGateways
      * @return array
      */
-    protected function removeNonMollieGateway(array $availableGateways): array
+    protected function removeNonLiquichainGateway(array $availableGateways): array
     {
         foreach ($availableGateways as $key => $gateway) {
-            if (strpos($key, 'mollie_wc_gateway_') === false) {
+            if (strpos($key, 'liquichain_wc_gateway_') === false) {
                 unset($availableGateways[$key]);
             }
         }

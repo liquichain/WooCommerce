@@ -1,0 +1,2413 @@
+# Copyright (C) 2021 Liquichain
+# This file is distributed under the same license as the Liquichain Payments for WooCommerce plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Liquichain Payments for WooCommerce 6.7.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/liquichain-payments-for-woocommerce\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-11-12T07:59:02+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: liquichain-payments-for-woocommerce\n"
+
+#. Plugin Name of the plugin
+msgid "Liquichain Payments for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://www.liquichain.io"
+msgstr ""
+
+#. Description of the plugin
+msgid "Accept payments in WooCommerce with the official Liquichain plugin"
+msgstr ""
+
+#. Author of the plugin
+msgid "Liquichain"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:6
+#: inc/settings/liquichain_advanced_settings.php:6
+msgid "Liquichain advanced settings"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:8
+#: inc/settings/liquichain_advanced_settings.php:8
+msgctxt "Label {orderNumber} description for payment description options"
+msgid "Order number"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:9
+#: inc/settings/liquichain_advanced_settings.php:9
+msgctxt "Label {storeName} description for payment description options"
+msgid "Site Title"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:10
+#: inc/settings/liquichain_advanced_settings.php:10
+msgctxt "Label {customer.firstname} description for payment description options"
+msgid "Customer's first name"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:11
+#: inc/settings/liquichain_advanced_settings.php:11
+msgctxt "Label {customer.lastname} description for payment description options"
+msgid "Customer's last name"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:12
+#: inc/settings/liquichain_advanced_settings.php:12
+msgctxt "Label {customer.company} description for payment description options"
+msgid "Customer's company name"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:8
+#: build/src/Liquichain/WC/Helper/Settings.php:666
+#: inc/settings/liquichain_advanced_settings.php:8
+#: src/Liquichain/WC/Helper/Settings.php:666
+msgid "The following options are required to use the plugin and are used by all Liquichain payment methods"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:12
+#: inc/settings/liquichain_advanced_settings.php:12
+msgid "Order status after cancelled payment"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:18
+#: inc/settings/liquichain_advanced_settings.php:18
+msgid "Status for orders when a payment (not a Liquichain order via the Orders API) is cancelled. Default: pending. Orders with status Pending can be paid with another payment method, customers can try again. Cancelled orders are final. Set this to Cancelled if you only have one payment method or don't want customers to re-try paying with a different payment method. This doesn't apply to payments for orders via the new Orders API and Klarna payments."
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:23
+#: inc/settings/liquichain_advanced_settings.php:23
+msgid "Payment screen language"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:26
+#: inc/settings/liquichain_advanced_settings.php:26
+msgid "Automatically send WordPress language"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:29
+#: build/inc/settings/liquichain_advanced_settings.php:90
+#: build/src/Liquichain/WC/Helper/Settings.php:288
+#: inc/settings/liquichain_advanced_settings.php:29
+#: inc/settings/liquichain_advanced_settings.php:90
+#: src/Liquichain/WC/Helper/Settings.php:288
+msgid "default"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:30
+#: inc/settings/liquichain_advanced_settings.php:30
+msgid "Detect using browser language"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:34
+#: inc/settings/liquichain_advanced_settings.php:34
+msgid "English"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:35
+#: inc/settings/liquichain_advanced_settings.php:35
+msgid "Dutch"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:36
+#: inc/settings/liquichain_advanced_settings.php:36
+msgid "Flemish (Belgium)"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:37
+#: inc/settings/liquichain_advanced_settings.php:37
+msgid "French"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:38
+#: inc/settings/liquichain_advanced_settings.php:38
+msgid "French (Belgium)"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:39
+#: inc/settings/liquichain_advanced_settings.php:39
+msgid "German"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:40
+#: inc/settings/liquichain_advanced_settings.php:40
+msgid "Austrian German"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:41
+#: inc/settings/liquichain_advanced_settings.php:41
+msgid "Swiss German"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:42
+#: inc/settings/liquichain_advanced_settings.php:42
+msgid "Spanish"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:43
+#: inc/settings/liquichain_advanced_settings.php:43
+msgid "Catalan"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:44
+#: inc/settings/liquichain_advanced_settings.php:44
+msgid "Portuguese"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:45
+#: inc/settings/liquichain_advanced_settings.php:45
+msgid "Italian"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:46
+#: inc/settings/liquichain_advanced_settings.php:46
+msgid "Norwegian"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:47
+#: inc/settings/liquichain_advanced_settings.php:47
+msgid "Swedish"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:48
+#: inc/settings/liquichain_advanced_settings.php:48
+msgid "Finnish"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:49
+#: inc/settings/liquichain_advanced_settings.php:49
+msgid "Danish"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:50
+#: inc/settings/liquichain_advanced_settings.php:50
+msgid "Icelandic"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:51
+#: inc/settings/liquichain_advanced_settings.php:51
+msgid "Hungarian"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:52
+#: inc/settings/liquichain_advanced_settings.php:52
+msgid "Polish"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:53
+#: inc/settings/liquichain_advanced_settings.php:53
+msgid "Latvian"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:54
+#: inc/settings/liquichain_advanced_settings.php:54
+msgid "Lithuanian"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:57
+#: inc/settings/liquichain_advanced_settings.php:57
+msgid "Sending a language (or locale) is required. The option 'Automatically send WordPress language' will try to get the customer's language in WordPress (and respects multilanguage plugins) and convert it to a format Liquichain understands. If this fails, or if the language is not supported, it will fall back to American English. You can also select one of the locales currently supported by Liquichain, that will then be used for all customers."
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:65
+#: inc/settings/liquichain_advanced_settings.php:65
+msgid "Store customer details at Liquichain"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:68
+#: inc/settings/liquichain_advanced_settings.php:68
+msgid "Should Liquichain store customers name and email address for Single Click Payments? Default <code>%1$s</code>. Required if WooCommerce Subscriptions is being used! Read more about <a href=\"https://help.liquichain.io/hc/en-us/articles/115000671249-What-are-single-click-payments-and-how-does-it-work-\">%2$s</a> and how it improves your conversion."
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:72
+#: build/src/Liquichain/WC/Helper/Settings.php:551
+#: inc/settings/liquichain_advanced_settings.php:72
+#: src/Liquichain/WC/Helper/Settings.php:551
+msgid "Enabled"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:73
+#: inc/settings/liquichain_advanced_settings.php:73
+msgid "Single Click Payments"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:82
+#: inc/settings/liquichain_advanced_settings.php:82
+msgid "Select API Method"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:99
+#: inc/settings/liquichain_advanced_settings.php:99
+msgid "Click %shere%s to read more about the differences between the Payments and Orders API"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:109
+#: inc/settings/liquichain_advanced_settings.php:109
+msgid "API Payment Description"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:137
+#: inc/settings/liquichain_advanced_settings.php:137
+msgctxt "Payment description options"
+msgid "Available variables"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:160
+#: inc/settings/liquichain_advanced_settings.php:160
+msgid "Select among the available variables the description to be used for this transaction.%s(Note: this only works when the method is set to Payments API)%s"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:134
+#: inc/settings/liquichain_advanced_settings.php:134
+msgid "Surcharge gateway fee label"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:140
+#: inc/settings/liquichain_advanced_settings.php:140
+msgid "Gateway Fee"
+msgstr ""
+
+#: build/inc/settings/liquichain_advanced_settings.php:142
+#: inc/settings/liquichain_advanced_settings.php:142
+msgid "This is the label will appear in frontend when the surcharge applies"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:14
+#: inc/settings/liquichain_applepay_settings.php:14
+msgid "The following options are required to use the Apple Pay gateway"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:19
+#: build/src/Liquichain/WC/Helper/Settings.php:48
+#: inc/settings/liquichain_applepay_settings.php:19
+#: src/Liquichain/WC/Helper/Settings.php:48
+msgid "Enable/Disable"
+msgstr ""
+
+#. translators: Placeholder 1: enabled or disabled
+#: build/inc/settings/liquichain_applepay_settings.php:21
+#: build/src/Liquichain/WC/Helper/Settings.php:54
+#: inc/settings/liquichain_applepay_settings.php:21
+#: src/Liquichain/WC/Helper/Settings.php:54
+msgid "Enable %s"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:29
+#: build/src/Liquichain/WC/Helper/Settings.php:68
+#: inc/settings/liquichain_applepay_settings.php:29
+#: src/Liquichain/WC/Helper/Settings.php:68
+msgid "Title"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:32
+#: build/src/Liquichain/WC/Helper/Settings.php:71
+#: inc/settings/liquichain_applepay_settings.php:32
+#: src/Liquichain/WC/Helper/Settings.php:71
+msgid "This controls the title which the user sees during checkout. Default <code>%s</code>"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:45
+#: build/inc/settings/liquichain_applepay_settings.php:48
+#: build/src/Liquichain/WC/Helper/Settings.php:94
+#: inc/settings/liquichain_applepay_settings.php:45
+#: inc/settings/liquichain_applepay_settings.php:48
+#: src/Liquichain/WC/Helper/Settings.php:94
+msgid "Display logo"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:60
+#: build/src/Liquichain/WC/Helper/Settings.php:81
+#: inc/settings/liquichain_applepay_settings.php:60
+#: src/Liquichain/WC/Helper/Settings.php:81
+msgid "Description"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:63
+#: build/src/Liquichain/WC/Helper/Settings.php:84
+#: inc/settings/liquichain_applepay_settings.php:63
+#: src/Liquichain/WC/Helper/Settings.php:84
+msgid "Payment method description that the customer will see on your checkout. Default <code>%s</code>"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:79
+#: build/inc/settings/liquichain_apple_pay_button_enabler.php:6
+#: inc/settings/liquichain_applepay_settings.php:79
+#: inc/settings/liquichain_apple_pay_button_enabler.php:6
+msgid "Apple Pay button settings"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:84
+#: inc/settings/liquichain_applepay_settings.php:84
+msgid "The following options are required to use the Apple Pay Direct Button"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:88
+#: build/inc/settings/liquichain_apple_pay_button_enabler.php:18
+#: inc/settings/liquichain_applepay_settings.php:88
+#: inc/settings/liquichain_apple_pay_button_enabler.php:18
+msgid "Enable Apple Pay Button on Cart page"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:91
+#: build/inc/settings/liquichain_apple_pay_button_enabler.php:21
+#: inc/settings/liquichain_applepay_settings.php:91
+#: inc/settings/liquichain_apple_pay_button_enabler.php:21
+msgid "Enable the Apple Pay direct buy button on the Cart page"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:103
+#: build/inc/settings/liquichain_apple_pay_button_enabler.php:29
+#: inc/settings/liquichain_applepay_settings.php:103
+#: inc/settings/liquichain_apple_pay_button_enabler.php:29
+msgid "Enable Apple Pay Button on Product page"
+msgstr ""
+
+#: build/inc/settings/liquichain_applepay_settings.php:106
+#: build/inc/settings/liquichain_apple_pay_button_enabler.php:32
+#: inc/settings/liquichain_applepay_settings.php:106
+#: inc/settings/liquichain_apple_pay_button_enabler.php:32
+msgid "Enable the Apple Pay direct buy button on the Product page"
+msgstr ""
+
+#: build/inc/settings/liquichain_apple_pay_button_enabler.php:11
+#: inc/settings/liquichain_apple_pay_button_enabler.php:11
+msgid "The following options are required to use the Apple Pay button"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:7
+#: inc/settings/liquichain_components.php:7
+msgctxt "Liquichain Components Settings"
+msgid "Base Styles"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:16
+#: build/inc/settings/liquichain_components.php:156
+#: inc/settings/liquichain_components.php:16
+#: inc/settings/liquichain_components.php:156
+msgctxt "Liquichain Components Settings"
+msgid "Background Color"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:22
+#: build/inc/settings/liquichain_components.php:145
+#: inc/settings/liquichain_components.php:22
+#: inc/settings/liquichain_components.php:145
+msgctxt "Liquichain Components Settings"
+msgid "Text Color"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:28
+#: inc/settings/liquichain_components.php:28
+msgctxt "Liquichain Components Settings"
+msgid "Placeholder Color"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:34
+#: inc/settings/liquichain_components.php:34
+msgctxt "Liquichain Components Settings"
+msgid "Font Size"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:35
+#: inc/settings/liquichain_components.php:35
+msgctxt "Liquichain Components Settings"
+msgid "Defines the component font size. Allowed units: 'em', 'px', 'rem'."
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:45
+#: inc/settings/liquichain_components.php:45
+msgctxt "Liquichain Components Settings"
+msgid "Font Weight"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:48
+#: inc/settings/liquichain_components.php:48
+msgctxt "Liquichain Components Settings"
+msgid "Lighter"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:49
+#: inc/settings/liquichain_components.php:49
+msgctxt "Liquichain Components Settings"
+msgid "Regular"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:50
+#: inc/settings/liquichain_components.php:50
+msgctxt "Liquichain Components Settings"
+msgid "Bold"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:56
+#: inc/settings/liquichain_components.php:56
+msgctxt "Liquichain Components Settings"
+msgid "Letter Spacing"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:62
+#: inc/settings/liquichain_components.php:62
+msgctxt "Liquichain Components Settings"
+msgid "Line Height"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:71
+#: inc/settings/liquichain_components.php:71
+msgctxt "Liquichain Components Settings"
+msgid "Padding"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:72
+#: inc/settings/liquichain_components.php:72
+msgctxt "Liquichain Components Settings"
+msgid "Add padding to the components. Allowed units include `16px 16px 16px 16px` and `em`, `px`, `rem`."
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:82
+#: inc/settings/liquichain_components.php:82
+msgctxt "Liquichain Components Settings"
+msgid "Align Text"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:85
+#: inc/settings/liquichain_components.php:85
+msgctxt "Liquichain Components Settings"
+msgid "Left"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:86
+#: inc/settings/liquichain_components.php:86
+msgctxt "Liquichain Components Settings"
+msgid "Right"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:87
+#: inc/settings/liquichain_components.php:87
+msgctxt "Liquichain Components Settings"
+msgid "Center"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:88
+#: inc/settings/liquichain_components.php:88
+msgctxt "Liquichain Components Settings"
+msgid "Justify"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:94
+#: inc/settings/liquichain_components.php:94
+msgctxt "Liquichain Components Settings"
+msgid "Transform Text "
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:97
+#: inc/settings/liquichain_components.php:97
+msgctxt "Liquichain Components Settings"
+msgid "None"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:102
+#: inc/settings/liquichain_components.php:102
+msgctxt "Liquichain Components Settings"
+msgid "Capitalize"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:107
+#: inc/settings/liquichain_components.php:107
+msgctxt "Liquichain Components Settings"
+msgid "Uppercase"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:112
+#: inc/settings/liquichain_components.php:112
+msgctxt "Liquichain Components Settings"
+msgid "Lowercase"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:117
+#: inc/settings/liquichain_components.php:117
+msgctxt "Liquichain Components Settings"
+msgid "Full Width"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:122
+#: inc/settings/liquichain_components.php:122
+msgctxt "Liquichain Components Settings"
+msgid "Full Size Kana"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:136
+#: inc/settings/liquichain_components.php:136
+msgctxt "Liquichain Components Settings"
+msgid "Invalid Status Styles"
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:146
+#: inc/settings/liquichain_components.php:146
+msgctxt "Liquichain Components Settings"
+msgid "Text Color for invalid input."
+msgstr ""
+
+#: build/inc/settings/liquichain_components.php:157
+#: inc/settings/liquichain_components.php:157
+msgctxt "Liquichain Components Settings"
+msgid "Background Color for invalid input."
+msgstr ""
+
+#: build/inc/settings/liquichain_components_enabler.php:6
+#: inc/settings/liquichain_components_enabler.php:6
+msgid "Enable Liquichain Components"
+msgstr ""
+
+#: build/inc/settings/liquichain_components_enabler.php:8
+#: inc/settings/liquichain_components_enabler.php:8
+msgid "Use the Liquichain Components for this Gateway. Read more about <a href=\"https://www.liquichain.io/en/news/post/better-checkout-flows-with-liquichain-components\">%s</a> and how it improves your conversion."
+msgstr ""
+
+#: build/inc/settings/liquichain_components_enabler.php:12
+#: build/src/Liquichain/WC/Settings/Page/Components.php:10
+#: build/src/Liquichain/WC/Settings/Page/Liquichain.php:139
+#: inc/settings/liquichain_components_enabler.php:12
+#: src/Liquichain/WC/Settings/Page/Components.php:10
+#: src/Liquichain/WC/Settings/Page/Liquichain.php:139
+msgid "Liquichain Components"
+msgstr ""
+
+#: build/inc/settings/liquichain_creditcard_icons_selector.php:5
+#: inc/settings/liquichain_creditcard_icons_selector.php:5
+msgid "Customize Icons"
+msgstr ""
+
+#: build/inc/settings/liquichain_creditcard_icons_selector.php:12
+#: inc/settings/liquichain_creditcard_icons_selector.php:12
+msgid "Enable Icons Selector"
+msgstr ""
+
+#: build/inc/settings/liquichain_creditcard_icons_selector.php:13
+#: inc/settings/liquichain_creditcard_icons_selector.php:13
+msgid "Show customized creditcard icons on checkout page"
+msgstr ""
+
+#: build/inc/settings/liquichain_creditcard_icons_selector.php:21
+#: inc/settings/liquichain_creditcard_icons_selector.php:21
+msgid "Show American Express Icon"
+msgstr ""
+
+#: build/inc/settings/liquichain_creditcard_icons_selector.php:26
+#: inc/settings/liquichain_creditcard_icons_selector.php:26
+msgid "Show Carta Si Icon"
+msgstr ""
+
+#: build/inc/settings/liquichain_creditcard_icons_selector.php:31
+#: inc/settings/liquichain_creditcard_icons_selector.php:31
+msgid "Show Carte Bancaire Icon"
+msgstr ""
+
+#: build/inc/settings/liquichain_creditcard_icons_selector.php:36
+#: inc/settings/liquichain_creditcard_icons_selector.php:36
+msgid "Show Maestro Icon"
+msgstr ""
+
+#: build/inc/settings/liquichain_creditcard_icons_selector.php:41
+#: inc/settings/liquichain_creditcard_icons_selector.php:41
+msgid "Show Mastercard Icon"
+msgstr ""
+
+#: build/inc/settings/liquichain_creditcard_icons_selector.php:46
+#: inc/settings/liquichain_creditcard_icons_selector.php:46
+msgid "Show Visa Icon"
+msgstr ""
+
+#: build/inc/settings/liquichain_creditcard_icons_selector.php:51
+#: inc/settings/liquichain_creditcard_icons_selector.php:51
+msgid "Show VPay Icon"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:7
+#: inc/settings/liquichain_paypal_button_enabler.php:7
+msgid "PayPal button display settings"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:12
+#: inc/settings/liquichain_paypal_button_enabler.php:12
+msgid "%1sThe PayPal button is optimized for digital goods. And will only appear if the product has no shipping. %2sThe customer's address information can only be retrieved if the transaction has been done with the %3sOrders API%4s.%5s%6s"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:19
+#: inc/settings/liquichain_paypal_button_enabler.php:19
+msgid "Display on cart page"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:23
+#: inc/settings/liquichain_paypal_button_enabler.php:23
+msgid "Enable the PayPal button to be used in the cart page."
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:31
+#: inc/settings/liquichain_paypal_button_enabler.php:31
+msgid "Display on product page"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:35
+#: inc/settings/liquichain_paypal_button_enabler.php:35
+msgid "Enable the PayPal button to be used in the product page."
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:44
+#: inc/settings/liquichain_paypal_button_enabler.php:44
+msgctxt "Liquichain PayPal Button Settings"
+msgid "Button text language and color"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:46
+#: inc/settings/liquichain_paypal_button_enabler.php:46
+msgctxt "Liquichain PayPal Button Settings"
+msgid "Select the text and the colour of the button."
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:54
+#: inc/settings/liquichain_paypal_button_enabler.php:54
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Buy with PayPal - Pill blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:55
+#: inc/settings/liquichain_paypal_button_enabler.php:55
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Buy with PayPal - Rounded blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:56
+#: inc/settings/liquichain_paypal_button_enabler.php:56
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Buy with PayPal - Pill golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:57
+#: inc/settings/liquichain_paypal_button_enabler.php:57
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Buy with PayPal - Rounded golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:58
+#: inc/settings/liquichain_paypal_button_enabler.php:58
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Buy with PayPal - Pill gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:59
+#: inc/settings/liquichain_paypal_button_enabler.php:59
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Buy with PayPal - Rounded gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:60
+#: inc/settings/liquichain_paypal_button_enabler.php:60
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Buy with PayPal - Pill white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:61
+#: inc/settings/liquichain_paypal_button_enabler.php:61
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Buy with PayPal - Rounded white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:62
+#: inc/settings/liquichain_paypal_button_enabler.php:62
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Checkout with PayPal - Pill black"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:63
+#: inc/settings/liquichain_paypal_button_enabler.php:63
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Checkout with PayPal - Rounded black"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:64
+#: inc/settings/liquichain_paypal_button_enabler.php:64
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Checkout with PayPal - Pill blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:65
+#: inc/settings/liquichain_paypal_button_enabler.php:65
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Checkout with PayPal - Rounded blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:66
+#: inc/settings/liquichain_paypal_button_enabler.php:66
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Checkout with PayPal - Pill golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:67
+#: inc/settings/liquichain_paypal_button_enabler.php:67
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Checkout with PayPal - Rounded golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:68
+#: inc/settings/liquichain_paypal_button_enabler.php:68
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Checkout with PayPal - Pill gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:69
+#: inc/settings/liquichain_paypal_button_enabler.php:69
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Checkout with PayPal - Rounded gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:70
+#: inc/settings/liquichain_paypal_button_enabler.php:70
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Checkout with PayPal - Pill white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:71
+#: inc/settings/liquichain_paypal_button_enabler.php:71
+msgctxt "Liquichain PayPal button Settings"
+msgid "English -- Checkout with PayPal - Rounded white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:72
+#: inc/settings/liquichain_paypal_button_enabler.php:72
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Buy with PayPal - Pill black"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:73
+#: inc/settings/liquichain_paypal_button_enabler.php:73
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Buy with PayPal - Rounded black"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:74
+#: inc/settings/liquichain_paypal_button_enabler.php:74
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Buy with PayPal - Pill blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:75
+#: inc/settings/liquichain_paypal_button_enabler.php:75
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Buy with PayPal - Rounded blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:76
+#: inc/settings/liquichain_paypal_button_enabler.php:76
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Buy with PayPal - Pill golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:77
+#: inc/settings/liquichain_paypal_button_enabler.php:77
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Buy with PayPal - Rounded golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:78
+#: inc/settings/liquichain_paypal_button_enabler.php:78
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Buy with PayPal - Pill gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:79
+#: inc/settings/liquichain_paypal_button_enabler.php:79
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Buy with PayPal - Rounded gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:80
+#: inc/settings/liquichain_paypal_button_enabler.php:80
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Buy with PayPal - Pill white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:81
+#: inc/settings/liquichain_paypal_button_enabler.php:81
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Buy with PayPal - Rounded white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:82
+#: inc/settings/liquichain_paypal_button_enabler.php:82
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Checkout with PayPal - Pill black"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:83
+#: inc/settings/liquichain_paypal_button_enabler.php:83
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Checkout with PayPal - Rounded black"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:84
+#: inc/settings/liquichain_paypal_button_enabler.php:84
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Checkout with PayPal - Pill blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:85
+#: inc/settings/liquichain_paypal_button_enabler.php:85
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Checkout with PayPal - Rounded blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:86
+#: inc/settings/liquichain_paypal_button_enabler.php:86
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Checkout with PayPal - Pill golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:87
+#: inc/settings/liquichain_paypal_button_enabler.php:87
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Checkout with PayPal - Rounded golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:88
+#: inc/settings/liquichain_paypal_button_enabler.php:88
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Checkout with PayPal - Pill gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:89
+#: inc/settings/liquichain_paypal_button_enabler.php:89
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Checkout with PayPal - Rounded gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:90
+#: inc/settings/liquichain_paypal_button_enabler.php:90
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Checkout with PayPal - Pill white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:91
+#: inc/settings/liquichain_paypal_button_enabler.php:91
+msgctxt "Liquichain PayPal button Settings"
+msgid "Dutch -- Checkout with PayPal - Rounded white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:92
+#: inc/settings/liquichain_paypal_button_enabler.php:92
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Buy with PayPal - Pill black"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:93
+#: inc/settings/liquichain_paypal_button_enabler.php:93
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Buy with PayPal - Rounded black"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:94
+#: inc/settings/liquichain_paypal_button_enabler.php:94
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Buy with PayPal - Pill blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:95
+#: inc/settings/liquichain_paypal_button_enabler.php:95
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Buy with PayPal - Rounded blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:96
+#: inc/settings/liquichain_paypal_button_enabler.php:96
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Buy with PayPal - Pill golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:97
+#: inc/settings/liquichain_paypal_button_enabler.php:97
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Buy with PayPal - Rounded golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:98
+#: inc/settings/liquichain_paypal_button_enabler.php:98
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Buy with PayPal - Pill gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:99
+#: inc/settings/liquichain_paypal_button_enabler.php:99
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Buy with PayPal - Rounded gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:100
+#: inc/settings/liquichain_paypal_button_enabler.php:100
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Buy with PayPal - Pill white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:101
+#: inc/settings/liquichain_paypal_button_enabler.php:101
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Buy with PayPal - Rounded white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:102
+#: inc/settings/liquichain_paypal_button_enabler.php:102
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Checkout with PayPal - Pill black"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:103
+#: inc/settings/liquichain_paypal_button_enabler.php:103
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Checkout with PayPal - Rounded black"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:104
+#: inc/settings/liquichain_paypal_button_enabler.php:104
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Checkout with PayPal - Pill blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:105
+#: inc/settings/liquichain_paypal_button_enabler.php:105
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Checkout with PayPal - Rounded blue"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:106
+#: inc/settings/liquichain_paypal_button_enabler.php:106
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Checkout with PayPal - Pill golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:107
+#: inc/settings/liquichain_paypal_button_enabler.php:107
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Checkout with PayPal - Rounded golden"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:108
+#: inc/settings/liquichain_paypal_button_enabler.php:108
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Checkout with PayPal - Pill gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:109
+#: inc/settings/liquichain_paypal_button_enabler.php:109
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Checkout with PayPal - Rounded gray"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:110
+#: inc/settings/liquichain_paypal_button_enabler.php:110
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Checkout with PayPal - Pill white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:111
+#: inc/settings/liquichain_paypal_button_enabler.php:111
+msgctxt "Liquichain PayPal button Settings"
+msgid "German -- Checkout with PayPal - Rounded white"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:112
+#: inc/settings/liquichain_paypal_button_enabler.php:112
+msgctxt "Liquichain PayPal button Settings"
+msgid "French -- Buy with PayPal - Gold"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:113
+#: inc/settings/liquichain_paypal_button_enabler.php:113
+msgctxt "Liquichain PayPal button Settings"
+msgid "French -- Checkout with PayPal - Gold"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:114
+#: inc/settings/liquichain_paypal_button_enabler.php:114
+msgctxt "Liquichain PayPal button Settings"
+msgid "French -- Checkout with PayPal - Silver"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:115
+#: inc/settings/liquichain_paypal_button_enabler.php:115
+msgctxt "Liquichain PayPal button Settings"
+msgid "Polish -- Buy with PayPal - Gold"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:116
+#: inc/settings/liquichain_paypal_button_enabler.php:116
+msgctxt "Liquichain PayPal button Settings"
+msgid "Polish -- Checkout with PayPal - Gold"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:117
+#: inc/settings/liquichain_paypal_button_enabler.php:117
+msgctxt "Liquichain PayPal button Settings"
+msgid "Polish -- Checkout with PayPal - Silver"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:122
+#: inc/settings/liquichain_paypal_button_enabler.php:122
+msgid "Minimum amount to display button"
+msgstr ""
+
+#: build/inc/settings/liquichain_paypal_button_enabler.php:126
+#: inc/settings/liquichain_paypal_button_enabler.php:126
+msgid "If the product or the cart total amount is under this number, then the button will not show up."
+msgstr ""
+
+#: build/liquichain-payments-for-woocommerce.php:90
+#: liquichain-payments-for-woocommerce.php:90
+msgid "%1$sLiquichain Payments for WooCommerce: API keys missing%2$s Please%3$s set your API keys here%4$s."
+msgstr ""
+
+#. translators: Placeholder 1: Payment method title
+#: build/src/Liquichain/WC/ApplePayButton/AjaxRequests.php:693
+#: build/src/Liquichain/WC/Gateway/Abstract.php:685
+#: build/src/Liquichain/WC/PayPalButton/AjaxRequests.php:78
+#: build/src/Liquichain/WC/PayPalButton/AjaxRequests.php:121
+#: src/Liquichain/WC/ApplePayButton/AjaxRequests.php:693
+#: src/Liquichain/WC/Gateway/Abstract.php:685
+#: src/Liquichain/WC/PayPalButton/AjaxRequests.php:78
+#: src/Liquichain/WC/PayPalButton/AjaxRequests.php:121
+msgid "Could not create %s payment."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:138
+#: src/Liquichain/WC/Gateway/Abstract.php:138
+msgid "No custom logo selected"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:221
+#: src/Liquichain/WC/Gateway/Abstract.php:221
+msgid "Gateway Disabled"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:244
+#: src/Liquichain/WC/Gateway/Abstract.php:244
+msgid "Return to payments"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:260
+#: build/src/Liquichain/WC/Helper/Settings.php:114
+#: src/Liquichain/WC/Gateway/Abstract.php:260
+#: src/Liquichain/WC/Helper/Settings.php:114
+msgid "Sell to specific countries"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:272
+#: src/Liquichain/WC/Gateway/Abstract.php:272
+msgid "Choose countries&hellip;"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:273
+#: src/Liquichain/WC/Gateway/Abstract.php:273
+msgid "Country"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:282
+#: src/Liquichain/WC/Gateway/Abstract.php:282
+msgid "Select all"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:283
+#: src/Liquichain/WC/Gateway/Abstract.php:283
+msgid "Select none"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:337
+#: build/src/Liquichain/WC/Helper/Settings.php:558
+#: src/Liquichain/WC/Gateway/Abstract.php:337
+#: src/Liquichain/WC/Helper/Settings.php:558
+msgid "Test mode enabled."
+msgstr ""
+
+#. translators: The surrounding %s's Will be replaced by a link to the global setting page
+#: build/src/Liquichain/WC/Gateway/Abstract.php:339
+#: src/Liquichain/WC/Gateway/Abstract.php:339
+msgid "No API key provided. Please %sset you Liquichain API key%s first."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title. The surrounding %s's Will be replaced by a link to the Liquichain profile
+#: build/src/Liquichain/WC/Gateway/Abstract.php:351
+#: src/Liquichain/WC/Gateway/Abstract.php:351
+msgid "%s not enabled in your Liquichain profile. You can enable it by editing your %sLiquichain profile%s."
+msgstr ""
+
+#. translators: Placeholder 1: WooCommerce currency, placeholder 2: Supported Liquichain currencies
+#: build/src/Liquichain/WC/Gateway/Abstract.php:363
+#: src/Liquichain/WC/Gateway/Abstract.php:363
+msgid "Current shop currency %s not supported by Liquichain. Read more about %ssupported currencies and payment methods.%s "
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:525
+#: src/Liquichain/WC/Gateway/Abstract.php:525
+msgid "Could not load order %s"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:577
+#: src/Liquichain/WC/Gateway/Abstract.php:577
+msgid "Order completed internally because of an existing valid mandate at Liquichain."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:588
+#: src/Liquichain/WC/Gateway/Abstract.php:588
+msgid "Subscription switch failed, no valid mandate found. Place a completely new order to change your subscription."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:589
+#: src/Liquichain/WC/Gateway/Abstract.php:589
+msgid "Failed switching subscriptions, no valid mandate."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:658
+#: build/src/Liquichain/WC/Gateway/AbstractSepaRecurring.php:63
+#: build/src/Liquichain/WC/Gateway/AbstractSubscription.php:413
+#: src/Liquichain/WC/Gateway/Abstract.php:658
+#: src/Liquichain/WC/Gateway/AbstractSepaRecurring.php:63
+#: src/Liquichain/WC/Gateway/AbstractSubscription.php:413
+msgid "Awaiting payment confirmation."
+msgstr ""
+
+#. translators: Placeholder 1: Payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Gateway/Abstract.php:668
+#: build/src/Liquichain/WC/Gateway/AbstractSepaRecurring.php:71
+#: build/src/Liquichain/WC/Gateway/AbstractSubscription.php:420
+#: src/Liquichain/WC/Gateway/Abstract.php:668
+#: src/Liquichain/WC/Gateway/AbstractSepaRecurring.php:71
+#: src/Liquichain/WC/Gateway/AbstractSubscription.php:420
+msgid "%s payment started (%s)."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:670
+#: build/src/Liquichain/WC/Gateway/Abstract.php:897
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1181
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1243
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1618
+#: build/src/Liquichain/WC/Gateway/Abstract.php:2142
+#: build/src/Liquichain/WC/Gateway/AbstractSepaRecurring.php:73
+#: build/src/Liquichain/WC/Gateway/AbstractSepaRecurring.php:139
+#: build/src/Liquichain/WC/Gateway/AbstractSubscription.php:422
+#: build/src/Liquichain/WC/Payment/Object.php:608
+#: build/src/Liquichain/WC/Payment/Object.php:642
+#: build/src/Liquichain/WC/Payment/Order.php:264
+#: build/src/Liquichain/WC/Payment/Order.php:316
+#: build/src/Liquichain/WC/Payment/Order.php:363
+#: build/src/Liquichain/WC/Payment/Order.php:446
+#: build/src/Liquichain/WC/Payment/Order.php:511
+#: build/src/Liquichain/WC/Payment/Order.php:936
+#: build/src/Liquichain/WC/Payment/Payment.php:249
+#: build/src/Liquichain/WC/Payment/Payment.php:336
+#: build/src/Liquichain/WC/Payment/Payment.php:406
+#: build/src/Liquichain/WC/Payment/Payment.php:429
+#: src/Liquichain/WC/Gateway/Abstract.php:670
+#: src/Liquichain/WC/Gateway/Abstract.php:897
+#: src/Liquichain/WC/Gateway/Abstract.php:1181
+#: src/Liquichain/WC/Gateway/Abstract.php:1243
+#: src/Liquichain/WC/Gateway/Abstract.php:1618
+#: src/Liquichain/WC/Gateway/Abstract.php:2142
+#: src/Liquichain/WC/Gateway/AbstractSepaRecurring.php:73
+#: src/Liquichain/WC/Gateway/AbstractSepaRecurring.php:139
+#: src/Liquichain/WC/Gateway/AbstractSubscription.php:422
+#: src/Liquichain/WC/Payment/Object.php:608
+#: src/Liquichain/WC/Payment/Object.php:642
+#: src/Liquichain/WC/Payment/Order.php:264
+#: src/Liquichain/WC/Payment/Order.php:316
+#: src/Liquichain/WC/Payment/Order.php:363
+#: src/Liquichain/WC/Payment/Order.php:446
+#: src/Liquichain/WC/Payment/Order.php:511
+#: src/Liquichain/WC/Payment/Order.php:936
+#: src/Liquichain/WC/Payment/Payment.php:249
+#: src/Liquichain/WC/Payment/Payment.php:336
+#: src/Liquichain/WC/Payment/Payment.php:406
+#: src/Liquichain/WC/Payment/Payment.php:429
+msgid "test mode"
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment status, placeholder 3: payment ID
+#: build/src/Liquichain/WC/Gateway/Abstract.php:894
+#: src/Liquichain/WC/Gateway/Abstract.php:894
+msgid "%s payment %s (%s), not processed."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1008
+#: src/Liquichain/WC/Gateway/Abstract.php:1008
+msgid "New refund %s processed in Liquichain Dashboard! Order note added, but order not updated."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1144
+#: src/Liquichain/WC/Gateway/Abstract.php:1144
+msgid "New chargeback %s processed! Order note and order status updated."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1176
+#: src/Liquichain/WC/Gateway/Abstract.php:1176
+msgid "%s payment charged back via Liquichain (%s). You will need to manually review the payment (and adjust product stocks if you use it)."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1237
+#: src/Liquichain/WC/Gateway/Abstract.php:1237
+msgid "%s payment charged back via Liquichain (%s). Subscription status updated, please review (and adjust product stocks if you use it)."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1314
+#: src/Liquichain/WC/Gateway/Abstract.php:1314
+msgid "You have cancelled your payment. Please complete your order with a different payment method."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1328
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1337
+#: src/Liquichain/WC/Gateway/Abstract.php:1328
+#: src/Liquichain/WC/Gateway/Abstract.php:1337
+msgid "Your payment was not successful. Please complete your order with a different payment method."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1529
+#: src/Liquichain/WC/Gateway/Abstract.php:1529
+msgid "We have not received a definite payment status."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1534
+#: src/Liquichain/WC/Gateway/Abstract.php:1534
+msgid "We have not received a definite payment status. You will receive an email as soon as we receive a confirmation of the bank/merchant."
+msgstr ""
+
+#. translators: Placeholder 1: payment method
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1541
+#: src/Liquichain/WC/Gateway/Abstract.php:1541
+msgid "Payment completed with <strong>%s</strong>"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1589
+#: src/Liquichain/WC/Gateway/Abstract.php:1589
+msgid "Order cancelled"
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1616
+#: src/Liquichain/WC/Gateway/Abstract.php:1616
+msgid "%s payment still pending (%s) but customer already returned to the store. Status should be updated automatically in the future, if it doesn't this might indicate a communication issue between the site and Liquichain."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1625
+#: src/Liquichain/WC/Gateway/Abstract.php:1625
+msgid ", payment pending."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:1652
+#: src/Liquichain/WC/Gateway/Abstract.php:1652
+msgid "Your order has been cancelled."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Gateway/Abstract.php:2129
+#: src/Liquichain/WC/Gateway/Abstract.php:2129
+msgid "%1$s payment %2$s via Liquichain (%3$s %4$s). You will need to manually review the payment (and adjust product stocks if you use it)."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:2166
+#: src/Liquichain/WC/Gateway/Abstract.php:2166
+msgctxt "Placeholder 1: giftcard issuer, Placeholder 2: amount value, Placeholder 3: currency"
+msgid "Liquichain - Giftcard details: %1$s %2$s %3$s."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:2178
+#: src/Liquichain/WC/Gateway/Abstract.php:2178
+msgctxt "Placeholder 1: remainder method, Placeholder 2: amount value, Placeholder 3: currency"
+msgid " Remainder: %1$s %2$s %3$s."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:2580
+#: src/Liquichain/WC/Gateway/Abstract.php:2580
+msgid "A +%1s%2s fee might apply"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:2590
+#: src/Liquichain/WC/Gateway/Abstract.php:2590
+msgid "A +%1s%% fee might apply"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:2607
+#: src/Liquichain/WC/Gateway/Abstract.php:2607
+msgid "A +%1s%2s + %3s%% fee might apply"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Abstract.php:2646
+#: src/Liquichain/WC/Gateway/Abstract.php:2646
+msgid "%1$sLiquichain Payments for WooCommerce%2$s Unable to upload the file. Size must be under 500kb."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Gateway/AbstractSepaRecurring.php:145
+#: src/Liquichain/WC/Gateway/AbstractSepaRecurring.php:145
+msgid "Order completed using %1$s payment (%2$s)."
+msgstr ""
+
+#. translators: Placeholder 1: Payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Gateway/AbstractSubscription.php:165
+#: src/Liquichain/WC/Gateway/AbstractSubscription.php:165
+msgid "Updated subscription from 'On hold' to 'Active' until payment fails, because a SEPA Direct Debit payment takes some time to process."
+msgstr ""
+
+#. translators: Placeholder 1: Payment method title
+#: build/src/Liquichain/WC/Gateway/AbstractSubscription.php:313
+#: src/Liquichain/WC/Gateway/AbstractSubscription.php:313
+msgid "Could not create %s renewal payment."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Applepay.php:48
+#: src/Liquichain/WC/Gateway/Applepay.php:48
+msgid "Apple Pay"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Applepay.php:56
+#: src/Liquichain/WC/Gateway/Applepay.php:56
+msgid "To accept payments via Apple Pay"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Bancontact.php:29
+#: src/Liquichain/WC/Gateway/Bancontact.php:29
+msgid "Bancontact"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:38
+#: build/src/Liquichain/WC/Helper/Settings.php:257
+#: src/Liquichain/WC/Gateway/BankTransfer.php:38
+#: src/Liquichain/WC/Helper/Settings.php:257
+msgid "Activate expiry date setting"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:39
+#: build/src/Liquichain/WC/Helper/Settings.php:258
+#: src/Liquichain/WC/Gateway/BankTransfer.php:39
+#: src/Liquichain/WC/Helper/Settings.php:258
+msgid "Enable expiry date for payments"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:40
+#: src/Liquichain/WC/Gateway/BankTransfer.php:40
+msgid "Enable this option if you want to be able to set the number of days after the payment will expire. This will turn all transactions into payments instead of orders"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:45
+#: build/src/Liquichain/WC/Helper/Settings.php:264
+#: build/src/Liquichain/WC/Plugin.php:927
+#: src/Liquichain/WC/Gateway/BankTransfer.php:45
+#: src/Liquichain/WC/Helper/Settings.php:264
+#: src/Liquichain/WC/Plugin.php:927
+msgid "Expiry date"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:47
+#: src/Liquichain/WC/Gateway/BankTransfer.php:47
+msgid "Number of DAYS after the payment will expire. Default <code>%d</code> days"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:56
+#: src/Liquichain/WC/Gateway/BankTransfer.php:56
+msgid "Skip Liquichain payment screen"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:57
+#: src/Liquichain/WC/Gateway/BankTransfer.php:57
+msgid "Skip Liquichain payment screen when Bank Transfer is selected"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:58
+#: src/Liquichain/WC/Gateway/BankTransfer.php:58
+msgid "Enable this option if you want to skip redirecting your user to the Liquichain payment screen, instead this will redirect your user directly to the WooCommerce order received page displaying instructions how to complete the Bank Transfer payment."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:138
+#: src/Liquichain/WC/Gateway/BankTransfer.php:138
+msgid "Bank Transfer"
+msgstr ""
+
+#. translators: Placeholder 1: consumer name, placeholder 2: consumer IBAN, placeholder 3: consumer BIC
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:188
+#: build/src/Liquichain/WC/Gateway/DirectDebit.php:80
+#: build/src/Liquichain/WC/Gateway/Ideal.php:124
+#: build/src/Liquichain/WC/Gateway/Sofort.php:64
+#: src/Liquichain/WC/Gateway/BankTransfer.php:188
+#: src/Liquichain/WC/Gateway/DirectDebit.php:80
+#: src/Liquichain/WC/Gateway/Ideal.php:124
+#: src/Liquichain/WC/Gateway/Sofort.php:64
+msgid "Payment completed by <strong>%s</strong> (IBAN (last 4 digits): %s, BIC: %s)"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:198
+#: src/Liquichain/WC/Gateway/BankTransfer.php:198
+msgid "Please complete your payment by transferring the total amount to the following bank account:"
+msgstr ""
+
+#. translators: Placeholder 1: 'Stichting Liquichain Payments'
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:202
+#: src/Liquichain/WC/Gateway/BankTransfer.php:202
+msgid "Beneficiary: %s"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:203
+#: src/Liquichain/WC/Gateway/BankTransfer.php:203
+msgid "IBAN: <strong>%s</strong>"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:204
+#: src/Liquichain/WC/Gateway/BankTransfer.php:204
+msgid "BIC: %s"
+msgstr ""
+
+#. translators: Placeholder 1: Payment reference e.g. RF49-0000-4716-6216 (SEPA) or +++513/7587/59959+++ (Belgium)
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:209
+#: src/Liquichain/WC/Gateway/BankTransfer.php:209
+msgid "Payment reference: %s"
+msgstr ""
+
+#. translators: Placeholder 1: Payment reference e.g. RF49-0000-4716-6216 (SEPA) or +++513/7587/59959+++ (Belgium)
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:214
+#: src/Liquichain/WC/Gateway/BankTransfer.php:214
+msgid "Please provide the payment reference <strong>%s</strong>"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:228
+#: src/Liquichain/WC/Gateway/BankTransfer.php:228
+msgid "The payment will expire on <strong>%s</strong>."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/BankTransfer.php:235
+#: src/Liquichain/WC/Gateway/BankTransfer.php:235
+msgid "The payment will expire on <strong>%s</strong>. Please make sure you transfer the total amount before this date."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Belfius.php:33
+#: src/Liquichain/WC/Gateway/Belfius.php:33
+msgid "Belfius Direct Net"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Creditcard.php:84
+#: src/Liquichain/WC/Gateway/Creditcard.php:84
+msgid "Credit card"
+msgstr ""
+
+#. translators: Placeholder 1: card holder
+#: build/src/Liquichain/WC/Gateway/Creditcard.php:136
+#: src/Liquichain/WC/Gateway/Creditcard.php:136
+msgid "Payment completed by <strong>%s</strong>"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/DirectDebit.php:42
+#: src/Liquichain/WC/Gateway/DirectDebit.php:42
+msgid "SEPA Direct Debit"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/DirectDebit.php:49
+#: src/Liquichain/WC/Gateway/DirectDebit.php:49
+msgid "SEPA Direct Debit is used for recurring payments with WooCommerce Subscriptions, and will not be shown in the WooCommerce checkout for regular payments! You also need to enable iDEAL and/or other \"first\" payment methods if you want to use SEPA Direct Debit."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/EPS.php:29
+#: src/Liquichain/WC/Gateway/EPS.php:29
+msgid "EPS"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Giftcard.php:31
+#: src/Liquichain/WC/Gateway/Giftcard.php:31
+msgid "Show gift cards dropdown"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Giftcard.php:33
+#: src/Liquichain/WC/Gateway/Giftcard.php:33
+msgid "If you disable this, a dropdown with various gift cards will not be shown in the WooCommerce checkout, so users will select a gift card on the Liquichain payment page after checkout."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Giftcard.php:37
+#: build/src/Liquichain/WC/Gateway/Ideal.php:39
+#: build/src/Liquichain/WC/Gateway/Kbc.php:38
+#: src/Liquichain/WC/Gateway/Giftcard.php:37
+#: src/Liquichain/WC/Gateway/Ideal.php:39
+#: src/Liquichain/WC/Gateway/Kbc.php:38
+msgid "Issuers empty option"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Giftcard.php:39
+#: src/Liquichain/WC/Gateway/Giftcard.php:39
+msgid "This text will be displayed as the first option in the gift card dropdown, but only if the above 'Show gift cards dropdown' is enabled."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Giftcard.php:58
+#: src/Liquichain/WC/Gateway/Giftcard.php:58
+msgid "Gift cards"
+msgstr ""
+
+#. translators: Default gift card dropdown description, displayed above issuer drop down
+#: build/src/Liquichain/WC/Gateway/Giftcard.php:74
+#: src/Liquichain/WC/Gateway/Giftcard.php:74
+msgid "Select your gift card"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Giropay.php:29
+#: src/Liquichain/WC/Gateway/Giropay.php:29
+msgid "Giropay"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Ideal.php:33
+#: src/Liquichain/WC/Gateway/Ideal.php:33
+msgid "Show iDEAL banks dropdown"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Ideal.php:35
+#: src/Liquichain/WC/Gateway/Ideal.php:35
+msgid "If you disable this, a dropdown with various iDEAL banks will not be shown in the WooCommerce checkout, so users will select a iDEAL bank on the Liquichain payment page after checkout."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Ideal.php:41
+#: src/Liquichain/WC/Gateway/Ideal.php:41
+msgid "This text will be displayed as the first option in the iDEAL issuers drop down, if nothing is entered, \"Select your bank\" will be shown. Only if the above 'Show iDEAL banks dropdown' is enabled."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Ideal.php:60
+#: src/Liquichain/WC/Gateway/Ideal.php:60
+msgid "iDEAL"
+msgstr ""
+
+#. translators: Default iDEAL description, displayed above issuer drop down
+#. translators: Default KBC/CBC dropdown description, displayed above issuer drop down
+#: build/src/Liquichain/WC/Gateway/Ideal.php:76
+#: build/src/Liquichain/WC/Gateway/Kbc.php:75
+#: src/Liquichain/WC/Gateway/Ideal.php:76
+#: src/Liquichain/WC/Gateway/Kbc.php:75
+msgid "Select your bank"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Kbc.php:32
+#: src/Liquichain/WC/Gateway/Kbc.php:32
+msgid "Show KBC/CBC banks dropdown"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Kbc.php:34
+#: src/Liquichain/WC/Gateway/Kbc.php:34
+msgid "If you disable this, a dropdown with various KBC/CBC banks will not be shown in the WooCommerce checkout, so users will select a KBC/CBC bank on the Liquichain payment page after checkout."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Kbc.php:40
+#: src/Liquichain/WC/Gateway/Kbc.php:40
+msgid "This text will be displayed as the first option in the KBC/CBC issuers drop down, if nothing is entered, \"Select your bank\" will be shown. Only if the above ''Show KBC/CBC banks dropdown' is enabled."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Kbc.php:59
+#: src/Liquichain/WC/Gateway/Kbc.php:59
+msgid "KBC/CBC Payment Button"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/KlarnaPayLater.php:33
+#: src/Liquichain/WC/Gateway/KlarnaPayLater.php:33
+msgid "Klarna Pay later"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/KlarnaPayLater.php:40
+#: build/src/Liquichain/WC/Gateway/KlarnaPayNow.php:38
+#: build/src/Liquichain/WC/Gateway/KlarnaSliceIt.php:40
+#: src/Liquichain/WC/Gateway/KlarnaPayLater.php:40
+#: src/Liquichain/WC/Gateway/KlarnaPayNow.php:38
+#: src/Liquichain/WC/Gateway/KlarnaSliceIt.php:40
+msgid "To accept payments via Klarna, all default WooCommerce checkout fields should be enabled and required."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/KlarnaPayNow.php:31
+#: src/Liquichain/WC/Gateway/KlarnaPayNow.php:31
+msgid "Klarna Pay now"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/KlarnaSliceIt.php:33
+#: src/Liquichain/WC/Gateway/KlarnaSliceIt.php:33
+msgid "Klarna Slice it"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Mealvoucher.php:35
+#: build/src/Liquichain/WC/Plugin.php:508
+#: src/Liquichain/WC/Gateway/Mealvoucher.php:35
+#: src/Liquichain/WC/Plugin.php:508
+msgid "Select the default products category"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Mealvoucher.php:46
+#: src/Liquichain/WC/Gateway/Mealvoucher.php:46
+msgid "In order to process it, all products in the order must have a category. This selector will assign the default category for the shop products"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Mealvoucher.php:66
+#: src/Liquichain/WC/Gateway/Mealvoucher.php:66
+msgid "Voucher"
+msgstr ""
+
+#. translators: Default gift card dropdown description, displayed above issuer drop down
+#: build/src/Liquichain/WC/Gateway/Mealvoucher.php:82
+#: src/Liquichain/WC/Gateway/Mealvoucher.php:82
+msgid "voucher"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/MyBank.php:36
+#: src/Liquichain/WC/Gateway/MyBank.php:36
+msgid "MyBank"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/MyBank.php:44
+#: src/Liquichain/WC/Gateway/MyBank.php:44
+msgid "To accept payments via MyBank"
+msgstr ""
+
+#. translators: Placeholder 1: MyBank consumer name, placeholder 2: Consumer Account number
+#: build/src/Liquichain/WC/Gateway/MyBank.php:73
+#: src/Liquichain/WC/Gateway/MyBank.php:73
+msgid "Payment completed by <strong>%1$s</strong> - %2$s"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/PayPal.php:43
+#: src/Liquichain/WC/Gateway/PayPal.php:43
+msgid "PayPal"
+msgstr ""
+
+#. translators: Placeholder 1: PayPal consumer name, placeholder 2: PayPal email, placeholder 3: PayPal transaction ID
+#: build/src/Liquichain/WC/Gateway/PayPal.php:74
+#: build/src/Liquichain/WC/Payment/Object.php:695
+#: src/Liquichain/WC/Gateway/PayPal.php:74
+#: src/Liquichain/WC/Payment/Object.php:695
+msgid "Payment completed by <strong>%s</strong> - %s (PayPal transaction ID: %s)"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Paysafecard.php:20
+#: src/Liquichain/WC/Gateway/Paysafecard.php:20
+msgid "paysafecard"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Przelewy24.php:33
+#: src/Liquichain/WC/Gateway/Przelewy24.php:33
+msgid "Przelewy24"
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Przelewy24.php:40
+#: src/Liquichain/WC/Gateway/Przelewy24.php:40
+msgid "To accept payments via Przelewy24, a customer email is required for every payment."
+msgstr ""
+
+#. translators: Placeholder 1: customer billing email
+#: build/src/Liquichain/WC/Gateway/Przelewy24.php:64
+#: src/Liquichain/WC/Gateway/Przelewy24.php:64
+msgid "Payment completed by <strong>%s</strong>."
+msgstr ""
+
+#: build/src/Liquichain/WC/Gateway/Sofort.php:33
+#: src/Liquichain/WC/Gateway/Sofort.php:33
+msgid "SOFORT Banking"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Api.php:40
+#: src/Liquichain/WC/Helper/Api.php:40
+msgid "No API key provided. Please set your Liquichain API keys below."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Api.php:42
+#: src/Liquichain/WC/Helper/Api.php:42
+msgid "Invalid API key(s). Get them on the %sDevelopers page in the Liquichain dashboard%s. The API key(s) must start with 'live_' or 'test_', be at least 30 characters and must not contain any special characters."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/ApplePayDirectHandler.php:39
+#: src/Liquichain/WC/Helper/ApplePayDirectHandler.php:39
+msgid "%1$sServer not compliant with Apple requirements%2$s Check %3$sApple Server requirements page%4$s to fix it in order to make the Apple Pay button work"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/ApplePayDirectHandler.php:54
+#: src/Liquichain/WC/Helper/ApplePayDirectHandler.php:54
+msgid "%1$sApple Pay Validation Error%2$s Check %3$sApple Server requirements page%4$s to fix it in order to make the Apple Pay button work"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/OrderLines.php:499
+#: src/Liquichain/WC/Helper/OrderLines.php:499
+msgid "Shipping"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:61
+#: src/Liquichain/WC/Helper/Settings.php:61
+msgid "%s display settings"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:99
+#: src/Liquichain/WC/Helper/Settings.php:99
+msgid "Display logo on checkout page. Default <code>enabled</code>"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:107
+#: src/Liquichain/WC/Helper/Settings.php:107
+msgid "Sales countries"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:125
+#: src/Liquichain/WC/Helper/Settings.php:125
+msgid "%s custom logo"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:132
+#: src/Liquichain/WC/Helper/Settings.php:132
+msgid "Enable custom logo"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:137
+#: src/Liquichain/WC/Helper/Settings.php:137
+msgid "Enable the feature to add a custom logo for this gateway. This feature will have precedence over other logo options."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:143
+#: src/Liquichain/WC/Helper/Settings.php:143
+msgid "Upload custom logo"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:150
+#: src/Liquichain/WC/Helper/Settings.php:150
+msgid "Upload a custom icon for this gateway. The feature must be enabled."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:159
+#: src/Liquichain/WC/Helper/Settings.php:159
+msgid "%s surcharge"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:166
+#: src/Liquichain/WC/Helper/Settings.php:166
+msgid "Payment Surcharge"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:172
+#: src/Liquichain/WC/Helper/Settings.php:172
+msgid "No fee"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:176
+#: src/Liquichain/WC/Helper/Settings.php:176
+msgid "Fixed fee"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:180
+#: src/Liquichain/WC/Helper/Settings.php:180
+msgid "Percentage"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:184
+#: src/Liquichain/WC/Helper/Settings.php:184
+msgid "Fixed fee and percentage"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:190
+#: src/Liquichain/WC/Helper/Settings.php:190
+msgid "Choose a payment surcharge for this gateway"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:197
+#: src/Liquichain/WC/Helper/Settings.php:197
+msgid "Payment surcharge fixed amount in %s"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:200
+#: src/Liquichain/WC/Helper/Settings.php:200
+msgid "Control the fee added on checkout. Default 0.00"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:210
+#: src/Liquichain/WC/Helper/Settings.php:210
+msgid "Payment surcharge percentage amount %"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:213
+#: src/Liquichain/WC/Helper/Settings.php:213
+msgid "Control the percentage fee added on checkout. Default 0.00"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:223
+#: src/Liquichain/WC/Helper/Settings.php:223
+msgid "Payment surcharge limit in %s"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:226
+#: src/Liquichain/WC/Helper/Settings.php:226
+msgid "Limit the maximum fee added on checkout. Default 0, means no limit"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:236
+#: src/Liquichain/WC/Helper/Settings.php:236
+msgid "Surcharge only under this limit, in %s"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:239
+#: src/Liquichain/WC/Helper/Settings.php:239
+msgid "Maximum order amount to apply surcharge. If the order is above this number the surcharge will not apply. Default 0, means no maximum"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:250
+#: src/Liquichain/WC/Helper/Settings.php:250
+msgid "%s advanced"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:259
+#: src/Liquichain/WC/Helper/Settings.php:259
+msgid "Enable this option if you want to be able to set the number of days after the order will expire."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:267
+#: src/Liquichain/WC/Helper/Settings.php:267
+msgid "Number of MINUTES after the order will expire and will be canceled at Liquichain and WooCommerce. A value of 0 means no expiry date will be considered."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:280
+#: src/Liquichain/WC/Helper/Settings.php:280
+msgid "Initial order status"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:299
+#: src/Liquichain/WC/Helper/Settings.php:299
+msgid "Some payment methods take longer than a few hours to complete. The initial order state is then set to '%s'. This ensures the order is not cancelled when the setting %s is used."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:494
+#: src/Liquichain/WC/Helper/Settings.php:494
+msgid "Error"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:507
+#: src/Liquichain/WC/Helper/Settings.php:507
+msgid "Liquichain status:"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:508
+#: src/Liquichain/WC/Helper/Settings.php:508
+msgid "Connected"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:551
+#: src/Liquichain/WC/Helper/Settings.php:551
+msgid "Gateway enabled"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:552
+#: src/Liquichain/WC/Helper/Settings.php:552
+msgid "Gateway disabled"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:552
+#: src/Liquichain/WC/Helper/Settings.php:552
+msgid "Disabled"
+msgstr ""
+
+#. translators: The surrounding %s's Will be replaced by a link to the Liquichain profile
+#: build/src/Liquichain/WC/Helper/Settings.php:563
+#: src/Liquichain/WC/Helper/Settings.php:563
+msgid "The following payment methods are activated in your %sLiquichain profile%s:"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:572
+#: src/Liquichain/WC/Helper/Settings.php:572
+msgid "Refresh"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:591
+#: src/Liquichain/WC/Helper/Settings.php:591
+msgid "Edit"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:624
+#: src/Liquichain/WC/Helper/Settings.php:624
+msgid "Quickly integrate all major payment methods in WooCommerce, wherever you need them."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:625
+#: src/Liquichain/WC/Helper/Settings.php:625
+msgid " Simply drop them ready-made into your WooCommerce webshop with this powerful plugin by Liquichain."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:626
+#: src/Liquichain/WC/Helper/Settings.php:626
+msgid " Liquichain is dedicated to making payments better for WooCommerce. "
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:627
+#: src/Liquichain/WC/Helper/Settings.php:627
+msgid "Please go to"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:627
+#: src/Liquichain/WC/Helper/Settings.php:627
+msgid " the signup page"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:628
+#: src/Liquichain/WC/Helper/Settings.php:628
+msgid "to create a new Liquichain account and start receiving payments in a couple of minutes. "
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:629
+#: src/Liquichain/WC/Helper/Settings.php:629
+msgid "Contact "
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:630
+#: src/Liquichain/WC/Helper/Settings.php:630
+msgid " if you have any questions or comments about this plugin."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:631
+#: src/Liquichain/WC/Helper/Settings.php:631
+msgid "Our pricing is always per transaction. No startup fees, no monthly fees, and no gateway fees. No hidden fees, period."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:635
+#: src/Liquichain/WC/Helper/Settings.php:635
+msgid "Plugin Documentation"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:635
+#: src/Liquichain/WC/Helper/Settings.php:635
+msgid "Contact Support"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:644
+#: src/Liquichain/WC/Helper/Settings.php:644
+msgid "Log plugin events."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:650
+#: src/Liquichain/WC/Helper/Settings.php:650
+msgid "Log files are saved to <code>%s</code>"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:663
+#: build/src/Liquichain/WC/Plugin.php:379
+#: build/src/Liquichain/WC/Settings/Page/Liquichain.php:11
+#: src/Liquichain/WC/Helper/Settings.php:663
+#: src/Liquichain/WC/Plugin.php:379
+#: src/Liquichain/WC/Settings/Page/Liquichain.php:11
+msgid "Liquichain Settings"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:670
+#: src/Liquichain/WC/Helper/Settings.php:670
+msgid "Live API key"
+msgstr ""
+
+#. translators: Placeholder 1: API key mode (live or test). The surrounding %s's Will be replaced by a link to the Liquichain profile
+#: build/src/Liquichain/WC/Helper/Settings.php:675
+#: build/src/Liquichain/WC/Helper/Settings.php:697
+#: src/Liquichain/WC/Helper/Settings.php:675
+#: src/Liquichain/WC/Helper/Settings.php:697
+msgid "The API key is used to connect to Liquichain. You can find your <strong>%s</strong> API key in your %sLiquichain profile%s"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:681
+#: src/Liquichain/WC/Helper/Settings.php:681
+msgid "Live API key should start with live_"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:685
+#: src/Liquichain/WC/Helper/Settings.php:685
+msgid "Enable test mode"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:688
+#: src/Liquichain/WC/Helper/Settings.php:688
+msgid "Enable test mode if you want to test the plugin without using real payments."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:692
+#: src/Liquichain/WC/Helper/Settings.php:692
+msgid "Test API key"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:703
+#: src/Liquichain/WC/Helper/Settings.php:703
+msgid "Test API key should start with test_"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:707
+#: src/Liquichain/WC/Helper/Settings.php:707
+msgid "Debug Log"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:810
+#: src/Liquichain/WC/Helper/Settings.php:810
+msgid "You have WooCommerce Subscriptions activated, but not SEPA Direct Debit. Enable SEPA Direct Debit if you want to allow customers to pay subscriptions with iDEAL and/or other \"first\" payment methods."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:834
+#: src/Liquichain/WC/Helper/Settings.php:834
+msgid "You have the WooCommerce default Direct Bank Transfer (BACS) payment gateway enabled in WooCommerce. Liquichain strongly advices only using Bank Transfer via Liquichain and disabling the default WooCommerce BACS payment gateway to prevent possible conflicts."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Settings.php:855
+#: src/Liquichain/WC/Helper/Settings.php:855
+msgid "You have activated Klarna. To accept payments, please make sure all default WooCommerce checkout fields are enabled and required. For more information, go to %1sKlarna Pay Later documentation%2s or  %3sKlarna Slice it documentation%4s"
+msgstr ""
+
+#. translators: Placeholder 1: Plugin name, placeholder 2: required WooCommerce version, placeholder 3: used WooCommerce version
+#: build/src/Liquichain/WC/Helper/Status.php:67
+#: src/Liquichain/WC/Helper/Status.php:67
+msgid "The %s plugin requires at least WooCommerce version %s, you are using version %s. Please update your WooCommerce plugin."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Status.php:80
+#: src/Liquichain/WC/Helper/Status.php:80
+msgid "Liquichain API client not installed. Please make sure the plugin is installed correctly."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Status.php:89
+#: src/Liquichain/WC/Helper/Status.php:89
+msgid "Liquichain Payments for WooCommerce requires the JSON extension for PHP. Enable it in your server or ask your webhoster to enable it for you."
+msgstr ""
+
+#. translators: Placeholder 1: Required PHP version, placeholder 2: current PHP version
+#: build/src/Liquichain/WC/Helper/Status.php:104
+#: src/Liquichain/WC/Helper/Status.php:104
+msgid "Liquichain Payments for WooCommerce require PHP %s or higher, you have PHP %s. Please upgrade and view %sthis FAQ%s"
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Status.php:116
+#: src/Liquichain/WC/Helper/Status.php:116
+msgid "Liquichain Payments for WooCommerce requires the PHP extension JSON to be enabled. Please enable the 'json' extension in your PHP configuration."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Status.php:123
+#: src/Liquichain/WC/Helper/Status.php:123
+msgid "Liquichain Payments for WooCommerce requires the PHP extension cURL to be enabled. Please enable the 'curl' extension in your PHP configuration."
+msgstr ""
+
+#: build/src/Liquichain/WC/Helper/Status.php:131
+#: src/Liquichain/WC/Helper/Status.php:131
+msgid "Liquichain Payments for WooCommerce require PHP cURL functions to be available. Please make sure all of these functions are available."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Object.php:603
+#: src/Liquichain/WC/Payment/Object.php:603
+msgid "%s renewal payment failed via Liquichain (%s). You will need to manually review the payment and adjust product stocks if you use them."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Object.php:637
+#: src/Liquichain/WC/Payment/Object.php:637
+msgid "%s payment failed via Liquichain (%s)."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Object.php:677
+#: src/Liquichain/WC/Payment/Object.php:677
+msgid "Liquichain webhook called, but payment also started via %s, so the order status is not updated."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Order.php:262
+#: build/src/Liquichain/WC/Payment/Payment.php:247
+#: src/Liquichain/WC/Payment/Order.php:262
+#: src/Liquichain/WC/Payment/Payment.php:247
+msgid "Order completed using %s payment (%s)."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Order.php:314
+#: src/Liquichain/WC/Payment/Order.php:314
+msgid "Order authorized using %s payment (%s). Set order to completed in WooCommerce when you have shipped the products, to capture the payment. Do this within 28 days, or the order will expire. To handle individual order lines, process the order via the Liquichain Dashboard."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Order.php:361
+#: src/Liquichain/WC/Payment/Order.php:361
+msgid "Order completed at Liquichain for %s order (%s). At least one order line completed. Remember: Completed status for an order at Liquichain is not the same as Completed status in WooCommerce!"
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Order.php:444
+#: src/Liquichain/WC/Payment/Order.php:444
+msgid "%s order (%s) cancelled ."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Order.php:509
+#: src/Liquichain/WC/Payment/Order.php:509
+msgid "%s order expired (%s) but not cancelled because of another pending payment (%s)."
+msgstr ""
+
+#: build/src/Liquichain/WC/Payment/Order.php:742
+#: src/Liquichain/WC/Payment/Order.php:742
+msgid "%sx %s cancelled for %s%s in WooCommerce and at Liquichain."
+msgstr ""
+
+#: build/src/Liquichain/WC/Payment/Order.php:758
+#: src/Liquichain/WC/Payment/Order.php:758
+msgid "%sx %s refunded for %s%s in WooCommerce and at Liquichain.%s Refund ID: %s."
+msgstr ""
+
+#: build/src/Liquichain/WC/Payment/Order.php:836
+#: src/Liquichain/WC/Payment/Order.php:836
+msgid "Amount refund of %s%s refunded in WooCommerce and at Liquichain.%s Refund ID: %s."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Order.php:931
+#: src/Liquichain/WC/Payment/Order.php:931
+msgid "%s order (%s) expired ."
+msgstr ""
+
+#: build/src/Liquichain/WC/Payment/OrderItemsRefunder.php:109
+#: src/Liquichain/WC/Payment/OrderItemsRefunder.php:109
+msgid "One of the WooCommerce order items does not have the refund item ID meta value associated to Liquichain Order item."
+msgstr ""
+
+#: build/src/Liquichain/WC/Payment/OrderItemsRefunder.php:157
+#: src/Liquichain/WC/Payment/OrderItemsRefunder.php:157
+msgid "Impossible to retrieve the order item ID related to the remote item: %1$s. Try to do a refund by amount."
+msgstr ""
+
+#: build/src/Liquichain/WC/Payment/OrderItemsRefunder.php:183
+#: src/Liquichain/WC/Payment/OrderItemsRefunder.php:183
+msgid "Empty WooCommerce order items or liquichain order lines."
+msgstr ""
+
+#. translators: Placeholder 1: order number
+#: build/src/Liquichain/WC/Gateway/AbstractSubscription.php:116
+#: build/src/Liquichain/WC/Payment/Payment.php:132
+#: src/Liquichain/WC/Gateway/AbstractSubscription.php:116
+#: src/Liquichain/WC/Payment/Payment.php:132
+msgctxt "Payment description for {orderNumber}"
+msgid "Order {orderNumber}"
+msgstr ""
+
+#. translators: Placeholder 1: store name
+#: build/src/Liquichain/WC/Gateway/AbstractSubscription.php:127
+#: build/src/Liquichain/WC/Payment/Payment.php:143
+#: src/Liquichain/WC/Gateway/AbstractSubscription.php:127
+#: src/Liquichain/WC/Payment/Payment.php:143
+msgctxt "Payment description for {storeName}"
+msgid "StoreName {storeName}"
+msgstr ""
+
+#. translators: Placeholder 1: customer first name
+#: build/src/Liquichain/WC/Gateway/AbstractSubscription.php:138
+#: build/src/Liquichain/WC/Payment/Payment.php:154
+#: src/Liquichain/WC/Gateway/AbstractSubscription.php:138
+#: src/Liquichain/WC/Payment/Payment.php:154
+msgctxt "Payment description for {customer.firstname}"
+msgid "Customer Firstname {customer.firstname}"
+msgstr ""
+
+#. translators: Placeholder 1: customer last name
+#: build/src/Liquichain/WC/Gateway/AbstractSubscription.php:149
+#: build/src/Liquichain/WC/Payment/Payment.php:165
+#: src/Liquichain/WC/Gateway/AbstractSubscription.php:149
+#: src/Liquichain/WC/Payment/Payment.php:165
+msgctxt "Payment description for {customer.lastname}"
+msgid "Customer Lastname {customer.lastname}"
+msgstr ""
+
+#. translators: Placeholder 1: customer company name
+#: build/src/Liquichain/WC/Gateway/AbstractSubscription.php:160
+#: build/src/Liquichain/WC/Payment/Payment.php:176
+#: src/Liquichain/WC/Gateway/AbstractSubscription.php:160
+#: src/Liquichain/WC/Payment/Payment.php:176
+msgctxt "Payment description for {customer.company}"
+msgid "Customer Company {customer.company}"
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Payment.php:334
+#: src/Liquichain/WC/Payment/Payment.php:334
+msgid "%s payment (%s) cancelled ."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Payment.php:404
+#: src/Liquichain/WC/Payment/Payment.php:404
+msgid "%s payment expired (%s) but not cancelled because of another pending payment (%s)."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Payment/Payment.php:427
+#: src/Liquichain/WC/Payment/Payment.php:427
+msgid "%s payment expired (%s)."
+msgstr ""
+
+#. translators: Placeholder 1: currency, placeholder 2: refunded amount, placeholder 3: optional refund reason, placeholder 4: payment ID, placeholder 5: refund ID
+#: build/src/Liquichain/WC/Payment/Payment.php:509
+#: src/Liquichain/WC/Payment/Payment.php:509
+msgid "Refunded %s%s%s - Payment: %s, Refund: %s"
+msgstr ""
+
+#: build/src/Liquichain/WC/Payment/RefundLineItemsBuilder.php:119
+#: src/Liquichain/WC/Payment/RefundLineItemsBuilder.php:119
+msgid "Liquichain doesn't allow a partial refund of the full amount or quantity of at least one order line. Trying to process this as an amount refund instead."
+msgstr ""
+
+#. translators: Placeholder 1: payment method title, placeholder 2: payment ID
+#: build/src/Liquichain/WC/Plugin.php:128
+#: src/Liquichain/WC/Plugin.php:128
+msgid "%s payment failed (%s)."
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:303
+#: src/Liquichain/WC/Plugin.php:303
+msgid "%1$sLiquichain Payments for WooCommerce%2$s The test mode is active, %3$s disable it%4$s before deploying into production."
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:411
+#: build/src/Liquichain/WC/Plugin.php:444
+#: build/src/Liquichain/WC/Plugin.php:466
+#: src/Liquichain/WC/Plugin.php:411
+#: src/Liquichain/WC/Plugin.php:444
+#: src/Liquichain/WC/Plugin.php:466
+msgid "Liquichain Voucher Category"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:414
+#: build/src/Liquichain/WC/Plugin.php:446
+#: build/src/Liquichain/WC/Plugin.php:469
+#: src/Liquichain/WC/Plugin.php:414
+#: src/Liquichain/WC/Plugin.php:446
+#: src/Liquichain/WC/Plugin.php:469
+msgid "--Please choose an option--"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:415
+#: build/src/Liquichain/WC/Plugin.php:447
+#: build/src/Liquichain/WC/Plugin.php:470
+#: build/src/Liquichain/WC/Plugin.php:583
+#: src/Liquichain/WC/Plugin.php:415
+#: src/Liquichain/WC/Plugin.php:447
+#: src/Liquichain/WC/Plugin.php:470
+#: src/Liquichain/WC/Plugin.php:583
+msgid "No Category"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:416
+#: build/src/Liquichain/WC/Plugin.php:448
+#: build/src/Liquichain/WC/Plugin.php:471
+#: build/src/Liquichain/WC/Plugin.php:584
+#: src/Liquichain/WC/Plugin.php:416
+#: src/Liquichain/WC/Plugin.php:448
+#: src/Liquichain/WC/Plugin.php:471
+#: src/Liquichain/WC/Plugin.php:584
+msgid "Meal"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:417
+#: build/src/Liquichain/WC/Plugin.php:449
+#: build/src/Liquichain/WC/Plugin.php:472
+#: build/src/Liquichain/WC/Plugin.php:585
+#: src/Liquichain/WC/Plugin.php:417
+#: src/Liquichain/WC/Plugin.php:449
+#: src/Liquichain/WC/Plugin.php:472
+#: src/Liquichain/WC/Plugin.php:585
+msgid "Eco"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:418
+#: build/src/Liquichain/WC/Plugin.php:450
+#: build/src/Liquichain/WC/Plugin.php:473
+#: build/src/Liquichain/WC/Plugin.php:586
+#: src/Liquichain/WC/Plugin.php:418
+#: src/Liquichain/WC/Plugin.php:450
+#: src/Liquichain/WC/Plugin.php:473
+#: src/Liquichain/WC/Plugin.php:586
+msgid "Gift"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:452
+#: build/src/Liquichain/WC/Plugin.php:475
+#: src/Liquichain/WC/Plugin.php:452
+#: src/Liquichain/WC/Plugin.php:475
+msgid "Select a voucher category to apply to all products with this category"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:512
+#: src/Liquichain/WC/Plugin.php:512
+msgid "Products voucher category"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:519
+#: build/src/Liquichain/WC/Plugin.php:582
+#: src/Liquichain/WC/Plugin.php:519
+#: src/Liquichain/WC/Plugin.php:582
+msgid "Same as default category"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:529
+#: src/Liquichain/WC/Plugin.php:529
+msgid "In order to process it, all products in the order must have a category. To disable the product from voucher selection select \"No category\" option."
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:579
+#: src/Liquichain/WC/Plugin.php:579
+msgid "Liquichain Voucher category"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:727
+#: src/Liquichain/WC/Plugin.php:727
+msgid "%1$s items refunded in WooCommerce and at Liquichain."
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:745
+#: src/Liquichain/WC/Plugin.php:745
+msgid "%1$s items cancelled in WooCommerce and at Liquichain."
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:919
+#: src/Liquichain/WC/Plugin.php:919
+msgid "Name on card"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:923
+#: src/Liquichain/WC/Plugin.php:923
+msgid "Card number"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:931
+#: src/Liquichain/WC/Plugin.php:931
+msgid "CVC/CVV"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:938
+#: src/Liquichain/WC/Plugin.php:938
+msgid "An unknown error occurred, please check the card fields."
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:1295
+#: src/Liquichain/WC/Plugin.php:1295
+msgid "Liquichain settings"
+msgstr ""
+
+#: build/src/Liquichain/WC/Plugin.php:1301
+#: src/Liquichain/WC/Plugin.php:1301
+msgid "Logs"
+msgstr ""
+
+#: build/src/Liquichain/WC/Settings/Page/Liquichain.php:138
+#: src/Liquichain/WC/Settings/Page/Liquichain.php:138
+msgid "General"
+msgstr ""
+
+#: build/src/Liquichain/WC/Settings/Page/Liquichain.php:143
+#: src/Liquichain/WC/Settings/Page/Liquichain.php:143
+msgid "Apple Pay Button"
+msgstr ""
+
+#: build/src/Liquichain/WC/Settings/Page/Liquichain.php:147
+#: src/Liquichain/WC/Settings/Page/Liquichain.php:147
+msgid "Advanced"
+msgstr ""
+
+#: src/Liquichain/WC/Gateway/Abstract.php:1987
+msgid "%1$s Secure payments provided by %2$s"
+msgstr ""

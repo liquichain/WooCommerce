@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Paysafecard extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -11,7 +11,7 @@ class Paysafecard extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'paysafecard',
-            'defaultTitle' => __('paysafecard', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('paysafecard', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => '',
             'defaultDescription' => '',
             'paymentFields' => false,

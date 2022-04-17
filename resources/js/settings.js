@@ -1,21 +1,21 @@
 (
-    function ({_, mollieSettingsData, jQuery })
+    function ({_, liquichainSettingsData, jQuery })
     {
-        const {current_section = false} = mollieSettingsData
+        const {current_section = false} = liquichainSettingsData
         jQuery(function($) {
 
-            $('#mollie-payments-for-woocommerce_test_mode_enabled').change(function() {
+            $('#liquichain-payments-for-woocommerce_test_mode_enabled').change(function() {
                 if ($(this).is(':checked'))
                 {
-                    $('#mollie-payments-for-woocommerce_test_api_key').attr('required', true).closest('tr').show();
+                    $('#liquichain-payments-for-woocommerce_test_api_key').attr('required', true).closest('tr').show();
                 }
                 else
                 {
-                    $('#mollie-payments-for-woocommerce_test_api_key').removeAttr('required').closest('tr').hide();
+                    $('#liquichain-payments-for-woocommerce_test_api_key').removeAttr('required').closest('tr').hide();
                 }
             }).change();
 
-            if(_.isEmpty(mollieSettingsData)){
+            if(_.isEmpty(liquichainSettingsData)){
                 return
             }
             const gatewayName = current_section

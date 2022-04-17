@@ -1,20 +1,20 @@
 <?php
 
-namespace Mollie\WooCommerceTests\Functional\PayPalButton;
+namespace Liquichain\WooCommerceTests\Functional\PayPalButton;
 
 use AjaxRequests;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Mollie\Api\Endpoints\OrderEndpoint;
-use Mollie\WooCommerce\Buttons\PayPalButton\PayPalAjaxRequests;
-use Mollie\WooCommerce\Buttons\PayPalButton\PayPalDataObjectHttp;
-use Mollie\WooCommerce\Gateway\Surcharge;
-use Mollie\WooCommerce\Subscription\MollieSubscriptionGateway;
-use Mollie\WooCommerceTests\Functional\HelperMocks;
-use Mollie\WooCommerceTests\Stubs\postDTOTestsStubs;
-use Mollie\WooCommerceTests\TestCase;
-use Mollie_WC_ApplePayButton_DataObjectHttp;
-use Mollie_WC_Helper_Data;
-use Mollie_WC_Payment_RefundLineItemsBuilder;
+use Liquichain\Api\Endpoints\OrderEndpoint;
+use Liquichain\WooCommerce\Buttons\PayPalButton\PayPalAjaxRequests;
+use Liquichain\WooCommerce\Buttons\PayPalButton\PayPalDataObjectHttp;
+use Liquichain\WooCommerce\Gateway\Surcharge;
+use Liquichain\WooCommerce\Subscription\LiquichainSubscriptionGateway;
+use Liquichain\WooCommerceTests\Functional\HelperMocks;
+use Liquichain\WooCommerceTests\Stubs\postDTOTestsStubs;
+use Liquichain\WooCommerceTests\TestCase;
+use Liquichain_WC_ApplePayButton_DataObjectHttp;
+use Liquichain_WC_Helper_Data;
+use Liquichain_WC_Payment_RefundLineItemsBuilder;
 use PHPUnit_Framework_Exception;
 use PHPUnit_Framework_MockObject_MockObject;
 
@@ -75,7 +75,7 @@ class AjaxRequestsTest extends TestCase
             ]
         );
         $logger = $this->helperMocks->loggerMock();
-        $paypalGateway = $this->mollieGateway('paypal', false, true);
+        $paypalGateway = $this->liquichainGateway('paypal', false, true);
 
         $dataObject = new PayPalDataObjectHttp($logger);
         $dataObject->orderData($_POST, 'productDetail');
@@ -103,12 +103,12 @@ class AjaxRequestsTest extends TestCase
          */
         expect('wp_verify_nonce')
             ->once()
-            ->with($_POST['nonce'], 'mollie_PayPal_button')
+            ->with($_POST['nonce'], 'liquichain_PayPal_button')
             ->andReturn(true);
         expect('wc_get_product')
             ->once();
         expect('get_option')
-            ->with('mollie-payments-for-woocommerce_gatewayFeeLabel')
+            ->with('liquichain-payments-for-woocommerce_gatewayFeeLabel')
             ->andReturn(
                 $this->helperMocks->paymentMethodSettings(
                     [
@@ -134,9 +134,9 @@ class AjaxRequestsTest extends TestCase
         $testee->createWcOrder();
     }
 
-    public function mollieGateway($paymentMethodName, $isSepa = false, $isSubscription = false){
+    public function liquichainGateway($paymentMethodName, $isSepa = false, $isSubscription = false){
         $gateway = $this->createConfiguredMock(
-            MollieSubscriptionGateway::class,
+            LiquichainSubscriptionGateway::class,
             [
             ]
         );

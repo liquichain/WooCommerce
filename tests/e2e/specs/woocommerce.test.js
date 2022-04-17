@@ -15,20 +15,20 @@ describe('Checkout page', () => {
         await createSimpleProduct();
 
         // Enable iDeal payment method
-        await merchant.openSettings('checkout', 'mollie_wc_gateway_ideal');
-        await setCheckbox('#mollie_wc_gateway_ideal_enabled');
+        await merchant.openSettings('checkout', 'liquichain_wc_gateway_ideal');
+        await setCheckbox('#liquichain_wc_gateway_ideal_enabled');
         await settingsPageSaveChanges();
-        await verifyCheckboxIsSet('#mollie_wc_gateway_ideal_enabled');
+        await verifyCheckboxIsSet('#liquichain_wc_gateway_ideal_enabled');
 
         await merchant.logout();*/
     }, 30000);
 
-    async function molliePaidOrder() {
+    async function liquichainPaidOrder() {
         await expect(page).toClick('.checkbox__label', {text: 'Paid'});
         await expect(page).toClick('.form__button', {text: 'Continue'});
         await page.waitForNavigation();
     }
-    async function mollieCancelOrder() {
+    async function liquichainCancelOrder() {
         await expect(page).toClick('.checkbox__label', {text: 'Canceled'});
         await expect(page).toClick('.form__button', {text: 'Continue'});
         await page.waitForNavigation();
@@ -48,7 +48,7 @@ describe('Checkout page', () => {
         await uiUnblocked();
         await shopper.placeOrder();
 
-        await molliePaidOrder();
+        await liquichainPaidOrder();
         await expect(page).toMatch('Order received');
 
         let orderReceivedHtmlElement = await page.$('.woocommerce-order-overview__order.order');
@@ -93,7 +93,7 @@ describe('Checkout page', () => {
         await uiUnblocked();
         await shopper.placeOrder();
 
-        await mollieCancelOrder();
+        await liquichainCancelOrder();
         await expect(page).toMatch('Pay for order');
 
     }, 500000);
@@ -107,7 +107,7 @@ describe('Settings page', () => {
         await page.goto(WP_ADMIN_WC_SETTINGS + 'checkout', {
             waitUntil: 'networkidle0'
         });
-        await expect(page).toMatch('Mollie - Bank Transfer');
-        await expect(page).toMatch('Mollie - Belfius Direct Net');
+        await expect(page).toMatch('Liquichain - Bank Transfer');
+        await expect(page).toMatch('Liquichain - Belfius Direct Net');
     }, 500000);
 });

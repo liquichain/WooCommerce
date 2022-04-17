@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Shared;
+namespace Liquichain\WooCommerce\Shared;
 
 use Exception;
 use InvalidArgumentException;
-use Mollie\Api\Resources\Method;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\Settings\Settings;
+use Liquichain\Api\Resources\Method;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\Settings\Settings;
 use Psr\Log\LoggerInterface as Logger;
 use Psr\Log\LogLevel;
 use WC_Customer;
@@ -22,20 +22,20 @@ class Data
      *
      * @var string
      */
-    const TRANSIENT_PREFIX = 'mollie-wc-';
+    const TRANSIENT_PREFIX = 'liquichain-wc-';
 
     /**
-     * @var \Mollie\Api\Resources\Method[]|\Mollie\Api\Resources\MethodCollection|array
+     * @var \Liquichain\Api\Resources\Method[]|\Liquichain\Api\Resources\MethodCollection|array
      */
     protected static $regular_api_methods = [];
 
     /**
-     * @var \Mollie\Api\Resources\Method[]|\Mollie\Api\Resources\MethodCollection|array
+     * @var \Liquichain\Api\Resources\Method[]|\Liquichain\Api\Resources\MethodCollection|array
      */
     protected static $recurring_api_methods = [];
 
     /**
-     * @var \Mollie\Api\Resources\MethodCollection[]
+     * @var \Liquichain\Api\Resources\MethodCollection[]
      */
     protected static $method_issuers = [];
 
@@ -68,7 +68,7 @@ class Data
     public function isSubscriptionPluginActive(): bool
     {
         $subscriptionPlugin = is_plugin_active('woocommerce-subscriptions/woocommerce-subscriptions.php');
-        return apply_filters('mollie_wc_subscription_plugin_active', $subscriptionPlugin);
+        return apply_filters('liquichain_wc_subscription_plugin_active', $subscriptionPlugin);
     }
 
     /**
@@ -166,7 +166,7 @@ class Data
      */
     public function deleteTransients()
     {
-        $this->logger->log(LogLevel::DEBUG, __METHOD__ . ': Mollie settings saved, delete transients');
+        $this->logger->log(LogLevel::DEBUG, __METHOD__ . ': Liquichain settings saved, delete transients');
 
         $transient_names = [
             'api_methods_test',
@@ -192,19 +192,19 @@ class Data
     }
 
     /**
-     * Get Mollie payment from cache or load from Mollie
+     * Get Liquichain payment from cache or load from Liquichain
      * Skip cache by setting $use_cache to false
      *
      * @param string $payment_id
      * @param string   $apiKey (default: false)
      * @param bool   $use_cache (default: true)
-     * @return Mollie\Api\Resources\Payment|null
+     * @return Liquichain\Api\Resources\Payment|null
      */
     public function getPayment($payment_id, $apiKey, $use_cache = true)
     {
         try {
             return $this->api_helper->getApiClient($apiKey)->payments->get($payment_id);
-        } catch (\Mollie\Api\Exceptions\ApiException $apiException) {
+        } catch (\Liquichain\Api\Exceptions\ApiException $apiException) {
             $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . sprintf(': Could not load payment %s (', $payment_id) . "): " . $apiException->getMessage() . ' (' . get_class($apiException) . ')');
         }
 
@@ -215,7 +215,7 @@ class Data
      * @param bool $test_mode
      * @param bool $use_cache
      *
-     * @return array|mixed|\Mollie\Api\Resources\Method[]|\Mollie\Api\Resources\MethodCollection
+     * @return array|mixed|\Liquichain\Api\Resources\Method[]|\Liquichain\Api\Resources\MethodCollection
      */
     public function getAllPaymentMethods($apiKey, $test_mode = false, $use_cache = true)
     {
@@ -317,7 +317,7 @@ class Data
             ],
             'locale' => $paymentLocale,
             'billingCountry' => $billingCountry,
-            'sequenceType' => \Mollie\Api\Types\SequenceType::SEQUENCETYPE_ONEOFF,
+            'sequenceType' => \Liquichain\Api\Types\SequenceType::SEQUENCETYPE_ONEOFF,
             'resource' => 'orders',
         ];
     }
@@ -326,7 +326,7 @@ class Data
      * @param bool $test_mode
      * @param bool $use_cache
      *
-     * @return array|mixed|\Mollie\Api\Resources\Method[]|\Mollie\Api\Resources\MethodCollection
+     * @return array|mixed|\Liquichain\Api\Resources\Method[]|\Liquichain\Api\Resources\MethodCollection
      */
     public function getRegularPaymentMethods($apiKey, $test_mode = false, $use_cache = true)
     {
@@ -400,7 +400,7 @@ class Data
             }
 
             return $methods;
-        } catch (\Mollie\Api\Exceptions\ApiException $e) {
+        } catch (\Liquichain\Api\Exceptions\ApiException $e) {
             /**
              * Cache the result for a short period
              * to prevent hammering the API with requests that are likely to fail again
@@ -408,7 +408,7 @@ class Data
             if ($use_cache) {
                 set_transient($transient_id, [], 60 * 5);
             }
-            $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . ": Could not load Mollie methods (" . ( $test_mode ? 'test' : 'live' ) . "): " . $e->getMessage() . ' (' . get_class($e) . ')');
+            $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . ": Could not load Liquichain methods (" . ( $test_mode ? 'test' : 'live' ) . "): " . $e->getMessage() . ' (' . get_class($e) . ')');
 
             return [];
         }
@@ -418,7 +418,7 @@ class Data
      * @param bool $test_mode
      * @param      $method
      *
-     * @return mixed|\Mollie\Api\Resources\Method|null
+     * @return mixed|\Liquichain\Api\Resources\Method|null
      */
     public function getPaymentMethod($method)
     {
@@ -442,7 +442,7 @@ class Data
      * @param bool        $test_mode (default: false)
      * @param string|null $methodId
      *
-     * @return array|\Mollie\Api\Resources\Method||\Mollie\Api\Resources\MethodCollection
+     * @return array|\Liquichain\Api\Resources\Method||\Liquichain\Api\Resources\MethodCollection
      */
     public function getMethodIssuers($apiKey, $test_mode = false, $methodId = null)
     {
@@ -459,7 +459,7 @@ class Data
             $issuers = $method ? $method['issuers'] : [];
             set_transient($transient_id, $issuers, HOUR_IN_SECONDS);
             return $issuers;
-        } catch (\Mollie\Api\Exceptions\ApiException $e) {
+        } catch (\Liquichain\Api\Exceptions\ApiException $e) {
             $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . ": Could not load " . $methodId . " issuers (" . ( $test_mode ? 'test' : 'live' ) . "): " . $e->getMessage() . ' (' . get_class($e) . ')');
         }
 
@@ -472,7 +472,7 @@ class Data
      * @param string $methodId
      * @param string $apiKey
      * @return bool|Method
-     * @throws \Mollie\Api\Exceptions\ApiException
+     * @throws \Liquichain\Api\Exceptions\ApiException
      */
     public function getMethodWithIssuersById($methodId, $apiKey)
     {
@@ -513,14 +513,14 @@ class Data
      *
      * @return $this
      */
-    public function setUserMollieCustomerId($user_id, $customer_id)
+    public function setUserLiquichainCustomerId($user_id, $customer_id)
     {
         if (! empty($customer_id)) {
             try {
                 $customer = new WC_Customer($user_id);
-                $customer->update_meta_data('mollie_customer_id', $customer_id);
+                $customer->update_meta_data('liquichain_customer_id', $customer_id);
                 $customer->save();
-                $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . ": Stored Mollie customer ID " . $customer_id . " with user " . $user_id);
+                $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . ": Stored Liquichain customer ID " . $customer_id . " with user " . $user_id);
             } catch (Exception $exception) {
                 $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . ": Couldn't load (and save) WooCommerce customer based on user ID " . $user_id);
             }
@@ -534,11 +534,11 @@ class Data
      * @param $customer_id
      * @return $this
      */
-    public function setUserMollieCustomerIdAtSubscription($orderId, $customer_id)
+    public function setUserLiquichainCustomerIdAtSubscription($orderId, $customer_id)
     {
         if (!empty($customer_id)) {
             $order = wc_get_order($orderId);
-            $order->update_meta_data('_mollie_customer_id', $customer_id);
+            $order->update_meta_data('_liquichain_customer_id', $customer_id);
             $order->save();
         }
 
@@ -550,19 +550,19 @@ class Data
      * @param bool $test_mode
      * @return null|string
      */
-    public function getUserMollieCustomerId($user_id, $apiKey)
+    public function getUserLiquichainCustomerId($user_id, $apiKey)
     {
-        // Guest users can't buy subscriptions and don't need a Mollie customer ID
-        // https://github.com/mollie/WooCommerce/issues/132
+        // Guest users can't buy subscriptions and don't need a Liquichain customer ID
+        // https://github.com/liquichain/WooCommerce/issues/132
         if (empty($user_id)) {
             return null;
         }
         $isTestModeEnabled = $this->isTestModeEnabled();
 
         $customer = new WC_Customer($user_id);
-        $customer_id = $customer->get_meta('mollie_customer_id');
+        $customer_id = $customer->get_meta('liquichain_customer_id');
 
-        // If there is no Mollie Customer ID set, check the most recent active subscription
+        // If there is no Liquichain Customer ID set, check the most recent active subscription
         if (empty($customer_id)) {
                 $customer_latest_subscription = wc_get_orders([
                     'limit' => 1,
@@ -572,70 +572,70 @@ class Data
                 ]);
 
             if (! empty($customer_latest_subscription)) {
-                $customer_id = get_post_meta($customer_latest_subscription[0]->get_id(), '_mollie_customer_id', $single = true);
+                $customer_id = get_post_meta($customer_latest_subscription[0]->get_id(), '_liquichain_customer_id', $single = true);
 
                 // Store this customer ID as user meta too
-                $this->setUserMollieCustomerId($user_id, $customer_id);
+                $this->setUserLiquichainCustomerId($user_id, $customer_id);
             }
         }
 
-        // If there is a Mollie Customer ID set, check that customer ID is valid for this API key
+        // If there is a Liquichain Customer ID set, check that customer ID is valid for this API key
         if (! empty($customer_id)) {
             try {
                 $this->api_helper->getApiClient($apiKey)->customers->get($customer_id);
-            } catch (\Mollie\Api\Exceptions\ApiException $e) {
-                $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . sprintf(': Mollie Customer ID (%s) not valid for user %s on this API key, try to create a new one (', $customer_id, $user_id) . ( $isTestModeEnabled ? 'test' : 'live' ) . ").");
+            } catch (\Liquichain\Api\Exceptions\ApiException $e) {
+                $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . sprintf(': Liquichain Customer ID (%s) not valid for user %s on this API key, try to create a new one (', $customer_id, $user_id) . ( $isTestModeEnabled ? 'test' : 'live' ) . ").");
                 $customer_id = '';
             }
         }
 
-        // If there is no Mollie Customer ID set, try to create a new Mollie Customer
+        // If there is no Liquichain Customer ID set, try to create a new Liquichain Customer
         if (empty($customer_id)) {
             try {
                 $userdata = get_userdata($user_id);
 
-                // Get the best name for use as Mollie Customer name
+                // Get the best name for use as Liquichain Customer name
                 $user_full_name = $userdata->first_name . ' ' . $userdata->last_name;
 
                 if (strlen(trim($user_full_name)) === null) {
                     $user_full_name = $userdata->display_name;
                 }
 
-                // Create the Mollie Customer
+                // Create the Liquichain Customer
                 $customer = $this->api_helper->getApiClient($apiKey)->customers->create([
                     'name' => trim($user_full_name),
                     'email' => trim($userdata->user_email),
                     'metadata' =>  [ 'user_id' => $user_id ],
                 ]);
 
-                $this->setUserMollieCustomerId($user_id, $customer->id);
+                $this->setUserLiquichainCustomerId($user_id, $customer->id);
 
                 $customer_id = $customer->id;
 
-                $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . sprintf(': Created a Mollie Customer (%s) for WordPress user with ID %s (', $customer_id, $user_id) . ( $isTestModeEnabled ? 'test' : 'live' ) . ").");
+                $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . sprintf(': Created a Liquichain Customer (%s) for WordPress user with ID %s (', $customer_id, $user_id) . ( $isTestModeEnabled ? 'test' : 'live' ) . ").");
 
                 return $customer_id;
-            } catch (\Mollie\Api\Exceptions\ApiException $e) {
-                $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . sprintf(': Could not create Mollie Customer for WordPress user with ID %s (', $user_id) . ( $isTestModeEnabled ? 'test' : 'live' ) . "): " . $e->getMessage() . ' (' . get_class($e) . ')');
+            } catch (\Liquichain\Api\Exceptions\ApiException $e) {
+                $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . sprintf(': Could not create Liquichain Customer for WordPress user with ID %s (', $user_id) . ( $isTestModeEnabled ? 'test' : 'live' ) . "): " . $e->getMessage() . ' (' . get_class($e) . ')');
             }
         } else {
-            $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . sprintf(': Mollie Customer ID (%s) found and valid for user %s on this API key. (', $customer_id, $user_id) . ( $isTestModeEnabled ? 'test' : 'live' ) . ").");
+            $this->logger->log(LogLevel::DEBUG, __FUNCTION__ . sprintf(': Liquichain Customer ID (%s) found and valid for user %s on this API key. (', $customer_id, $user_id) . ( $isTestModeEnabled ? 'test' : 'live' ) . ").");
         }
 
         return $customer_id;
     }
 
     /**
-     * Get active Mollie payment mode for order
+     * Get active Liquichain payment mode for order
      *
      * @param int $order_id
      * @return string test or live
      */
-    public function getActiveMolliePaymentMode($order_id)
+    public function getActiveLiquichainPaymentMode($order_id)
     {
         $order = wc_get_order($order_id);
 
-        return $order->get_meta('_mollie_payment_mode', true);
+        return $order->get_meta('_liquichain_payment_mode', true);
     }
 
     /**
@@ -684,7 +684,7 @@ class Data
     }
 
     /**
-     * Format currency value into Mollie API v2 format
+     * Format currency value into Liquichain API v2 format
      *
      * @param float|string $value
      *
@@ -692,7 +692,7 @@ class Data
      */
     public function formatCurrencyValue($value, $currency)
     {
-        return mollieWooCommerceFormatCurrencyValue($value, $currency);
+        return liquichainWooCommerceFormatCurrencyValue($value, $currency);
     }
 
     /**

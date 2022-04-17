@@ -14,9 +14,9 @@
             let uploadField = document.querySelector('#'+uploadFieldName)
 
             if (_.isEmpty(iconUrl)) {
-                uploadField.insertAdjacentHTML('afterend', '<div class="mollie_custom_icon"><p>' + message + '</p></div>');
+                uploadField.insertAdjacentHTML('afterend', '<div class="liquichain_custom_icon"><p>' + message + '</p></div>');
             } else {
-                uploadField.insertAdjacentHTML('afterend', '<div class="mollie_custom_icon"><img src="' + iconUrl + '" alt="custom icon image" width="100px"></div>');
+                uploadField.insertAdjacentHTML('afterend', '<div class="liquichain_custom_icon"><img src="' + iconUrl + '" alt="custom icon image" width="100px"></div>');
             }
 
         });
@@ -39,7 +39,7 @@
                 }
             }).change();
 
-            const payPalIconSelectorElement = $('#mollie_wc_gateway_paypal_color')
+            const payPalIconSelectorElement = $('#liquichain_wc_gateway_paypal_color')
             payPalIconSelectorElement.change(function() {
                 const fixedPath = pluginUrlImages + "/PayPal_Buttons/"
                 let buttonIcon = iconName(payPalIconSelectorElement.val())+".png"

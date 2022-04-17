@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Log;
+namespace Liquichain\WooCommerce\Log;
 
 use InvalidArgumentException;
 use Psr\Log\AbstractLogger;

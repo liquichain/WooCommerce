@@ -3,12 +3,12 @@ import {maybeShowButton} from './maybeShowApplePayButton.js';
 import {request} from './applePayRequest.js';
 
 (
-    function ({_, mollieApplePayDirectData, jQuery}) {
-        if (_.isEmpty(mollieApplePayDirectData)) {
+    function ({_, liquichainApplePayDirectData, jQuery}) {
+        if (_.isEmpty(liquichainApplePayDirectData)) {
             return
         }
 
-        const {product: {id, needShipping = true, isVariation = false, price}, shop: {countryCode, currencyCode = 'EUR', totalLabel = ''}, ajaxUrl} = mollieApplePayDirectData
+        const {product: {id, needShipping = true, isVariation = false, price}, shop: {countryCode, currencyCode = 'EUR', totalLabel = ''}, ajaxUrl} = liquichainApplePayDirectData
 
         if (!id || !price || !countryCode || !ajaxUrl) {
             return
@@ -28,7 +28,7 @@ import {request} from './applePayRequest.js';
         })
 
         if (isVariation) {
-            let appleButton = document.querySelector('#mollie_applepay_button');
+            let appleButton = document.querySelector('#liquichain_applepay_button');
             jQuery('.single_variation_wrap').on('show_variation', function (event, variation) {
                 // Fired when the user selects all the required dropdowns / attributes
                 // and a final variation is selected / shown
@@ -51,7 +51,7 @@ import {request} from './applePayRequest.js';
                         url: ajaxUrl,
                         method: 'POST',
                         data: {
-                            action: 'mollie_apple_pay_update_shipping_method',
+                            action: 'liquichain_apple_pay_update_shipping_method',
                             shippingMethod: event.shippingMethod,
                             productId: productId,
                             callerPage: 'productDetail',
@@ -80,7 +80,7 @@ import {request} from './applePayRequest.js';
                         url: ajaxUrl,
                         method: 'POST',
                         data: {
-                            action: 'mollie_apple_pay_update_shipping_contact',
+                            action: 'liquichain_apple_pay_update_shipping_contact',
                             productId: productId,
                             callerPage: 'productDetail',
                             productQuantity: productQuantity,
@@ -113,7 +113,7 @@ import {request} from './applePayRequest.js';
                     url: ajaxUrl,
                     method: 'POST',
                     data: {
-                        action: 'mollie_apple_pay_validation',
+                        action: 'liquichain_apple_pay_validation',
                         validationUrl: applePayValidateMerchantEvent.validationURL,
                         'woocommerce-process-checkout-nonce': nonce,
                     },
@@ -140,14 +140,14 @@ import {request} from './applePayRequest.js';
                     url: ajaxUrl,
                     method: 'POST',
                     data: {
-                        action: 'mollie_apple_pay_create_order',
+                        action: 'liquichain_apple_pay_create_order',
                         productId: productId,
                         productQuantity: productQuantity,
                         shippingContact: ApplePayPayment.payment.shippingContact,
                         billingContact: ApplePayPayment.payment.billingContact,
                         token: ApplePayPayment.payment.token,
                         shippingMethod: selectedShippingMethod,
-                        'mollie-payments-for-woocommerce_issuer_applepay': 'applepay',
+                        'liquichain-payments-for-woocommerce_issuer_applepay': 'applepay',
                         'woocommerce-process-checkout-nonce': nonce,
                         'billing_first_name':  billingContact.givenName || '',
                         'billing_last_name' : billingContact.familyName || '',
@@ -172,7 +172,7 @@ import {request} from './applePayRequest.js';
                         'shipping_phone' : shippingContact.phoneNumber || '000000000000',
                         'shipping_email' : shippingContact.emailAddress || '',
                         'order_comments' : '',
-                        'payment_method' : 'mollie_wc_gateway_applepay',
+                        'payment_method' : 'liquichain_wc_gateway_applepay',
                         '_wp_http_referer' : '/?wc-ajax=update_order_review'
                     },
                     complete: (jqXHR, textStatus) => {
@@ -196,7 +196,7 @@ import {request} from './applePayRequest.js';
                 })
             }
         }
-        document.querySelector('#mollie_applepay_button').addEventListener('click', (evt) => {
+        document.querySelector('#liquichain_applepay_button').addEventListener('click', (evt) => {
             applePaySession()
         })
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods\InstructionStrategies;
+namespace Liquichain\WooCommerce\PaymentMethods\InstructionStrategies;
 
 class DefaultInstructionStrategy implements InstructionStrategyI
 {
@@ -19,14 +19,14 @@ class DefaultInstructionStrategy implements InstructionStrategyI
                 // Message to admin
                 return __(
                     'We have not received a definite payment status.',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 );
             } else {
                 // Message to customer
                 return __(
                     'We have not received a definite payment status. You will receive an email
                      as soon as we receive a confirmation of the bank/merchant.',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 );
             }
         } elseif ($payment->isPaid()) {
@@ -34,7 +34,7 @@ class DefaultInstructionStrategy implements InstructionStrategyI
             /* translators: Placeholder 1: payment method */
                 __(
                     'Payment completed with <strong>%s</strong>',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 $gateway->get_title()
             );

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods\InstructionStrategies;
+namespace Liquichain\WooCommerce\PaymentMethods\InstructionStrategies;
 
 class MybankInstructionStrategy implements InstructionStrategyI
 {
@@ -17,9 +17,9 @@ class MybankInstructionStrategy implements InstructionStrategyI
         if ($payment->isPaid() && $payment->details) {
             return sprintf(
                 __(
-                /* translators: Placeholder 1: Mollie_WC_Gateway_MyBank consumer name, placeholder 2: Consumer Account number */
+                /* translators: Placeholder 1: Liquichain_WC_Gateway_MyBank consumer name, placeholder 2: Consumer Account number */
                     'Payment completed by <strong>%1$s</strong> - %2$s',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 $payment->details->consumerName,
                 $payment->details->consumerAccount

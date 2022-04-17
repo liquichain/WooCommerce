@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Klarnasliceit extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -11,10 +11,10 @@ class Klarnasliceit extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'klarnasliceit',
-            'defaultTitle' => __('Klarna Slice it', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('Klarna Slice it', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => __(
                 'To accept payments via Klarna, all default WooCommerce checkout fields should be enabled and required.',
-                'mollie-payments-for-woocommerce'
+                'liquichain-payments-for-woocommerce'
             ),
             'defaultDescription' => '',
             'paymentFields' => false,

@@ -1,12 +1,12 @@
 <?php
 
-namespace Mollie\WooCommerceTests\Functional\ApplePayButton;
+namespace Liquichain\WooCommerceTests\Functional\ApplePayButton;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Mollie\WooCommerce\Buttons\ApplePayButton\ApplePayDataObjectHttp;
-use Mollie\WooCommerceTests\Stubs\postDTOTestsStubs;
-use Mollie\WooCommerceTests\Functional\HelperMocks;
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\WooCommerce\Buttons\ApplePayButton\ApplePayDataObjectHttp;
+use Liquichain\WooCommerceTests\Stubs\postDTOTestsStubs;
+use Liquichain\WooCommerceTests\Functional\HelperMocks;
+use Liquichain\WooCommerceTests\TestCase;
 
 
 use function Brain\Monkey\Functions\expect;
@@ -171,7 +171,7 @@ class ApplePayDataObjectTest extends TestCase
          */
         $logger = $this->helperMocks->loggerMock();
         $dataObject = new ApplePayDataObjectHttp($logger);
-        expect('mollieWooCommerceDebug')
+        expect('liquichainWooCommerceDebug')
             ->withAnyArgs();
         $dataObject->validationData($postMissingIndex);
 

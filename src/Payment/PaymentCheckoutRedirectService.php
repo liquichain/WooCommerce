@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\WooCommerce\PaymentMethods\PaymentRedirectStrategies\DefaultRedirectStrategy;
-use Mollie\WooCommerce\PaymentMethods\PaymentRedirectStrategies\PaymentRedirectStrategyI;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\WooCommerce\PaymentMethods\PaymentRedirectStrategies\DefaultRedirectStrategy;
+use Liquichain\WooCommerce\PaymentMethods\PaymentRedirectStrategies\PaymentRedirectStrategyI;
+use Liquichain\WooCommerce\Shared\Data;
 use WC_Order;
 
 class PaymentCheckoutRedirectService
@@ -34,7 +34,7 @@ class PaymentCheckoutRedirectService
             $this->strategy = new DefaultRedirectStrategy();
             return;
         }
-        $className = 'Mollie\\WooCommerce\\PaymentMethods\\PaymentRedirectStrategies\\' . ucfirst(
+        $className = 'Liquichain\\WooCommerce\\PaymentMethods\\PaymentRedirectStrategies\\' . ucfirst(
                 $paymentMethod->getProperty('id')
             ) . 'RedirectStrategy';
         $this->strategy = class_exists($className) ? new $className() : new DefaultRedirectStrategy();

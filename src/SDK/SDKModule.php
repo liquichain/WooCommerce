@@ -4,16 +4,16 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\SDK;
+namespace Liquichain\WooCommerce\SDK;
 
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
-use Mollie\Api\Resources\Refund;
-use Mollie\WooCommerce\Gateway\AbstractGateway;
-use Mollie\WooCommerce\Notice\AdminNotice;
-use Mollie\WooCommerce\Plugin;
-use Mollie\WooCommerce\SDK\HttpResponse;
+use Liquichain\Api\Resources\Refund;
+use Liquichain\WooCommerce\Gateway\AbstractGateway;
+use Liquichain\WooCommerce\Notice\AdminNotice;
+use Liquichain\WooCommerce\Plugin;
+use Liquichain\WooCommerce\SDK\HttpResponse;
 use Psr\Container\ContainerInterface;
 
 class SDKModule implements ExecutableModule, ServiceModule

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the  Mollie\WooCommerce.
+ * This file is part of the  Liquichain\WooCommerce.
  *
  * (c) Inpsyde GmbH
  *
@@ -10,7 +10,7 @@
  * PHP version 7
  *
  * @category Activation
- * @package  Mollie\WooCommerce
+ * @package  Liquichain\WooCommerce
  * @author   AuthorName <hello@inpsyde.com>
  * @license  GPLv2+
  * @link     https://www.inpsyde.com
@@ -20,11 +20,11 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Gateway\Voucher;
+namespace Liquichain\WooCommerce\Gateway\Voucher;
 
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Mollie\WooCommerce\PaymentMethods\Voucher;
+use Liquichain\WooCommerce\PaymentMethods\Voucher;
 use Psr\Container\ContainerInterface;
 
 class VoucherModule implements ExecutableModule
@@ -39,7 +39,7 @@ class VoucherModule implements ExecutableModule
     public function run(ContainerInterface $container): bool
     {
         $gatewayInstances = $container->get('gateway.instances');
-        $voucherGateway = isset($gatewayInstances['mollie_wc_gateway_voucher'])?$gatewayInstances['mollie_wc_gateway_voucher']:false;
+        $voucherGateway = isset($gatewayInstances['liquichain_wc_gateway_voucher'])?$gatewayInstances['liquichain_wc_gateway_voucher']:false;
         $voucher = $voucherGateway? $voucherGateway->enabled === 'yes': false;
 
         if($voucher){
@@ -54,16 +54,16 @@ class VoucherModule implements ExecutableModule
         add_filter(
                 'woocommerce_product_data_tabs',
                 static function ($tabs) {
-                    $tabs['MollieSettingsPage'] = [
-                            'label' => __('Mollie Settings', 'mollie-payments-for-woocommerce'),
-                            'target' => 'mollie_options',
+                    $tabs['LiquichainSettingsPage'] = [
+                            'label' => __('Liquichain Settings', 'liquichain-payments-for-woocommerce'),
+                            'target' => 'liquichain_options',
                             'class' => ['show_if_simple', 'show_if_variable'],
                     ];
 
                     return $tabs;
                 }
         );
-        add_filter('woocommerce_product_data_panels', [$this, 'mollieOptionsProductTabContent']);
+        add_filter('woocommerce_product_data_panels', [$this, 'liquichainOptionsProductTabContent']);
         add_action('woocommerce_process_product_meta_simple', [$this, 'saveProductVoucherOptionFields']);
         add_action('woocommerce_process_product_meta_variable', [$this, 'saveProductVoucherOptionFields']);
         add_action('woocommerce_product_after_variable_attributes', [$this, 'voucherFieldInVariations'], 10, 3);
@@ -85,14 +85,14 @@ class VoucherModule implements ExecutableModule
         ?>
         <div class="inline-edit-group">
             <label class="alignleft">
-                <span class="title"><?php _e('Mollie Voucher Category', 'mollie-payments-for-woocommerce'); ?></span>
+                <span class="title"><?php _e('Liquichain Voucher Category', 'liquichain-payments-for-woocommerce'); ?></span>
                 <span class="input-text-wrap">
-                <select name="_mollie_voucher_category" class="select">
-                   <option value=""><?php _e('--Please choose an option--', 'mollie-payments-for-woocommerce'); ?></option>
-                   <option value="no_category"> <?php _e('No Category', 'mollie-payments-for-woocommerce'); ?></option>
-                   <option value="meal"><?php _e('Meal', 'mollie-payments-for-woocommerce'); ?></option>
-                   <option value="eco"><?php _e('Eco', 'mollie-payments-for-woocommerce'); ?></option>
-                   <option value="gift"><?php _e('Gift', 'mollie-payments-for-woocommerce'); ?></option>
+                <select name="_liquichain_voucher_category" class="select">
+                   <option value=""><?php _e('--Please choose an option--', 'liquichain-payments-for-woocommerce'); ?></option>
+                   <option value="no_category"> <?php _e('No Category', 'liquichain-payments-for-woocommerce'); ?></option>
+                   <option value="meal"><?php _e('Meal', 'liquichain-payments-for-woocommerce'); ?></option>
+                   <option value="eco"><?php _e('Eco', 'liquichain-payments-for-woocommerce'); ?></option>
+                   <option value="gift"><?php _e('Gift', 'liquichain-payments-for-woocommerce'); ?></option>
                 </select>
          </span>
             </label>
@@ -120,15 +120,15 @@ class VoucherModule implements ExecutableModule
     {
         ?>
         <div class="form-field">
-            <label for="_mollie_voucher_category"><?php _e('Mollie Voucher Category', 'mollie-payments-for-woocommerce'); ?></label>
-            <select name="_mollie_voucher_category" id="_mollie_voucher_category" class="select">
-                <option value=""><?php _e('--Please choose an option--', 'mollie-payments-for-woocommerce'); ?></option>
-                <option value="no_category"> <?php _e('No Category', 'mollie-payments-for-woocommerce'); ?></option>
-                <option value="meal"><?php _e('Meal', 'mollie-payments-for-woocommerce'); ?></option>
-                <option value="eco"><?php _e('Eco', 'mollie-payments-for-woocommerce'); ?></option>
-                <option value="gift"><?php _e('Gift', 'mollie-payments-for-woocommerce'); ?></option>
+            <label for="_liquichain_voucher_category"><?php _e('Liquichain Voucher Category', 'liquichain-payments-for-woocommerce'); ?></label>
+            <select name="_liquichain_voucher_category" id="_liquichain_voucher_category" class="select">
+                <option value=""><?php _e('--Please choose an option--', 'liquichain-payments-for-woocommerce'); ?></option>
+                <option value="no_category"> <?php _e('No Category', 'liquichain-payments-for-woocommerce'); ?></option>
+                <option value="meal"><?php _e('Meal', 'liquichain-payments-for-woocommerce'); ?></option>
+                <option value="eco"><?php _e('Eco', 'liquichain-payments-for-woocommerce'); ?></option>
+                <option value="gift"><?php _e('Gift', 'liquichain-payments-for-woocommerce'); ?></option>
             </select>
-            <p class="description"><?php _e('Select a voucher category to apply to all products with this category', 'mollie-payments-for-woocommerce'); ?></p>
+            <p class="description"><?php _e('Select a voucher category to apply to all products with this category', 'liquichain-payments-for-woocommerce'); ?></p>
         </div>
         <?php
     }
@@ -139,35 +139,35 @@ class VoucherModule implements ExecutableModule
     public function voucherTaxonomyFieldOnEditPage($term)
     {
         $term_id = $term->term_id;
-        $savedCategory = get_term_meta($term_id, '_mollie_voucher_category', true);
+        $savedCategory = get_term_meta($term_id, '_liquichain_voucher_category', true);
 
         ?>
         <tr class="form-field">
-            <th scope="row" valign="top"><label for="_mollie_voucher_category"><?php _e('Mollie Voucher Category', 'mollie-payments-for-woocommerce'); ?></label></th>
+            <th scope="row" valign="top"><label for="_liquichain_voucher_category"><?php _e('Liquichain Voucher Category', 'liquichain-payments-for-woocommerce'); ?></label></th>
             <td>
-                <select name="_mollie_voucher_category" id="_mollie_voucher_category" class="select">
+                <select name="_liquichain_voucher_category" id="_liquichain_voucher_category" class="select">
                     <option value="">
                         <?php _e(
                             '--Please choose an option--',
-                            'mollie-payments-for-woocommerce'
+                            'liquichain-payments-for-woocommerce'
                         ); ?></option>
                     <option value="no_category" <?php selected($savedCategory, 'no_category'); ?>>
-                        <?php _e('No Category', 'mollie-payments-for-woocommerce'); ?>
+                        <?php _e('No Category', 'liquichain-payments-for-woocommerce'); ?>
                     </option>
                     <option value="meal" <?php selected($savedCategory, 'meal'); ?>>
-                        <?php _e('Meal', 'mollie-payments-for-woocommerce'); ?>
+                        <?php _e('Meal', 'liquichain-payments-for-woocommerce'); ?>
                     </option>
                     <option value="eco" <?php selected($savedCategory, 'eco'); ?>>
-                        <?php _e('Eco', 'mollie-payments-for-woocommerce'); ?>
+                        <?php _e('Eco', 'liquichain-payments-for-woocommerce'); ?>
                     </option>
                     <option value="gift" <?php selected($savedCategory, 'gift'); ?>>
-                        <?php _e('Gift', 'mollie-payments-for-woocommerce'); ?>
+                        <?php _e('Gift', 'liquichain-payments-for-woocommerce'); ?>
                     </option>
                 </select>
                 <p class="description">
                     <?php _e(
                         'Select a voucher category to apply to all products with this category',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     ); ?>
                 </p>
             </td>
@@ -181,21 +181,21 @@ class VoucherModule implements ExecutableModule
     public function voucherTaxonomyCustomMetaSave($term_id)
     {
 
-        $metaOption = filter_input(INPUT_POST, '_mollie_voucher_category', FILTER_SANITIZE_STRING);
+        $metaOption = filter_input(INPUT_POST, '_liquichain_voucher_category', FILTER_SANITIZE_STRING);
 
-        update_term_meta($term_id, '_mollie_voucher_category', $metaOption);
+        update_term_meta($term_id, '_liquichain_voucher_category', $metaOption);
     }
 
     /**
-     * Contents of the Mollie options product tab.
+     * Contents of the Liquichain options product tab.
      */
-    public function mollieOptionsProductTabContent()
+    public function liquichainOptionsProductTabContent()
     {
         ?>
-        <div id='mollie_options' class='panel woocommerce_options_panel'><div class='options_group'><?php
-            $voucherSettings = get_option('mollie_wc_gateway_voucher_settings');
+        <div id='liquichain_options' class='panel woocommerce_options_panel'><div class='options_group'><?php
+            $voucherSettings = get_option('liquichain_wc_gateway_voucher_settings');
             if(!$voucherSettings){
-                $voucherSettings = get_option('mollie_wc_gateway_mealvoucher_settings');
+                $voucherSettings = get_option('liquichain_wc_gateway_mealvoucher_settings');
             }
             $defaultCategory = $voucherSettings
                     ? $voucherSettings['mealvoucher_category_default']
@@ -205,20 +205,20 @@ class VoucherModule implements ExecutableModule
                     'id' => Voucher::MOLLIE_VOUCHER_CATEGORY_OPTION,
                     'title' => __(
                         'Select the default products category',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     ),
                     'label' => __(
                         'Products voucher category',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     ),
 
                     'type' => 'select',
                     'options' => [
-                        $defaultCategory => __('Same as default category', 'mollie-payments-for-woocommerce'),
-                        Voucher::NO_CATEGORY => __('No Category', 'mollie-payments-for-woocommerce'),
-                        Voucher::MEAL => __('Meal', 'mollie-payments-for-woocommerce'),
-                        Voucher::ECO => __('Eco', 'mollie-payments-for-woocommerce'),
-                        Voucher::GIFT => __('Gift', 'mollie-payments-for-woocommerce'),
+                        $defaultCategory => __('Same as default category', 'liquichain-payments-for-woocommerce'),
+                        Voucher::NO_CATEGORY => __('No Category', 'liquichain-payments-for-woocommerce'),
+                        Voucher::MEAL => __('Meal', 'liquichain-payments-for-woocommerce'),
+                        Voucher::ECO => __('Eco', 'liquichain-payments-for-woocommerce'),
+                        Voucher::GIFT => __('Gift', 'liquichain-payments-for-woocommerce'),
 
                     ],
                     'default' => $defaultCategory,
@@ -226,7 +226,7 @@ class VoucherModule implements ExecutableModule
                     'description' => sprintf(
                         __(
                             'In order to process it, all products in the order must have a category. To disable the product from voucher selection select "No category" option.',
-                            'mollie-payments-for-woocommerce'
+                            'liquichain-payments-for-woocommerce'
                         )
                     ),
                     'desc_tip' => true,
@@ -268,7 +268,7 @@ class VoucherModule implements ExecutableModule
     public function voucherFieldInVariations($loop, $variation_data, $variation)
     {
         $voucherSettings = get_option(
-            'mollie_wc_gateway_mealvoucher_settings'
+            'liquichain_wc_gateway_mealvoucher_settings'
         );
         $defaultCategory = $voucherSettings ?
             $voucherSettings['mealvoucher_category_default']
@@ -276,14 +276,14 @@ class VoucherModule implements ExecutableModule
         woocommerce_wp_select(
             [
                 'id' => 'voucher[' . $variation->ID . ']',
-                'label' => __('Mollie Voucher category', 'mollie-payments-for-woocommerce'),
+                'label' => __('Liquichain Voucher category', 'liquichain-payments-for-woocommerce'),
                 'value' => get_post_meta($variation->ID, 'voucher', true),
                 'options' => [
-                    $defaultCategory => __('Same as default category', 'mollie-payments-for-woocommerce'),
-                    Voucher::NO_CATEGORY => __('No Category', 'mollie-payments-for-woocommerce'),
-                    Voucher::MEAL => __('Meal', 'mollie-payments-for-woocommerce'),
-                    Voucher::ECO => __('Eco', 'mollie-payments-for-woocommerce'),
-                    Voucher::GIFT => __('Gift', 'mollie-payments-for-woocommerce'),
+                    $defaultCategory => __('Same as default category', 'liquichain-payments-for-woocommerce'),
+                    Voucher::NO_CATEGORY => __('No Category', 'liquichain-payments-for-woocommerce'),
+                    Voucher::MEAL => __('Meal', 'liquichain-payments-for-woocommerce'),
+                    Voucher::ECO => __('Eco', 'liquichain-payments-for-woocommerce'),
+                    Voucher::GIFT => __('Gift', 'liquichain-payments-for-woocommerce'),
                 ],
             ]
         );

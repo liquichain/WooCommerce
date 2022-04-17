@@ -1,17 +1,17 @@
 
 (
-    function ({_, molliepaypalbutton, jQuery}) {
+    function ({_, liquichainpaypalbutton, jQuery}) {
 
-        if (_.isEmpty(molliepaypalbutton)) {
+        if (_.isEmpty(liquichainpaypalbutton)) {
             return
         }
 
-        const {product: {id, needShipping = true, isVariation = false, price, minFee}, ajaxUrl} = molliepaypalbutton
+        const {product: {id, needShipping = true, isVariation = false, price, minFee}, ajaxUrl} = liquichainpaypalbutton
 
         if (!id || !price || !ajaxUrl) {
             return
         }
-        const payPalButton = document.querySelector('#mollie-PayPal-button');
+        const payPalButton = document.querySelector('#liquichain-PayPal-button');
 
         const maybeShowButton = (underRange) => {
             if(underRange){
@@ -26,7 +26,7 @@
                 url: ajaxUrl,
                 method: 'POST',
                 data: {
-                    action: 'mollie_paypal_update_amount',
+                    action: 'liquichain_paypal_update_amount',
                     productId: productId,
                     productQuantity: productQuantity,
                     nonce: nonce,
@@ -87,7 +87,7 @@
             return
         }
         let preventSpam = false
-        document.querySelector('#mollie-PayPal-button').addEventListener('click', (evt) => {
+        document.querySelector('#liquichain-PayPal-button').addEventListener('click', (evt) => {
             if(!(payPalButton.parentNode !== null) || payPalButton.disabled){
                 return
             }
@@ -98,11 +98,11 @@
                     url: ajaxUrl,
                     method: 'POST',
                     data: {
-                        action: 'mollie_paypal_create_order',
+                        action: 'liquichain_paypal_create_order',
                         productId: productId,
                         productQuantity: productQuantity,
                         needShipping: needShipping,
-                        'mollie-payments-for-woocommerce_issuer_paypal_button': 'paypal',
+                        'liquichain-payments-for-woocommerce_issuer_paypal_button': 'paypal',
                         nonce: nonce,
                     },
                     success: (response) => {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mollie\WooCommerce\PaymentMethods\PaymentFieldsStrategies;
+namespace Liquichain\WooCommerce\PaymentMethods\PaymentFieldsStrategies;
 
 trait IssuersDropdownBehavior
 {
@@ -72,7 +72,7 @@ trait IssuersDropdownBehavior
         ) ?: $gateway->paymentMethod->getProperty('defaultDescription');
 
         $html = '<option value="">' . esc_html(
-            __($description, 'mollie-payments-for-woocommerce')
+            __($description, 'liquichain-payments-for-woocommerce')
         ) . '</option>';
         foreach ($issuers as $issuer) {
             $html .= '<option value="' . esc_attr($issuer->id) . '"'

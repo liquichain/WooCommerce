@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\Api\Endpoints\OrderEndpoint;
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Order;
-use Mollie\Api\Resources\Refund;
-use Mollie\WooCommerce\Plugin;
-use Mollie\WooCommerce\Shared\Data;
+use Liquichain\Api\Endpoints\OrderEndpoint;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\Api\Resources\Order;
+use Liquichain\Api\Resources\Refund;
+use Liquichain\WooCommerce\Plugin;
+use Liquichain\WooCommerce\Shared\Data;
 use UnexpectedValueException;
 use WC_Order;
 use WC_Order_Item;
@@ -22,11 +22,11 @@ class OrderItemsRefunder
     /**
      * @var string
      */
-    const ACTION_AFTER_REFUND_ORDER_ITEMS = 'mollie-payments-for-woocommerce_refund_items_created';
+    const ACTION_AFTER_REFUND_ORDER_ITEMS = 'liquichain-payments-for-woocommerce_refund_items_created';
     /**
      * @var string
      */
-    const ACTION_AFTER_CANCELED_ORDER_ITEMS = 'mollie-payments-for-woocommerce_line_items_cancelled';
+    const ACTION_AFTER_CANCELED_ORDER_ITEMS = 'liquichain-payments-for-woocommerce_line_items_cancelled';
 
     /**
      * @var RefundLineItemsBuilder
@@ -60,7 +60,7 @@ class OrderItemsRefunder
     /**
      * @param WC_Order $order WooCommerce Order
      * @param array $items WooCommerce Order Items
-     * @param Order $remotePaymentObject Mollie Order service
+     * @param Order $remotePaymentObject Liquichain Order service
      * @param string $refundReason The reason of refunding
      * @return bool
      * @throws ApiException When the API call fails for any reason
@@ -119,8 +119,8 @@ class OrderItemsRefunder
             if (!$toRefundItemId) {
                 throw new UnexpectedValueException(
                     __(
-                        'One of the WooCommerce order items does not have the refund item ID meta value associated to Mollie Order item.',
-                        'mollie-payments-for-woocommerce'
+                        'One of the WooCommerce order items does not have the refund item ID meta value associated to Liquichain Order item.',
+                        'liquichain-payments-for-woocommerce'
                     )
                 );
             }
@@ -165,7 +165,7 @@ class OrderItemsRefunder
                     sprintf(
                         __(
                             'Impossible to retrieve the order item ID related to the remote item: %1$s. Try to do a refund by amount.',
-                            'mollie-payments-for-woocommerce'
+                            'liquichain-payments-for-woocommerce'
                         ),
                         $remoteItem->id
                     )
@@ -188,8 +188,8 @@ class OrderItemsRefunder
         if (empty($items) || empty($remoteItems)) {
             throw new UnexpectedValueException(
                 __(
-                    'Empty WooCommerce order items or mollie order lines.',
-                    'mollie-payments-for-woocommerce'
+                    'Empty WooCommerce order items or liquichain order lines.',
+                    'liquichain-payments-for-woocommerce'
                 )
             );
         }
@@ -206,7 +206,7 @@ class OrderItemsRefunder
         /**
          * Canceled Order Lines
          *
-         * @param array $data Data sent to Mollie cancel endpoint
+         * @param array $data Data sent to Liquichain cancel endpoint
          * @param WC_Order $order
          */
         do_action(self::ACTION_AFTER_CANCELED_ORDER_ITEMS, $data, $order);
@@ -224,7 +224,7 @@ class OrderItemsRefunder
          *
          * @param Refund $refund Refund instance
          * @param WC_Order $order
-         * @param array $data Data sent to Mollie refund endpoint
+         * @param array $data Data sent to Liquichain refund endpoint
          */
         do_action(self::ACTION_AFTER_REFUND_ORDER_ITEMS, $refund, $order, $data);
     }

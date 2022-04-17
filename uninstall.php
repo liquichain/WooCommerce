@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce;
+namespace Liquichain\WooCommerce;
 
 use Inpsyde\Modularity\Package;
 use Inpsyde\Modularity\Properties\PluginProperties;
-use Mollie\WooCommerce\Uninstall\CleanDb;
-use Mollie\WooCommerce\Uninstall\UninstallModule;
+use Liquichain\WooCommerce\Uninstall\CleanDb;
+use Liquichain\WooCommerce\Uninstall\UninstallModule;
 use Throwable;
 
 if ( !defined('WP_UNINSTALL_PLUGIN' ) ) {
@@ -27,7 +27,7 @@ if ( !defined('WP_UNINSTALL_PLUGIN' ) ) {
         $bootstrap->boot(
             new UninstallModule()
         );
-        $shouldClean = get_option('mollie-payments-for-woocommerce_removeOptionsAndTransients') === 'yes';
+        $shouldClean = get_option('liquichain-payments-for-woocommerce_removeOptionsAndTransients') === 'yes';
         if($shouldClean){
             $cleaner = $bootstrap->container()->get(CleanDb::class);
             $cleaner->cleanAll();

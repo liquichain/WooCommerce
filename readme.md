@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="https://info.mollie.com/hubfs/github/woocommerce/logo.png" width="128" height="128"/>
+  <img src="https://info.liquichain.io/hubfs/github/woocommerce/logo.png" width="128" height="128"/>
 </p>
-<h1 align="center">Mollie for WooCommerce</h1>
+<h1 align="center">Liquichain for WooCommerce</h1>
   
-Quickly integrate all major payment methods in WooCommerce, wherever you need them. Simply drop them ready-made into your WooCommerce webshop with this powerful plugin by Mollie. Mollie is dedicated to making payments better for WooCommerce.
+Quickly integrate all major payment methods in WooCommerce, wherever you need them. Simply drop them ready-made into your WooCommerce webshop with this powerful plugin by Liquichain. Liquichain is dedicated to making payments better for WooCommerce.
 
 > Next level payments, for WooCommerce
 
@@ -49,19 +49,19 @@ Pay after delivery payment methods:
 * Klarna Pay later (Netherlands, Belgium, Germany, Austria, Finland)
 * Klarna Slice it (Germany, Austria, Finland)
 
-Please go to the [signup page](https://www.mollie.com/signup) to create a new Mollie account and start receiving payments in a couple of minutes. Contact info@mollie.com if you have any questions or comments about this plugin.
+Please go to the [signup page](https://www.liquichain.io/signup) to create a new Liquichain account and start receiving payments in a couple of minutes. Contact info@liquichain.io if you have any questions or comments about this plugin.
 
 > Our pricing is always per transaction. No startup fees, no monthly fees, and no gateway fees. No hidden fees, period.
 
 ### Features
 
-* Support for all available Mollie payment methods
+* Support for all available Liquichain payment methods
 * Compatible with WooCommerce Subscriptions for recurring payments (Apple Pay, credit card, iDEAL, and more via SEPA Direct Debit)
 * Transparent pricing. No startup fees, no monthly fees, and no gateway fees. No hidden fees, period.
 * Edit the order, title and description of every payment method in WooCommerce checkout
 * Support for full and partial payment refunds (WooCommerce 2.2+)
 * Configurable pay outs: daily, weekly, monthly - whatever you prefer
-* [Powerful dashboard](https://www.mollie.com/en/features/dashboard) on mollie.com to easily keep track of your payments.
+* [Powerful dashboard](https://www.liquichain.io/en/features/dashboard) on liquichain.io to easily keep track of your payments.
 * Fast in-house support. You will always be helped by someone who knows our products intimately.
 * Multiple translations: English, Dutch, German and French
 * Event log for debugging purposes
@@ -72,4 +72,4 @@ https://user-images.githubusercontent.com/45061744/133243432-9b5ba527-4830-4ade-
 
 # License
 [GPLv2 (GNU General Public License, version 2) License](http://www.gnu.org/licenses/gpl-2.0.html).
-Copyright (c) 2014-2018, Mollie B.V.
+Copyright (c) 2014-2018, Liquichain B.V.

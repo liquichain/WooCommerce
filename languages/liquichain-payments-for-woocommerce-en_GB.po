@@ -1,9 +1,9 @@
-# Copyright (C) 2022 Mollie
+# Copyright (C) 2022 Liquichain
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Mollie Payments for WooCommerce 6.7.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mollie-payments-for-woocommerce\n"
+"Project-Id-Version: Liquichain Payments for WooCommerce 6.7.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/liquichain-payments-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,7 +12,7 @@ msgstr ""
 "POT-Creation-Date: 2022-01-18T10:01:34+00:00\n"
 "PO-Revision-Date: 2022-02-01 11:36+0100\n"
 "X-Generator: WP-CLI 2.5.0\n"
-"X-Domain: mollie-payments-for-woocommerce\n"
+"X-Domain: liquichain-payments-for-woocommerce\n"
 
 #: src/PaymentMethods/Creditcard.php:13
 msgid "Credit card"

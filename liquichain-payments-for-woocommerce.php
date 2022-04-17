@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: Mollie Payments for WooCommerce
- * Plugin URI: https://www.mollie.com
- * Description: Accept payments in WooCommerce with the official Mollie plugin
+ * Plugin Name: Liquichain Payments for WooCommerce
+ * Plugin URI: https://www.liquichain.io
+ * Description: Accept payments in WooCommerce with the official Liquichain plugin
  * Version: 7.1.0-beta1
- * Author: Mollie
- * Author URI: https://www.mollie.com
+ * Author: Liquichain
+ * Author URI: https://www.liquichain.io
  * Requires at least: 5.0
  * Tested up to: 5.9
- * Text Domain: mollie-payments-for-woocommerce
+ * Text Domain: liquichain-payments-for-woocommerce
  * Domain Path: /languages
  * License: GPLv2 or later
  * WC requires at least: 3.0
@@ -17,22 +17,22 @@
  */
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce;
+namespace Liquichain\WooCommerce;
 
 use Inpsyde\Modularity\Package;
 use Inpsyde\Modularity\Properties\PluginProperties;
-use Mollie\WooCommerce\Activation\ActivationModule;
-use Mollie\WooCommerce\Activation\ConstraintsChecker;
-use Mollie\WooCommerce\Assets\AssetsModule;
-use Mollie\WooCommerce\Shared\SharedModule;
-use Mollie\WooCommerce\Gateway\GatewayModule;
-use Mollie\WooCommerce\Gateway\Voucher\VoucherModule;
-use Mollie\WooCommerce\Log\LogModule;
-use Mollie\WooCommerce\Notice\NoticeModule;
-use Mollie\WooCommerce\Payment\PaymentModule;
-use Mollie\WooCommerce\SDK\SDKModule;
-use Mollie\WooCommerce\Settings\SettingsModule;
-use Mollie\WooCommerce\Uninstall\UninstallModule;
+use Liquichain\WooCommerce\Activation\ActivationModule;
+use Liquichain\WooCommerce\Activation\ConstraintsChecker;
+use Liquichain\WooCommerce\Assets\AssetsModule;
+use Liquichain\WooCommerce\Shared\SharedModule;
+use Liquichain\WooCommerce\Gateway\GatewayModule;
+use Liquichain\WooCommerce\Gateway\Voucher\VoucherModule;
+use Liquichain\WooCommerce\Log\LogModule;
+use Liquichain\WooCommerce\Notice\NoticeModule;
+use Liquichain\WooCommerce\Payment\PaymentModule;
+use Liquichain\WooCommerce\SDK\SDKModule;
+use Liquichain\WooCommerce\Settings\SettingsModule;
+use Liquichain\WooCommerce\Uninstall\UninstallModule;
 use Throwable;
 
 require_once(ABSPATH . 'wp-admin/includes/plugin.php');
@@ -48,30 +48,30 @@ if (!defined('M4W_PLUGIN_URL')) {
 /**
  * Called when plugin is activated
  */
-function mollie_wc_plugin_activation_hook()
+function liquichain_wc_plugin_activation_hook()
 {
     require_once __DIR__ . '/inc/functions.php';
 
-    if (!mollie_wc_plugin_autoload()) {
+    if (!liquichain_wc_plugin_autoload()) {
         return;
     }
 
-    mollieDeleteWPTranslationFiles();
+    liquichainDeleteWPTranslationFiles();
 }
 
 
-function mollie_wc_plugin_autoload()
+function liquichain_wc_plugin_autoload()
 {
     $autoloader = __DIR__ . '/vendor/autoload.php';
-    $mollieSdkAutoload = __DIR__ . '/vendor/mollie/mollie-api-php/vendor/autoload.php';
+    $liquichainSdkAutoload = __DIR__ . '/vendor/liquichain/liquichain-api-php/vendor/autoload.php';
     if (file_exists($autoloader)) {
         /** @noinspection PhpIncludeInspection */
         require $autoloader;
     }
 
-    if (file_exists($mollieSdkAutoload)) {
+    if (file_exists($liquichainSdkAutoload)) {
         /** @noinspection PhpIncludeInspection */
-        require $mollieSdkAutoload;
+        require $liquichainSdkAutoload;
     }
     return true;
 }
@@ -107,7 +107,7 @@ function errorNotice(string $message)
  */
 function handleException(Throwable $throwable)
 {
-    do_action('inpsyde.mollie-woocommerce.critical', $throwable);
+    do_action('inpsyde.liquichain-woocommerce.critical', $throwable);
 
     errorNotice(
         sprintf(
@@ -128,7 +128,7 @@ function initialize()
     try {
         require_once __DIR__ . '/inc/functions.php';
 
-        if (!mollie_wc_plugin_autoload()) {
+        if (!liquichain_wc_plugin_autoload()) {
             return;
         }
 
@@ -146,7 +146,7 @@ function initialize()
         $bootstrap = Package::new($properties);
         $modules = [
             new ActivationModule(__FILE__),
-            new LogModule('mollie-payments-for-woocommerce-'),
+            new LogModule('liquichain-payments-for-woocommerce-'),
             new NoticeModule(),
             new SharedModule(),
             new SDKModule(),
@@ -157,7 +157,7 @@ function initialize()
             new PaymentModule(),
             new UninstallModule()
         ];
-        $modules = apply_filters('mollie_wc_plugin_modules', $modules);
+        $modules = apply_filters('liquichain_wc_plugin_modules', $modules);
         $bootstrap->boot(...$modules);
     } catch (Throwable $throwable) {
         handleException($throwable);
@@ -166,4 +166,4 @@ function initialize()
 
 add_action('plugins_loaded', __NAMESPACE__ . '\\initialize');
 
-register_activation_hook(M4W_FILE, __NAMESPACE__ . '\mollie_wc_plugin_activation_hook');
+register_activation_hook(M4W_FILE, __NAMESPACE__ . '\liquichain_wc_plugin_activation_hook');

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Buttons\PayPalButton;
+namespace Liquichain\WooCommerce\Buttons\PayPalButton;
 
-use Mollie\WooCommerce\Gateway\Surcharge;
-use Mollie\WooCommerce\Notice\NoticeInterface;
-use Mollie\WooCommerce\Shared\GatewaySurchargeHandler;
+use Liquichain\WooCommerce\Gateway\Surcharge;
+use Liquichain\WooCommerce\Notice\NoticeInterface;
+use Liquichain\WooCommerce\Shared\GatewaySurchargeHandler;
 use Psr\Log\LoggerInterface as Logger;
 use Psr\Log\LogLevel;
 use WC_Data_Exception;
@@ -76,7 +76,7 @@ class PayPalAjaxRequests
      * and the url to redirect the user
      *
      * @throws WC_Data_Exception
-     * @throws \Mollie\Api\Exceptions\ApiException
+     * @throws \Liquichain\Api\Exceptions\ApiException
      */
     public function createWcOrder()
     {
@@ -94,7 +94,7 @@ class PayPalAjaxRequests
 
         $surcharge = new Surcharge();
         $surchargeHandler = new GatewaySurchargeHandler($surcharge);
-        $order = $surchargeHandler->addSurchargeFeeProductPage($order, 'mollie_wc_gateway_paypal');
+        $order = $surchargeHandler->addSurchargeFeeProductPage($order, 'liquichain_wc_gateway_paypal');
 
         $orderId = $order->get_id();
         $order->calculate_totals();
@@ -112,7 +112,7 @@ class PayPalAjaxRequests
             $message = sprintf(
                 __(
                     'Could not create %s payment.',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 'PayPal'
             );
@@ -129,7 +129,7 @@ class PayPalAjaxRequests
      * and the url to redirect the user
      *
      * @throws WC_Data_Exception
-     * @throws \Mollie\Api\Exceptions\ApiException
+     * @throws \Liquichain\Api\Exceptions\ApiException
      */
     public function createWcOrderFromCart()
     {
@@ -147,7 +147,7 @@ class PayPalAjaxRequests
         $order->calculate_totals();
         $surcharge = new Surcharge();
         $surchargeHandler = new GatewaySurchargeHandler($surcharge);
-        $order = $surchargeHandler->addSurchargeFeeProductPage($order, 'mollie_wc_gateway_paypal');
+        $order = $surchargeHandler->addSurchargeFeeProductPage($order, 'liquichain_wc_gateway_paypal');
         $this->updateOrderPostMeta($orderId, $order);
         $result = $this->processOrderPayment($orderId);
         if (
@@ -160,7 +160,7 @@ class PayPalAjaxRequests
             $message = sprintf(
                 __(
                     'Could not create %s payment.',
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 ),
                 'PayPal'
             );
@@ -215,7 +215,7 @@ class PayPalAjaxRequests
         update_post_meta(
             $orderId,
             '_payment_method',
-            'mollie_wc_gateway_paypal'
+            'liquichain_wc_gateway_paypal'
         );
         update_post_meta($orderId, '_payment_method_title', 'PayPal');
         $order->update_status(
@@ -231,7 +231,7 @@ class PayPalAjaxRequests
      * @param int $orderId
      *
      * @return array|string[]
-     * @throws \Mollie\Api\Exceptions\ApiException
+     * @throws \Liquichain\Api\Exceptions\ApiException
      */
     protected function processOrderPayment($orderId)
     {
@@ -266,7 +266,7 @@ class PayPalAjaxRequests
 
         $isNonceValid = wp_verify_nonce(
             $PayPalRequestDataObject->nonce,
-            'mollie_PayPal_button'
+            'liquichain_PayPal_button'
         );
         $this->logger->log(LogLevel::DEBUG, 'ISNONCEVALID' . $isNonceValid);
         return $isNonceValid;

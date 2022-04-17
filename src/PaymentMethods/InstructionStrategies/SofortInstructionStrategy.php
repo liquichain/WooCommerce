@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods\InstructionStrategies;
+namespace Liquichain\WooCommerce\PaymentMethods\InstructionStrategies;
 
 class SofortInstructionStrategy implements InstructionStrategyI
 {
@@ -17,7 +17,7 @@ class SofortInstructionStrategy implements InstructionStrategyI
         if ($payment->isPaid() && $payment->details) {
             return sprintf(
             /* translators: Placeholder 1: consumer name, placeholder 2: consumer IBAN, placeholder 3: consumer BIC */
-                __('Payment completed by <strong>%1$s</strong> (IBAN (last 4 digits): %2$s, BIC: %3$s)', 'mollie-payments-for-woocommerce'),
+                __('Payment completed by <strong>%1$s</strong> (IBAN (last 4 digits): %2$s, BIC: %3$s)', 'liquichain-payments-for-woocommerce'),
                 $payment->details->consumerName,
                 substr($payment->details->consumerAccount, -4),
                 $payment->details->consumerBic

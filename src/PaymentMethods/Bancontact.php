@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Bancontact extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -11,7 +11,7 @@ class Bancontact extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'bancontact',
-            'defaultTitle' => __('Bancontact', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('Bancontact', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => '',
             'defaultDescription' => '',
             'paymentFields' => false,

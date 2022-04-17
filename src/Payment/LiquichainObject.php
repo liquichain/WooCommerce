@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Payment;
+namespace Liquichain\WooCommerce\Payment;
 
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Order;
-use Mollie\Api\Resources\Payment;
-use Mollie\WooCommerce\Gateway\MolliePaymentGateway;
-use Mollie\WooCommerce\SDK\Api;
-use Mollie\WooCommerce\Settings\Settings;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\Api\Resources\Order;
+use Liquichain\Api\Resources\Payment;
+use Liquichain\WooCommerce\Gateway\LiquichainPaymentGateway;
+use Liquichain\WooCommerce\SDK\Api;
+use Liquichain\WooCommerce\Settings\Settings;
 use Psr\Log\LogLevel;
 use WC_Order;
 use WC_Payment_Gateway;
 use Psr\Log\LoggerInterface as Logger;
 
-class MollieObject
+class LiquichainObject
 {
 
     public $data;
@@ -55,7 +55,7 @@ class MollieObject
     }
 
     /**
-     * Get Mollie payment from cache or load from Mollie
+     * Get Liquichain payment from cache or load from Liquichain
      * Skip cache by setting $use_cache to false
      *
      * @param string $paymentId
@@ -70,7 +70,7 @@ class MollieObject
     }
 
     /**
-     * Get Mollie payment from cache or load from Mollie
+     * Get Liquichain payment from cache or load from Liquichain
      * Skip cache by setting $use_cache to false
      *
      * @param string $payment_id
@@ -93,7 +93,7 @@ class MollieObject
     }
 
     /**
-     * Get Mollie payment from cache or load from Mollie
+     * Get Liquichain payment from cache or load from Liquichain
      * Skip cache by setting $use_cache to false
      *
      * @param string $payment_id
@@ -127,40 +127,40 @@ class MollieObject
     }
 
     /**
-     * Save active Mollie payment id for order
+     * Save active Liquichain payment id for order
      *
      * @param int $orderId
      *
      * @return $this
      */
-    public function setActiveMolliePayment($orderId)
+    public function setActiveLiquichainPayment($orderId)
     {
         if ($this->dataHelper->isSubscription($orderId)) {
-            return $this->setActiveMolliePaymentForSubscriptions($orderId);
+            return $this->setActiveLiquichainPaymentForSubscriptions($orderId);
         }
 
-        return $this->setActiveMolliePaymentForOrders($orderId);
+        return $this->setActiveLiquichainPaymentForOrders($orderId);
     }
 
     /**
-     * Save active Mollie payment id for order
+     * Save active Liquichain payment id for order
      *
      * @param int $order_id
      *
      * @return $this
      */
-    public function setActiveMolliePaymentForOrders($order_id)
+    public function setActiveLiquichainPaymentForOrders($order_id)
     {
         static::$order = wc_get_order($order_id);
 
-        static::$order->update_meta_data('_mollie_order_id', $this->data->id);
-        static::$order->update_meta_data('_mollie_payment_id', static::$paymentId);
-        static::$order->update_meta_data('_mollie_payment_mode', $this->data->mode);
+        static::$order->update_meta_data('_liquichain_order_id', $this->data->id);
+        static::$order->update_meta_data('_liquichain_payment_id', static::$paymentId);
+        static::$order->update_meta_data('_liquichain_payment_mode', $this->data->mode);
 
-        static::$order->delete_meta_data('_mollie_cancelled_payment_id');
+        static::$order->delete_meta_data('_liquichain_cancelled_payment_id');
 
         if (static::$customerId) {
-            static::$order->update_meta_data('_mollie_customer_id', static::$customerId);
+            static::$order->update_meta_data('_liquichain_customer_id', static::$customerId);
         }
 
         static::$order->save();
@@ -169,23 +169,23 @@ class MollieObject
     }
 
     /**
-     * Save active Mollie payment id for order
+     * Save active Liquichain payment id for order
      *
      * @param int $order_id
      *
      * @return $this
      */
-    public function setActiveMolliePaymentForSubscriptions($order_id)
+    public function setActiveLiquichainPaymentForSubscriptions($order_id)
     {
         $order = wc_get_order($order_id);
 
-        $order->update_meta_data('_mollie_payment_id', static::$paymentId);
-        $order->update_meta_data('_mollie_payment_mode', $this->data->mode);
+        $order->update_meta_data('_liquichain_payment_id', static::$paymentId);
+        $order->update_meta_data('_liquichain_payment_mode', $this->data->mode);
 
-        $order->delete_meta_data('_mollie_cancelled_payment_id');
+        $order->delete_meta_data('_liquichain_cancelled_payment_id');
 
         if (static::$customerId) {
-            $order->update_meta_data('_mollie_customer_id', static::$customerId);
+            $order->update_meta_data('_liquichain_customer_id', static::$customerId);
         }
 
         // Also store it on the subscriptions being purchased or paid for in the order
@@ -203,20 +203,20 @@ class MollieObject
             }
 
             foreach ($subscriptions as $subscription) {
-                $this->unsetActiveMolliePayment($subscription->get_id());
-                $subscription->delete_meta_data('_mollie_customer_id');
+                $this->unsetActiveLiquichainPayment($subscription->get_id());
+                $subscription->delete_meta_data('_liquichain_customer_id');
                 $subscription->update_meta_data(
-                    '_mollie_payment_id',
+                    '_liquichain_payment_id',
                     static::$paymentId
                 );
                 $subscription->update_meta_data(
-                    '_mollie_payment_mode',
+                    '_liquichain_payment_mode',
                     $this->data->mode
                 );
-                $subscription->delete_meta_data('_mollie_cancelled_payment_id');
+                $subscription->delete_meta_data('_liquichain_cancelled_payment_id');
                 if (static::$customerId) {
                     $subscription->update_meta_data(
-                        '_mollie_customer_id',
+                        '_liquichain_customer_id',
                         static::$customerId
                     );
                 }
@@ -229,38 +229,38 @@ class MollieObject
     }
 
     /**
-     * Delete active Mollie payment id for order
+     * Delete active Liquichain payment id for order
      *
      * @param int    $order_id
      * @param string $payment_id
      *
      * @return $this
      */
-    public function unsetActiveMolliePayment($order_id, $payment_id = null)
+    public function unsetActiveLiquichainPayment($order_id, $payment_id = null)
     {
         if ($this->dataHelper->isSubscription($order_id)) {
-            return $this->unsetActiveMolliePaymentForSubscriptions($order_id);
+            return $this->unsetActiveLiquichainPaymentForSubscriptions($order_id);
         }
 
-        return $this->unsetActiveMolliePaymentForOrders($order_id);
+        return $this->unsetActiveLiquichainPaymentForOrders($order_id);
     }
 
     /**
-     * Delete active Mollie payment id for order
+     * Delete active Liquichain payment id for order
      *
      * @param int $order_id
      *
      * @return $this
      */
-    public function unsetActiveMolliePaymentForOrders($order_id)
+    public function unsetActiveLiquichainPaymentForOrders($order_id)
     {
-        // Only remove Mollie payment details if they belong to this payment, not when a new payment was already placed
+        // Only remove Liquichain payment details if they belong to this payment, not when a new payment was already placed
         $order = wc_get_order($order_id);
-        $mollie_payment_id = $order->get_meta('_mollie_payment_id', true);
+        $liquichain_payment_id = $order->get_meta('_liquichain_payment_id', true);
 
-        if (is_object($this->data) && isset($this->data->id) && $mollie_payment_id === $this->data->id) {
-            $order->delete_meta_data('_mollie_payment_id');
-            $order->delete_meta_data('_mollie_payment_mode');
+        if (is_object($this->data) && isset($this->data->id) && $liquichain_payment_id === $this->data->id) {
+            $order->delete_meta_data('_liquichain_payment_id');
+            $order->delete_meta_data('_liquichain_payment_mode');
             $order->save();
         }
 
@@ -268,59 +268,59 @@ class MollieObject
     }
 
     /**
-     * Delete active Mollie payment id for order
+     * Delete active Liquichain payment id for order
      *
      * @param int $order_id
      *
      * @return $this
      */
-    public function unsetActiveMolliePaymentForSubscriptions($order_id)
+    public function unsetActiveLiquichainPaymentForSubscriptions($order_id)
     {
         $order = wc_get_order($order_id);
-        $order->delete_meta_data('_mollie_payment_id');
-        $order->delete_meta_data('_mollie_payment_mode');
+        $order->delete_meta_data('_liquichain_payment_id');
+        $order->delete_meta_data('_liquichain_payment_mode');
         $order->save();
 
         return $this;
     }
 
     /**
-     * Get active Mollie payment id for order
+     * Get active Liquichain payment id for order
      *
      * @param int $order_id
      *
      * @return string
      */
-    public function getActiveMolliePaymentId($order_id)
+    public function getActiveLiquichainPaymentId($order_id)
     {
         $order = wc_get_order($order_id);
-        return $order->get_meta('_mollie_payment_id', true);
+        return $order->get_meta('_liquichain_payment_id', true);
     }
 
     /**
-     * Get active Mollie payment id for order
+     * Get active Liquichain payment id for order
      *
      * @param int $order_id
      *
      * @return string
      */
-    public function getActiveMollieOrderId($order_id)
+    public function getActiveLiquichainOrderId($order_id)
     {
         $order = wc_get_order($order_id);
-        return $order->get_meta('_mollie_order_id', true);
+        return $order->get_meta('_liquichain_order_id', true);
     }
 
     /**
-     * Get active Mollie payment mode for order
+     * Get active Liquichain payment mode for order
      *
      * @param int $order_id
      *
      * @return string test or live
      */
-    public function getActiveMolliePaymentMode($order_id)
+    public function getActiveLiquichainPaymentMode($order_id)
     {
         $order = wc_get_order($order_id);
-        return $order->get_meta('_mollie_payment_mode', true);
+        return $order->get_meta('_liquichain_payment_mode', true);
     }
 
     /**
@@ -329,24 +329,24 @@ class MollieObject
      *
      * @return Payment|null
      */
-    public function getActiveMolliePayment($order_id, $use_cache = true)
+    public function getActiveLiquichainPayment($order_id, $use_cache = true)
     {
         // Check if there is a payment ID stored with order and get it
-        if ($this->hasActiveMolliePayment($order_id)) {
+        if ($this->hasActiveLiquichainPayment($order_id)) {
             return $this->getPaymentObjectPayment(
-                $this->getActiveMolliePaymentId($order_id),
-                $this->getActiveMolliePaymentMode($order_id) === 'test',
+                $this->getActiveLiquichainPaymentId($order_id),
+                $this->getActiveLiquichainPaymentMode($order_id) === 'test',
                 $use_cache
             );
         }
 
         // If there is no payment ID, try to get order ID and if it's stored, try getting payment ID from API
-        if ($this->hasActiveMollieOrder($order_id)) {
-            $mollie_order = $this->getPaymentObjectOrder($this->getActiveMollieOrderId($order_id));
+        if ($this->hasActiveLiquichainOrder($order_id)) {
+            $liquichain_order = $this->getPaymentObjectOrder($this->getActiveLiquichainOrderId($order_id));
 
             try {
-                $mollie_order = $this->paymentFactory->getPaymentObject(
-                    $mollie_order
+                $liquichain_order = $this->paymentFactory->getPaymentObject(
+                    $liquichain_order
                 );
             } catch (ApiException $exception) {
                 $this->logger->log(LogLevel::DEBUG, $exception->getMessage());
@@ -354,8 +354,8 @@ class MollieObject
             }
 
             return $this->getPaymentObjectPayment(
-                $mollie_order->getMolliePaymentIdFromPaymentObject(),
-                $this->getActiveMolliePaymentMode($order_id) === 'test',
+                $liquichain_order->getLiquichainPaymentIdFromPaymentObject(),
+                $this->getActiveLiquichainPaymentMode($order_id) === 'test',
                 $use_cache
             );
         }
@@ -364,31 +364,31 @@ class MollieObject
     }
 
     /**
-     * Check if the order has an active Mollie payment
+     * Check if the order has an active Liquichain payment
      *
      * @param int $order_id
      *
      * @return bool
      */
-    public function hasActiveMolliePayment($order_id)
+    public function hasActiveLiquichainPayment($order_id)
     {
-        $mollie_payment_id = $this->getActiveMolliePaymentId($order_id);
+        $liquichain_payment_id = $this->getActiveLiquichainPaymentId($order_id);
 
-        return ! empty($mollie_payment_id);
+        return ! empty($liquichain_payment_id);
     }
 
     /**
-     * Check if the order has an active Mollie order
+     * Check if the order has an active Liquichain order
      *
      * @param int $order_id
      *
      * @return bool
      */
-    public function hasActiveMollieOrder($order_id)
+    public function hasActiveLiquichainOrder($order_id)
     {
-        $mollie_payment_id = $this->getActiveMollieOrderId($order_id);
+        $liquichain_payment_id = $this->getActiveLiquichainOrderId($order_id);
 
-        return ! empty($mollie_payment_id);
+        return ! empty($liquichain_payment_id);
     }
 
     /**
@@ -397,10 +397,10 @@ class MollieObject
      *
      * @return $this
      */
-    public function setCancelledMolliePaymentId($order_id, $payment_id)
+    public function setCancelledLiquichainPaymentId($order_id, $payment_id)
     {
         $order = wc_get_order($order_id);
-        $order->update_meta_data('_mollie_cancelled_payment_id', $payment_id);
+        $order->update_meta_data('_liquichain_cancelled_payment_id', $payment_id);
         $order->save();
 
         return $this;
@@ -411,15 +411,15 @@ class MollieObject
      *
      * @return null
      */
-    public function unsetCancelledMolliePaymentId($order_id)
+    public function unsetCancelledLiquichainPaymentId($order_id)
     {
         // If this order contains a cancelled (previous) payment, remove it.
         $order = wc_get_order($order_id);
-        $mollie_cancelled_payment_id = $order->get_meta('_mollie_cancelled_payment_id', true);
+        $liquichain_cancelled_payment_id = $order->get_meta('_liquichain_cancelled_payment_id', true);
 
-        if (! empty($mollie_cancelled_payment_id)) {
+        if (! empty($liquichain_cancelled_payment_id)) {
             $order = wc_get_order($order_id);
-            $order->delete_meta_data('_mollie_cancelled_payment_id');
+            $order->delete_meta_data('_liquichain_cancelled_payment_id');
             $order->save();
         }
 
@@ -431,10 +431,10 @@ class MollieObject
      *
      * @return string|false
      */
-    public function getCancelledMolliePaymentId($order_id)
+    public function getCancelledLiquichainPaymentId($order_id)
     {
         $order = wc_get_order($order_id);
-        return $order->get_meta('_mollie_cancelled_payment_id', true);
+        return $order->get_meta('_liquichain_cancelled_payment_id', true);
     }
 
     /**
@@ -444,18 +444,18 @@ class MollieObject
      *
      * @return bool
      */
-    public function hasCancelledMolliePayment($order_id)
+    public function hasCancelledLiquichainPayment($order_id)
     {
-        $cancelled_payment_id = $this->getCancelledMolliePaymentId($order_id);
+        $cancelled_payment_id = $this->getCancelledLiquichainPaymentId($order_id);
 
         return ! empty($cancelled_payment_id);
     }
 
-    public function getMolliePaymentIdFromPaymentObject()
+    public function getLiquichainPaymentIdFromPaymentObject()
     {
     }
 
-    public function getMollieCustomerIdFromPaymentObject()
+    public function getLiquichainCustomerIdFromPaymentObject()
     {
     }
 
@@ -513,7 +513,7 @@ class MollieObject
      */
     protected function setOrderPaidAndProcessed(WC_Order $order)
     {
-        $order->update_meta_data('_mollie_paid_and_processed', '1');
+        $order->update_meta_data('_liquichain_paid_and_processed', '1');
         $order->save();
 
         return true;
@@ -527,8 +527,8 @@ class MollieObject
         $order_id = $order->get_id();
         // Get the current payment method id for the order
         $payment_method_id = get_post_meta($order_id, '_payment_method', $single = true);
-        // If the current payment method id for the order is not Mollie, return true
-        return strpos($payment_method_id, 'mollie') === false;
+        // If the current payment method id for the order is not Liquichain, return true
+        return strpos($payment_method_id, 'liquichain') === false;
     }
     /**
      * @param WC_Order $order
@@ -563,7 +563,7 @@ class MollieObject
                 && (property_exists($payment, 'mandateId') && $payment->mandateId !== null)
             ) {
                 $order->update_meta_data(
-                    '_mollie_mandate_id',
+                    '_liquichain_mandate_id',
                     $payment->mandateId
                 );
                 $order->save();
@@ -597,7 +597,7 @@ class MollieObject
         global $wpdb;
 
         $wpdb->delete(
-            $wpdb->mollie_pending_payment,
+            $wpdb->liquichain_pending_payment,
             [
                 'post_id' => $order->get_id(),
             ]
@@ -640,20 +640,20 @@ class MollieObject
             function_exists('wcs_order_contains_renewal')
             && wcs_order_contains_renewal($orderId)
         ) {
-            if ($gateway instanceof MolliePaymentGateway) {
+            if ($gateway instanceof LiquichainPaymentGateway) {
                 $gateway->paymentService->updateOrderStatus(
                     $order,
                     $newOrderStatus,
                     sprintf(
                     /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
                         __(
-                            '%1$s renewal payment failed via Mollie (%2$s). You will need to manually review the payment and adjust product stocks if you use them.',
-                            'mollie-payments-for-woocommerce'
+                            '%1$s renewal payment failed via Liquichain (%2$s). You will need to manually review the payment and adjust product stocks if you use them.',
+                            'liquichain-payments-for-woocommerce'
                         ),
                         $paymentMethodTitle,
                         $payment->id . ($payment->mode === 'test' ? (' - ' . __(
                             'test mode',
-                            'mollie-payments-for-woocommerce'
+                            'liquichain-payments-for-woocommerce'
                         )) : '')
                     ),
                     $restoreStock = false
@@ -673,20 +673,20 @@ class MollieObject
             ) {
                 $emails['WC_Email_Failed_Order']->trigger($orderId);
             }
-        } elseif ($gateway instanceof MolliePaymentGateway) {
+        } elseif ($gateway instanceof LiquichainPaymentGateway) {
             $gateway->paymentService->updateOrderStatus(
                 $order,
                 $newOrderStatus,
                 sprintf(
                 /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
                     __(
-                        '%1$s payment failed via Mollie (%2$s).',
-                        'mollie-payments-for-woocommerce'
+                        '%1$s payment failed via Liquichain (%2$s).',
+                        'liquichain-payments-for-woocommerce'
                     ),
                     $paymentMethodTitle,
                     $payment->id . ($payment->mode === 'test' ? (' - ' . __(
                         'test mode',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     )) : '')
                 )
             );
@@ -720,8 +720,8 @@ class MollieObject
             sprintf(
             /* translators: Placeholder 1: payment method title, placeholder 2: payment ID */
                 __(
-                    'Mollie webhook called, but payment also started via %s, so the order status is not updated.',
-                    'mollie-payments-for-woocommerce'
+                    'Liquichain webhook called, but payment also started via %s, so the order status is not updated.',
+                    'liquichain-payments-for-woocommerce'
                 ),
                 $orderPaymentMethodTitle
             )
@@ -732,13 +732,13 @@ class MollieObject
         WC_Order $order
     ) {
 
-        $payment = $this->getActiveMolliePayment($order->get_id());
+        $payment = $this->getActiveLiquichainPayment($order->get_id());
 
         if ($payment->isPaid() && $payment->details) {
             update_post_meta($order->get_id(), '_paypal_transaction_id', $payment->details->paypalReference);
             $order->add_order_note(sprintf(
                                    /* translators: Placeholder 1: PayPal consumer name, placeholder 2: PayPal email, placeholder 3: PayPal transaction ID */
-                __("Payment completed by <strong>%1\$s</strong> - %2\$s (PayPal transaction ID: %3\$s)", 'mollie-payments-for-woocommerce'),
+                __("Payment completed by <strong>%1\$s</strong> - %2\$s (PayPal transaction ID: %3\$s)", 'liquichain-payments-for-woocommerce'),
                 $payment->details->consumerName,
                 $payment->details->consumerAccount,
                 $payment->details->paypalReference
@@ -746,9 +746,9 @@ class MollieObject
         }
     }
     /**
-     * Get the url to return to on Mollie return
+     * Get the url to return to on Liquichain return
      * saves the return redirect and failed redirect, so we save the page language in case there is one set
-     * For example 'http://mollie-wc.docker.myhost/wc-api/mollie_return/?order_id=89&key=wc_order_eFZyH8jki6fge'
+     * For example 'http://liquichain-wc.docker.myhost/wc-api/liquichain_return/?order_id=89&key=wc_order_eFZyH8jki6fge'
      *
      * @param WC_Order $order The order processed
      *
@@ -761,12 +761,12 @@ class MollieObject
         $orderId = $order->get_id();
         $orderKey = $order->get_order_key();
 
-        $onMollieReturn = 'onMollieReturn';
+        $onLiquichainReturn = 'onLiquichainReturn';
         $returnUrl = $this->appendOrderArgumentsToUrl(
             $orderId,
             $orderKey,
             $returnUrl,
-            $onMollieReturn
+            $onLiquichainReturn
         );
         $returnUrl = untrailingslashit($returnUrl);
         $this->logger->log(LogLevel::DEBUG, " Order {$orderId} returnUrl: {$returnUrl}", [true]);
@@ -775,7 +775,7 @@ class MollieObject
     }
     /**
      * Get the webhook url
-     * For example 'http://mollie-wc.docker.myhost/wc-api/mollie_return/mollie_wc_gateway_bancontact/?order_id=89&key=wc_order_eFZyH8jki6fge'
+     * For example 'http://liquichain-wc.docker.myhost/wc-api/liquichain_return/liquichain_wc_gateway_bancontact/?order_id=89&key=wc_order_eFZyH8jki6fge'
      *
      * @param WC_Order $order The order processed
      *
@@ -882,7 +882,7 @@ class MollieObject
                     _x(
                         'Order {orderNumber}',
                         'Payment description for {orderNumber}',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     );
                 $description = $this->replaceTagsDescription($order, $description);
                 break;
@@ -892,7 +892,7 @@ class MollieObject
                     _x(
                         'StoreName {storeName}',
                         'Payment description for {storeName}',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     );
                 $description = $this->replaceTagsDescription($order, $description);
                 break;
@@ -902,7 +902,7 @@ class MollieObject
                     _x(
                         'Customer Firstname {customer.firstname}',
                         'Payment description for {customer.firstname}',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     );
                 $description = $this->replaceTagsDescription($order, $description);
                 break;
@@ -912,7 +912,7 @@ class MollieObject
                     _x(
                         'Customer Lastname {customer.lastname}',
                         'Payment description for {customer.lastname}',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     );
                 $description = $this->replaceTagsDescription($order, $description);
                 break;
@@ -922,7 +922,7 @@ class MollieObject
                     _x(
                         'Customer Company {customer.company}',
                         'Payment description for {customer.company}',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     );
                 $description = $this->replaceTagsDescription($order, $description);
                 break;

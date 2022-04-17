@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 use WC_Order;
 
@@ -30,7 +30,7 @@ class Banktransfer extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'banktransfer',
-            'defaultTitle' => __('Bank Transfer', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('Bank Transfer', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => '',
             'defaultDescription' => '',
             'paymentFields' => false,
@@ -52,17 +52,17 @@ class Banktransfer extends AbstractPaymentMethod implements PaymentMethodI
         unset($generalFormFields['order_dueDate']);
         $paymentMethodFormFieds = [
             'activate_expiry_days_setting' => [
-                'title' => __('Activate expiry date setting', 'mollie-payments-for-woocommerce'),
-                'label' => __('Enable expiry date for payments', 'mollie-payments-for-woocommerce'),
-                'description' => __('Enable this option if you want to be able to set the number of days after the payment will expire. This will turn all transactions into payments instead of orders', 'mollie-payments-for-woocommerce'),
+                'title' => __('Activate expiry date setting', 'liquichain-payments-for-woocommerce'),
+                'label' => __('Enable expiry date for payments', 'liquichain-payments-for-woocommerce'),
+                'description' => __('Enable this option if you want to be able to set the number of days after the payment will expire. This will turn all transactions into payments instead of orders', 'liquichain-payments-for-woocommerce'),
                 'type' => 'checkbox',
                 'default' => 'no',
             ],
             'order_dueDate' => [
-                'title' => __('Expiry date', 'mollie-payments-for-woocommerce'),
+                'title' => __('Expiry date', 'liquichain-payments-for-woocommerce'),
                 'type' => 'number',
                 /* translators: Placeholder 1: Default expiry days. */
-                'description' => sprintf(__('Number of DAYS after the payment will expire. Default <code>%d</code> days', 'mollie-payments-for-woocommerce'), self::EXPIRY_DEFAULT_DAYS),
+                'description' => sprintf(__('Number of DAYS after the payment will expire. Default <code>%d</code> days', 'liquichain-payments-for-woocommerce'), self::EXPIRY_DEFAULT_DAYS),
                 'default' => self::EXPIRY_DEFAULT_DAYS,
                 'custom_attributes' => [
                     'min' => self::EXPIRY_MIN_DAYS,
@@ -70,10 +70,10 @@ class Banktransfer extends AbstractPaymentMethod implements PaymentMethodI
                     'step' => 1,
                 ],
             ],
-            'skip_mollie_payment_screen' => [
-                'title' => __('Skip Mollie payment screen', 'mollie-payments-for-woocommerce'),
-                'label' => __('Skip Mollie payment screen when Bank Transfer is selected', 'mollie-payments-for-woocommerce'),
-                'description' => __('Enable this option if you want to skip redirecting your user to the Mollie payment screen, instead this will redirect your user directly to the WooCommerce order received page displaying instructions how to complete the Bank Transfer payment.', 'mollie-payments-for-woocommerce'),
+            'skip_liquichain_payment_screen' => [
+                'title' => __('Skip Liquichain payment screen', 'liquichain-payments-for-woocommerce'),
+                'label' => __('Skip Liquichain payment screen when Bank Transfer is selected', 'liquichain-payments-for-woocommerce'),
+                'description' => __('Enable this option if you want to skip redirecting your user to the Liquichain payment screen, instead this will redirect your user directly to the WooCommerce order received page displaying instructions how to complete the Bank Transfer payment.', 'liquichain-payments-for-woocommerce'),
                 'type' => 'checkbox',
                 'default' => 'no',
             ],
@@ -121,6 +121,6 @@ class Banktransfer extends AbstractPaymentMethod implements PaymentMethodI
         $expiryDays = $this->getProperty(
             'activate_expiry_days_setting'
         );
-        return mollieWooCommerceStringToBoolOption($expiryDays);
+        return liquichainWooCommerceStringToBoolOption($expiryDays);
     }
 }

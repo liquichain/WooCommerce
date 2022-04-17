@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Mollie\WooCommerceTests\Stubs;
+namespace Liquichain\WooCommerceTests\Stubs;
 
 
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\WooCommerceTests\TestCase;
 use PHPUnit_Framework_Exception;
 use WC_Countries;
 
@@ -106,7 +106,7 @@ class WooCommerceMocks extends TestCase
     public function wcOrder()
     {
         return $this->createConfiguredMock(
-            'Mollie\WooCommerceTests\Stubs\WC_Order',
+            'Liquichain\WooCommerceTests\Stubs\WC_Order',
             [
                 'get_id' => 11,
             ]

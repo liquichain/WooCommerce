@@ -1,9 +1,9 @@
 <?php
 
-use Mollie\Api\Endpoints\OrderEndpoint;
-use Mollie\WooCommerce\Payment\OrderItemsRefunder;
+use Liquichain\Api\Endpoints\OrderEndpoint;
+use Liquichain\WooCommerce\Payment\OrderItemsRefunder;
 
-use Mollie\WooCommerceTests\TestCase;
+use Liquichain\WooCommerceTests\TestCase;
 
 class WC_Order
 {
@@ -458,11 +458,11 @@ class Data
         return false;
     }
 
-    public function getUserMollieCustomerId()
+    public function getUserLiquichainCustomerId()
     {
     }
 
-    public function setUserMollieCustomerId()
+    public function setUserLiquichainCustomerId()
     {
     }
 
@@ -532,12 +532,12 @@ class WC_Session
  * This class is a partial mock to create an order
  * the order created is also partially mocked
  */
-class Mollie_WC_Helper_PaymentFactory
+class Liquichain_WC_Helper_PaymentFactory
 {
     public function getPaymentObject($data)
     {
         $dataHelper = Plugin::getDataHelper();
-        $refundLineItemsBuilder = new Mollie_WC_Payment_RefundLineItemsBuilder($dataHelper);
+        $refundLineItemsBuilder = new Liquichain_WC_Payment_RefundLineItemsBuilder($dataHelper);
         $apiHelper = Plugin::getApiHelper();
         $settingsHelper = Plugin::getSettingsHelper();
 
@@ -552,7 +552,7 @@ class Mollie_WC_Helper_PaymentFactory
     public function pluginOrder($orderItemsRefunded,$data)
     {
         $testCase = new TestCase();
-        $mockBuilder = new PHPUnit_Framework_MockObject_MockBuilder($testCase, Mollie_WC_Payment_Order::class);
+        $mockBuilder = new PHPUnit_Framework_MockObject_MockBuilder($testCase, Liquichain_WC_Payment_Order::class);
         $mock = $mockBuilder
             ->setConstructorArgs([$orderItemsRefunded, $data])
             ->setMethods(['createShippingAddress', 'createBillingAddress'])

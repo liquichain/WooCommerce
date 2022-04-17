@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods;
+namespace Liquichain\WooCommerce\PaymentMethods;
 
 class Przelewy24 extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -11,10 +11,10 @@ class Przelewy24 extends AbstractPaymentMethod implements PaymentMethodI
     {
         return [
             'id' => 'przelewy24',
-            'defaultTitle' => __('Przelewy24', 'mollie-payments-for-woocommerce'),
+            'defaultTitle' => __('Przelewy24', 'liquichain-payments-for-woocommerce'),
             'settingsDescription' => __(
                 'To accept payments via Przelewy24, a customer email is required for every payment.',
-                'mollie-payments-for-woocommerce'
+                'liquichain-payments-for-woocommerce'
             ),
             'defaultDescription' => '',
             'paymentFields' => false,

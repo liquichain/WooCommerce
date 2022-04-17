@@ -3,27 +3,27 @@ import {request} from "./applePayRequest";
 import {createAppleErrors} from "./applePayError";
 
 (
-    function ({mollieApplePayBlockDataCart})
+    function ({liquichainApplePayBlockDataCart})
     {
-        if (mollieApplePayBlockDataCart.length === 0 ) {
+        if (liquichainApplePayBlockDataCart.length === 0 ) {
             return
         }
-        const {product: {needShipping = true, subtotal}, shop: {countryCode, currencyCode = 'EUR', totalLabel = ''}, buttonMarkup, ajaxUrl} = mollieApplePayBlockDataCart
+        const {product: {needShipping = true, subtotal}, shop: {countryCode, currencyCode = 'EUR', totalLabel = ''}, buttonMarkup, ajaxUrl} = liquichainApplePayBlockDataCart
 
         const { registerPlugin } = wp.plugins;
         const { ExperimentalOrderMeta } = wc.blocksCheckout;
         const ApplePayButtonComponent = ( { cart, extensions } ) => {
             return <div dangerouslySetInnerHTML={ {__html: buttonMarkup} }/>
         }
-        const MollieApplePayButtonCart = () => {
+        const LiquichainApplePayButtonCart = () => {
             return  <ExperimentalOrderMeta>
                 <ApplePayButtonComponent />
             </ExperimentalOrderMeta>
         };
 
-        registerPlugin( 'mollie-applepay-block-button', {
+        registerPlugin( 'liquichain-applepay-block-button', {
             render: () => {
-                return <MollieApplePayButtonCart />;
+                return <LiquichainApplePayButtonCart />;
             },
             scope: 'woocommerce-checkout'
         } );
@@ -44,7 +44,7 @@ import {createAppleErrors} from "./applePayError";
                         url: ajaxUrl,
                         method: 'POST',
                         data: {
-                            action: 'mollie_apple_pay_update_shipping_method',
+                            action: 'liquichain_apple_pay_update_shipping_method',
                             shippingMethod: event.shippingMethod,
                             callerPage: 'cart',
                             simplifiedContact: updatedContactInfo,
@@ -71,7 +71,7 @@ import {createAppleErrors} from "./applePayError";
                         url: ajaxUrl,
                         method: 'POST',
                         data: {
-                            action: 'mollie_apple_pay_update_shipping_contact',
+                            action: 'liquichain_apple_pay_update_shipping_contact',
                             simplifiedContact: event.shippingContact,
                             callerPage: 'cart',
                             needShipping: needShipping,
@@ -101,7 +101,7 @@ import {createAppleErrors} from "./applePayError";
                         url: ajaxUrl,
                         method: 'POST',
                         data: {
-                            action: 'mollie_apple_pay_validation',
+                            action: 'liquichain_apple_pay_validation',
                             validationUrl: applePayValidateMerchantEvent.validationURL,
                             'woocommerce-process-checkout-nonce': nonce,
                         },
@@ -128,12 +128,12 @@ import {createAppleErrors} from "./applePayError";
                         url: ajaxUrl,
                         method: 'POST',
                         data: {
-                            action: 'mollie_apple_pay_create_order_cart',
+                            action: 'liquichain_apple_pay_create_order_cart',
                             shippingContact: ApplePayPayment.payment.shippingContact,
                             billingContact: ApplePayPayment.payment.billingContact,
                             token: ApplePayPayment.payment.token,
                             shippingMethod: selectedShippingMethod,
-                            'mollie-payments-for-woocommerce_issuer_applepay': 'applepay',
+                            'liquichain-payments-for-woocommerce_issuer_applepay': 'applepay',
                             'woocommerce-process-checkout-nonce': nonce,
                             'billing_first_name': billingContact.givenName || '',
                             'billing_last_name': billingContact.familyName || '',
@@ -158,7 +158,7 @@ import {createAppleErrors} from "./applePayError";
                             'shipping_phone': shippingContact.phoneNumber || '000000000000',
                             'shipping_email': shippingContact.emailAddress || '',
                             'order_comments' : '',
-                            'payment_method' : 'mollie_wc_gateway_applepay',
+                            'payment_method' : 'liquichain_wc_gateway_applepay',
                             '_wp_http_referer' : '/?wc-ajax=update_order_review'
                         },
                         complete: (jqXHR, textStatus) => {
@@ -182,7 +182,7 @@ import {createAppleErrors} from "./applePayError";
                     })
                 }
             }
-            document.querySelector('#mollie_applepay_button').addEventListener('click', (evt) => {
+            document.querySelector('#liquichain_applepay_button').addEventListener('click', (evt) => {
                 applePaySession()
             })
         },2000);

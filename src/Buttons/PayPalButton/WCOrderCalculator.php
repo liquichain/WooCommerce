@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Buttons\PayPalButton;
+namespace Liquichain\WooCommerce\Buttons\PayPalButton;
 
 use WC_Order;
 use WC_Order_Item_Product;

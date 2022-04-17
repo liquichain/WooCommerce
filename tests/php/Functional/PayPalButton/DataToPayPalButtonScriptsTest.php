@@ -1,21 +1,21 @@
 <?php
 
-namespace Mollie\WooCommerceTests\Functional\PayPalButton;
+namespace Liquichain\WooCommerceTests\Functional\PayPalButton;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Mollie\Api\Endpoints\OrderEndpoint;
-use Mollie\Api\Endpoints\WalletEndpoint;
-use Mollie\Api\MollieApiClient;
-use Mollie\WooCommerce\Buttons\PayPalButton\DataToPayPal;
-use Mollie\WooCommerceTests\Stubs\postDTOTestsStubs;
-use Mollie\WooCommerceTests\TestCase;
-use Mollie_WC_ApplePayButton_DataToAppleButtonScripts;
-use Mollie_WC_Helper_Api;
-use Mollie_WC_ApplePayButton_DataObjectHttp;
-use Mollie_WC_Helper_ApplePayDirectHandler;
-use Mollie_WC_Helper_Data;
-use Mollie_WC_Payment_RefundLineItemsBuilder;
-use Mollie_WC_PayPalButton_DataToPayPalScripts;
+use Liquichain\Api\Endpoints\OrderEndpoint;
+use Liquichain\Api\Endpoints\WalletEndpoint;
+use Liquichain\Api\LiquichainApiClient;
+use Liquichain\WooCommerce\Buttons\PayPalButton\DataToPayPal;
+use Liquichain\WooCommerceTests\Stubs\postDTOTestsStubs;
+use Liquichain\WooCommerceTests\TestCase;
+use Liquichain_WC_ApplePayButton_DataToAppleButtonScripts;
+use Liquichain_WC_Helper_Api;
+use Liquichain_WC_ApplePayButton_DataObjectHttp;
+use Liquichain_WC_Helper_ApplePayDirectHandler;
+use Liquichain_WC_Helper_Data;
+use Liquichain_WC_Payment_RefundLineItemsBuilder;
+use Liquichain_WC_PayPalButton_DataToPayPalScripts;
 use PHPUnit_Framework_Exception;
 use PHPUnit_Framework_MockObject_MockObject;
 use WC_Countries;
@@ -60,7 +60,7 @@ class DataToPayPalButtonScriptsTest extends TestCase
                 'get_the_id' => $postDummyData->productId,
                 'wc_get_product' => $this->wcProduct(),
                 'admin_url' => 'admin-ajax.php',
-                'get_option'=>['mollie_paypal_button_minimum_amount'=>$minAmount],
+                'get_option'=>['liquichain_paypal_button_minimum_amount'=>$minAmount],
             ]
         );
 
@@ -98,7 +98,7 @@ class DataToPayPalButtonScriptsTest extends TestCase
                 'is_cart' => true,
                 'admin_url' => 'admin-ajax.php',
                 'WC' => $this->wooCommerce($subtotal),
-                'get_option'=>['mollie_paypal_button_minimum_amount'=>$minAmount],
+                'get_option'=>['liquichain_paypal_button_minimum_amount'=>$minAmount],
             ]
         );
 

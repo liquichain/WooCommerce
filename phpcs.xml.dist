@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<ruleset name="Mollie">
+<ruleset name="Liquichain">
 
-    <description>Mollie</description>
+    <description>Liquichain</description>
 
     <file>./inc</file>
     <file>./src</file>

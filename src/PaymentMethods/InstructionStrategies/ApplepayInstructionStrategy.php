@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\PaymentMethods\InstructionStrategies;
+namespace Liquichain\WooCommerce\PaymentMethods\InstructionStrategies;
 
 class ApplepayInstructionStrategy implements InstructionStrategyI
 {
@@ -24,7 +24,7 @@ class ApplepayInstructionStrategy implements InstructionStrategyI
                         $payment->details->consumerAccount,
                         $payment->details->paypalReference
                     ),
-                    'mollie-payments-for-woocommerce'
+                    'liquichain-payments-for-woocommerce'
                 );
         }
         $defaultStrategy = new DefaultInstructionStrategy();

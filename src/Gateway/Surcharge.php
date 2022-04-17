@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Gateway;
+namespace Liquichain\WooCommerce\Gateway;
 
-use Mollie\WooCommerce\PaymentMethods\PaymentMethodI;
+use Liquichain\WooCommerce\PaymentMethods\PaymentMethodI;
 
 class Surcharge
 {
@@ -42,7 +42,7 @@ class Surcharge
 
         $feeText = $this->feeTextByType($surchargeType, $paymentMethod);
         if ($feeText) {
-            $feeLabel = '<span class="mollie-gateway-fee">' . $feeText . '</span>';
+            $feeLabel = '<span class="liquichain-gateway-fee">' . $feeText . '</span>';
             return $description . $feeLabel;
         }
         return $description;
@@ -175,7 +175,7 @@ class Surcharge
      */
     public function buildFeeName($gateway)
     {
-        return __($gateway, 'mollie-payments-for-woocommerce');
+        return __($gateway, 'liquichain-payments-for-woocommerce');
     }
 
 
@@ -190,7 +190,7 @@ class Surcharge
         $amountFee = $paymentMethod->getProperty(self::FIXED_FEE);
         $currency = get_woocommerce_currency_symbol();
         /* translators: Placeholder 1: Fee amount tag. Placeholder 2: Currency.*/
-        return sprintf(__(' +%1s%2s fee might apply', 'mollie-payments-for-woocommerce'), $amountFee, $currency);
+        return sprintf(__(' +%1s%2s fee might apply', 'liquichain-payments-for-woocommerce'), $amountFee, $currency);
     }
 
     protected function name_percentage($paymentMethod)
@@ -203,7 +203,7 @@ class Surcharge
         }
         $amountFee = $paymentMethod->getProperty(self::PERCENTAGE);
         /* translators: Placeholder 1: Fee amount tag.*/
-        return sprintf(__(' +%1s%% fee might apply', 'mollie-payments-for-woocommerce'), $amountFee);
+        return sprintf(__(' +%1s%% fee might apply', 'liquichain-payments-for-woocommerce'), $amountFee);
     }
 
     protected function name_fixed_fee_percentage($paymentMethod)
@@ -222,7 +222,7 @@ class Surcharge
         $currency = get_woocommerce_currency_symbol();
         $amountPercent = $paymentMethod->getProperty(self::PERCENTAGE);
         /* translators: Placeholder 1: Fee amount tag. Placeholder 2: Currency. Placeholder 3: Percentage amount. */
-        return sprintf(__(' +%1s%2s + %3s%% fee might apply', 'mollie-payments-for-woocommerce'), $amountFix, $currency, $amountPercent);
+        return sprintf(__(' +%1s%2s + %3s%% fee might apply', 'liquichain-payments-for-woocommerce'), $amountFix, $currency, $amountPercent);
     }
 
     /**

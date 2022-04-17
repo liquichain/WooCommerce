@@ -4,14 +4,14 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Assets;
+namespace Liquichain\WooCommerce\Assets;
 
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\WooCommerce\Buttons\ApplePayButton\DataToAppleButtonScripts;
-use Mollie\WooCommerce\Buttons\PayPalButton\DataToPayPal;
-use Mollie\WooCommerce\Components\AcceptedLocaleValuesDictionary;
+use Liquichain\Api\Exceptions\ApiException;
+use Liquichain\WooCommerce\Buttons\ApplePayButton\DataToAppleButtonScripts;
+use Liquichain\WooCommerce\Buttons\PayPalButton\DataToPayPal;
+use Liquichain\WooCommerce\Components\AcceptedLocaleValuesDictionary;
 use Psr\Container\ContainerInterface;
 
 class AssetsModule implements ExecutableModule
@@ -66,14 +66,14 @@ class AssetsModule implements ExecutableModule
                 if (is_admin()) {
                     $hasBlocksEnabled = $this->dataService->isBlockPluginActive();
                     wp_register_script(
-                        'mollie_wc_admin_settings',
+                        'liquichain_wc_admin_settings',
                         $this->getPluginUrl('/public/js/settings.min.js'),
                         ['underscore', 'jquery'],
                         $this->pluginVersion
                     );
-                    wp_enqueue_script('mollie_wc_admin_settings');
+                    wp_enqueue_script('liquichain_wc_admin_settings');
                     wp_register_script(
-                        'mollie_wc_gateway_advanced_settings',
+                        'liquichain_wc_gateway_advanced_settings',
                         $this->getPluginUrl(
                             '/public/js/advancedSettings.min.js'
                         ),
@@ -83,15 +83,15 @@ class AssetsModule implements ExecutableModule
                     add_action('admin_enqueue_scripts', [$this, 'enqueueAdvancedSettingsJS'], 10, 1 );
                     global $current_section;
                     wp_localize_script(
-                        'mollie_wc_admin_settings',
-                        'mollieSettingsData',
+                        'liquichain_wc_admin_settings',
+                        'liquichainSettingsData',
                         [
                             'current_section' => $current_section,
                         ]
                     );
 
                     wp_register_script(
-                        'mollie_wc_gateway_settings',
+                        'liquichain_wc_gateway_settings',
                         $this->getPluginUrl(
                             '/public/js/gatewaySettings.min.js'
                         ),
@@ -113,11 +113,11 @@ class AssetsModule implements ExecutableModule
 
     public function enqueueBlockCheckoutScripts($gatewayInstances)
     {
-        wp_enqueue_script('mollie_block_index');
-        wp_enqueue_style('mollie-gateway-icons');
+        wp_enqueue_script('liquichain_block_index');
+        wp_enqueue_style('liquichain-gateway-icons');
         wp_localize_script(
-            'mollie_block_index',
-            'mollieBlockData',
+            'liquichain_block_index',
+            'liquichainBlockData',
             [
                 'gatewayData' => $this->gatewayDataForWCBlocks($gatewayInstances),
             ]
@@ -127,9 +127,9 @@ class AssetsModule implements ExecutableModule
     public function registerButtonsBlockScripts()
     {
         add_action('woocommerce_blocks_enqueue_cart_block_scripts_after', function () {
-            if (mollieWooCommerceIsPayPalButtonEnabled('cart')) {
+            if (liquichainWooCommerceIsPayPalButtonEnabled('cart')) {
                 wp_register_script(
-                    'mollie_paypalButtonBlock',
+                    'liquichain_paypalButtonBlock',
                     $this->getPluginUrl(
                         '/public/js/paypalButtonBlockComponent.min.js'
                     ),
@@ -145,17 +145,17 @@ class AssetsModule implements ExecutableModule
                 if (!$cart->needs_shipping()) {
                     $dataToScripts = new DataToPayPal($this->pluginUrl);
                     wp_enqueue_style('unabledButton');
-                    wp_enqueue_script('mollie_paypalButtonBlock');
+                    wp_enqueue_script('liquichain_paypalButtonBlock');
                     wp_localize_script(
-                        'mollie_paypalButtonBlock',
-                        'molliepaypalButtonCart',
+                        'liquichain_paypalButtonBlock',
+                        'liquichainpaypalButtonCart',
                         $dataToScripts->paypalbuttonScriptData(true)
                     );
                 }
             }
-            if (mollieWooCommerceIsApplePayDirectEnabled('cart')) {
+            if (liquichainWooCommerceIsApplePayDirectEnabled('cart')) {
                 wp_register_script(
-                    'mollie_applepayButtonBlock',
+                    'liquichain_applepayButtonBlock',
                     $this->getPluginUrl(
                         '/public/js/applepayButtonBlockComponent.min.js'
                     ),
@@ -168,11 +168,11 @@ class AssetsModule implements ExecutableModule
                     true
                 );
                 $dataToScripts = new DataToAppleButtonScripts();
-                wp_enqueue_style('mollie-applepaydirect');
-                wp_enqueue_script('mollie_applepayButtonBlock');
+                wp_enqueue_style('liquichain-applepaydirect');
+                wp_enqueue_script('liquichain_applepayButtonBlock');
                 wp_localize_script(
-                    'mollie_applepayButtonBlock',
-                    'mollieApplePayBlockDataCart',
+                    'liquichain_applepayButtonBlock',
+                    'liquichainApplePayBlockDataCart',
                     $dataToScripts->applePayScriptData(true)
                 );
             }
@@ -184,23 +184,23 @@ class AssetsModule implements ExecutableModule
      */
     public function enqueueApplePayDirectScripts()
     {
-        if (mollieWooCommerceIsApplePayDirectEnabled('product') && is_product()) {
+        if (liquichainWooCommerceIsApplePayDirectEnabled('product') && is_product()) {
             $dataToScripts = new DataToAppleButtonScripts();
-            wp_enqueue_style('mollie-applepaydirect');
-            wp_enqueue_script('mollie_applepaydirect');
+            wp_enqueue_style('liquichain-applepaydirect');
+            wp_enqueue_script('liquichain_applepaydirect');
             wp_localize_script(
-                'mollie_applepaydirect',
-                'mollieApplePayDirectData',
+                'liquichain_applepaydirect',
+                'liquichainApplePayDirectData',
                 $dataToScripts->applePayScriptData()
             );
         }
-        if (mollieWooCommerceIsApplePayDirectEnabled('cart') && is_cart()) {
+        if (liquichainWooCommerceIsApplePayDirectEnabled('cart') && is_cart()) {
             $dataToScripts = new DataToAppleButtonScripts();
-            wp_enqueue_style('mollie-applepaydirect');
-            wp_enqueue_script('mollie_applepaydirectCart');
+            wp_enqueue_style('liquichain-applepaydirect');
+            wp_enqueue_script('liquichain_applepaydirectCart');
             wp_localize_script(
-                'mollie_applepaydirectCart',
-                'mollieApplePayDirectDataCart',
+                'liquichain_applepaydirectCart',
+                'liquichainApplePayDirectDataCart',
                 $dataToScripts->applePayScriptData()
             );
         }
@@ -211,24 +211,24 @@ class AssetsModule implements ExecutableModule
      */
     public function enqueuePayPalButtonScripts()
     {
-        if (mollieWooCommerceIsPayPalButtonEnabled('product') && is_product()) {
+        if (liquichainWooCommerceIsPayPalButtonEnabled('product') && is_product()) {
             $product = wc_get_product(get_the_id());
             if (!$product || $product->is_type('subscription')) {
                 return;
             }
-            $productNeedShipping = mollieWooCommerceCheckIfNeedShipping($product);
+            $productNeedShipping = liquichainWooCommerceCheckIfNeedShipping($product);
             if (!$productNeedShipping) {
                 $dataToScripts = new DataToPayPal($this->pluginUrl);
                 wp_enqueue_style('unabledButton');
-                wp_enqueue_script('mollie_paypalButton');
+                wp_enqueue_script('liquichain_paypalButton');
                 wp_localize_script(
-                    'mollie_paypalButton',
-                    'molliepaypalbutton',
+                    'liquichain_paypalButton',
+                    'liquichainpaypalbutton',
                     $dataToScripts->paypalbuttonScriptData()
                 );
             }
         }
-        if (mollieWooCommerceIsPayPalButtonEnabled('cart') && is_cart()) {
+        if (liquichainWooCommerceIsPayPalButtonEnabled('cart') && is_cart()) {
             $cart = WC()->cart;
             foreach ($cart->get_cart_contents() as $product) {
                 if ($product['data']->is_type('subscription')) {
@@ -238,10 +238,10 @@ class AssetsModule implements ExecutableModule
             if (!$cart->needs_shipping()) {
                 $dataToScripts = new DataToPayPal($this->pluginUrl);
                 wp_enqueue_style('unabledButton');
-                wp_enqueue_script('mollie_paypalButtonCart');
+                wp_enqueue_script('liquichain_paypalButtonCart');
                 wp_localize_script(
-                    'mollie_paypalButtonCart',
-                    'molliepaypalButtonCart',
+                    'liquichain_paypalButtonCart',
+                    'liquichainpaypalButtonCart',
                     $dataToScripts->paypalbuttonScriptData()
                 );
             }
@@ -264,67 +264,67 @@ class AssetsModule implements ExecutableModule
         );
 
         wp_register_script(
-            'mollie_wc_gateway_applepay',
+            'liquichain_wc_gateway_applepay',
             $this->getPluginUrl('/public/js/applepay.min.js'),
             [],
             filemtime($this->getPluginPath('/public/js/applepay.min.js')),
             true
         );
         wp_register_style(
-            'mollie-gateway-icons',
-            $this->getPluginUrl('/public/css/mollie-gateway-icons.min.css'),
+            'liquichain-gateway-icons',
+            $this->getPluginUrl('/public/css/liquichain-gateway-icons.min.css'),
             [],
-            filemtime($this->getPluginPath('/public/css/mollie-gateway-icons.min.css')),
+            filemtime($this->getPluginPath('/public/css/liquichain-gateway-icons.min.css')),
             'screen'
         );
         wp_register_style(
-            'mollie-components',
-            $this->getPluginUrl('/public/css/mollie-components.min.css'),
+            'liquichain-components',
+            $this->getPluginUrl('/public/css/liquichain-components.min.css'),
             [],
-            filemtime($this->getPluginPath('/public/css/mollie-components.min.css')),
+            filemtime($this->getPluginPath('/public/css/liquichain-components.min.css')),
             'screen'
         );
         wp_register_style(
-            'mollie-applepaydirect',
-            $this->getPluginUrl('/public/css/mollie-applepaydirect.min.css'),
+            'liquichain-applepaydirect',
+            $this->getPluginUrl('/public/css/liquichain-applepaydirect.min.css'),
             [],
-            filemtime($this->getPluginPath('/public/css/mollie-applepaydirect.min.css')),
+            filemtime($this->getPluginPath('/public/css/liquichain-applepaydirect.min.css')),
             'screen'
         );
         wp_register_script(
-            'mollie_applepaydirect',
+            'liquichain_applepaydirect',
             $this->getPluginUrl('/public/js/applepayDirect.min.js'),
             ['underscore', 'jquery'],
             filemtime($this->getPluginPath('/public/js/applepayDirect.min.js')),
             true
         );
         wp_register_script(
-            'mollie_paypalButton',
+            'liquichain_paypalButton',
             $this->getPluginUrl('/public/js/paypalButton.min.js'),
             ['underscore', 'jquery'],
             filemtime($this->getPluginPath('/public/js/paypalButton.min.js')),
             true
         );
         wp_register_script(
-            'mollie_paypalButtonCart',
+            'liquichain_paypalButtonCart',
             $this->getPluginUrl('/public/js/paypalButtonCart.min.js'),
             ['underscore', 'jquery'],
             filemtime($this->getPluginPath('/public/js/paypalButtonCart.min.js')),
             true
         );
         wp_register_script(
-            'mollie_applepaydirectCart',
+            'liquichain_applepaydirectCart',
             $this->getPluginUrl('/public/js/applepayDirectCart.min.js'),
             ['underscore', 'jquery'],
             filemtime($this->getPluginPath('/public/js/applepayDirectCart.min.js')),
             true
         );
-        wp_register_script('mollie', 'https://js.mollie.com/v1/mollie.js', [], null, true);
+        wp_register_script('liquichain', 'https://js.liquichain.io/v1/liquichain.js', [], null, true);
         wp_register_script(
-            'mollie-components',
-            $this->getPluginUrl('/public/js/mollie-components.min.js'),
-            ['underscore', 'jquery', 'mollie', 'babel-polyfill'],
-            filemtime($this->getPluginPath('/public/js/mollie-components.min.js')),
+            'liquichain-components',
+            $this->getPluginUrl('/public/js/liquichain-components.min.js'),
+            ['underscore', 'jquery', 'liquichain', 'babel-polyfill'],
+            filemtime($this->getPluginPath('/public/js/liquichain-components.min.js')),
             true
         );
 
@@ -346,10 +346,10 @@ class AssetsModule implements ExecutableModule
 
     public function registerBlockScripts(){
         wp_register_script(
-            'mollie_block_index',
-            $this->getPluginUrl('/public/js/mollieBlockIndex.min.js'),
+            'liquichain_block_index',
+            $this->getPluginUrl('/public/js/liquichainBlockIndex.min.js'),
             ['wc-blocks-registry', 'underscore', 'jquery'],
-            filemtime($this->getPluginPath('/public/js/mollieBlockIndex.min.js')),
+            filemtime($this->getPluginPath('/public/js/liquichainBlockIndex.min.js')),
             true
         );
     }
@@ -361,43 +361,43 @@ class AssetsModule implements ExecutableModule
      */
     public function enqueueFrontendScripts()
     {
-        if (is_admin() || !mollieWooCommerceIsCheckoutContext()) {
+        if (is_admin() || !liquichainWooCommerceIsCheckoutContext()) {
             return;
         }
-        wp_enqueue_style('mollie-gateway-icons');
+        wp_enqueue_style('liquichain-gateway-icons');
 
-        $applePayGatewayEnabled = mollieWooCommerceIsGatewayEnabled('mollie_wc_gateway_applepay_settings', 'enabled');
+        $applePayGatewayEnabled = liquichainWooCommerceIsGatewayEnabled('liquichain_wc_gateway_applepay_settings', 'enabled');
 
         if (!$applePayGatewayEnabled) {
             return;
         }
         wp_enqueue_style('unabledButton');
-        wp_enqueue_script('mollie_wc_gateway_applepay');
+        wp_enqueue_script('liquichain_wc_gateway_applepay');
     }
 
     /**
-     * Enqueue Mollie Component Assets
+     * Enqueue Liquichain Component Assets
      */
     public function enqueueComponentsAssets()
     {
         if (
             is_admin()
-            || (!mollieWooCommerceIsCheckoutContext()
+            || (!liquichainWooCommerceIsCheckoutContext()
                 && !has_block("woocommerce/checkout"))
         ) {
             return;
         }
 
         try {
-            $merchantProfileId = $this->settingsHelper->mollieWooCommerceMerchantProfileId();
+            $merchantProfileId = $this->settingsHelper->liquichainWooCommerceMerchantProfileId();
         } catch (ApiException $exception) {
             return;
         }
 
-        $mollieComponentsStylesGateways = mollieWooCommerceComponentsStylesForAvailableGateways();
-        $gatewayNames = array_keys($mollieComponentsStylesGateways);
+        $liquichainComponentsStylesGateways = liquichainWooCommerceComponentsStylesForAvailableGateways();
+        $gatewayNames = array_keys($liquichainComponentsStylesGateways);
 
-        if (!$merchantProfileId || !$mollieComponentsStylesGateways) {
+        if (!$merchantProfileId || !$liquichainComponentsStylesGateways) {
             return;
         }
 
@@ -408,12 +408,12 @@ class AssetsModule implements ExecutableModule
             $locale = AcceptedLocaleValuesDictionary::DEFAULT_LOCALE_VALUE;
         }
 
-        wp_enqueue_style('mollie-components');
-        wp_enqueue_script('mollie-components');
+        wp_enqueue_style('liquichain-components');
+        wp_enqueue_script('liquichain-components');
 
         wp_localize_script(
-            'mollie-components',
-            'mollieComponentsSettings',
+            'liquichain-components',
+            'liquichainComponentsSettings',
             [
                 'merchantProfileId' => $merchantProfileId,
                 'options' => [
@@ -421,32 +421,32 @@ class AssetsModule implements ExecutableModule
                     'testmode' => $this->settingsHelper->isTestModeEnabled(),
                 ],
                 'enabledGateways' => $gatewayNames,
-                'componentsSettings' => $mollieComponentsStylesGateways,
+                'componentsSettings' => $liquichainComponentsStylesGateways,
                 'componentsAttributes' => [
                     [
                         'name' => 'cardHolder',
-                        'label' => esc_html__('Name on card', 'mollie-payments-for-woocommerce'),
+                        'label' => esc_html__('Name on card', 'liquichain-payments-for-woocommerce'),
                     ],
                     [
                         'name' => 'cardNumber',
-                        'label' => esc_html__('Card number', 'mollie-payments-for-woocommerce'),
+                        'label' => esc_html__('Card number', 'liquichain-payments-for-woocommerce'),
                     ],
                     [
                         'name' => 'expiryDate',
-                        'label' => esc_html__('Expiry date', 'mollie-payments-for-woocommerce'),
+                        'label' => esc_html__('Expiry date', 'liquichain-payments-for-woocommerce'),
                     ],
                     [
                         'name' => 'verificationCode',
                         'label' => esc_html__(
                             'CVC/CVV',
-                            'mollie-payments-for-woocommerce'
+                            'liquichain-payments-for-woocommerce'
                         ),
                     ],
                 ],
                 'messages' => [
                     'defaultErrorMessage' => esc_html__(
                         'An unknown error occurred, please check the card fields.',
-                        'mollie-payments-for-woocommerce'
+                        'liquichain-payments-for-woocommerce'
                     ),
                 ],
                 'isCheckout' => is_checkout(),
@@ -461,7 +461,7 @@ class AssetsModule implements ExecutableModule
         $availableGateways = WC()->payment_gateways()->get_available_payment_gateways();
 
         foreach ($availableGateways as $key => $gateway){
-            if(strpos($key, 'mollie_wc_gateway_') === false){
+            if(strpos($key, 'liquichain_wc_gateway_') === false){
                 unset($availableGateways[$key]);
             }
         }
@@ -486,7 +486,7 @@ class AssetsModule implements ExecutableModule
                         ],
         ];
         $gatewayData = [];
-        $isSepaEnabled = isset($gatewayInstances['mollie_wc_gateway_directdebit']) && $gatewayInstances['mollie_wc_gateway_directdebit']->enabled === 'yes';
+        $isSepaEnabled = isset($gatewayInstances['liquichain_wc_gateway_directdebit']) && $gatewayInstances['liquichain_wc_gateway_directdebit']->enabled === 'yes';
         foreach ($gatewayInstances as $gatewayKey => $gateway) {
             $gatewayId = $gateway->paymentMethod->getProperty('id');
 
@@ -514,7 +514,7 @@ class AssetsModule implements ExecutableModule
                 'issuers' => $issuers,
                 'hasSurcharge' => $hasSurcharge,
                 'title' => $title,
-                'contentFallback'=> __('Please choose a billing country to see the available payment methods', 'mollie-payments-for-woocommerce'),
+                'contentFallback'=> __('Please choose a billing country to see the available payment methods', 'liquichain-payments-for-woocommerce'),
                 'edit' => $content,
                 'paymentMethodId' => $gatewayKey,
                 'allowedCountries' => $gateway->paymentMethod->getProperty('allowed_countries'),
@@ -556,11 +556,11 @@ class AssetsModule implements ExecutableModule
      */
     protected function enqueueIconSettings($current_section): void
     {
-        wp_enqueue_script('mollie_wc_gateway_settings');
-        wp_enqueue_style('mollie-gateway-icons');
+        wp_enqueue_script('liquichain_wc_gateway_settings');
+        wp_enqueue_style('liquichain-gateway-icons');
         $settingsName = "{$current_section}_settings";
         $gatewaySettings = get_option($settingsName, false);
-        $message = __('No custom logo selected', 'mollie-payments-for-woocommerce');
+        $message = __('No custom logo selected', 'liquichain-payments-for-woocommerce');
         $isEnabled = false;
         if ($gatewaySettings && isset($gatewaySettings['enable_custom_logo'])) {
             $isEnabled = $gatewaySettings['enable_custom_logo'] === 'yes';
@@ -573,7 +573,7 @@ class AssetsModule implements ExecutableModule
         }
 
         wp_localize_script(
-            'mollie_wc_gateway_settings',
+            'liquichain_wc_gateway_settings',
             'gatewaySettingsData',
             [
                 'isEnabledIcon' => $isEnabled,
@@ -597,11 +597,11 @@ class AssetsModule implements ExecutableModule
         global $current_screen, $current_tab, $current_section;
         if (
             $current_screen->id !== 'woocommerce_page_wc-settings'
-            || $current_tab !== 'mollie_settings'
+            || $current_tab !== 'liquichain_settings'
             || $current_section !== 'advanced'
         ) {
             return;
         }
-        wp_enqueue_script('mollie_wc_gateway_advanced_settings');
+        wp_enqueue_script('liquichain_wc_gateway_advanced_settings');
     }
 }

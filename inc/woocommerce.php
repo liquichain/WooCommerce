@@ -39,7 +39,7 @@ if (!function_exists('untrailingslashit')) {
     }
 }
 
-function mollieWooCommerceSession()
+function liquichainWooCommerceSession()
 {
     return WC()->session;
 }
@@ -50,7 +50,7 @@ function mollieWooCommerceSession()
  *
  * @return bool
  */
-function mollieWooCommerceStringToBoolOption($string)
+function liquichainWooCommerceStringToBoolOption($string)
 {
     return is_bool($string) ? $string : ('yes' === strtolower(
         $string

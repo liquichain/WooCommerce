@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mollie\WooCommerce\Buttons\PayPalButton;
+namespace Liquichain\WooCommerce\Buttons\PayPalButton;
 
 class PayPalButtonHandler
 {
@@ -40,7 +40,7 @@ class PayPalButtonHandler
                         if (!$product || $product->is_type('subscription')) {
                             return;
                         }
-                        $productNeedShipping = mollieWooCommerceCheckIfNeedShipping($product);
+                        $productNeedShipping = liquichainWooCommerceCheckIfNeedShipping($product);
                         if(!$productNeedShipping){
                             $this->renderPayPalButton();
                         }
@@ -77,8 +77,8 @@ class PayPalButtonHandler
                 = $this->dataPaypal->selectedPaypalButtonUrl();
 
         ?>
-        <div id="mollie-PayPal-button" class="mol-PayPal">
-            <?php wp_nonce_field('mollie_PayPal_button'); ?>
+        <div id="liquichain-PayPal-button" class="mol-PayPal">
+            <?php wp_nonce_field('liquichain_PayPal_button'); ?>
             <input type="image" src="<?php echo esc_url( $assetsImagesUrl)?>" alt="PayPal Button">
         </div>
         <?php
