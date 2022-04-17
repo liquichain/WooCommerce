@@ -103,9 +103,9 @@ class MaybeDisableGateway
         foreach ($products as $product) {
             $postmeta = get_post_meta($product['product_id']);
             $localCategory = array_key_exists(
-                Voucher::MOLLIE_VOUCHER_CATEGORY_OPTION,
+                Voucher::LIQUICHAIN_VOUCHER_CATEGORY_OPTION,
                 $postmeta
-            ) ? $postmeta[Voucher::MOLLIE_VOUCHER_CATEGORY_OPTION][0] : false;
+            ) ? $postmeta[Voucher::LIQUICHAIN_VOUCHER_CATEGORY_OPTION][0] : false;
             if (isset($product['variation_id'])) {
                 $postmeta = get_post_meta($product['variation_id']);
                 $postmeta = is_array($postmeta) ? $postmeta : [];

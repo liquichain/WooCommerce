@@ -45,7 +45,7 @@ class CleanDb
 
     protected function allLiquichainOptionNames(): array
     {
-        $names = SharedDataDictionary::MOLLIE_OPTIONS_NAMES;
+        $names = SharedDataDictionary::LIQUICHAIN_OPTIONS_NAMES;
         foreach ($this->gatewayClassnames as $gateway){
             $option = strtolower($gateway) . "_settings";
             $names[] = $option;

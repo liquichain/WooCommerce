@@ -1,10 +1,10 @@
 const SELECTOR_TOKEN_ELEMENT = '.cardToken'
-const SELECTOR_MOLLIE_COMPONENTS_CONTAINER = '.liquichain-components'
+const SELECTOR_LIQUICHAIN_COMPONENTS_CONTAINER = '.liquichain-components'
 const SELECTOR_FORM = 'form'
-const SELECTOR_MOLLIE_GATEWAY_CONTAINER = '.wc_payment_methods'
-const SELECTOR_MOLLIE_GATEWAY_BLOCK_CONTAINER = '.wc-block-components-radio-control'
+const SELECTOR_LIQUICHAIN_GATEWAY_CONTAINER = '.wc_payment_methods'
+const SELECTOR_LIQUICHAIN_GATEWAY_BLOCK_CONTAINER = '.wc-block-components-radio-control'
 
-const SELECTOR_MOLLIE_NOTICE_CONTAINER = '#liquichain-notice'
+const SELECTOR_LIQUICHAIN_NOTICE_CONTAINER = '#liquichain-notice'
 
 function returnFalse ()
 {
@@ -20,8 +20,8 @@ function returnTrue ()
    ---------------------------------------------------------------- */
 function gatewayContainer (container)
 {
-    let checkoutContainer = container ? container.querySelector(SELECTOR_MOLLIE_GATEWAY_CONTAINER) : null
-    let blockContainer = container ? container.querySelector(SELECTOR_MOLLIE_GATEWAY_BLOCK_CONTAINER) : null
+    let checkoutContainer = container ? container.querySelector(SELECTOR_LIQUICHAIN_GATEWAY_CONTAINER) : null
+    let blockContainer = container ? container.querySelector(SELECTOR_LIQUICHAIN_GATEWAY_BLOCK_CONTAINER) : null
   return checkoutContainer ? checkoutContainer : blockContainer
 }
 
@@ -32,12 +32,12 @@ function containerForGateway (gateway, container)
 
 function noticeContainer (container)
 {
-  return container ? container.querySelector(SELECTOR_MOLLIE_NOTICE_CONTAINER) : null
+  return container ? container.querySelector(SELECTOR_LIQUICHAIN_NOTICE_CONTAINER) : null
 }
 
 function componentsContainerFromWithin (container)
 {
-  return container ? container.querySelector(SELECTOR_MOLLIE_COMPONENTS_CONTAINER) : null
+  return container ? container.querySelector(SELECTOR_LIQUICHAIN_COMPONENTS_CONTAINER) : null
 }
 
 function cleanContainer (container)

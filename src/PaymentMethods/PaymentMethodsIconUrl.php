@@ -12,7 +12,7 @@ class PaymentMethodsIconUrl
     /**
      * @var string
      */
-    public const MOLLIE_CREDITCARD_ICONS = 'liquichain_creditcard_icons_';
+    public const LIQUICHAIN_CREDITCARD_ICONS = 'liquichain_creditcard_icons_';
     /**
      * @var string[]
      */
@@ -36,7 +36,7 @@ class PaymentMethodsIconUrl
     /**
      * @var string
      */
-    public const MOLLIE_CREDITCARD_ICONS_ENABLER = 'liquichain_creditcard_icons_enabler';
+    public const LIQUICHAIN_CREDITCARD_ICONS_ENABLER = 'liquichain_creditcard_icons_enabler';
     /**
      * @var string
      */
@@ -139,10 +139,10 @@ class PaymentMethodsIconUrl
      */
     protected function enabledCreditcards(): array
     {
-        $optionLexem = PaymentMethodsIconUrl::MOLLIE_CREDITCARD_ICONS;
+        $optionLexem = PaymentMethodsIconUrl::LIQUICHAIN_CREDITCARD_ICONS;
         $creditcardsAvailable = PaymentMethodsIconUrl::AVAILABLE_CREDITCARD_ICONS;
         $svgFileName = PaymentMethodsIconUrl::SVG_FILE_EXTENSION;
-        $iconEnabledOption = PaymentMethodsIconUrl::MOLLIE_CREDITCARD_ICONS_ENABLER;
+        $iconEnabledOption = PaymentMethodsIconUrl::LIQUICHAIN_CREDITCARD_ICONS_ENABLER;
         $creditCardSettings = get_option('liquichain_wc_gateway_creditcard_settings', false) ?: [];
         $enabled = isset($creditCardSettings[$iconEnabledOption])
             ? liquichainWooCommerceStringToBoolOption($creditCardSettings[$iconEnabledOption])

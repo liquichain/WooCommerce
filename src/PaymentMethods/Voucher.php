@@ -26,7 +26,7 @@ class Voucher extends AbstractPaymentMethod implements PaymentMethodI
     /**
      * @var string
      */
-    public const MOLLIE_VOUCHER_CATEGORY_OPTION = '_liquichain_voucher_category';
+    public const LIQUICHAIN_VOUCHER_CATEGORY_OPTION = '_liquichain_voucher_category';
 
     protected function getConfig(): array
     {

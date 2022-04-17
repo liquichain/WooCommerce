@@ -503,7 +503,7 @@ class PaymentService
         $apiKey
     ) {
         //
-        // PROCESS REGULAR PAYMENT AS MOLLIE ORDER
+        // PROCESS REGULAR PAYMENT AS LIQUICHAIN ORDER
         //
         if ($liquichainPaymentType === self::PAYMENT_METHOD_TYPE_ORDER) {
             $this->logger->log( LogLevel::DEBUG,
@@ -524,7 +524,7 @@ class PaymentService
         }
 
         //
-        // PROCESS REGULAR PAYMENT AS MOLLIE PAYMENT
+        // PROCESS REGULAR PAYMENT AS LIQUICHAIN PAYMENT
         //
 
         if ($liquichainPaymentType === self::PAYMENT_METHOD_TYPE_PAYMENT) {

@@ -30,7 +30,7 @@ class SharedDataDictionary
         'Liquichain_WC_Gateway_Voucher',
     ];
 
-    public const MOLLIE_OPTIONS_NAMES = [
+    public const LIQUICHAIN_OPTIONS_NAMES = [
         'liquichain_components_::placeholder',
         'liquichain_components_backgroundColor',
         'liquichain_components_color',

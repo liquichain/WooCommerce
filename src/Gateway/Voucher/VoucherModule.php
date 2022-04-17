@@ -106,7 +106,7 @@ class VoucherModule implements ExecutableModule
     public function voucherBulkEditSave($product)
     {
         $post_id = $product->get_id();
-        $optionName = Voucher::MOLLIE_VOUCHER_CATEGORY_OPTION;
+        $optionName = Voucher::LIQUICHAIN_VOUCHER_CATEGORY_OPTION;
         if (isset($_REQUEST[$optionName])) {
             $option = $_REQUEST[$optionName];
             update_post_meta($post_id, $optionName, wc_clean($option));
@@ -202,7 +202,7 @@ class VoucherModule implements ExecutableModule
                     : Voucher::NO_CATEGORY;
             woocommerce_wp_select(
                 [
-                    'id' => Voucher::MOLLIE_VOUCHER_CATEGORY_OPTION,
+                    'id' => Voucher::LIQUICHAIN_VOUCHER_CATEGORY_OPTION,
                     'title' => __(
                         'Select the default products category',
                         'liquichain-payments-for-woocommerce'
@@ -246,14 +246,14 @@ class VoucherModule implements ExecutableModule
     {
         $option = filter_input(
             INPUT_POST,
-            Voucher::MOLLIE_VOUCHER_CATEGORY_OPTION,
+            Voucher::LIQUICHAIN_VOUCHER_CATEGORY_OPTION,
             FILTER_SANITIZE_STRING
         );
         $voucherCategory = $option ?? '';
 
         update_post_meta(
             $post_id,
-            Voucher::MOLLIE_VOUCHER_CATEGORY_OPTION,
+            Voucher::LIQUICHAIN_VOUCHER_CATEGORY_OPTION,
             $voucherCategory
         );
     }

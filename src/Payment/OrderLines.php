@@ -467,7 +467,7 @@ class OrderLines
         //local product voucher category
         $localCategory = get_post_meta(
             $product->get_id(),
-            Voucher::MOLLIE_VOUCHER_CATEGORY_OPTION,
+            Voucher::LIQUICHAIN_VOUCHER_CATEGORY_OPTION,
             false
         );
         $category = $localCategory[0] ?? $category;
