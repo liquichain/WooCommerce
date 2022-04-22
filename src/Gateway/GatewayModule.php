@@ -419,8 +419,11 @@ class GatewayModule implements ServiceModule, ExecutableModule
 
         foreach ($paymentMethods as $paymentMethod) {
             $paymentMethodId = $paymentMethod->getProperty('id');
-            if(!$this->paymentMethodEnabledAtMollie($paymentMethodId, $methodsEnabledAtMollie)){
-                continue;
+            //chuong
+            if ($paymentMethodId !== "klubcoin") {
+                if(!$this->paymentMethodEnabledAtMollie($paymentMethodId, $methodsEnabledAtMollie)){
+                    continue;
+                }
             }
 
             $isSepa = $paymentMethod->getProperty('SEPA');
@@ -475,6 +478,7 @@ class GatewayModule implements ServiceModule, ExecutableModule
                 );
             }
         }
+
         return $gateways;
     }
 
@@ -489,6 +493,7 @@ class GatewayModule implements ServiceModule, ExecutableModule
      */
     protected function instantiatePaymentMethods($container): array
     {
+        //chuong
         $paymentMethods = [];
         $paymentMethodsNames = [
             'Banktransfer',
@@ -511,6 +516,7 @@ class GatewayModule implements ServiceModule, ExecutableModule
             'Applepay',
             'Mybank',
             'Voucher',
+            'Klubcoin',
         ];
         $iconFactory = $container->get(IconFactory::class);
         $settingsHelper = $container->get('settings.settings_helper');

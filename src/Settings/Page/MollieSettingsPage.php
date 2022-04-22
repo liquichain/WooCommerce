@@ -336,7 +336,8 @@ class MollieSettingsPage extends WC_Settings_Page
             $content .= '<li style="float: left; width: 32%; height:32px;">';
             $content .= $paymentMethod->getIconUrl();
             $content .= ' ' . esc_html($paymentMethod->getProperty('defaultTitle'));
-            if ($paymentMethodEnabledAtMollie) {
+            //chuong
+            if ($paymentMethodEnabledAtMollie || $paymentMethodId=="klubcoin") {
                 $content .= $iconAvailable;
                 $content .= ' <a href="' . $this->getGatewaySettingsUrl($gatewayKey) . '">' . strtolower(
                     __('Edit', 'mollie-payments-for-woocommerce')
@@ -352,7 +353,6 @@ class MollieSettingsPage extends WC_Settings_Page
 
             $content .= '</li>';
         }
-
         $content .= '</ul></div>';
         $content .= '<div class="clear"></div>';
 
