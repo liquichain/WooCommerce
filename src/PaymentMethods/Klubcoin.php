@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mollie\WooCommerce\PaymentMethods;
 
 use WC_Order;
+use Mollie\WooCommerce\Shared\SharedModule;
 
 class Klubcoin extends AbstractPaymentMethod implements PaymentMethodI
 {
@@ -26,8 +27,17 @@ class Klubcoin extends AbstractPaymentMethod implements PaymentMethodI
      */
     public const EXPIRY_DAYS_OPTION = 'order_dueDate';
 
+
     protected function getConfig(): array
     {
+        //chuong
+        $isTestMode = $this->isTestEnable(SharedModule::PLUGIN_ID);
+        if($isTestMode){
+            add_filter('mollie-payments-for-woocommerce_api_endpoint', function() {
+                return 'https://klb-staging.liquichain.io/meveo/rest/pg/';
+            }, 1);
+        }
+
         return [
             'id' => 'klubcoin',
             'defaultTitle' => __('Klubcoin', 'mollie-payments-for-woocommerce'),
@@ -122,5 +132,12 @@ class Klubcoin extends AbstractPaymentMethod implements PaymentMethodI
             'activate_expiry_days_setting'
         );
         return mollieWooCommerceStringToBoolOption($expiryDays);
+    }
+
+    //chuong
+    public function isTestEnable($pluginId)
+    {
+        $testModeEnabled = get_option($pluginId.'_test_mode_enabled');
+        return is_string($testModeEnabled) ? trim($testModeEnabled) === 'yes' : false;
     }
 }
