@@ -219,8 +219,6 @@ class Data
      */
     public function getAllPaymentMethods($apiKey, $test_mode = false, $use_cache = true)
     {
-        //chuong
-        $use_cache = false;
         $result = $this->getRegularPaymentMethods($apiKey, $test_mode, $use_cache);
         if (!is_array($result)) {
             $result = unserialize($result);
@@ -356,8 +354,6 @@ class Data
 
     public function getApiPaymentMethods($use_cache = true, $filters = [])
     {
-        //chuong
-        $use_cache = false;
         $test_mode = $this->isTestModeEnabled();
 
         $apiKey = $this->settingsHelper->getApiKey();
@@ -386,8 +382,6 @@ class Data
                 if(!$apiKey) {
                     return [];
                 }
-                //chuong
-                $filters = [];
                 $methods = $this->api_helper->getApiClient($apiKey)->methods->allActive($filters);
 
                 $methods_cleaned = [];
